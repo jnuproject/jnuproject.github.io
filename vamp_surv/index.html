@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5 V-Survivors Clone (Fullscreen)</title>
+    <style>
+        body { margin: 0; background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        canvas { border: 0; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+</head>
+<body>
+
+<script>
+// =================================================================
+// 일시정지 Scene 클래스
+// =================================================================
+class PauseScene extends Phaser.Scene {
+    constructor() { super({ key: 'PauseScene' }); }
+    create() {
+        this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0);
+        const resumeButton = this.add.text(this.scale.width / 2, this.scale.height / 2, 'RESUME', {
+            fontSize: '64px', fill: '#ffffff', fontStyle: 'bold'
+        }).setOrigin(0.5).setInteractive();
+        resumeButton.on('pointerdown', () => {
+            this.scene.stop();
+            this.scene.resume('GameScene');
+        });
+    }
+}
+
+// =================================================================
+// 가상 조이스틱 클래스
+// =================================================================
+class Joystick {
+    constructor(scene) {
+        this.scene = scene;
+        // ✨ 변경점: 카메라에 고정되도록 setScrollFactor(0) 추가
+        this.base = scene.add.graphics().setAlpha(0.5).setScrollFactor(0);
+        this.stick = scene.add.graphics().setAlpha(0.5).setScrollFactor(0);
+        this.isActive = false;
+        this.baseX = 0; this.baseY = 0; this.stickX = 0; this.stickY = 0;
+        this.maxDistance = 60; this.angle = 0; this.force = 0;
+    }
+    create() {
+        this.scene.input.on('pointerdown', this.onPointerDown, this);
+        this.scene.input.on('pointermove', this.onPointerMove, this);
+        this.scene.input.on('pointerup', this.onPointerUp, this);
+    }
+    onPointerDown(pointer) {
+        if (!this.isActive) {
+            this.baseX = pointer.x; this.baseY = pointer.y;
+            this.stickX = pointer.x; this.stickY = pointer.y;
+            this.isActive = true;
+            this.draw();
+        }
+    }
+    onPointerMove(pointer) {
+        if (this.isActive) {
+            this.stickX = pointer.x; this.stickY = pointer.y;
+            const distance = Phaser.Math.Distance.Between(this.baseX, this.baseY, this.stickX, this.stickY);
+            this.angle = Phaser.Math.Angle.Between(this.baseX, this.baseY, this.stickX, this.stickY);
+            if (distance > this.maxDistance) {
+                this.stickX = this.baseX + this.maxDistance * Math.cos(this.angle);
+                this.stickY = this.baseY + this.maxDistance * Math.sin(this.angle);
+                this.force = 1;
+            } else { this.force = distance / this.maxDistance; }
+            this.draw();
+        }
+    }
+    onPointerUp(pointer) { this.isActive = false; this.force = 0; this.clear(); }
+    draw() {
+        this.clear();
+        this.base.fillStyle(0x888888, 0.5).fillCircle(this.baseX, this.baseY, this.maxDistance);
+        this.stick.fillStyle(0xcccccc, 0.5).fillCircle(this.stickX, this.stickY, 40);
+    }
+    clear() { this.base.clear(); this.stick.clear(); }
+}
+
+// =================================================================
+// 메인 게임 Scene 클래스
+// =================================================================
+class GameScene extends Phaser.Scene {
+    constructor() { super({ key: 'GameScene' }); }
+    preload() {}
+    create() {
+        this.isGameOver = false; this.gameTime = 0; this.nextEnemySpawnTime = 0;
+        this.joystick = new Joystick(this);
+        this.joystick.create();
+
+        this.player = this.physics.add.sprite(this.scale.width / 2, this.scale.height / 2, 'player');
+        this.player.defaultGraphics = this.add.graphics().fillStyle(0x00ff00, 1.0).fillRect(-20, -20, 40, 40);
+        
+        // ✨ 변경점: 월드 바운드를 화면보다 약간 크게 설정하여 가장자리에서 몹이 끼는 현상 방지
+        this.physics.world.setBounds(-100, -100, this.scale.width + 200, this.scale.height + 200);
+        this.player.setCollideWorldBounds(true);
+        
+        this.player.stats = {
+            speed: 350, health: 120, maxHealth: 120, level: 1, exp: 0, expToNextLevel: 100,
+            attackCooldown: 1000, projectileCount: 1, orbCount: 1, orbHitCooldown: 500,
+            lastAttackTime: 0
+        };
+
+        this.projectiles = this.physics.add.group();
+        this.enemies = this.physics.add.group();
+        this.expGems = this.physics.add.group();
+        this.guardianOrbs = this.physics.add.group();
+
+        this.physics.add.overlap(this.player, this.enemies, this.playerHit, null, this);
+        this.physics.add.overlap(this.enemies, this.projectiles, this.enemyHit, null, this);
+        this.physics.add.overlap(this.player, this.expGems, this.collectGem, null, this);
+        this.physics.add.overlap(this.enemies, this.guardianOrbs, this.orbHitEnemy, null, this);
+
+        // --- UI 생성 (카메라에 고정되도록 .setScrollFactor(0) 추가) ---
+        this.add.graphics().fillStyle(0x000000, 0.4).fillRect(10, 10, 300, 140).setScrollFactor(0);
+        this.add.graphics().fillStyle(0x000000, 0.4).fillRect(this.scale.width / 2 - 100, 10, 200, 50).setScrollFactor(0);
+        this.healthBarBg = this.add.graphics().setScrollFactor(0);
+        this.healthBar = this.add.graphics().setScrollFactor(0);
+        
+        this.levelText = this.add.text(20, 50, '', { fontSize: '28px', fill: '#ffffff' }).setScrollFactor(0);
+        this.expText = this.add.text(20, 85, '', { fontSize: '28px', fill: '#4d94ff' }).setScrollFactor(0);
+        this.orbCountText = this.add.text(20, 120, '', { fontSize: '28px', fill: '#ffcc00' }).setScrollFactor(0);
+        this.timerText = this.add.text(this.scale.width / 2, 20, 'Time: 0', { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5, 0).setScrollFactor(0);
+        
+        const pauseButton = this.add.text(this.scale.width - 20, 20, 'PAUSE', { fontSize: '32px', fill: '#ffffff', fontStyle: 'bold' }).setOrigin(1, 0).setInteractive().setScrollFactor(0);
+        pauseButton.on('pointerdown', (pointer) => {
+            pointer.stopPropagation();
+            this.scene.pause();
+            this.scene.launch('PauseScene');
+        });
+        this.gameOverText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'GAME OVER', { fontSize: '100px', fill: '#ff0000' }).setOrigin(0.5).setVisible(false).setScrollFactor(0);
+        
+        // ✨ 변경점: 카메라가 플레이어를 따라다니도록 설정
+        this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+        // ✨ 변경점: 카메라가 월드 바운드를 벗어나지 않도록 설정
+        this.cameras.main.setBounds(-100, -100, this.scale.width + 200, this.scale.height + 200);
+
+        for(let i = 0; i < this.player.stats.orbCount; i++) this.createGuardianOrb(i);
+    }
+
+    update(time, delta) {
+        if (this.isGameOver) return;
+        this.gameTime += delta;
+        this.handlePlayerMovement();
+        if (time > this.player.stats.lastAttackTime + this.player.stats.attackCooldown) {
+            this.fireProjectile();
+            this.player.stats.lastAttackTime = time;
+        }
+        if (time > this.nextEnemySpawnTime) {
+            this.spawnEnemy();
+            const baseInterval = 2500, reduction = (this.gameTime / 1000) * 15;
+            this.nextEnemySpawnTime = time + Math.max(300, baseInterval - reduction);
+        }
+        this.enemies.getChildren().forEach(enemy => this.physics.moveToObject(enemy, this.player, enemy.speed));
+        this.updateUI();
+        this.updateGraphicsPositions();
+        this.updateOrbsPosition();
+    }
+
+    // --- 게임 핵심 로직들 (이하 변경 없음) ---
+    handlePlayerMovement() {
+        if (this.joystick.isActive) {
+            const angle = this.joystick.angle, force = this.joystick.force, speed = this.player.stats.speed * force;
+            this.player.body.velocity.x = speed * Math.cos(angle);
+            this.player.body.velocity.y = speed * Math.sin(angle);
+        } else { this.player.body.setVelocity(0); }
+    }
+    fireProjectile() {
+        const { projectileCount } = this.player.stats;
+        const activeEnemies = this.enemies.getChildren().filter(e => e.active);
+        if (activeEnemies.length === 0) { const p = this.createSingleProjectile(); this.physics.velocityFromRotation(0, 600, p.body.velocity); return; }
+        activeEnemies.sort((a, b) => Phaser.Math.Distance.Between(this.player.x, this.player.y, a.x, a.y) - Phaser.Math.Distance.Between(this.player.x, this.player.y, b.x, b.y));
+        for (let i = 0; i < projectileCount; i++) {
+            const target = activeEnemies[i] || activeEnemies[0];
+            if (target) {
+                const p = this.createSingleProjectile();
+                const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, target.x, target.y);
+                this.physics.velocityFromRotation(angle, 600, p.body.velocity);
+            }
+        }
+    }
+    createGuardianOrb(index) {
+        let orb = this.guardianOrbs.create(this.player.x, this.player.y, 'orb').setSize(20, 20);
+        orb.defaultGraphics = this.add.graphics().fillStyle(0xffcc00, 1.0).fillCircle(0, 0, 15);
+        Object.assign(orb, { damage: 1, immovable: true, orbIndex: index, recentlyHit: [] });
+        orb.body.setAllowGravity(false);
+    }
+    orbHitEnemy(enemy, orb) {
+        if (orb.recentlyHit.includes(enemy)) return;
+        enemy.health -= orb.damage;
+        orb.recentlyHit.push(enemy);
+        this.time.delayedCall(this.player.stats.orbHitCooldown, () => {
+            const index = orb.recentlyHit.indexOf(enemy);
+            if (index > -1) orb.recentlyHit.splice(index, 1);
+        });
+        if (enemy.health <= 0) {
+            this.spawnExpGem(enemy.x, enemy.y, enemy.expValue);
+            enemy.defaultGraphics.destroy(); enemy.destroy();
+        }
+    }
+    spawnEnemy() {
+        // ✨ 변경점: 적 생성 위치를 카메라 시야 밖으로 조정
+        const cam = this.cameras.main;
+        const side = Phaser.Math.Between(0, 3);
+        let x, y;
+        if (side === 0) { x = Phaser.Math.Between(cam.worldView.x, cam.worldView.right); y = cam.worldView.y - 50; }
+        else if (side === 1) { x = Phaser.Math.Between(cam.worldView.x, cam.worldView.right); y = cam.worldView.bottom + 50; }
+        else if (side === 2) { x = cam.worldView.x - 50; y = Phaser.Math.Between(cam.worldView.y, cam.worldView.bottom); }
+        else { x = cam.worldView.right + 50; y = Phaser.Math.Between(cam.worldView.y, cam.worldView.bottom); }
+        
+        let enemy = this.enemies.create(x, y, 'enemy').setSize(30, 30);
+        enemy.health = 2 + Math.floor(this.gameTime / 35000);
+        enemy.speed = 80 + Math.floor(this.gameTime / 20000);
+        enemy.expValue = 10;
+        enemy.defaultGraphics = this.add.graphics().fillStyle(0xff0000, 1.0).fillRect(-15, -15, 30, 30);
+    }
+    playerHit(player, enemy) {
+        if (player.invincible) return;
+        player.stats.health -= 10;
+        if (player.stats.health <= 0) { player.stats.health = 0; this.gameOver(); }
+        player.invincible = true;
+        this.tweens.add({ targets: player.defaultGraphics, alpha: 0.5, duration: 100, yoyo: true, repeat: 5, onComplete: () => { player.defaultGraphics.setAlpha(1.0); player.invincible = false; } });
+        enemy.defaultGraphics.destroy(); enemy.destroy();
+    }
+    levelUp() {
+        this.player.stats.level++;
+        this.player.stats.exp -= this.player.stats.expToNextLevel;
+        this.player.stats.expToNextLevel = Math.floor(this.player.stats.expToNextLevel * 1.5);
+        let levelUpNotice = this.add.text(this.cameras.main.worldView.centerX, this.cameras.main.worldView.centerY, `LEVEL UP!`, { fontSize: '60px', fill: '#ffff00' }).setOrigin(0.5).setScrollFactor(0);
+        this.time.delayedCall(1500, () => levelUpNotice.destroy());
+        let upgraded = false;
+        if (this.player.stats.level === 2 || this.player.stats.level === 4 || (this.player.stats.level > 4 && (this.player.stats.level - 4) % 3 === 0)) {
+            this.player.stats.projectileCount++; upgraded = true;
+        }
+        if (this.player.stats.level === 3 || this.player.stats.level === 6 || (this.player.stats.level > 6 && (this.player.stats.level - 6) % 4 === 0)) {
+            this.player.stats.orbCount++; this.createGuardianOrb(this.player.stats.orbCount - 1); upgraded = true;
+        }
+        if (upgraded) {
+            let upgradeNotice = this.add.text(this.cameras.main.worldView.centerX, this.cameras.main.worldView.centerY + 70, `POWER UP!`, { fontSize: '40px', fill: '#00ffff' }).setOrigin(0.5).setScrollFactor(0);
+            this.time.delayedCall(1500, () => upgradeNotice.destroy());
+        } else {
+            this.player.stats.attackCooldown *= 0.92;
+        }
+        this.player.stats.health = this.player.stats.maxHealth;
+    }
+    updateUI() {
+        const barWidth = 280, barHeight = 25, x = 20, y = 20;
+        this.healthBarBg.clear().fillStyle(0x8B0000, 1).fillRect(x, y, barWidth, barHeight);
+        const hpRatio = this.player.stats.health / this.player.stats.maxHealth;
+        this.healthBar.clear().fillStyle(0x32CD32, 1).fillRect(x, y, barWidth * hpRatio, barHeight);
+        this.timerText.setText(`Time: ${Math.floor(this.gameTime / 1000)}`);
+        this.levelText.setText(`Level: ${this.player.stats.level}`);
+        this.expText.setText(`EXP: ${this.player.stats.exp} / ${this.player.stats.expToNextLevel}`);
+        this.orbCountText.setText(`Orbs: ${this.player.stats.orbCount}`);
+    }
+    updateOrbsPosition() {
+        const orbRadius = 80, rotationPeriod = 2000, fullRotation = Math.PI * 2;
+        this.guardianOrbs.getChildren().forEach((orb, index) => {
+            const baseAngle = ((this.gameTime % rotationPeriod) / rotationPeriod) * fullRotation;
+            const orbOffsetAngle = (index * (fullRotation / this.guardianOrbs.getLength() || 1));
+            const angle = baseAngle + orbOffsetAngle;
+            orb.x = this.player.x + orbRadius * Math.cos(angle);
+            orb.y = this.player.y + orbRadius * Math.sin(angle);
+            orb.body.setVelocity(0);
+        });
+    }
+    createSingleProjectile() {
+        let p = this.projectiles.create(this.player.x, this.player.y, 'projectile').setSize(10, 10);
+        p.defaultGraphics = this.add.graphics().fillStyle(0xffff00, 1.0).fillCircle(0, 0, 8);
+        this.time.delayedCall(2000, () => { if(p.active) { p.defaultGraphics.destroy(); p.destroy(); } });
+        return p;
+    }
+    enemyHit(enemy, projectile) {
+        enemy.health -= 1;
+        if (projectile.active) { projectile.defaultGraphics.destroy(); projectile.destroy(); }
+        if (enemy.health <= 0) {
+            this.spawnExpGem(enemy.x, enemy.y, enemy.expValue);
+            enemy.defaultGraphics.destroy(); enemy.destroy();
+        }
+    }
+    spawnExpGem(x, y, value) {
+        let gem = this.expGems.create(x, y, 'gem').setSize(15, 15);
+        gem.value = value;
+        gem.defaultGraphics = this.add.graphics().fillStyle(0x00aaff, 1.0).fillCircle(0, 0, 10);
+    }
+    collectGem(player, gem) {
+        player.stats.exp += gem.value;
+        if (player.stats.exp >= player.stats.expToNextLevel) this.levelUp();
+        gem.defaultGraphics.destroy(); gem.destroy();
+    }
+    updateGraphicsPositions() {
+        this.player.defaultGraphics.x = this.player.x; this.player.defaultGraphics.y = this.player.y;
+        this.projectiles.getChildren().forEach(p => p.defaultGraphics && (p.defaultGraphics.x = p.x, p.defaultGraphics.y = p.y));
+        this.enemies.getChildren().forEach(e => e.defaultGraphics && (e.defaultGraphics.x = e.x, e.defaultGraphics.y = e.y));
+        this.expGems.getChildren().forEach(g => g.defaultGraphics && (g.defaultGraphics.x = g.x, g.defaultGraphics.y = g.y));
+        this.guardianOrbs.getChildren().forEach(o => o.defaultGraphics && (o.defaultGraphics.x = o.x, o.defaultGraphics.y = o.y));
+    }
+    gameOver() {
+        this.isGameOver = true; this.physics.pause(); this.gameOverText.setVisible(true);
+        this.time.delayedCall(3000, () => window.location.reload());
+    }
+}
+
+// =================================================================
+// 게임 환경 설정
+// =================================================================
+const config = {
+    type: Phaser.AUTO,
+    scale: {
+        // ✨ 변경점: 화면 채우기 모드를 ENVELOP으로 변경
+        mode: Phaser.Scale.ENVELOP,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1280,
+        height: 720
+    },
+    physics: { default: 'arcade', arcade: { debug: false } },
+    scene: [ GameScene, PauseScene ],
+    backgroundColor: '#2d2d2d'
+};
+
+const game = new Phaser.Game(config);
+
+</script>
+</body>
+</html>
