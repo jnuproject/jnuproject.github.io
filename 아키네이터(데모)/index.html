@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나에게 딱 맞는 공약 찾기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #2c74e8;
+            --background-gradient: linear-gradient(135deg, #e4eefb, #f5f7fa);
+            --font-color: #333;
+            --box-bg-color: rgba(255, 255, 255, 0.85);
+            --yes-color: #28a745;
+            --no-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--font-color);
+            background: var(--background-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        /* 시작 화면 스타일 */
+        #start-screen {
+            text-align: center;
+            background-color: var(--box-bg-color);
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        #start-screen h1 { font-size: clamp(1.5rem, 5vw, 1.75rem); color: var(--primary-color); margin-bottom: 10px; }
+        #start-screen p { font-size: clamp(0.9rem, 4vw, 1rem); margin-bottom: 30px; color: #555; line-height: 1.6; }
+        #start-btn { padding: 15px 40px; font-size: 1.1rem; font-weight: 700; border: none; border-radius: 12px; background-color: var(--primary-color); color: white; cursor: pointer; transition: all 0.2s ease; }
+        #start-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(44, 116, 232, 0.3); }
+
+        /* PC 버전 레이아웃 (기본값) */
+        #game-wrapper { display: flex; align-items: center; justify-content: center; gap: 2rem; width: 100%; max-width: 1200px; transition: opacity 0.5s ease, transform 0.5s ease; }
+        .hidden { opacity: 0; transform: scale(0.95); position: absolute; pointer-events: none; }
+        #character-container { flex: 1; text-align: center; }
+        #character-container img{ max-width: 100%; height: auto; max-height: 600px; filter: drop-shadow(0 10px 15px rgba(0,0,0,.15)); }
+        #right-column { flex: 1; display: flex; flex-direction: column; gap: 1.5rem; height: 100%; }
+        #game-container { display: flex; flex-direction: column; gap: 15px; }
+        
+        /* 공통 컴포넌트 스타일 */
+        #question-box{ background-color: var(--box-bg-color); border-radius: 16px; padding: 1.25rem 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.4); font-size: 1.1rem; font-weight: 700; text-align: center; min-height: 80px; display: flex; justify-content: center; align-items: center; }
+        #choices-box{ background-color: var(--box-bg-color); border-radius: 16px; padding: 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.4); }
+        .choice-btn{ display: block; width: 100%; padding: 15px; margin: 10px 0; font-size: 1rem; font-family: 'Noto Sans KR',sans-serif; border: 2px solid transparent; border-radius: 12px; background-color: #f1f3f5; cursor: pointer; transition: all .2s ease; font-weight: 700; text-align: center; }
+        .choice-btn.yes-no{ display: inline-block; width: calc(50% - 10px); }
+        .choice-btn:hover{ transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.05); }
+        .choice-btn.yes:hover{ background-color: var(--yes-color); color: #fff; border-color: var(--yes-color); }
+        .choice-btn.no:hover{ background-color: var(--no-color); color: #fff; border-color: var(--no-color); }
+        #progress-container{ background-color: var(--box-bg-color); border-radius: 16px; padding: 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.4); }
+        #progress-container h3{ margin-top: 0; text-align: center; font-size: 1.1rem; color: var(--primary-color); }
+        #progress-bar-container{ width: 100%; background-color: #e0e0e0; border-radius: 10px; margin-bottom: 20px; }
+        #progress-bar{ width: 0%; height: 12px; background-color: var(--primary-color); border-radius: 10px; transition: width .3s ease; }
+        #progress-text{ text-align: center; font-weight: 700; font-size: 1rem; }
+        #result-container{ display: none; width: 100%; }
+        #result-title{ font-size: 1.1rem; font-weight: 700; color: #333; background-color: #e9f5ff; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .policy-card{ background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin-bottom: 15px; text-align: left; }
+        .policy-name{ font-size: 1.1rem; font-weight: 700; color: var(--primary-color); margin-bottom: 10px; }
+        #restart-btn{ width: 100%; padding: 15px; margin-top: 20px; font-size: 1.1rem; font-weight: 700; border: none; border-radius: 12px; background-color: var(--primary-color); color: #fff; cursor: pointer; }
+
+        /* 모바일 반응형 CSS */
+        @media (max-width: 768px) {
+            body { 
+                padding: 1rem; 
+                align-items: flex-start;
+                min-height: 100vh; 
+            }
+            #game-wrapper, #right-column {
+                flex-direction: column;
+                width: 100%;
+                max-width: 500px;
+                gap: 1.5rem;
+            }
+            #right-column { padding: 0; }
+            #character-container { display: none; } /* JS로 구조 변경 시 이 스타일은 무시됨 */
+
+            /* JS로 구조가 변경되었을 때 적용될 모바일 헤더 스타일 */
+            #progress-container.mobile-header {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                background-color: transparent;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+                backdrop-filter: none;
+            }
+            #progress-container.mobile-header #character-container {
+                display: block !important;
+                flex: 0 0 60px;
+                height: 60px;
+            }
+            #progress-container.mobile-header #character-container img {
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+                background-color: var(--box-bg-color);
+            }
+            #progress-container.mobile-header #progress-info {
+                flex: 1;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1>[선본 이름] 공약 찾기 🧐</h1>
+        <p>몇 가지 질문에 답하고 당신의 학교생활에<br>꼭 필요한 공약을 발견해보세요!</p>
+        <button id="start-btn">게임 시작하기</button>
+    </div>
+    
+    <div id="game-wrapper" class="hidden">
+        <div id="character-container">
+            <img src="https://www.svgrepo.com/show/493636/school-mascot.svg" alt="Mascot">
+        </div>
+        <div id="right-column">
+            <div id="progress-container">
+                <h3>공약 찾는 중...</h3>
+                <div id="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <div id="progress-text">
+                    질문 <span id="current-q-num">1</span> / <span id="total-q-num">?</span>
+                </div>
+            </div>
+            <div id="game-container">
+                <div id="question-area">
+                    <div id="question-box">질문을 불러오는 중...</div>
+                    <div id="choices-box"></div>
+                </div>
+                <div id="result-container">
+                    <h2 style="text-align:center;">🎉 학우님을 위한 맞춤 공약!</h2>
+                    <div id="result-title"></div>
+                    <div id="policy-list"></div>
+                    <button id="restart-btn">처음으로 돌아가기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameData = { policies:[{id:"policy_food_morning",name:"천원의 아침밥 확대",description:"바쁜 학우들을 위해 아침밥을 단돈 천원에 제공하는 사업을 확대하겠습니다.",tags:["복지","식사","경제적","생활편의","전교생"]},{id:"policy_library_booking",name:"중앙도서관 스터디룸 예약 시스템 개선",description:"선착순 불편함을 없애고, 온라인으로 누구나 쉽게 예약할 수 있도록 시스템을 전면 개편합니다.",tags:["시설","학습","편의성","전교생"]},{id:"policy_festival",name:"역대급 라인업! 대동제 페스티벌",description:"학생들의 의견을 적극 반영하여 모두가 만족할만한 최고의 아티스트를 섭외하겠습니다.",tags:["문화","행사","여가","즐거움","전교생"]},{id:"policy_dorm_curfew",name:"기숙사 통금 시간 연장 (시험기간 한정)",description:"시험 기간만이라도 기숙사 통금 시간을 새벽 2시로 연장하여 학업에 집중할 수 있도록 하겠습니다.",tags:["복지","기숙사","생활","규제완화","특정대상"]},{id:"policy_job_mentoring",name:"현직 선배 멘토링 프로그램 강화",description:"다양한 분야의 현직 선배들을 초청하여 실질적인 진로 및 취업 멘토링 기회를 확대합니다.",tags:["교육","진로","취업","학습","성장"]},{id:"policy_tuition_transparency",name:"등록금 사용 내역 투명 공개",description:"우리의 소중한 등록금이 어디에 쓰이는지 투명하게 공개하고, 학생의 의견이 반영되도록 만들겠습니다.",tags:["권리","투명성","재정"]},{id:"policy_eco_campaign",name:"친환경 캠퍼스 조성 캠페인",description:"텀블러 사용 장려, 분리수거 개선 등 학생들이 참여하는 친환경 캠퍼스를 만듭니다.",tags:["사회적가치","환경","캠페인","전교생"]}],questions_flow:[{id:"q_base_priority",text:"학교 생활에서 가장 중요하게 생각하는 것은 무엇인가요?",choices:[{text:"학업 및 진로",tags_on_select:["교육","학습","진로","성장"],tags_off_select:[]},{text:"생활 편의 및 시설",tags_on_select:["생활편의","시설","편의성"],tags_off_select:[]},{text:"학생 복지 및 권리",tags_on_select:["복지","권리","경제적"],tags_off_select:[]},{text:"문화 활동 및 사회적 가치",tags_on_select:["문화","행사","사회적가치","환경"],tags_off_select:[]}]},{id:"q_meal_importance",text:"'천원의 아침밥'처럼 저렴하고 맛있는 학식이 중요하다고 생각하시나요?",choices:[{text:"예",type:"yes",tags_on_select:["식사","경제적","복지"],tags_off_select:["학습","시설"]},{text:"아니오",type:"no",tags_on_select:["학습","시설","문화"],tags_off_select:["식사","경제적"]}]},{id:"q_study_environment",text:"도서관이나 과방 등 학습 공간의 개선이 시급하다고 느끼시나요?",choices:[{text:"예",type:"yes",tags_on_select:["시설","학습","편의성"],tags_off_select:["생활편의","문화"]},{text:"아니오",type:"no",tags_on_select:["경제적","복지","진로"],tags_off_select:["시설","학습"]}]},{id:"q_festival_importance",text:"학교 축제나 행사가 더 활성화되었으면 좋겠다고 생각하시나요?",choices:[{text:"예",type:"yes",tags_on_select:["문화","행사","여가"],tags_off_select:["권리","재정"]},{text:"아니오",type:"no",tags_on_select:["권리","재정","학습"],tags_off_select:["문화","행사"]}]},{id:"q_dorm_resident",text:"기숙사에 살고 계신가요?",choices:[{text:"예",type:"yes",tags_on_select:["기숙사","생활"],tags_off_select:["전교생"]},{text:"아니오",type:"no",tags_on_select:["전교생","시설"],tags_off_select:["기숙사"]}]}] };
+
+        let currentQuestionIndex, policyScores;
+        const totalQuestions = gameData.questions_flow.length;
+        const startScreen = document.getElementById('start-screen');
+        const startBtn = document.getElementById('start-btn');
+        const gameWrapper = document.getElementById('game-wrapper');
+        const questionArea = document.getElementById('question-area');
+        const resultContainer = document.getElementById('result-container');
+        const questionBox = document.getElementById('question-box');
+        const choicesBox = document.getElementById('choices-box');
+        const progressBar = document.getElementById('progress-bar');
+        const currentQNumEl = document.getElementById('current-q-num');
+        const totalQNumEl = document.getElementById('total-q-num');
+        const resultTitleEl = document.getElementById('result-title');
+        const policyListEl = document.getElementById('policy-list');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // ▼▼▼▼▼ 추가된 JavaScript ▼▼▼▼▼
+
+        /**
+         * 화면 너비에 따라 레이아웃을 동적으로 조정하는 함수
+         */
+        function adjustLayoutForDevice() {
+            const characterContainer = document.getElementById('character-container');
+            const progressContainer = document.getElementById('progress-container');
+
+            // 화면이 모바일 너비(768px 이하)이고, 아직 모바일 레이아웃으로 변경되지 않았을 때
+            if (window.innerWidth <= 768 && !progressContainer.classList.contains('mobile-header')) {
+                
+                // 1. 기존 진행상황 요소들을 감쌀 새 div 생성
+                const progressInfo = document.createElement('div');
+                progressInfo.id = 'progress-info';
+                
+                // 2. progress-container의 모든 자식(h3, bar, text)을 새 div로 이동
+                while (progressContainer.firstChild) {
+                    progressInfo.appendChild(progressContainer.firstChild);
+                }
+                
+                // 3. progress-container에 캐릭터와 정보 래퍼를 순서대로 추가
+                progressContainer.appendChild(characterContainer);
+                progressContainer.appendChild(progressInfo);
+                
+                // 4. 모바일 스타일이 적용되도록 클래스 추가
+                progressContainer.classList.add('mobile-header');
+            }
+        }
+        
+        startBtn.addEventListener('click', () => {
+            adjustLayoutForDevice(); // 게임 시작 시 레이아웃 조정 함수 호출
+            startScreen.classList.add('hidden');
+            setTimeout(() => {
+                gameWrapper.classList.remove('hidden');
+                initializeGame();
+            }, 500);
+        });
+        
+        // ▲▲▲▲▲ 추가된 JavaScript ▲▲▲▲▲
+
+
+        restartBtn.addEventListener('click', () => {
+            // 페이지를 새로고침하여 레이아웃을 초기 상태로 되돌림
+            window.location.reload();
+        });
+
+        function initializeGame() {
+            currentQuestionIndex = 0;
+            policyScores = {};
+            gameData.policies.forEach(p => { policyScores[p.id] = 0; });
+            totalQNumEl.textContent = totalQuestions;
+            displayNextQuestion();
+        }
+
+        function displayNextQuestion() {
+            if (currentQuestionIndex >= totalQuestions) { showResult(); return; }
+            const q = gameData.questions_flow[currentQuestionIndex];
+            questionBox.textContent = q.text;
+            choicesBox.innerHTML = '';
+            if (q.choices.some(c => c.type === 'yes')) {
+                const choiceWrapper = document.createElement('div');
+                choiceWrapper.style.textAlign = 'center';
+                q.choices.forEach(choice => {
+                    const button = document.createElement('button');
+                    button.textContent = choice.text;
+                    button.className = `choice-btn yes-no ${choice.type}`;
+                    button.onclick = () => selectChoice(choice);
+                    choiceWrapper.appendChild(button);
+                });
+                choicesBox.appendChild(choiceWrapper);
+            } else {
+                q.choices.forEach(choice => {
+                    const button = document.createElement('button');
+                    button.textContent = choice.text;
+                    button.className = 'choice-btn';
+                    button.onclick = () => selectChoice(choice);
+                    choicesBox.appendChild(button);
+                });
+            }
+            updateProgress();
+        }
+
+        function selectChoice(choice) {
+            gameData.policies.forEach(policy => {
+                choice.tags_on_select.forEach(tag => { if (policy.tags.includes(tag)) policyScores[policy.id]++; });
+                choice.tags_off_select.forEach(tag => { if (policy.tags.includes(tag)) policyScores[policy.id]--; });
+            });
+            currentQuestionIndex++;
+            displayNextQuestion();
+        }
+
+        function showResult() {
+            const sortedPolicies = Object.keys(policyScores).sort((a, b) => policyScores[b] - policyScores[a]);
+            const topPolicies = sortedPolicies.slice(0, 3);
+            resultTitleEl.textContent = "학우님의 성향을 분석해 보니...";
+            policyListEl.innerHTML = '';
+            topPolicies.forEach(policyId => {
+                const policy = gameData.policies.find(p => p.id === policyId);
+                if (policy) {
+                    const card = document.createElement('div');
+                    card.className = 'policy-card';
+                    card.innerHTML = `<div class="policy-name">${policy.name}</div><div class="policy-desc">${policy.description}</div>`;
+                    policyListEl.appendChild(card);
+                }
+            });
+            questionArea.style.display = 'none';
+            resultContainer.style.display = 'block';
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressPercentage = (currentQuestionIndex / totalQuestions) * 100;
+            progressBar.style.width = progressPercentage + '%';
+            currentQNumEl.textContent = currentQuestionIndex < totalQuestions ? currentQuestionIndex + 1 : totalQuestions;
+        }
+    </script>
+</body>
+</html>
