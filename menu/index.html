@@ -5,10 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>음식 추천 시스템</title>
 <style>
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+  }
+
   /* 전체 스타일 */
   body {
     font-family: "Pretendard", sans-serif;
-    background-color: #f0f8ff;
+    background-image: url("나비.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,9 +29,19 @@
     margin: 0;
   }
 
+  /* 배경 위 반투명 오버레이 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(255,255,255,0.7);
+    z-index: -1;
+  }
+
   h1 {
     margin-bottom: 25px;
-    color: #1E88E5;
+    color: #00a99c;
     font-size: 2em;
     text-align: center;
   }
@@ -29,17 +50,16 @@
     margin: 10px 0;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-between; /* 버튼 사이 균등 간격 */
+    justify-content: space-between;
     gap: 8px;
-    overflow-x: auto; /* 가로 스크롤 가능 */
+    overflow: hidden; /* ✅ 내부 스크롤도 차단 */
     padding-bottom: 5px;
-    -webkit-overflow-scrolling: touch;
   }
 
   .category-group button {
     background-color: white;
-    border: 2px solid #1E88E5;
-    color: #1E88E5;
+    border: 2px solid #00a99c;
+    color: #00a99c;
     padding: 8px 12px;
     border-radius: 10px;
     font-size: 1em;
@@ -48,21 +68,21 @@
     flex: 0 0 auto;
     min-width: 60px;
     text-align: center;
-    width: clamp(60px, 10vw, 120px)
+    width: clamp(60px, 10vw, 120px);
   }
 
   .category-group button:hover {
-    background-color: #BBDEFB;
+    background-color: #98d2c6;
   }
 
   .category-group button.active {
-    background-color: #1E88E5;
+    background-color: #00a99c;
     color: white;
   }
 
   #recommendBtn {
     margin-top: 30px;
-    background-color: #1E88E5;
+    background-color: #00a99c;
     color: white;
     font-size: 1.2em;
     border: none;
@@ -73,7 +93,7 @@
   }
 
   #recommendBtn:hover {
-    background-color: #1565C0;
+    background-color: #009688;
   }
 
   /* 모달 */
@@ -106,7 +126,7 @@
   }
 
   .modal-content h2 {
-    color: #1E88E5;
+    color: #00a99c;
     margin-bottom: 10px;
   }
 
@@ -120,7 +140,7 @@
 
   .partner-title {
     margin-top: 20px;
-    color: #1E88E5;
+    color: #00a99c;
     font-weight: 600;
     font-size: 1.1em;
   }
@@ -152,41 +172,39 @@
   }
 
   /* 모바일 대응 */
-  /* 초소형 모바일 대응 */
-@media (max-width: 340px) {
-  .modal-content {
-    width: 95%;  /* 모달 폭 늘림 */
-    padding: 15px; 
-  }
+  @media (max-width: 340px) {
+    .modal-content {
+      width: 95%;
+      padding: 15px;
+    }
 
-  h1 {
-    font-size: 1.3em;
-  }
+    h1 {
+      font-size: 1.3em;
+    }
 
-  .category-group button {
-    padding: 6px 10px;
-    font-size: 0.8em;
-    min-width: 50px; /* 버튼 최소 너비 축소 */
-  }
+    .category-group button {
+      padding: 6px 10px;
+      font-size: 0.8em;
+      min-width: 50px;
+    }
 
-  #recommendBtn {
-    padding: 10px 20px;
-    font-size: 0.9em;
-  }
+    #recommendBtn {
+      padding: 10px 20px;
+      font-size: 0.9em;
+    }
 
-  .food-name {
-    font-size: 1.4em;
-  }
+    .food-name {
+      font-size: 1.4em;
+    }
 
-  .partner-title {
-    font-size: 0.95em;
-  }
+    .partner-title {
+      font-size: 0.95em;
+    }
 
-  .partner-item {
-    font-size: 0.8em;
+    .partner-item {
+      font-size: 0.8em;
+    }
   }
-}
-
 </style>
 </head>
 <body>
@@ -259,7 +277,7 @@
     "전체": ["김치찌개", "짜장면", "초밥", "파스타", "팟타이", "불고기", "짬뽕"]
   };
 
-  // 제휴 음식점 예시 데이터
+  // 제휴 음식점 데이터
   const partners = {
     "짬뽕": [
       { name: "홍콩반점 0410", address: "서울 강남구 테헤란로 120" },
@@ -290,12 +308,10 @@
     const selectedType = document.querySelector("#foodType button.active")?.textContent || "전체";
     const foods = foodData[selectedType] || foodData["전체"];
 
-    // 모달 초기화
     foodName.textContent = "🎲 뽑는 중...";
     partnerList.innerHTML = "";
     modal.style.display = "flex";
 
-    // 뽑기 애니메이션
     let i = 0;
     const interval = setInterval(() => {
       const randomFood = foods[Math.floor(Math.random() * foods.length)];
@@ -321,3 +337,5 @@
 
 </body>
 </html>
+
+
