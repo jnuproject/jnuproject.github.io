@@ -3,129 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4x3 슬라이딩 퍼즐</title>
+<title>Dream 로고 3x3 슬라이딩 퍼즐</title>
 <style>
-  body {
-    font-family: 'Pretendard', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #e0f7fa, #fff9c4);
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
+body {
+  font-family: 'Pretendard', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  background: linear-gradient(135deg, #b2fef7, #ffffff);
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: 0;
+}
 
-  h1 {
-    margin-bottom: 20px;
-    color: #00796b;
-    text-align: center;
-  }
+h1 {
+  margin-bottom: 20px;
+  color: #00796b;
+  text-align: center;
+  font-size: clamp(18px, 4vw, 28px);
+}
 
+#puzzle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px; /* 하얀 선 유지 */
+  width: 90vw;
+  max-width: 480px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+.piece {
+  width: 100%;
+  height: 100%;
+  background-size: 300% 300%;
+  border-radius: 12px; /* 살짝 둥글게 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.piece:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.empty {
+  background: none;
+  cursor: default;
+}
+
+#successBanner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  background: rgba(0,0,0,0.7);       /* 반투명 검정 */
+  color: #fff;
+  padding: 20px 40px;
+  font-size: clamp(18px, 5vw, 32px);
+  border-radius: 25px;
+  opacity: 0;
+  backdrop-filter: blur(5px);        /* 배경 블러 */
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  z-index: 10;
+}
+
+
+#completeLogo {
+  width: 90vw;
+  max-width: 480px;
+  display: none;
+  margin-top: 20px;
+  transition: opacity 1s ease;
+}
+
+@media (max-width: 540px) {
   #puzzle {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 5px;
-    width: 90vw;
-    max-width: 480px;
-    aspect-ratio: 4 / 3;
-    background: #ffffffaa;
-    border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    width: 95vw;
+    gap: 2px;
   }
-
-  .piece {
-    width: 100%;
-    height: 100%;
-    background-size: 400px 300px; /* 이미지 전체 크기 */
-    border-radius: 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
+  #completeLogo {
+    width: 95vw;
   }
-
-  .piece:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-  }
-
-  .empty {
-    background: none;
-    box-shadow: none;
-    cursor: default;
-  }
+}
 </style>
 </head>
 <body>
-<h1>4x3 슬라이딩 퍼즐</h1>
+<h1>Dream 로고 3x3 슬라이딩 퍼즐</h1>
 <div id="puzzle"></div>
+<div id="successBanner">🎉 성공! 🎉</div>
+<img id="completeLogo" src="로고2.png" alt="완성 로고">
 
 <script>
 const rows = 3;
-const cols = 4;
-const imageURL = '1234.jpg'; // 같은 폴더에 이미지
+const cols = 3;
+const imageURL = '로고2.png';
 
-// 퍼즐 상태 배열 (0~11, 마지막은 빈칸)
 let positions = [];
-for(let i=0; i<rows*cols-1; i++) positions.push(i);
-positions.push(null); // 마지막 한 칸 빈칸
+for(let i=0;i<rows*cols-1;i++) positions.push(i);
+positions.push(null);
 
-// 셔플 함수
-function shuffle(array) {
-  for(let i=array.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [array[i], array[j]] = [array[j], array[i]];
+function shuffle(array){
+  for(let i=array.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
   }
 }
 shuffle(positions);
 
 const puzzle = document.getElementById('puzzle');
+const importantPieces = [3,4,5];
+const banner = document.getElementById('successBanner');
+const completeLogo = document.getElementById('completeLogo');
 
-function render() {
+function render(){
   puzzle.innerHTML = '';
-  positions.forEach((p, index) => {
-    const div = document.createElement('div');
+  positions.forEach((p,index)=>{
+    const div=document.createElement('div');
     div.classList.add('piece');
-    if(p === null){
+    if(p===null){
       div.classList.add('empty');
     } else {
-      const r = Math.floor(p / cols);
-      const c = p % cols;
+      const r = Math.floor(p/cols);
+      const c = p%cols;
       div.style.backgroundImage = `url(${imageURL})`;
-      div.style.backgroundPosition = `-${c*100}px -${r*100}px`;
+      div.style.backgroundSize = '300% 300%';
+      div.style.backgroundPosition = `${(c/(cols-1))*100}% ${(r/(rows-1))*100}%`;
     }
     div.dataset.index = index;
     puzzle.appendChild(div);
   });
 }
 
-puzzle.addEventListener('click', (e) => {
-  if(!e.target.classList.contains('piece') || e.target.classList.contains('empty')) return;
+puzzle.addEventListener('click',(e)=>{
+  if(!e.target.classList.contains('piece')||e.target.classList.contains('empty')) return;
   const idx = Number(e.target.dataset.index);
   const emptyIdx = positions.indexOf(null);
 
-  const emptyRow = Math.floor(emptyIdx / cols);
-  const emptyCol = emptyIdx % cols;
-  const clickedRow = Math.floor(idx / cols);
-  const clickedCol = idx % cols;
+  const emptyRow = Math.floor(emptyIdx/cols);
+  const emptyCol = emptyIdx%cols;
+  const clickedRow = Math.floor(idx/cols);
+  const clickedCol = idx%cols;
 
-  // 상하좌우 이동만 허용
-  if((Math.abs(emptyRow - clickedRow) + Math.abs(emptyCol - clickedCol)) === 1){
-    [positions[idx], positions[emptyIdx]] = [positions[emptyIdx], positions[idx]];
+  if((Math.abs(emptyRow-clickedRow)+Math.abs(emptyCol-clickedCol))===1){
+    [positions[idx],positions[emptyIdx]]=[positions[emptyIdx],positions[idx]];
     render();
     checkComplete();
   }
 });
 
+// 부드럽게 퍼즐 조각 합치기
+function mergePuzzle(){
+  const pieces = Array.from(document.querySelectorAll('.piece'));
+  pieces.forEach((div)=>{
+    div.style.position='absolute';
+    div.style.top='0';
+    div.style.left='0';
+    div.style.width='100%';
+    div.style.height='100%';
+    div.style.borderRadius='0';
+    div.style.backgroundPosition='center';
+  });
+  setTimeout(()=>{
+    puzzle.style.display='none';
+    completeLogo.style.display='block';
+    completeLogo.style.opacity='1';
+  },50);
+}
+
+function showBanner(){
+  banner.style.display='block';
+  setTimeout(()=>{ 
+    banner.style.opacity=1;
+    banner.style.transform='translate(-50%, -50%) scale(1)';
+  },10);
+  setTimeout(()=>{
+    banner.style.opacity=0;
+    banner.style.transform='translate(-50%, -50%) scale(0.8)';
+    setTimeout(()=>{ banner.style.display='none'; mergePuzzle(); },800);
+  },3000);
+}
+
+
 function checkComplete(){
-  for(let i=0; i<rows*cols-1; i++){
-    if(positions[i] !== i) return;
+  for(const idx of importantPieces){
+    if(positions[idx]!==idx) return;
   }
-  alert("🎉 퍼즐 완성! 🎉");
+  showBanner();
 }
 
 render();
 </script>
 </body>
 </html>
+
