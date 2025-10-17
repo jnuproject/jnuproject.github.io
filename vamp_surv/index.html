@@ -279,6 +279,24 @@
     text-align: center;
 }
 
+    /* --- 반응형 폰트 스타일 추가 --- */
+
+/* 반응형 제목 */
+#startScreen h1 {
+    /* 화면 너비에 따라 글자 크기를 7vw로 조절하되,
+       최소 28px, 최대 48px를 넘지 않도록 설정합니다. */
+    font-size: clamp(28px, 7vw, 48px);
+    white-space: nowrap; /* 제목이 두 줄로 나뉘는 것을 방지 */
+}
+
+/* 반응형 설명 (핵심 수정) */
+#startScreen p {
+    /* 화면 너비에 따라 글자 크기를 3.5vw로 조절하되,
+       최소 12px, 최대 14px를 넘지 않도록 설정합니다. */
+    font-size: clamp(12px, 3.5vw, 14px);
+    line-height: 1.6;
+}
+
     /* --- 반응형 제목 스타일 추가 --- */
     @media screen and (max-width: 768px) {
         h1 {
