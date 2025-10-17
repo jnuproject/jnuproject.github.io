@@ -254,7 +254,47 @@
     transform: translate(0, 0);
     transition: transform 0.1s ease-out;
   }
+/* [추가/교체] 시작 화면 반응형 스타일 */
 
+/* startScreen 전체 레이아웃 설정 */
+#startScreen {
+    padding: 20px; /* 화면 가장자리와 내용 사이에 여백 추가 */
+    box-sizing: border-box; /* 패딩이 전체 크기에 포함되도록 설정 */
+}
+
+/* 중앙 컨텐츠를 묶는 그룹 */
+#startScreen .start-content {
+    /* 이 그룹이 화면의 남는 공간을 모두 차지하게 하여 로고를 아래로 밀어냄 */
+    margin-bottom: auto; 
+    padding-top: 5vh; /* 화면 상단에서 살짝 떨어지게 함 */
+}
+
+/* ❗️ 핵심: 반응형 제목 스타일 */
+#startScreen h1 {
+    /* [최소 크기, 화면너비 비례 크기, 최대 크기] */
+    font-size: clamp(28px, 7vw, 48px); 
+    white-space: nowrap; /* 한 줄 유지 */
+    margin-bottom: 15px;
+}
+
+/* ❗️ 핵심: 반응형 설명 텍스트 스타일 */
+#startScreen p {
+    font-size: clamp(12px, 3.5vw, 14px);
+    line-height: 1.6; /* 줄 간격 확보 */
+    margin: 8px 0;
+}
+
+#startScreen #btnStart {
+    margin-top: 25px;
+}
+
+/* 하단 로고 스타일 */
+#startScreen .screen-logo {
+    margin-top: auto; /* 남는 공간을 모두 가져와 맨 아래로 이동 */
+    padding-bottom: 20px; /* 화면 맨 아래와의 간격 */
+    max-width: 200px;
+    width: 50%;
+}
     /* --- 반응형 제목 스타일 추가 --- */
     @media screen and (max-width: 768px) {
         h1 {
@@ -288,14 +328,14 @@
 </div>
 
 <div id="startScreen" class="overlay">
-    <div style="text-align: center;">
-      <h1 style="white-space: nowrap;">DREAM SURVIVORS</h1>
+    <div class="start-content">
+      <h1>DREAM SURVIVORS</h1>
       <p>드림과 함께 꿈 속의 악몽들을 헤쳐나가세요!</p>
       <p>이동: PC는 방향키 / 모바일은 조이스틱 / 공격은 자동입니다.</p>
-      <button id="btnStart" style="margin-top: 25px;">꿈 속으로</button>
-    </div>
-    <img src="logo.png" alt="DREAM Logo" class="screen-logo" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); max-width: 200px;">
-  </div>
+      <button id="btnStart">꿈 속으로</button>
+    </div>  
+    <img src="logo.png" alt="DREAM Logo" class="screen-logo">
+</div>
 
 <div id="pauseMenu" class="overlay hidden">
     <h2>잠깐의 휴식</h2>
