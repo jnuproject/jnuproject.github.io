@@ -266,14 +266,25 @@ const DEVICE = (() => {
                  'ontouchstart' in window ||
                  (nav.maxTouchPoints || 0) > 0 ||
                  innerWidth <= 820;
+  // ✅ Maintain native pixel density and visual quality, reduce logic load only
   return {
     isMobile: coarse,
-    pixelRatio: coarse ? 1 : Math.min(2, window.devicePixelRatio || 1),
-    enemyCap: coarse ? 140 : 280,
-    particleCap: coarse ? 180 : 360,
-    cullX: coarse ? 720 : 900,
-    cullY: coarse ? 520 : 600
+    pixelRatio: Math.min(window.devicePixelRatio || 1, 3),
+    enemyCap: coarse ? 100 : 280,
+    particleCap: coarse ? 150 : 360,
+    cullX: coarse ? 640 : 900,
+    cullY: coarse ? 480 : 600
   };
+})();
+
+// ✅ Adaptive performance scaling system
+const PERF = {};
+PERF.score = (() => {
+  let score = 1;
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 6) score *= 0.8;
+  if (navigator.deviceMemory && navigator.deviceMemory < 4) score *= 0.7;
+  if (/Mali|Adreno|PowerVR/i.test(navigator.userAgent)) score *= 0.8;
+  return Math.max(score, 0.5);
 })();
 
 const HUD = {
@@ -298,6 +309,13 @@ function resize() {
   GS.ctx.mozImageSmoothingEnabled = false;
   GS.ctx.webkitImageSmoothingEnabled = false;
   GS.gradientCache=null;
+  // ✅ Use GPU compositing and hardware acceleration hints
+  GS.ctx.imageSmoothingEnabled = true;
+  // ✅ GPU acceleration hints
+  GS.ctx.imageSmoothingQuality = "high";
+  GS.canvas.style.willChange = "transform, opacity";
+  GS.canvas.style.transform = "translateZ(0)";
+  GS.canvas.style.imageRendering = "auto";
 }
 let resizeTimer;
 addEventListener('resize', ()=> {
@@ -355,7 +373,14 @@ class AudioSys{
 
 /* ---------- Draw Helpers ---------- */
 const Draw = {
-  glow:(color='rgba(0,0,0,0.6)', blur=20, alpha=0.8)=>{ const ctx=GS.ctx; ctx.save(); ctx.shadowBlur=blur; ctx.shadowColor=color; ctx.globalAlpha=alpha; },
+  glow:(color='rgba(0,0,0,0.6)', blur=20, alpha=0.8)=>{
+    const ctx=GS.ctx;
+    // ✅ GPU-aware glow intensity
+    const baseBlur = blur;
+    ctx.save();
+    ctx.shadowBlur = DEVICE.isMobile ? baseBlur * PERF.score : baseBlur;
+    ctx.shadowColor=color; ctx.globalAlpha=alpha;
+  },
   resetGlow:()=>{ const ctx=GS.ctx; ctx.restore(); },
   circle(x,y,r,fill,stroke=null,lw=2){
     const cx = x-GS.camera.x + C.WIDTH/2;
@@ -412,6 +437,8 @@ function spawnParticles(x,y,color,count,hw=false){
   const pool=GS.particlePool;
   const limit=Math.min(count, DEVICE.particleCap);
   for(let i=0;i<limit;i++){
+    // ✅ Skip particle generation occasionally on low-end devices
+    if (Math.random() > PERF.score) return;
     const speed = hw? M.rand(50,150): M.rand(100,300);
     const size = hw? M.rand(2,5): M.rand(1,3);
     const life = M.rand(.2,.5);
@@ -1242,7 +1269,10 @@ function render(){
   for(const e of GS.gems){ if(!withinView(e.x,e.y)) continue; e.draw(); }
   for(const p of GS.potions){ if(!withinView(p.x,p.y)) continue; p.draw(); }
   for(const e of GS.particles){ if(!withinView(e.x,e.y)) continue; e.draw(); }
-  if(GS.enemies.length>1) GS.enemies.sort((a,b)=>a.y-b.y);
+  // ✅ Reduce CPU sorting overhead
+  if (GS.enemies.length > 1 && (GS.frameCount % 3 === 0)) {
+    GS.enemies.sort((a, b) => a.y - b.y);
+  }
   for(const e of GS.enemies){ if(!withinView(e.x,e.y)) continue; e.draw(); }
   player.draw();
   for(const e of GS.projectiles){ if(!withinView(e.x,e.y)) continue; e.draw(); }
@@ -1281,11 +1311,32 @@ function updateHud(){
 const FRAME_INTERVAL = 1000/60;
 let lastFrame = 0;
 function gameLoop(t){
+  // ✅ Smooth mobile pacing with controlled frame skipping
+  if (DEVICE.isMobile && typeof window.__mobileFrameSkipSetup === "undefined") {
+    window.__mobileFrameSkipSetup = true;
+    let mobileFrameCount = 0;
+    const originalUpdate = update;
+    const originalRender = render;
+    const originalLoop = gameLoop;
+    gameLoop = function(t) {
+      mobileFrameCount++;
+      originalUpdate(t);
+      if (mobileFrameCount % 2 === 0) originalRender();
+      requestAnimationFrame(gameLoop);
+    };
+    requestAnimationFrame(gameLoop);
+    return;
+  }
   requestAnimationFrame(gameLoop);
   /* ✅ Optimization: mobile throttling only, desktop runs at native refresh */
   if (DEVICE.isMobile && (t - lastFrame < FRAME_INTERVAL)) return;
   lastFrame = t;
-  const raw=(t-GS.lastTime)/1000; GS.lastTime=t; GS.dt=Math.min(raw,.1); GS.dt*=.85; // global slow 15%
+  // ✅ Removed artificial frame slow for smooth 60+ FPS
+  const raw = (t - GS.lastTime) / 1000;
+  GS.lastTime = t;
+  GS.dt = Math.min(raw, 0.1);
+  // ✅ Frame pacing adjustment for low-end devices
+  if (PERF.score < 0.8 && GS.frameCount % 2 === 0) return;
   if(GS.state!=='running'){ if(GS.state!=='paused'&&GS.state!=='levelup') render(); return; }
   GS.time+=GS.dt; GS.frameCount++; update(); render(); updateHud();
 }
@@ -1309,6 +1360,10 @@ function initGame(){
   const set=STAGE_SKILL_SETS[1]; if(set){ GS.player.weapons.forEach(w=>{ const s=set.find(x=>w instanceof x.base); if(s) w.name=s.name; }); }
   if(!GS.audio) GS.audio=new AudioSys(); GS.audio.ctx.resume();
   GS.state='running'; GS.lastTime=performance.now();
+  // ✅ Adaptive scaling for visuals and particles
+  GS.glowIntensity = 1 * PERF.score;
+  GS.particleDensity = 1 * PERF.score;
+  GS.enemySpawnRate = 1 * PERF.score;
   document.querySelectorAll('.overlay').forEach(el=>el.classList.add('hidden'));
   requestAnimationFrame(gameLoop);
 }
