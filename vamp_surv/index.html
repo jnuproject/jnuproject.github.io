@@ -165,6 +165,9 @@
       <h1>DREAM SURVIVORS</h1>
       <p>드림과 함께 꿈 속의 악몽들을 헤쳐나가세요!</p>
       <p>이동: PC는 방향키 / 모바일은 조이스틱 / 공격은 자동입니다.</p>
+      <p style="font-size:10px; color:#003d38; opacity:0.5; margin-top:8px;">
+        ※ 본 게임은 <em>Vampire Survivors</em>를 레퍼런스로 제작되었습니다.
+      </p>
       <button id="btnStart">꿈 속으로</button>
     </div>
     <img src="logo.png" alt="DREAM Logo" class="screen-logo" />
@@ -256,7 +259,8 @@ const GS = {
 
 /* ---------- Resize ---------- */
 function resize() {
-  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+  // Limit devicePixelRatio for performance (esp. on high-DPI)
+  const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
   C.WIDTH = Math.floor(innerWidth);
   C.HEIGHT = Math.floor(innerHeight);
   GS.canvas.width = Math.floor(C.WIDTH * ratio);
@@ -364,6 +368,13 @@ class DamageText extends Entity{
   draw(){ GS.ctx.globalAlpha=Math.min(1,this.life*2); Draw.text(this.text,this.x,this.y,this.size,this.color); GS.ctx.globalAlpha=1; }
 }
 function spawnParticles(x,y,color,count,hw=false){
+  // Detect mobile device
+  const ua = navigator.userAgent;
+  const isMobile = (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ||
+    ('ontouchstart' in window && window.innerWidth < 900)
+  );
+  if (isMobile) count = Math.max(1, Math.floor(count / 2));
   for(let i=0;i<count;i++){
     if(GS.particlePool.length>0){
       const s= hw? M.rand(50,150): M.rand(100,300);
@@ -1134,8 +1145,12 @@ function render(){
   GS.gems.forEach(e=>e.draw()); GS.potions.forEach(p=>p.draw()); GS.particles.forEach(e=>e.draw());
   GS.enemies.sort((a,b)=>a.y-b.y); GS.enemies.forEach(e=>e.draw());
   GS.player.draw(); GS.projectiles.forEach(e=>e.draw()); GS.enemyProjectiles.forEach(e=>e.draw()); GS.damageTexts.forEach(e=>e.draw());
-  const grad=ctx.createRadialGradient(C.WIDTH/2,C.HEIGHT/2,C.HEIGHT/2,C.WIDTH/2,C.HEIGHT/2,C.WIDTH/1.5); grad.addColorStop(0,'transparent'); grad.addColorStop(1,'rgba(0,0,0,.1)');
-  ctx.fillStyle=grad; ctx.fillRect(0,0,C.WIDTH,C.HEIGHT);
+  // 중앙 비네팅 효과는 데스크탑(폭 768 이상)에서만 적용
+  if (innerWidth > 768) {
+    const grad=ctx.createRadialGradient(C.WIDTH/2,C.HEIGHT/2,C.HEIGHT/2,C.WIDTH/2,C.HEIGHT/2,C.WIDTH/1.5);
+    grad.addColorStop(0,'transparent'); grad.addColorStop(1,'rgba(0,0,0,.1)');
+    ctx.fillStyle=grad; ctx.fillRect(0,0,C.WIDTH,C.HEIGHT);
+  }
   if(GS.bossAlert.life>0){
     const alpha=Math.min(1,GS.bossAlert.life), size=40+(3-GS.bossAlert.life)*5; ctx.globalAlpha=alpha;
     Draw.text(GS.bossAlert.text, GS.player.x, GS.player.y - C.HEIGHT/3, size, '#b30000'); ctx.globalAlpha=1;
