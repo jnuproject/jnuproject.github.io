@@ -1365,6 +1365,7 @@ function initGame(){
   GS.particleDensity = 1 * PERF.score;
   GS.enemySpawnRate = 1 * PERF.score;
   document.querySelectorAll('.overlay').forEach(el=>el.classList.add('hidden'));
+  setupJoystick();
   requestAnimationFrame(gameLoop);
 }
 function togglePause(){
@@ -1487,7 +1488,6 @@ function setupJoystick(){
   },{passive:true});
   base.addEventListener('touchend',()=>{ active=false; GS.player.moveDir={x:0,y:0}; thumb.style.transform='translate(0,0)'; });
 }
-addEventListener('DOMContentLoaded', setupJoystick);
 
 /* Patch Player.update for mobile joystick */
 (function(){
