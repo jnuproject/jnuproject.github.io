@@ -269,11 +269,11 @@ const DEVICE = (() => {
   // ✅ Maintain native pixel density and visual quality, reduce logic load only
   return {
     isMobile: coarse,
-    pixelRatio: Math.min(window.devicePixelRatio || 1, 3),
-    enemyCap: coarse ? 100 : 280,
-    particleCap: coarse ? 150 : 360,
-    cullX: coarse ? 640 : 900,
-    cullY: coarse ? 480 : 600
+    pixelRatio: Math.min(window.devicePixelRatio || 1, 2), // limit to 2 for mobile
+    enemyCap: coarse ? 80 : 280,
+    particleCap: coarse ? 100 : 360,
+    cullX: coarse ? 500 : 900,
+    cullY: coarse ? 400 : 600
   };
 })();
 
@@ -377,12 +377,12 @@ class AudioSys{
 /* ---------- Draw Helpers ---------- */
 const Draw = {
   glow:(color='rgba(0,0,0,0.6)', blur=20, alpha=0.8)=>{
+    if (GS.lowPerfMode || DEVICE.isMobile) return;
     const ctx=GS.ctx;
-    // ✅ GPU-aware glow intensity
-    const baseBlur = blur;
     ctx.save();
-    ctx.shadowBlur = DEVICE.isMobile ? baseBlur * PERF.score : baseBlur;
-    ctx.shadowColor=color; ctx.globalAlpha=alpha;
+    ctx.shadowBlur = blur;
+    ctx.shadowColor=color;
+    ctx.globalAlpha=alpha;
   },
   resetGlow:()=>{ const ctx=GS.ctx; ctx.restore(); },
   circle(x,y,r,fill,stroke=null,lw=2){
@@ -1249,14 +1249,22 @@ function update(){
   if(GS.time >= 180 && !GS.gameOver){ GS.gameOver=true; endGame("시간 초과! 3분 내 클리어 실패"); return; }
   spawnEnemies();
   GS.player.update();
-  stepEntities(GS.enemies);
-  stepEntities(GS.projectiles);
+
+  // On mobile, halve updates for heavy entities
+  if (DEVICE.isMobile && GS.frameCount % 2 === 0) {
+    stepEntities(GS.enemies);
+    stepEntities(GS.projectiles);
+  } else {
+    stepEntities(GS.enemies);
+    stepEntities(GS.projectiles);
+  }
   stepEntities(GS.enemyProjectiles);
   stepEntities(GS.gems);
   stepEntities(GS.potions);
-  // ✅ Mobile particle update throttling to reduce micro-stutter
-  if (DEVICE.isMobile && PERF.score < 0.9 && (GS.frameCount % 2 === 1)) {
-    // skip particle updates on alternating frames for smoother pacing
+
+  // Skip particle updates on mobile if low performance
+  if (DEVICE.isMobile && (PERF.score < 0.8 || GS.lowPerfMode)) {
+    GS.particles.length = 0;
   } else {
     stepEntities(GS.particles);
   }
@@ -1268,7 +1276,15 @@ function update(){
 function render(){
   const ctx=GS.ctx; ctx.save();
   if(GS.screenShake>0) ctx.translate(M.rand(-GS.screenShake,GS.screenShake), M.rand(-GS.screenShake,GS.screenShake));
-  Draw.background();
+
+  // Skip complex background gradients and vignette for mobile
+  if (DEVICE.isMobile) {
+    GS.ctx.fillStyle = '#e6f5f2';
+    GS.ctx.fillRect(0, 0, C.WIDTH, C.HEIGHT);
+  } else {
+    Draw.background();
+  }
+
   const player = GS.player;
   const px = player.x, py = player.y;
   const xCull = DEVICE.cullX, yCull = DEVICE.cullY;
@@ -1286,12 +1302,16 @@ function render(){
   for(const e of GS.projectiles){ if(!withinView(e.x,e.y)) continue; e.draw(); }
   for(const e of GS.enemyProjectiles){ if(!withinView(e.x,e.y)) continue; e.draw(); }
   for(const e of GS.damageTexts){ if(!withinView(e.x,e.y)) continue; e.draw(); }
-  // 중앙 비네팅 효과는 데스크탑(폭 768 이상)에서만 적용
-  if (innerWidth > 768) {
-    const grad=ctx.createRadialGradient(C.WIDTH/2,C.HEIGHT/2,C.HEIGHT/2,C.WIDTH/2,C.HEIGHT/2,C.WIDTH/1.5);
-    grad.addColorStop(0,'transparent'); grad.addColorStop(1,'rgba(0,0,0,.1)');
-    ctx.fillStyle=grad; ctx.fillRect(0,0,C.WIDTH,C.HEIGHT);
+
+  // remove vignette for mobile
+  if (!DEVICE.isMobile) {
+    const grad = GS.ctx.createRadialGradient(C.WIDTH / 2, C.HEIGHT / 2, C.HEIGHT / 2, C.WIDTH / 2, C.HEIGHT / 2, C.WIDTH / 1.5);
+    grad.addColorStop(0, 'transparent');
+    grad.addColorStop(1, 'rgba(0,0,0,.1)');
+    GS.ctx.fillStyle = grad;
+    GS.ctx.fillRect(0, 0, C.WIDTH, C.HEIGHT);
   }
+
   if(GS.bossAlert.life>0){
     const alpha=Math.min(1,GS.bossAlert.life), size=40+(3-GS.bossAlert.life)*5; ctx.globalAlpha=alpha;
     Draw.text(GS.bossAlert.text, GS.player.x, GS.player.y - C.HEIGHT/3, size, '#b30000'); ctx.globalAlpha=1;
@@ -1322,32 +1342,24 @@ function gameLoop(t = performance.now()) {
   let raw = (t - GS.lastTime) / 1000;
   GS.lastTime = t;
 
-  // ✅ Micro-stutter smoothing (normalize weird frame gaps)
-  if (raw > 0.033) raw = 0.016 + (raw - 0.016) * 0.4; // soften long frames
-  else if (raw < 0.008) raw = 0.016;                  // clamp too-short frames
+  // Clamp GS.dt tighter for mobile
+  if (DEVICE.isMobile) raw = Math.min(Math.max(raw, 0.015), 0.03);
+  else raw = Math.min(Math.max(raw, 0.008), 0.033);
   GS.dt = Math.min(raw, 0.1);
 
-  // ✅ Adaptive pacing for mobile to avoid CPU/GPU spikes
-  if (DEVICE.isMobile) {
-    if (!GS.adaptiveTimer) GS.adaptiveTimer = 0;
-    GS.adaptiveTimer += GS.dt;
+  // Low performance detection
+  if (!GS.lowPerfCounter) GS.lowPerfCounter = 0;
+  if (raw > 0.035) GS.lowPerfCounter++;
+  else GS.lowPerfCounter = Math.max(0, GS.lowPerfCounter - 1);
+  GS.lowPerfMode = GS.lowPerfCounter > 5;
 
-    if (GS.adaptiveTimer >= 0.5) {
-      const perfFrame = performance.now() - t; // rough per-frame cost
-      GS.adaptiveFrameSkip = perfFrame > 12 ? 2 : 1; // skip render every other frame if overloaded
-      GS.adaptiveTimer = 0;
-    }
-
-    if (GS.frameCount % (GS.adaptiveFrameSkip || 1) !== 0) {
-      // Update always runs so gameplay never stalls; render can be skipped to smooth pacing
-      if (GS.state === 'running') {
-        GS.time += GS.dt;
-        GS.frameCount++;
-        update();
-      }
-      requestAnimationFrame(gameLoop);
-      return;
-    }
+  // Adaptive FPS limiter for mobile to 30 FPS
+  if (DEVICE.isMobile && GS.frameCount % 2 === 1) {
+    update();
+    GS.time += GS.dt;
+    GS.frameCount++;
+    requestAnimationFrame(gameLoop);
+    return;
   }
 
   if (GS.state === 'running') {
@@ -1368,8 +1380,8 @@ function gameLoop(t = performance.now()) {
 function initGame(){
   GS.player=new Player(); GS.enemies=[]; GS.projectiles=[]; GS.enemyProjectiles=[]; GS.gems=[]; GS.particles=[]; GS.damageTexts=[]; GS.potions=[];
   GS.particlePool=[];
-  /* ✅ Optimization: particle pool sized to device budget to avoid churn */
-  const particlePoolSize = DEVICE.particleCap;
+  // Set smaller pool for particles on mobile
+  const particlePoolSize = DEVICE.isMobile ? 100 : DEVICE.particleCap;
   for(let i=0;i<particlePoolSize;i++) GS.particlePool.push(new Particle(0,0,'#fff',0,0,0));
   GS.time=0; GS.kills=0; GS.camera={x:0,y:0}; GS.spawnTimer=1.8; GS.bossAlert={text:'',life:0};
   GS.startTime=null; GS.gameOver=false; GS.victoryInProgress=false; GS.stageIndex=0;
