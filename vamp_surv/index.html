@@ -1308,37 +1308,30 @@ function updateHud(){
   if(HUD.timer) HUD.timer.innerText = M.formatTime(GS.time);
   if(HUD.killCount) HUD.killCount.innerText = `✨ ${GS.kills}`;
 }
-const FRAME_INTERVAL = 1000/60;
-let lastFrame = 0;
-function gameLoop(t){
-  // ✅ Smooth mobile pacing with controlled frame skipping
-  if (DEVICE.isMobile && typeof window.__mobileFrameSkipSetup === "undefined") {
-    window.__mobileFrameSkipSetup = true;
-    let mobileFrameCount = 0;
-    const originalUpdate = update;
-    const originalRender = render;
-    const originalLoop = gameLoop;
-    gameLoop = function(t) {
-      mobileFrameCount++;
-      originalUpdate(t);
-      if (mobileFrameCount % 2 === 0) originalRender();
-      requestAnimationFrame(gameLoop);
-    };
-    requestAnimationFrame(gameLoop);
-    return;
-  }
-  requestAnimationFrame(gameLoop);
-  /* ✅ Optimization: mobile throttling only, desktop runs at native refresh */
-  if (DEVICE.isMobile && (t - lastFrame < FRAME_INTERVAL)) return;
-  lastFrame = t;
-  // ✅ Removed artificial frame slow for smooth 60+ FPS
+function gameLoop(t = performance.now()){
+  // ✅ Ensure first frame has a valid timestamp
+  if (!GS.lastTime) GS.lastTime = t;
+
+  // Delta time with safety cap
   const raw = (t - GS.lastTime) / 1000;
   GS.lastTime = t;
   GS.dt = Math.min(raw, 0.1);
-  // ✅ Frame pacing adjustment for low-end devices
-  if (PERF.score < 0.8 && GS.frameCount % 2 === 0) return;
-  if(GS.state!=='running'){ if(GS.state!=='paused'&&GS.state!=='levelup') render(); return; }
-  GS.time+=GS.dt; GS.frameCount++; update(); render(); updateHud();
+
+  // Optional light pacing only on very weak mobile devices (skip rendering every other frame), never stop updates
+  const skipRender = (DEVICE.isMobile && PERF.score < 0.8 && (GS.frameCount % 2 === 1));
+
+  if (GS.state === 'running'){
+    GS.time += GS.dt;
+    GS.frameCount++;
+    update();
+    if (!skipRender) render();
+    updateHud();
+  } else {
+    // When paused/menus, keep a periodic render so the UI draws
+    if (!skipRender && GS.state !== 'paused' && GS.state !== 'levelup') render();
+  }
+
+  requestAnimationFrame(gameLoop);
 }
 
 /* ---------- Game States ---------- */
@@ -1435,7 +1428,7 @@ addEventListener('keyup',e=>{
 });
 
 /* ---------- UI Buttons ---------- */
-document.getElementById('btnStart').onclick=initGame;
+document.getElementById('btnStart').onclick = initGame;
 document.getElementById('btnRestart').onclick=initGame;
 document.getElementById('btnRestartVic').onclick=initGame;
 document.getElementById('btnResume').onclick=togglePause;
