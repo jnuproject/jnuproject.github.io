@@ -1125,7 +1125,9 @@ GS.canvas.width=C.WIDTH; GS.canvas.height=C.HEIGHT; Draw.background();
 /* ---------- Virtual Joystick (Mobile) ---------- */
 function setupJoystick(){
   const base=document.getElementById('joystick-base'), thumb=document.getElementById('joystick-thumb');
-  if(/Mobi|Android/i.test(navigator.userAgent)) base.style.display='block';
+  const ua = navigator.userAgent;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0 || /iPad|Tablet|PlayBook|Silk/i.test(ua) || (/Macintosh/i.test(ua) && 'ontouchend' in document);
+  if (isTouchDevice) base.style.display = 'block';
   let active=false, rect=base.getBoundingClientRect();
   const refresh=()=> rect=base.getBoundingClientRect();
   addEventListener('resize',refresh); addEventListener('orientationchange',refresh);
@@ -1144,7 +1146,14 @@ addEventListener('DOMContentLoaded', setupJoystick);
 
 /* Patch Player.update for mobile joystick */
 (function(){
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0; if (!isTouchDevice) return;
+  const ua = navigator.userAgent;
+  const isTouchDevice =
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0 ||
+  navigator.msMaxTouchPoints > 0 ||
+  /iPad|Tablet|PlayBook|Silk/i.test(ua) ||
+  (/Macintosh/i.test(ua) && 'ontouchend' in document);
+  if (!isTouchDevice) return;
   const orig=Player.prototype.update;
   Player.prototype.update=function(){
     if(GS.victoryInProgress) return;
