@@ -310,15 +310,21 @@ function resize() {
   GS.ctx.webkitImageSmoothingEnabled = false;
   GS.gradientCache=null;
   // ✅ Use GPU compositing and hardware acceleration hints
+  // For mobile, medium smoothing; for desktop, high
   GS.ctx.imageSmoothingEnabled = true;
-  // ✅ GPU acceleration hints
-  GS.ctx.imageSmoothingQuality = "high";
+  if (DEVICE.isMobile) {
+    GS.ctx.imageSmoothingQuality = "medium";
+  } else {
+    GS.ctx.imageSmoothingQuality = "high";
+  }
   GS.canvas.style.willChange = "transform, opacity";
   GS.canvas.style.transform = "translateZ(0)";
   GS.canvas.style.imageRendering = "auto";
   // ✅ Add missing GPU CSS hints for smoother mobile compositing
   GS.canvas.style.backfaceVisibility = "hidden";
   GS.canvas.style.contain = "layout style paint";
+  // CPU-side batching: create/recreate static background buffer
+  GS.bgBuffer = null;
 }
 let resizeTimer;
 addEventListener('resize', ()=> {
@@ -1112,12 +1118,14 @@ function nextStage(){
 }
 /* ✅ Optimization: background gradient cached once per stage */
 Draw.background=function(){
+  // Cache gradient once per stage
   if(!GS.gradientCache){
-    const [c1,c2]=GS.currentBg||['#e6f5f2','#d4ebe7'];
-    const g=GS.ctx.createLinearGradient(0,0,C.WIDTH,C.HEIGHT); g.addColorStop(0,c1); g.addColorStop(1,c2);
-    GS.gradientCache=g;
+    GS.gradientCache = GS.ctx.createLinearGradient(0,0,0,C.HEIGHT);
+    GS.gradientCache.addColorStop(0, "#b8e0d8");
+    GS.gradientCache.addColorStop(1, "#eafcf7");
   }
-  GS.ctx.fillStyle=GS.gradientCache; GS.ctx.fillRect(0,0,C.WIDTH,C.HEIGHT);
+  GS.ctx.fillStyle = GS.gradientCache;
+  GS.ctx.fillRect(0,0,C.WIDTH,C.HEIGHT);
 };
 function spawnBoss(bossDef,isFinal=false){
   if(GS.audio) GS.audio.playTone(80,'sawtooth',1.0,.4);
@@ -1250,24 +1258,24 @@ function update(){
   spawnEnemies();
   GS.player.update();
 
-  // On mobile, halve updates for heavy entities
-  if (DEVICE.isMobile && GS.frameCount % 2 === 0) {
-    stepEntities(GS.enemies);
-    stepEntities(GS.projectiles);
-  } else {
-    stepEntities(GS.enemies);
-    stepEntities(GS.projectiles);
+  // Particle update optimization: cap processing for mobile
+  const maxParticles = DEVICE.isMobile ? 50 : GS.particles.length;
+  for (let i = 0; i < maxParticles && i < GS.particles.length; i++) {
+    GS.particles[i].update();
   }
+  // Remove inactive particles from array (compact in place)
+  let pw = 0;
+  for (let i = 0; i < GS.particles.length; i++) {
+    if (GS.particles[i].active) GS.particles[pw++] = GS.particles[i];
+  }
+  GS.particles.length = pw;
+
+  // Step other entities as usual
+  stepEntities(GS.enemies);
+  stepEntities(GS.projectiles);
   stepEntities(GS.enemyProjectiles);
   stepEntities(GS.gems);
   stepEntities(GS.potions);
-
-  // Skip particle updates on mobile if low performance
-  if (DEVICE.isMobile && (PERF.score < 0.8 || GS.lowPerfMode)) {
-    GS.particles.length = 0;
-  } else {
-    stepEntities(GS.particles);
-  }
   stepEntities(GS.damageTexts);
   checkCollisions();
   if(GS.screenShake>0) GS.screenShake -= GS.dt*20;
@@ -1277,10 +1285,17 @@ function render(){
   const ctx=GS.ctx; ctx.save();
   if(GS.screenShake>0) ctx.translate(M.rand(-GS.screenShake,GS.screenShake), M.rand(-GS.screenShake,GS.screenShake));
 
-  // Skip complex background gradients and vignette for mobile
+  // CPU-side batching: draw static bg buffer for mobile, else gradient
   if (DEVICE.isMobile) {
-    GS.ctx.fillStyle = '#e6f5f2';
-    GS.ctx.fillRect(0, 0, C.WIDTH, C.HEIGHT);
+    if (!GS.bgBuffer || GS.bgBuffer.width !== C.WIDTH || GS.bgBuffer.height !== C.HEIGHT) {
+      GS.bgBuffer = document.createElement("canvas");
+      GS.bgBuffer.width = C.WIDTH;
+      GS.bgBuffer.height = C.HEIGHT;
+      const bctx = GS.bgBuffer.getContext("2d");
+      bctx.fillStyle = "#e6f5f2";
+      bctx.fillRect(0, 0, C.WIDTH, C.HEIGHT);
+    }
+    ctx.drawImage(GS.bgBuffer, 0, 0);
   } else {
     Draw.background();
   }
@@ -1342,25 +1357,17 @@ function gameLoop(t = performance.now()) {
   let raw = (t - GS.lastTime) / 1000;
   GS.lastTime = t;
 
-  // Clamp GS.dt tighter for mobile
-  if (DEVICE.isMobile) raw = Math.min(Math.max(raw, 0.015), 0.03);
+  // Adaptive frame pacing: smooth delta, no FPS throttle
+  if (DEVICE.isMobile) raw = Math.min(Math.max(raw, 0.01), 0.025);
   else raw = Math.min(Math.max(raw, 0.008), 0.033);
-  GS.dt = Math.min(raw, 0.1);
+  GS.smoothedDt = GS.smoothedDt ? (GS.smoothedDt * 0.9 + raw * 0.1) : raw;
+  GS.dt = GS.smoothedDt;
 
   // Low performance detection
   if (!GS.lowPerfCounter) GS.lowPerfCounter = 0;
   if (raw > 0.035) GS.lowPerfCounter++;
   else GS.lowPerfCounter = Math.max(0, GS.lowPerfCounter - 1);
   GS.lowPerfMode = GS.lowPerfCounter > 5;
-
-  // Adaptive FPS limiter for mobile to 30 FPS
-  if (DEVICE.isMobile && GS.frameCount % 2 === 1) {
-    update();
-    GS.time += GS.dt;
-    GS.frameCount++;
-    requestAnimationFrame(gameLoop);
-    return;
-  }
 
   if (GS.state === 'running') {
     GS.time += GS.dt;
