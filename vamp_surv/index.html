@@ -251,15 +251,17 @@ const GS = {
 
 /* ---------- Resize ---------- */
 function resize() {
-  const ratio = window.devicePixelRatio || 1;
-  C.WIDTH = innerWidth;
-  C.HEIGHT = innerHeight;
-  GS.canvas.width = C.WIDTH * ratio;
-  GS.canvas.height = C.HEIGHT * ratio;
-  GS.canvas.style.width = C.WIDTH + "px";
-  GS.canvas.style.height = C.HEIGHT + "px";
+  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+  C.WIDTH = Math.floor(innerWidth);
+  C.HEIGHT = Math.floor(innerHeight);
+  GS.canvas.width = Math.floor(C.WIDTH * ratio);
+  GS.canvas.height = Math.floor(C.HEIGHT * ratio);
+  GS.canvas.style.width = `${C.WIDTH}px`;
+  GS.canvas.style.height = `${C.HEIGHT}px`;
   GS.ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   GS.ctx.imageSmoothingEnabled = false;
+  GS.ctx.mozImageSmoothingEnabled = false;
+  GS.ctx.webkitImageSmoothingEnabled = false;
 }
 addEventListener('resize',resize);
 resize();
