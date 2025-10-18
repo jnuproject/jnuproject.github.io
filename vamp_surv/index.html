@@ -257,10 +257,39 @@ const GS = {
   _stageTransitioning:false
 };
 
+const PERF = (() => {
+  const w = typeof window !== 'undefined' ? window : null;
+  const nav = typeof navigator !== 'undefined' ? navigator : {maxTouchPoints:0, msMaxTouchPoints:0};
+  const coarse = !!(w && (
+    'ontouchstart' in w ||
+    nav.maxTouchPoints > 0 ||
+    nav.msMaxTouchPoints > 0 ||
+    (w.matchMedia && w.matchMedia('(pointer:coarse)').matches) ||
+    w.innerWidth < 820
+  ));
+  return {
+    isMobile: coarse,
+    pixelRatioCap: coarse ? 1 : 1.5,
+    particleSpawnScale: coarse ? 0.2 : 1,
+    particlePoolSize: coarse ? 150 : 300,
+    spawnIntervalScale: coarse ? 1.3 : 1,
+    maxEnemies: coarse ? 140 : 240,
+    sortStride: coarse ? 2 : 1,
+    frameMs: coarse ? 28 : 20
+  };
+})();
+
+const HUD = {
+  xpBar: document.getElementById('xpBar'),
+  levelText: document.getElementById('levelText'),
+  timer: document.getElementById('timer'),
+  killCount: document.getElementById('killCount')
+};
+
 /* ---------- Resize ---------- */
 function resize() {
   // Limit devicePixelRatio for performance (esp. on high-DPI)
-  const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+  const ratio = Math.min(window.devicePixelRatio || 1, PERF.pixelRatioCap);
   C.WIDTH = Math.floor(innerWidth);
   C.HEIGHT = Math.floor(innerHeight);
   GS.canvas.width = Math.floor(C.WIDTH * ratio);
@@ -367,9 +396,13 @@ class DamageText extends Entity{
   update(){ this.y+=this.vy*GS.dt; this.life-=GS.dt; if(this.life<=0)this.active=false; }
   draw(){ GS.ctx.globalAlpha=Math.min(1,this.life*2); Draw.text(this.text,this.x,this.y,this.size,this.color); GS.ctx.globalAlpha=1; }
 }
+function addDamageText(dt){
+  if(PERF.isMobile && GS.damageTexts.length > 45) return;
+  GS.damageTexts.push(dt);
+}
 function spawnParticles(x,y,color,count,hw=false){
-  // 모바일에서 입자 수를 1/3로 제한
-  const limit = innerWidth < 800 ? Math.floor(count * 0.33) : count;
+  // 모바일 환경에서는 입자 수를 더 줄여 부하 완화
+  const limit = PERF.isMobile ? Math.max(1, Math.floor(count * PERF.particleSpawnScale)) : count;
   for(let i=0;i<limit;i++){
     if(GS.particlePool.length>0){
       const s= hw? M.rand(50,150): M.rand(100,300);
@@ -776,7 +809,7 @@ class Player extends Entity{
     GS.camera.x = M.lerp(GS.camera.x,this.x,10*GS.dt); GS.camera.y = M.lerp(GS.camera.y,this.y,10*GS.dt);
     this.weapons.forEach(w=>w.update());
     if(this.hp<this.stats.maxHp && this.stats.regen>0){
-      this.regenTimer+=GS.dt; if(this.regenTimer>=1){ this.hp=Math.min(this.stats.maxHp,this.hp+this.stats.regen); this.regenTimer=0; const dt=new DamageText(this.x,this.y,this.stats.regen,false); dt.color='#00a99c'; GS.damageTexts.push(dt); }
+      this.regenTimer+=GS.dt; if(this.regenTimer>=1){ this.hp=Math.min(this.stats.maxHp,this.hp+this.stats.regen); this.regenTimer=0; const dt=new DamageText(this.x,this.y,this.stats.regen,false); dt.color='#00a99c'; addDamageText(dt); }
     }
     if(this.invulnTimer>0) this.invulnTimer-=GS.dt;
     if(Math.abs(this.x)>50000) this.x=0; if(Math.abs(this.y)>50000) this.y=0;
@@ -808,7 +841,7 @@ class Player extends Entity{
   takeDamage(amount){
     if(this.invulnTimer>0||GS.state!=='running') return;
     const dmg=Math.max(1, amount - this.stats.armor); this.hp-=dmg; this.invulnTimer=.5; GS.screenShake=5;
-    const dt=new DamageText(this.x,this.y,dmg,false); dt.color='#ff85a2'; GS.damageTexts.push(dt);
+    const dt=new DamageText(this.x,this.y,dmg,false); dt.color='#ff85a2'; addDamageText(dt);
     if(GS.audio) GS.audio.sfxHurt(); if(this.hp<=0) gameOver();
   }
   gainXp(amount){ this.xp+=amount; if(this.xp>=this.nextLevelXp){ this.xp-=this.nextLevelXp; this.levelUp(); } updateHud(); }
@@ -864,7 +897,7 @@ class Enemy extends Entity{
     }
   }
   takeDamage(amount,isCrit,kb,ang){
-    this.hp-=amount; this.flash=.1; GS.damageTexts.push(new DamageText(this.x,this.y,amount,isCrit));
+    this.hp-=amount; this.flash=.1; addDamageText(new DamageText(this.x,this.y,amount,isCrit));
     const kbf=Math.max(0,kb-this.kbResist); this.x+=Math.cos(ang)*kbf*GS.dt*2; this.y+=Math.sin(ang)*kbf*GS.dt*2; this.vx=0; this.vy=0;
     if(this.hp<=0) this.die();
   }
@@ -1120,7 +1153,10 @@ function spawnEnemies(){
   }
   if(GS.bossHasSpawned) return;
   GS.spawnTimer-=GS.dt; if(GS.spawnTimer<=0){
-    const spawnInterval=Math.max(.05, .4 - (GS.player.level*.025) - (GS.stageIndex*.1)); GS.spawnTimer=spawnInterval;
+    const baseInterval=Math.max(.05, .4 - (GS.player.level*.025) - (GS.stageIndex*.1));
+    const scaledInterval=baseInterval * PERF.spawnIntervalScale;
+    GS.spawnTimer=scaledInterval;
+    if(PERF.isMobile && GS.enemies.length >= PERF.maxEnemies) return;
     const current=STAGES[GS.stageIndex], list=current.enemyTypes, type=list[M.randInt(0,list.length-1)];
     const a=M.rand(0,Math.PI*2), d=Math.sqrt((C.WIDTH/2)**2 + (C.HEIGHT/2)**2) + 50, x=GS.player.x+Math.cos(a)*d, y=GS.player.y+Math.sin(a)*d, def=E_DEFS[type];
     if(def.shoots && Math.random()>.15) return;
@@ -1157,16 +1193,20 @@ function render(){
   const ctx=GS.ctx; ctx.save();
   if(GS.screenShake>0) ctx.translate(M.rand(-GS.screenShake,GS.screenShake), M.rand(-GS.screenShake,GS.screenShake));
   Draw.background();
-  // 오브젝트 렌더링 루프: 900/600 거리 필터 추가
-  for(const e of GS.gems){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
-  for(const p of GS.potions){ if(Math.abs(p.x-GS.player.x)>900||Math.abs(p.y-GS.player.y)>600) continue; p.draw(); }
-  for(const e of GS.particles){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
-  GS.enemies.sort((a,b)=>a.y-b.y);
-  for(const e of GS.enemies){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  const px=GS.player.x, py=GS.player.y;
+  const xCull = PERF.isMobile ? 700 : 900;
+  const yCull = PERF.isMobile ? 500 : 600;
+  for(const e of GS.gems){ if(Math.abs(e.x-px)>xCull||Math.abs(e.y-py)>yCull) continue; e.draw(); }
+  for(const p of GS.potions){ if(Math.abs(p.x-px)>xCull||Math.abs(p.y-py)>yCull) continue; p.draw(); }
+  for(const e of GS.particles){ if(Math.abs(e.x-px)>xCull||Math.abs(e.y-py)>yCull) continue; e.draw(); }
+  if(PERF.sortStride===1 || GS.frameCount % PERF.sortStride===0){
+    GS.enemies.sort((a,b)=>a.y-b.y);
+  }
+  for(const e of GS.enemies){ if(Math.abs(e.x-px)>xCull||Math.abs(e.y-py)>yCull) continue; e.draw(); }
   GS.player.draw();
-  for(const e of GS.projectiles){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
-  for(const e of GS.enemyProjectiles){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
-  for(const e of GS.damageTexts){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  for(const e of GS.projectiles){ if(Math.abs(e.x-px)>xCull||Math.abs(e.y-py)>yCull) continue; e.draw(); }
+  for(const e of GS.enemyProjectiles){ if(Math.abs(e.x-px)>xCull||Math.abs(e.y-py)>yCull) continue; e.draw(); }
+  for(const e of GS.damageTexts){ if(Math.abs(e.x-px)>xCull||Math.abs(e.y-py)>yCull) continue; e.draw(); }
   // 중앙 비네팅 효과는 데스크탑(폭 768 이상)에서만 적용
   if (innerWidth > 768) {
     const grad=ctx.createRadialGradient(C.WIDTH/2,C.HEIGHT/2,C.HEIGHT/2,C.WIDTH/2,C.HEIGHT/2,C.WIDTH/1.5);
@@ -1184,20 +1224,25 @@ function render(){
   drawStageTitle(); ctx.restore();
 }
 function updateHud(){
+  if(!GS.player) return;
+  if(PERF.isMobile && GS.state==='running' && (GS.frameCount % 2 !== 0)) return;
   const p=GS.player, xpPct=(p.xp/p.nextLevelXp)*100;
-  document.getElementById('xpBar').style.width = `${xpPct}%`;
+  if(HUD.xpBar) HUD.xpBar.style.width = `${xpPct}%`;
   // 레벨 텍스트 폰트 크기 모바일에서 30% 축소
   const fontSize = innerWidth < 768 ? 10 : 14;
-  document.getElementById('levelText').style.fontSize = `${fontSize}px`;
-  document.getElementById('levelText').innerText = `LV ${p.level}`;
-  document.getElementById('timer').innerText = M.formatTime(GS.time);
-  document.getElementById('killCount').innerText = `✨ ${GS.kills}`;
+  if(HUD.levelText){
+    HUD.levelText.style.fontSize = `${fontSize}px`;
+    HUD.levelText.innerText = `LV ${p.level}`;
+  }
+  if(HUD.timer) HUD.timer.innerText = M.formatTime(GS.time);
+  if(HUD.killCount) HUD.killCount.innerText = `✨ ${GS.kills}`;
 }
 let lastFrame = 0;
 function gameLoop(t){
   requestAnimationFrame(gameLoop);
-  // FPS 50 제한
-  if (t - lastFrame < 20) return;
+  // Limit render rate (mobile lowers the cap slightly)
+  const minFrame = PERF.frameMs;
+  if (t - lastFrame < minFrame) return;
   lastFrame = t;
   const raw=(t-GS.lastTime)/1000; GS.lastTime=t; GS.dt=Math.min(raw,.1); GS.dt*=.85; // global slow 15%
   if(GS.state!=='running'){ if(GS.state!=='paused'&&GS.state!=='levelup') render(); return; }
@@ -1207,8 +1252,8 @@ function gameLoop(t){
 /* ---------- Game States ---------- */
 function initGame(){
   GS.player=new Player(); GS.enemies=[]; GS.projectiles=[]; GS.enemyProjectiles=[]; GS.gems=[]; GS.particles=[]; GS.damageTexts=[]; GS.potions=[];
-  GS.particlePool=[]; for(let i=0;i<300;i++) GS.particlePool.push(new Particle(0,0,'#fff',0,0,0));
-  GS.time=0; GS.kills=0; GS.camera={x:0,y:0}; GS.spawnTimer=1.8; GS.bossAlert={text:'',life:0};
+  GS.particlePool=[]; const poolSize = PERF.particlePoolSize; for(let i=0;i<poolSize;i++) GS.particlePool.push(new Particle(0,0,'#fff',0,0,0));
+  GS.time=0; GS.kills=0; GS.camera={x:0,y:0}; GS.spawnTimer=1.8 * PERF.spawnIntervalScale; GS.bossAlert={text:'',life:0};
   GS.startTime=null; GS.gameOver=false; GS.victoryInProgress=false; GS.stageIndex=0;
   const initial=STAGES[GS.stageIndex]; GS.stageTitle={text:`STAGE 1 - ${initial.name}`, timer:2.5};
   GS.bossHasSpawned=false; GS.level5BossTriggered=false; GS.level10BossTriggered=false; GS.level15BossTriggered=false; GS.level20BossTriggered=false;
@@ -1364,7 +1409,7 @@ addEventListener('DOMContentLoaded', setupJoystick);
     this.weapons.forEach(w=>w.update());
     if(this.hp<this.stats.maxHp && this.stats.regen>0){
       this.regenTimer+=GS.dt; if(this.regenTimer>=1){ this.hp=Math.min(this.stats.maxHp,this.hp+this.stats.regen); this.regenTimer=0;
-        const dt=new DamageText(this.x,this.y,this.stats.regen,false); dt.color='#00a99c'; GS.damageTexts.push(dt);
+        const dt=new DamageText(this.x,this.y,this.stats.regen,false); dt.color='#00a99c'; addDamageText(dt);
       }
     }
     if(this.invulnTimer>0) this.invulnTimer-=GS.dt;
