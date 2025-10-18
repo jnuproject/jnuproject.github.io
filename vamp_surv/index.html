@@ -109,6 +109,11 @@
     background:rgba(255,255,255,.5); transform:translate(0,0); transition:transform .1s ease-out;
   }
 
+  /* Ensure virtual joystick appears on coarse-pointer / touch-target devices (tablets/phones) */
+  @media (pointer:coarse){
+    #joystick-base{ display:block !important; }
+  }
+
   /* Start Screen (responsive) */
   #startScreen{padding:40px 20px}
   /* #startScreen .screen-logo{
@@ -315,7 +320,8 @@ class AudioSys{
 
 /* ---------- Draw Helpers ---------- */
 const Draw = {
-  glow:()=>{}, resetGlow:()=>{},
+  glow:(color='rgba(0,0,0,0.6)', blur=20, alpha=0.8)=>{ const ctx=GS.ctx; ctx.save(); ctx.shadowBlur=blur; ctx.shadowColor=color; ctx.globalAlpha=alpha; },
+  resetGlow:()=>{ const ctx=GS.ctx; ctx.restore(); },
   circle(x,y,r,fill,stroke=null,lw=2){
     const cx = x-GS.camera.x + C.WIDTH/2;
     const cy = y-GS.camera.y + C.HEIGHT/2;
@@ -425,15 +431,80 @@ class HealthPotion extends Entity{
 /* ---------- Projectiles ---------- */
 class Projectile extends Entity{
   constructor(x,y,r,vx,vy,damage,pierce,duration,color,kb){
-    super(x,y,r); Object.assign(this,{vx,vy,damage,pierce,duration,color,kb}); this.hitList=[];
+    super(x,y,r);
+    Object.assign(this,{vx,vy,damage,pierce,duration,color,kb});
+    this.hitList=[];
   }
-  update(){ this.x+=this.vx*GS.dt; this.y+=this.vy*GS.dt; this.duration-=GS.dt; if(this.duration<=0)this.active=false; this.hitList=[]; }
-  draw(){ Draw.glow(this.color,15); Draw.circle(this.x,this.y,this.r,this.color,'#fff',2); Draw.resetGlow(); }
+  update(){ 
+    this.x+=this.vx*GS.dt; 
+    this.y+=this.vy*GS.dt; 
+    this.duration-=GS.dt; 
+    if(this.duration<=0) this.active=false; 
+    this.hitList=[];
+  }
+  draw(){
+    const cx=this.x-GS.camera.x+C.WIDTH/2;
+    const cy=this.y-GS.camera.y+C.HEIGHT/2;
+    if(cx<-this.r||cx>C.WIDTH+this.r||cy<-this.r||cy>C.HEIGHT+this.r) return;
+    const ctx=GS.ctx;
+
+    // 무기 종류에 따라 다른 모양으로 그림
+    if(this.color==='#87CEFA'){
+      // 마법봉 : 별 모양 탄환
+      Draw.glow(this.color,14,0.95);
+      const spikes=5, outer=this.r, inner=this.r*0.45;
+      ctx.beginPath();
+      for(let i=0;i<spikes;i++){
+        const a=(i*Math.PI*2/spikes)+(GS.time*6);
+        const ax=cx+Math.cos(a)*outer;
+        const ay=cy+Math.sin(a)*outer;
+        ctx.lineTo(ax,ay);
+        const b=a+Math.PI/spikes;
+        const bx=cx+Math.cos(b)*inner;
+        const by=cy+Math.sin(b)*inner;
+        ctx.lineTo(bx,by);
+      }
+      ctx.closePath();
+      ctx.fillStyle=this.color;
+      ctx.fill();
+      Draw.resetGlow();
+      ctx.beginPath(); ctx.arc(cx,cy,Math.max(1,this.r*0.35),0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
+    } else if(this.color==='#44ffaa'){
+      // 부메랑류 : 타원형 회전 탄환
+      Draw.glow(this.color,18,0.9);
+      ctx.beginPath();
+      ctx.ellipse(cx,cy,this.r*1.6,this.r*0.9,Math.atan2(this.vy,this.vx),0,Math.PI*2);
+      ctx.fillStyle=this.color; ctx.fill();
+      Draw.resetGlow();
+    } else {
+      // 기본 : 긴 타원형 파편 형태
+      Draw.glow(this.color,12,0.9);
+      const angle=Math.atan2(this.vy,this.vx);
+      const w=Math.max(1,this.r*1.6);
+      const h=Math.max(1,this.r);
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(angle);
+      ctx.beginPath();
+      ctx.moveTo(-w/2+h/2,-h/2);
+      ctx.arcTo(w/2-h/2,-h/2,w/2-h/2,h/2,h/2);
+      ctx.arcTo(w/2-h/2,h/2,-w/2+h/2,h/2,h/2);
+      ctx.closePath();
+      ctx.fillStyle=this.color;
+      ctx.fill();
+      ctx.beginPath(); ctx.globalAlpha=0.8;
+      ctx.arc(0,0,Math.max(0.5,this.r*0.45),0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.fill();
+      ctx.globalAlpha=1.0;
+      ctx.restore();
+      Draw.resetGlow();
+    }
+  }
   onHit(enemy){
-    const isCrit = Math.random()<GS.player.stats.critChance;
-    const final = this.damage * GS.player.stats.might * (isCrit? GS.player.stats.critDmg:1);
-    enemy.takeDamage(final,isCrit,this.kb,Math.atan2(this.vy,this.vx));
-    this.pierce--; if(this.pierce<0){ this.active=false; }
+    const isCrit=Math.random()<GS.player.stats.critChance;
+    const dmg=this.damage*GS.player.stats.might*(isCrit?GS.player.stats.critDmg:1);
+    enemy.takeDamage(dmg,isCrit,this.kb,Math.atan2(this.vy,this.vx));
+    this.pierce--; if(this.pierce<0) this.active=false;
     if(GS.audio) GS.audio.sfxHit();
   }
 }
@@ -455,7 +526,11 @@ class BoomerangProj extends Projectile{
     if(this.duration<=0 || (this.timer>this.returnTime && M.distSq(this.x,this.y,GS.player.x,GS.player.y)<1600)) this.active=false;
     this.hitList=[];
   }
-  draw(){ Draw.glow(this.color,15); Draw.rect(this.x,this.y,this.r*2.5,this.r,this.color,this.timer*15); Draw.resetGlow(); }
+  draw(){
+    Draw.glow(this.color,18,0.9);
+    Draw.rect(this.x,this.y,this.r*2.5,this.r,this.color,this.timer*15);
+    Draw.resetGlow();
+  }
 }
 
 /* ---------- Weapons ---------- */
@@ -545,7 +620,26 @@ class Axe extends Weapon{
       const p=new Projectile(GS.player.x,GS.player.y-20,15*s.area,Math.sin(spread)*200,-s.spd,s.dmg,s.pierce,3,'#ff85a2',s.kb);
       p.t=0; p.ro=M.rand(0,Math.PI*2);
       p.update=function(){ this.t+=GS.dt; this.vy+=800*GS.dt; this.x+=this.vx*GS.dt; this.y+=this.vy*GS.dt; this.ro+=GS.dt*10; this.duration-=GS.dt; if(this.y>GS.player.y+C.HEIGHT/2) this.active=false; this.hitList=[]; };
-      p.draw=function(){ Draw.glow(this.color,15); Draw.rect(this.x,this.y,this.r*2,this.r*2,this.color,this.ro); Draw.resetGlow(); };
+      p.draw=function(){
+  const ctx=GS.ctx;
+  const cx=this.x-GS.camera.x+C.WIDTH/2;
+  const cy=this.y-GS.camera.y+C.HEIGHT/2;
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.rotate(this.ro);
+  Draw.glow(this.color,18);
+
+  // 망치머리
+  ctx.fillStyle=this.color;
+  ctx.fillRect(-this.r*0.8,-this.r*0.3,this.r*1.2,this.r*0.6);
+
+  // 손잡이
+  ctx.fillStyle='#8b5a2b';
+  ctx.fillRect(-this.r*0.1,-this.r*1.5,this.r*0.2,this.r*1.8);
+
+  Draw.resetGlow();
+  ctx.restore();
+};
       GS.projectiles.push(p);
     }
   }
@@ -662,13 +756,28 @@ class Player extends Entity{
     if(Math.abs(this.x)>50000) this.x=0; if(Math.abs(this.y)>50000) this.y=0;
   }
   draw(){
+    // 플레이어 무기 효과 먼저 그림
     this.weapons.forEach(w=>w.draw&&w.draw());
+
     if(this.invulnTimer>0 && Math.floor(GS.time*20)%2===0) return;
-    const cx=C.WIDTH/2, cy=C.HEIGHT/2, ctx=GS.ctx; ctx.save(); ctx.translate(cx,cy);
-    const ringAngle=GS.time*2; ctx.rotate(ringAngle); ctx.strokeStyle='rgba(0,169,156,.7)'; ctx.lineWidth=2;
-    Draw.glow('rgba(0,169,156,.7)',10); ctx.beginPath(); ctx.arc(0,0,this.r*1.5,0,Math.PI*1.5); ctx.stroke(); Draw.resetGlow(); ctx.restore();
-    Draw.glow(C.COLORS.player,20); Draw.circle(this.x,this.y,this.r,C.COLORS.player,'#fff',2); Draw.resetGlow();
-    const bw=40,bh=6; ctx.fillStyle=C.COLORS.hpBg; ctx.fillRect(cx-bw/2, cy+this.r+5, bw, bh); ctx.fillStyle=C.COLORS.hp; ctx.fillRect(cx-bw/2, cy+this.r+5, bw*(this.hp/this.stats.maxHp), bh);
+
+    const cx=C.WIDTH/2, cy=C.HEIGHT/2, ctx=GS.ctx;
+    ctx.save(); ctx.translate(cx,cy);
+    const ringAngle=GS.time*2; ctx.rotate(ringAngle);
+    ctx.strokeStyle='rgba(0,169,156,0.65)'; ctx.lineWidth=3;
+    Draw.glow('rgba(0,169,156,0.7)',12,0.8);
+    ctx.beginPath(); ctx.arc(0,0,this.r*1.65,0,Math.PI*1.8); ctx.stroke();
+    Draw.resetGlow(); ctx.restore();
+
+    // 본체
+    Draw.glow(C.COLORS.player,22);
+    Draw.circle(this.x,this.y,this.r,C.COLORS.player,'#fff',2);
+    Draw.resetGlow();
+
+    // HP바
+    const bw=40,bh=6;
+    ctx.fillStyle=C.COLORS.hpBg; ctx.fillRect(C.WIDTH/2-bw/2,C.HEIGHT/2+this.r+5,bw,bh);
+    ctx.fillStyle=C.COLORS.hp; ctx.fillRect(C.WIDTH/2-bw/2,C.HEIGHT/2+this.r+5,bw*(this.hp/this.stats.maxHp),bh);
   }
   takeDamage(amount){
     if(this.invulnTimer>0||GS.state!=='running') return;
@@ -1140,13 +1249,22 @@ document.getElementById('btnClosePolicy').onclick=hidePolicy;
 populatePolicyModal();
 
 /* ---------- Canvas Bootstrap ---------- */
-GS.canvas.width=C.WIDTH; GS.canvas.height=C.HEIGHT; Draw.background();
+// bootstrap canvas sizing correctly for high-DPI
+resize();
+Draw.background();
 
 /* ---------- Virtual Joystick (Mobile) ---------- */
 function setupJoystick(){
   const base=document.getElementById('joystick-base'), thumb=document.getElementById('joystick-thumb');
   const ua = navigator.userAgent;
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0 || /iPad|Tablet|PlayBook|Silk/i.test(ua) || (/Macintosh/i.test(ua) && 'ontouchend' in document);
+  const isTouchDevice = (
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0 ||
+    /iPad|Tablet|PlayBook|Silk/i.test(ua) ||
+    (/Macintosh/i.test(ua) && 'ontouchend' in document) ||
+    window.matchMedia && window.matchMedia('(pointer:coarse)').matches
+  );
   if (isTouchDevice) base.style.display = 'block';
   let active=false, rect=base.getBoundingClientRect();
   const refresh=()=> rect=base.getBoundingClientRect();
