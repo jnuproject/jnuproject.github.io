@@ -368,14 +368,9 @@ class DamageText extends Entity{
   draw(){ GS.ctx.globalAlpha=Math.min(1,this.life*2); Draw.text(this.text,this.x,this.y,this.size,this.color); GS.ctx.globalAlpha=1; }
 }
 function spawnParticles(x,y,color,count,hw=false){
-  // Detect mobile device
-  const ua = navigator.userAgent;
-  const isMobile = (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ||
-    ('ontouchstart' in window && window.innerWidth < 900)
-  );
-  if (isMobile) count = Math.max(1, Math.floor(count / 2));
-  for(let i=0;i<count;i++){
+  // 모바일에서 입자 수를 1/3로 제한
+  const limit = innerWidth < 800 ? Math.floor(count * 0.33) : count;
+  for(let i=0;i<limit;i++){
     if(GS.particlePool.length>0){
       const s= hw? M.rand(50,150): M.rand(100,300);
       const sz= hw? M.rand(2,5): M.rand(1,3);
@@ -573,17 +568,37 @@ class Weapon{
   attack(){} getDescription(){ return "Increases stats." }
 }
 class Wand extends Weapon{
-  constructor(){ super("의견 전달","#66ccff"); this.baseDmg=10; this.baseCd=1.0; this.baseSpd=500; this.kb=150; }
+  constructor(){ super("의견 전달","#66ccff"); this.baseDmg=10; this.baseCd=1.0; this.baseSpd=500; this.kb=150; this.cooldownTimer = 0; }
   attack(){
     const target=this.getNearestEnemy(); if(!target){ this.cooldown=.1; return; }
     const s=this.stats; if(GS.audio) GS.audio.sfxShoot();
-    for(let i=0;i<s.amount;i++){
-      setTimeout(()=>{
-        if(GS.state!=='running') return;
-        const t=this.getNearestEnemy() || target;
+    // 내부 타이머로 누적 호출 방지
+    if(!this.cooldownTimer) this.cooldownTimer = 0;
+    this.cooldownTimer = 0;
+    this._wandAttackIndex = 0;
+    this._wandAttackAmount = s.amount;
+    this._wandAttackTarget = target;
+  }
+  update(){
+    this.cooldown-=GS.dt;
+    if(this.cooldown<=0){
+      this.attack();
+      this.cooldown=this.stats.cd;
+    }
+    // 내부 타이머로 발사체 순차 발사
+    if(this._wandAttackAmount > 0){
+      if(!this._wandAttackDelay) this._wandAttackDelay = 0;
+      this._wandAttackDelay -= GS.dt*1000;
+      if(this._wandAttackDelay <= 0){
+        // 한 번 발사
+        if(GS.state!=='running'){ this._wandAttackAmount = 0; return; }
+        const t=this.getNearestEnemy() || this._wandAttackTarget;
+        const s=this.stats;
         const a=M.angle(GS.player.x,GS.player.y,t.x,t.y) + M.rand(-.1,.1);
         GS.projectiles.push(new Projectile(GS.player.x,GS.player.y,8*s.area,Math.cos(a)*s.spd,Math.sin(a)*s.spd,s.dmg,s.pierce,s.dur,'#87CEFA',s.kb));
-      }, i*100);
+        this._wandAttackAmount--;
+        this._wandAttackDelay = 100;
+      }
     }
   }
   getDescription(){ return "가장 가까운 적에게 마법 발사체를 발사합니다."; }
@@ -1142,9 +1157,16 @@ function render(){
   const ctx=GS.ctx; ctx.save();
   if(GS.screenShake>0) ctx.translate(M.rand(-GS.screenShake,GS.screenShake), M.rand(-GS.screenShake,GS.screenShake));
   Draw.background();
-  GS.gems.forEach(e=>e.draw()); GS.potions.forEach(p=>p.draw()); GS.particles.forEach(e=>e.draw());
-  GS.enemies.sort((a,b)=>a.y-b.y); GS.enemies.forEach(e=>e.draw());
-  GS.player.draw(); GS.projectiles.forEach(e=>e.draw()); GS.enemyProjectiles.forEach(e=>e.draw()); GS.damageTexts.forEach(e=>e.draw());
+  // 오브젝트 렌더링 루프: 900/600 거리 필터 추가
+  for(const e of GS.gems){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  for(const p of GS.potions){ if(Math.abs(p.x-GS.player.x)>900||Math.abs(p.y-GS.player.y)>600) continue; p.draw(); }
+  for(const e of GS.particles){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  GS.enemies.sort((a,b)=>a.y-b.y);
+  for(const e of GS.enemies){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  GS.player.draw();
+  for(const e of GS.projectiles){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  for(const e of GS.enemyProjectiles){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
+  for(const e of GS.damageTexts){ if(Math.abs(e.x-GS.player.x)>900||Math.abs(e.y-GS.player.y)>600) continue; e.draw(); }
   // 중앙 비네팅 효과는 데스크탑(폭 768 이상)에서만 적용
   if (innerWidth > 768) {
     const grad=ctx.createRadialGradient(C.WIDTH/2,C.HEIGHT/2,C.HEIGHT/2,C.WIDTH/2,C.HEIGHT/2,C.WIDTH/1.5);
@@ -1155,19 +1177,28 @@ function render(){
     const alpha=Math.min(1,GS.bossAlert.life), size=40+(3-GS.bossAlert.life)*5; ctx.globalAlpha=alpha;
     Draw.text(GS.bossAlert.text, GS.player.x, GS.player.y - C.HEIGHT/3, size, '#b30000'); ctx.globalAlpha=1;
   }
-  ctx.font = "16px 'Press Start 2P'"; ctx.textAlign="center"; ctx.fillStyle="#003d38"; ctx.strokeStyle="#fff"; ctx.lineWidth=4;
+  // 스테이지 텍스트 폰트 크기 모바일에서 30% 축소
+  const fontSize = innerWidth < 768 ? Math.floor(16 * 0.7) : 16;
+  ctx.font = `${fontSize}px 'Press Start 2P'`; ctx.textAlign="center"; ctx.fillStyle="#003d38"; ctx.strokeStyle="#fff"; ctx.lineWidth=4;
   const stageName=STAGES[GS.stageIndex]?.name||"", stageText=`STAGE ${GS.stageIndex+1} - ${stageName}`, x=C.WIDTH/2, y=85; ctx.strokeText(stageText,x,y); ctx.fillText(stageText,x,y);
   drawStageTitle(); ctx.restore();
 }
 function updateHud(){
   const p=GS.player, xpPct=(p.xp/p.nextLevelXp)*100;
   document.getElementById('xpBar').style.width = `${xpPct}%`;
+  // 레벨 텍스트 폰트 크기 모바일에서 30% 축소
+  const fontSize = innerWidth < 768 ? 10 : 14;
+  document.getElementById('levelText').style.fontSize = `${fontSize}px`;
   document.getElementById('levelText').innerText = `LV ${p.level}`;
   document.getElementById('timer').innerText = M.formatTime(GS.time);
   document.getElementById('killCount').innerText = `✨ ${GS.kills}`;
 }
+let lastFrame = 0;
 function gameLoop(t){
   requestAnimationFrame(gameLoop);
+  // FPS 50 제한
+  if (t - lastFrame < 20) return;
+  lastFrame = t;
   const raw=(t-GS.lastTime)/1000; GS.lastTime=t; GS.dt=Math.min(raw,.1); GS.dt*=.85; // global slow 15%
   if(GS.state!=='running'){ if(GS.state!=='paused'&&GS.state!=='levelup') render(); return; }
   GS.time+=GS.dt; GS.frameCount++; update(); render(); updateHud();
@@ -1202,6 +1233,12 @@ function togglePause(){
 }
 function gameOver(){
   GS.state='gameover'; if(GS.audio) GS.audio.sfxDie();
+  // 폰트 크기 모바일에서 30% 축소
+  const fontSize = innerWidth < 768 ? 10 : 14;
+  document.getElementById('goTitle').style.fontSize = `${Math.floor(32 * (innerWidth < 768 ? 0.7 : 1))}px`;
+  document.getElementById('goTime').style.fontSize = `${fontSize}px`;
+  document.getElementById('goKills').style.fontSize = `${fontSize}px`;
+  document.getElementById('goLevel').style.fontSize = `${fontSize}px`;
   document.getElementById('goTitle').innerText="꿈속에 갇혔습니다...";
   document.getElementById('goTime').innerText=`버틴 시간: ${M.formatTime(GS.time)}`;
   document.getElementById('goKills').innerText=`물리친 악몽: ${GS.kills}`;
@@ -1210,6 +1247,11 @@ function gameOver(){
 }
 function endGame(msg){
   GS.state='gameover'; if(GS.audio) GS.audio.sfxDie();
+  const fontSize = innerWidth < 768 ? 10 : 14;
+  document.getElementById('goTitle').style.fontSize = `${Math.floor(32 * (innerWidth < 768 ? 0.7 : 1))}px`;
+  document.getElementById('goTime').style.fontSize = `${fontSize}px`;
+  document.getElementById('goKills').style.fontSize = `${fontSize}px`;
+  document.getElementById('goLevel').style.fontSize = `${fontSize}px`;
   document.getElementById('goTitle').innerText=msg||"꿈속에 갇혔습니다...";
   document.getElementById('goTime').innerText=`버틴 시간: ${M.formatTime(GS.time)}`;
   document.getElementById('goKills').innerText=`물리친 악몽: ${GS.kills}`;
@@ -1218,6 +1260,9 @@ function endGame(msg){
 }
 function victory(){
   if(GS.state==='victory') return; GS.state='victory'; GS.enemies=[];
+  // 폰트 크기 모바일에서 30% 축소
+  const fontSize = innerWidth < 768 ? 10 : 14;
+  document.getElementById('vKills').style.fontSize = `${fontSize}px`;
   document.getElementById('vKills').innerText=`물리친 악몽: ${GS.kills}`;
   document.getElementById('victoryScreen').classList.remove('hidden');
 }
