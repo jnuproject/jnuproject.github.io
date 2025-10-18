@@ -316,6 +316,9 @@ function resize() {
   GS.canvas.style.willChange = "transform, opacity";
   GS.canvas.style.transform = "translateZ(0)";
   GS.canvas.style.imageRendering = "auto";
+  // ✅ Add missing GPU CSS hints for smoother mobile compositing
+  GS.canvas.style.backfaceVisibility = "hidden";
+  GS.canvas.style.contain = "layout style paint";
 }
 let resizeTimer;
 addEventListener('resize', ()=> {
@@ -1251,7 +1254,12 @@ function update(){
   stepEntities(GS.enemyProjectiles);
   stepEntities(GS.gems);
   stepEntities(GS.potions);
-  stepEntities(GS.particles);
+  // ✅ Mobile particle update throttling to reduce micro-stutter
+  if (DEVICE.isMobile && PERF.score < 0.9 && (GS.frameCount % 2 === 1)) {
+    // skip particle updates on alternating frames for smoother pacing
+  } else {
+    stepEntities(GS.particles);
+  }
   stepEntities(GS.damageTexts);
   checkCollisions();
   if(GS.screenShake>0) GS.screenShake -= GS.dt*20;
@@ -1308,27 +1316,49 @@ function updateHud(){
   if(HUD.timer) HUD.timer.innerText = M.formatTime(GS.time);
   if(HUD.killCount) HUD.killCount.innerText = `✨ ${GS.kills}`;
 }
-function gameLoop(t = performance.now()){
-  // ✅ Ensure first frame has a valid timestamp
+function gameLoop(t = performance.now()) {
+  // ✅ First frame stabilization
   if (!GS.lastTime) GS.lastTime = t;
-
-  // Delta time with safety cap
-  const raw = (t - GS.lastTime) / 1000;
+  let raw = (t - GS.lastTime) / 1000;
   GS.lastTime = t;
+
+  // ✅ Micro-stutter smoothing (normalize weird frame gaps)
+  if (raw > 0.033) raw = 0.016 + (raw - 0.016) * 0.4; // soften long frames
+  else if (raw < 0.008) raw = 0.016;                  // clamp too-short frames
   GS.dt = Math.min(raw, 0.1);
 
-  // Optional light pacing only on very weak mobile devices (skip rendering every other frame), never stop updates
-  const skipRender = (DEVICE.isMobile && PERF.score < 0.8 && (GS.frameCount % 2 === 1));
+  // ✅ Adaptive pacing for mobile to avoid CPU/GPU spikes
+  if (DEVICE.isMobile) {
+    if (!GS.adaptiveTimer) GS.adaptiveTimer = 0;
+    GS.adaptiveTimer += GS.dt;
 
-  if (GS.state === 'running'){
+    if (GS.adaptiveTimer >= 0.5) {
+      const perfFrame = performance.now() - t; // rough per-frame cost
+      GS.adaptiveFrameSkip = perfFrame > 12 ? 2 : 1; // skip render every other frame if overloaded
+      GS.adaptiveTimer = 0;
+    }
+
+    if (GS.frameCount % (GS.adaptiveFrameSkip || 1) !== 0) {
+      // Update always runs so gameplay never stalls; render can be skipped to smooth pacing
+      if (GS.state === 'running') {
+        GS.time += GS.dt;
+        GS.frameCount++;
+        update();
+      }
+      requestAnimationFrame(gameLoop);
+      return;
+    }
+  }
+
+  if (GS.state === 'running') {
     GS.time += GS.dt;
     GS.frameCount++;
     update();
-    if (!skipRender) render();
+    render();
     updateHud();
   } else {
-    // When paused/menus, keep a periodic render so the UI draws
-    if (!skipRender && GS.state !== 'paused' && GS.state !== 'levelup') render();
+    // When paused/menus, still render to keep UI responsive
+    render();
   }
 
   requestAnimationFrame(gameLoop);
