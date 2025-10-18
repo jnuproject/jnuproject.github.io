@@ -1144,7 +1144,7 @@ addEventListener('DOMContentLoaded', setupJoystick);
 
 /* Patch Player.update for mobile joystick */
 (function(){
-  const isMobile=/Mobi|Android/i.test(navigator.userAgent); if(!isMobile) return;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0; if (!isTouchDevice) return;
   const orig=Player.prototype.update;
   Player.prototype.update=function(){
     if(GS.victoryInProgress) return;
