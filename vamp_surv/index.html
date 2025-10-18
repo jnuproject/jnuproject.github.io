@@ -111,13 +111,22 @@
 
   /* Start Screen (responsive) */
   #startScreen{padding:40px 20px}
-  #startScreen .screen-logo{
+  /* #startScreen .screen-logo{
     position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
     max-width:200px; width:50%;
-  }
+  } */
   #startScreen .start-content{text-align:center}
   #startScreen h1{font-size:clamp(28px,7vw,48px); white-space:normal; word-break:keep-all; text-align:center;}
   #startScreen p{font-size:clamp(12px,3.5vw,14px); line-height:1.6}
+
+  .screen-logo {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 200px;
+    width: 50%;
+  }
 
   @media (max-width:768px){
     h1{font-size:8vw}
@@ -161,6 +170,7 @@
     <h2>잠깐의 휴식</h2>
     <div id="statsContainer" style="text-align:left;margin-bottom:20px;font-size:10px"></div>
     <button id="btnResume">계속하기</button>
+    <img src="logo.png" alt="DREAM Logo" class="screen-logo" />
   </div>
 
   <!-- Game Over -->
@@ -171,6 +181,7 @@
     <p id="goLevel">성장 레벨: 1</p>
     <button id="btnRestart">다시 도전하기</button>
     <button id="btnPolicyGO">정책 확인하기</button>
+    <img src="logo.png" alt="DREAM Logo" class="screen-logo" />
   </div>
 
   <!-- Victory -->
@@ -181,6 +192,7 @@
     <p style="font-size:12px;">“함께 꿈꾸는 캠퍼스, 드림이 만듭니다.”</p>
     <button id="btnRestartVic">다시하기</button>
     <button id="btnPolicyVic">정책 확인하기</button>
+    <img src="logo.png" alt="DREAM Logo" class="screen-logo" />
   </div>
 
   <!-- Level Up -->
@@ -1153,7 +1165,7 @@ addEventListener('DOMContentLoaded', setupJoystick);
   navigator.msMaxTouchPoints > 0 ||
   /iPad|Tablet|PlayBook|Silk/i.test(ua) ||
   (/Macintosh/i.test(ua) && 'ontouchend' in document);
-  if (!isTouchDevice) return;
+  if (!isTouchDevice) return;  
   const orig=Player.prototype.update;
   Player.prototype.update=function(){
     if(GS.victoryInProgress) return;
