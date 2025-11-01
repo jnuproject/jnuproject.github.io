@@ -195,14 +195,14 @@ button:hover {
   <div class="modal-card">
     <h2>💡 힌트</h2>
     <p>완성 이미지는 아래 로고와 같아요!</p>
-    <img src="로고2.png" alt="힌트 이미지" style="width:100%; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.15); margin-bottom:20px;">
+    <img src="logo2.png" alt="힌트 이미지" style="width:100%; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.15); margin-bottom:20px;">
     <button id="closeHintBtn">닫기</button>
   </div>
 </div>
 
 <script>
 const rows = 3, cols = 3;
-const imageURL = '로고2.png';
+const imageURL = 'logo2.png';
 let positions = Array.from({length: rows*cols-1}, (_,i)=>i);
 positions.push(null);
 shuffle(positions);
@@ -307,3 +307,4 @@ document.getElementById('startBtn').onclick=()=>{
 </script>
 </body>
 </html>
+
