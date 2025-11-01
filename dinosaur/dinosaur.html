@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>정책을 넘는 공룡 🦖</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --ground: #999;
+      --dino: #222;
+      --pillar: #111;
+      --coin: #f4c542;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #f9fafc 0%, #eef2f3 100%);
+      font-family: "Pretendard", sans-serif;
+    }
+
+    #gameWrap {
+      background: #fff;
+      border: 2px solid #ccc;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      touch-action: manipulation;
+    }
+
+    #info {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    #msg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.9);
+      text-align: center;
+      font-size: 20px;
+      color: #222;
+    }
+    #msg small { color: #777; font-size: 14px; }
+
+    @media (max-width: 600px) {
+      #gameWrap { transform: scale(0.85); }
+    }
+  </style>
+</head>
+<body>
+  <div id="gameWrap">
+    <canvas id="game" width="900" height="260"></canvas>
+    <div id="info">점수: <span id="score">0</span></div>
+    <div id="msg">
+      정책을 넘는 공룡 🦖<br/>
+      <small>스페이스 / ↑ / 터치로 점프</small>
+      <small>검은 기둥을 피해 오래 살아남자!</small>
+      <small>시작하려면 아무 키나 눌러!</small>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    const scoreEl = document.getElementById("score");
+    const msgEl = document.getElementById("msg");
+
+    const W = canvas.width;
+    const H = canvas.height;
+    const groundY = H - 40;
+
+    // 🦖 공룡
+    const dino = {
+      x: 60, y: groundY - 45, w: 40, h: 45,
+      vy: 0, gravity: 0.6, jumpPower: -12, isJump: false
+    };
+
+    let obstacles = [];
+    let coins = [];
+    let gameSpeed = 5;
+    let frame = 0;
+    let score = 0;
+    let isGameOver = false;
+    let isStarted = false;
+
+    // 🎮 게임 리셋
+    function resetGame() {
+      obstacles = [];
+      coins = [];
+      gameSpeed = 5;
+      frame = 0;
+      score = 0;
+      scoreEl.textContent = 0;
+      isGameOver = false;
+      isStarted = true;
+      dino.y = groundY - dino.h;
+      dino.vy = 0;
+      msgEl.style.display = "none";
+    }
+
+    // 🦘 점프
+    function jump() {
+      if (isGameOver || !isStarted) {
+        resetGame();
+        return;
+      }
+      if (!dino.isJump) {
+        dino.vy = dino.jumpPower;
+        dino.isJump = true;
+      }
+    }
+
+    // 키 / 터치 입력
+    window.addEventListener("keydown", e => {
+      if (["Space", "ArrowUp"].includes(e.code)) {
+        e.preventDefault();
+        jump();
+      }
+    });
+    canvas.addEventListener("pointerdown", jump);
+
+    // 🔲 장애물 추가
+    function addObstacle() {
+      const w = 20 + Math.random() * 10;
+      const h = 40 + Math.random() * 40;
+      obstacles.push({ x: W + 20, y: groundY - h, w, h });
+    }
+
+    // 🪙 코인 추가
+    function addCoin() {
+      const y = groundY - (80 + Math.random() * 60);
+      coins.push({ x: W + 20, y, w: 18, h: 18 });
+    }
+
+    // ⚠️ 충돌 체크
+    function isCollide(a, b) {
+      return (
+        a.x < b.x + b.w &&
+        a.x + a.w > b.x &&
+        a.y < b.y + b.h &&
+        a.y + a.h > b.y
+      );
+    }
+
+    // ❌ 게임 오버
+    function gameOver() {
+      isGameOver = true;
+      isStarted = false;
+      msgEl.innerHTML = `게임 오버 💀<br/>점수: ${score}<br/><small>아무 키나 눌러서 다시 시작!</small>`;
+      msgEl.style.display = "flex";
+    }
+
+    // 🧠 업데이트
+    function update() {
+      if (!isStarted) {
+        draw();
+        requestAnimationFrame(update);
+        return;
+      }
+
+      frame++;
+      dino.vy += dino.gravity;
+      dino.y += dino.vy;
+      if (dino.y > groundY - dino.h) {
+        dino.y = groundY - dino.h;
+        dino.isJump = false;
+      }
+
+      if (frame % 80 === 0) addObstacle();
+      if (frame % 150 === 0) addCoin();
+
+      for (let i = obstacles.length - 1; i >= 0; i--) {
+        const ob = obstacles[i];
+        ob.x -= gameSpeed;
+        if (isCollide(dino, ob)) gameOver();
+        if (ob.x + ob.w < 0) obstacles.splice(i, 1);
+      }
+
+      for (let i = coins.length - 1; i >= 0; i--) {
+        const c = coins[i];
+        c.x -= gameSpeed;
+        if (isCollide(dino, c)) {
+          coins.splice(i, 1);
+          score += 3;
+          scoreEl.textContent = score;
+        } else if (c.x + c.w < 0) coins.splice(i, 1);
+      }
+
+      if (frame % 100 === 0) {
+        score++;
+        scoreEl.textContent = score;
+        if (score % 10 === 0) gameSpeed += 0.2;
+      }
+
+      draw();
+      requestAnimationFrame(update);
+    }
+
+    // ✏️ 그리기
+    function drawGround() {
+      ctx.strokeStyle = "#aaa";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(W, groundY);
+      ctx.stroke();
+    }
+
+    function drawDino() {
+      ctx.fillStyle = "var(--dino)";
+      ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+      // 눈
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(dino.x + dino.w - 12, dino.y + 8, 7, 7);
+      ctx.fillStyle = "#000";
+      ctx.fillRect(dino.x + dino.w - 9, dino.y + 10, 3, 3);
+    }
+
+    function drawObstacles() {
+      ctx.fillStyle = "var(--pillar)";
+      obstacles.forEach(ob => {
+        ctx.fillRect(ob.x, ob.y, ob.w, ob.h);
+      });
+    }
+
+    function drawCoins() {
+      ctx.fillStyle = "var(--coin)";
+      coins.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x + c.w / 2, c.y + c.h / 2, c.w / 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    function drawClouds() {
+      ctx.fillStyle = "rgba(180,180,180,0.3)";
+      const t = frame * 0.3;
+      const x1 = W - (t % (W + 200));
+      ctx.beginPath();
+      ctx.ellipse(x1, 50, 50, 15, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const x2 = W - ((t + 100) % (W + 250));
+      ctx.beginPath();
+      ctx.ellipse(x2, 80, 40, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, W, H);
+      drawClouds();
+      drawGround();
+      drawObstacles();
+      drawCoins();
+      drawDino();
+    }
+
+    draw();
+    update();
+  </script>
+</body>
+</html>
