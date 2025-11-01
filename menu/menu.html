@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>음식 추천 시스템</title>
+<style>
+  html, body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+  body {
+  font-family: "Pretendard", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100vh;
+  color: #333;
+  background-color: #f2f1f1;
+}
+
+  body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("나비.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.9;
+  z-index: -2;
+}
+  body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(255,255,255,0.6);
+  z-index: -1;
+}
+
+  h1 {
+    margin-bottom: 25px;
+    color: #00a99c;
+    font-size: 2em;
+    text-align: center;
+  }
+
+  .category-group {
+  margin: 15px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px 12px;
+  width: min(90%, 600px);
+  justify-items: center;
+}
+
+  .category-group button {
+  background-color: white;
+  border: 2px solid #00a99c;
+  color: #00a99c;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  cursor: pointer;
+  transition: 0.25s;
+  width: 100%;
+  max-width: 120px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+  .category-group button:hover {
+    background-color: #98d2c6;
+  }
+
+  .category-group button.active {
+    background-color: #00a99c;
+    color: white;
+  }
+
+  #recommendBtn {
+  margin-top: 30px;
+  background-color: #00a99c;
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  padding: 16px 36px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+  #recommendBtn:hover {
+    background-color: #009688;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-content h2 {
+    color: #00a99c;
+    margin-bottom: 10px;
+  }
+
+  .food-name {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .partner-title {
+    margin-top: 20px;
+    color: #00a99c;
+    font-weight: 600;
+    font-size: 1.1em;
+  }
+
+  .partner-list {
+    text-align: left;
+    margin-top: 10px;
+    padding-left: 15px;
+  }
+
+  .partner-item {
+    margin: 6px 0;
+    line-height: 1.4;
+    font-size: 0.95em;
+  }
+
+  .close {
+    margin-top: 20px;
+    background-color: #E0E0E0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .close:hover {
+    background-color: #BDBDBD;
+  }
+</style>
+</head>
+<body>
+
+<h1>🍽 오늘 뭐 먹지?</h1>
+
+<!-- 음식 종류 -->
+<div class="category-group" id="foodType">
+  <button>한식</button>
+  <button>중식</button>
+  <button>일식</button>
+  <button>양식</button>
+  <button>아시안</button>
+  <button>안주</button>
+</div>
+
+<!-- 상황 -->
+<div class="category-group" id="situation">
+  <button>혼밥</button>
+  <button>친구</button>
+  <button>연인</button>
+  <button>가족</button>
+  <button>모임</button>
+</div>
+
+<!-- 위치 -->
+<div class="category-group" id="location">
+  <button>제대</button>
+  <button>아라동</button>
+  <button>시청</button>
+  <button>탑동</button>
+  <button>구제주</button>
+  <button>노형</button>
+  <button>연동</button>
+  <button>신제주</button>
+  <button>애월</button>
+  <button>한림</button>
+  <button>구좌</button>
+  <button>조천</button>
+  <button>함덕</button>
+  <button>서귀포</button>
+  <button>성산</button>
+  <button>표선</button>
+</div>
+
+<button id="recommendBtn">추천받기 🍴</button>
+
+<!-- 모달 -->
+<div class="modal" id="foodModal">
+  <div class="modal-content">
+    <h2>오늘의 추천 음식 🍱</h2>
+    <div class="food-name" id="foodName">랜덤 음식</div>
+
+    <div class="partner-title">제휴 음식점</div>
+    <div class="partner-list" id="partnerList"></div>
+
+    <button class="close" id="closeBtn">닫기</button>
+  </div>
+</div>
+
+<script>
+  // ✅ 선택 버튼 활성화
+  function setupCategory(groupId) {
+    const buttons = document.querySelectorAll(`#${groupId} button`);
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  }
+
+  setupCategory("foodType");
+  setupCategory("situation");
+  setupCategory("location");
+
+  // ✅ 음식 데이터: (음식종류 + 상황 + 위치) 조합별 추천
+  const foodData = {
+    "한식_혼밥_아라동" : ['족발', '고기', '떡볶이', '막창', '국밥'],
+    "중식_혼밥_아라동" : [''],
+    "일식_혼밥_아라동" : ['덮밥'],
+    "양식_혼밥_아라동" : ['돈가스', '피자'],
+    "아시안_혼밥_아라동" : [''],
+    "안주_혼밥_아라동" : [''],
+    "한식_혼밥_제대" : [''],
+    "중식_혼밥_제대" : ['짬뽕', '짜장면', '탕수육'],
+    "일식_혼밥_제대" : [''],
+    "양식_혼밥_제대" : [''],
+    "아시안_혼밥_제대" : [''],
+    "안주_혼밥_제대" : [''],
+    "한식_혼밥_시청" : ['고기', '냉면'],
+    "중식_혼밥_시청" : [''],
+    "일식_혼밥_시청" : ['오렌찌'],
+    "양식_혼밥_시청" : ['프레즐'],
+    "아시안_혼밥_시청" : [''],
+    "안주_혼밥_시청" : [''],
+    "한식_혼밥_탑동" : [''],
+    "중식_혼밥_탑동" : [''],
+    "일식_혼밥_탑동" : [''],
+    "양식_혼밥_탑동" : ['돈가스', '샐러드'],
+    "아시안_혼밥_탑동" : [''],
+    "안주_혼밥_탑동" : [''],
+    "한식_혼밥_구제주" : ['찜닭', '전골', '고기', '닭볶음탕', '국밥', '닭발', '꽈배기', '칼국수', '샤브샤브'],
+    "중식_혼밥_구제주" : ['짬뽕', '짜장면', '탕수육'],
+    "일식_혼밥_구제주" : ['회', '돈가스'],
+    "양식_혼밥_구제주" : ['파스타', '양갈비'],
+    "아시안_혼밥_구제주" : [''],
+    "안주_혼밥_구제주" : [''],
+    "한식_혼밥_노형" : [''],
+    "중식_혼밥_노형" : [''],
+    "일식_혼밥_노형" : [''],
+    "양식_혼밥_노형" : [''],
+    "아시안_혼밥_노형" : [''],
+    "안주_혼밥_노형" : [''],
+    "한식_혼밥_연동" : [''],
+    "중식_혼밥_연동" : [''],
+    "일식_혼밥_연동" : [''],
+    "양식_혼밥_연동" : [''],
+    "아시안_혼밥_연동" : [''],
+    "안주_혼밥_연동" : [''],
+    "한식_혼밥_신제주" : [''],
+    "중식_혼밥_신제주" : [''],
+    "일식_혼밥_신제주" : [''],
+    "양식_혼밥_신제주" : [''],
+    "아시안_혼밥_신제주" : [''],
+    "안주_혼밥_신제주" : [''],
+    "한식_혼밥_애월" : [''],
+    "중식_혼밥_애월" : [''],
+    "일식_혼밥_애월" : [''],
+    "양식_혼밥_애월" : [''],
+    "아시안_혼밥_애월" : [''],
+    "안주_혼밥_애월" : [''],
+    "한식_혼밥_한림" : [''],
+    "중식_혼밥_한림" : [''],
+    "일식_혼밥_한림" : [''],
+    "양식_혼밥_한림" : [''],
+    "아시안_혼밥_한림" : [''],
+    "안주_혼밥_한림" : [''],
+    "한식_혼밥_구좌" : [''],
+    "중식_혼밥_구좌" : [''],
+    "일식_혼밥_구좌" : [''],
+    "양식_혼밥_구좌" : [''],
+    "아시안_혼밥_구좌" : [''],
+    "안주_혼밥_구좌" : [''],
+    "한식_혼밥_조천" : [''],
+    "중식_혼밥_조천" : [''],
+    "일식_혼밥_조천" : [''],
+    "양식_혼밥_조천" : [''],
+    "아시안_혼밥_조천" : [''],
+    "안주_혼밥_조천" : [''],
+    "한식_혼밥_함덕" : [''],
+    "중식_혼밥_함덕" : [''],
+    "일식_혼밥_함덕" : [''],
+    "양식_혼밥_함덕" : [''],
+    "아시안_혼밥_함덕" : [''],
+    "안주_혼밥_함덕" : [''],
+    "한식_혼밥_서귀포" : [''],
+    "중식_혼밥_서귀포" : [''],
+    "일식_혼밥_서귀포" : [''],
+    "양식_혼밥_서귀포" : [''],
+    "아시안_혼밥_서귀포" : [''],
+    "안주_혼밥_서귀포" : [''],
+    "한식_혼밥_성산" : [''],
+    "중식_혼밥_성산" : [''],
+    "일식_혼밥_성산" : [''],
+    "양식_혼밥_성산" : [''],
+    "아시안_혼밥_성산" : [''],
+    "안주_혼밥_성산" : [''],
+    "한식_혼밥_표선" : [''],
+    "중식_혼밥_표선" : [''],
+    "일식_혼밥_표선" : [''],
+    "양식_혼밥_표선" : [''],
+    "아시안_혼밥_표선" : [''],
+    "안주_혼밥_표선" : [''],
+    "default": ["비빔밥", "파스타", "초밥", "치킨"]
+  };
+
+  const partners = {
+    "돈가스": [
+      { name: "리릭", address: "제주 제주시 아란9길 25 1층 리릭" },
+      { name: "한점", address: "제주 제주시 인다2길 30 2층"},
+      { name : "한라 돈까스", address : "제주특별자치도 제주시 탑동로 27 한라돈까스"},
+      { name : "은화수식당 제주용담점", address : "제주 제주시 용담로 85-1 1층"}
+    ],
+    "족발": [
+      { name : "마왕족발 제주 아라점", address: "제주 제주시 아란7길 3-2" },
+    ],
+
+    "고기" : [
+      { name : "명륜진사갈비 제주 아라점", address: "제주 제주시 아란7길 6 1층"},
+      { name : "고요남 제주 아라점", address : "제주 제주시 구남동8길 51"},
+      { name : "마초왕갈비", address : "제주 제주시 서광로32길 18 마초왕갈비"},
+      { name : "어디가코", address : "제주 제주시 서광로32길 23 어디가코 시청점"},
+      { name : "영현이네", address : "제주특별자치도 제주시 연삼로 449 1층 영현이네"},
+      { name : "구어라조연탄", address : "제주 제주시 서광로32길 28"},
+      { name : "돈사촌 본점", address : "제주 제주시 서사로 7"},
+      { name : "마리조아 본점", address : "제주 제주시 삼봉로 99 1층"},
+      { name : "왕생가든", address : "제주 제주시 연신로 261-3"},
+      { name : "육쌈고기뷔페 일도점", address : "제주 제주시 연수로3길 4 2층"},
+      { name : "제주으뜸흑돼지", address : "제주특별자치도 제주시 동한두기길 23 제주으뜸흑돼지"},
+      { name : "창성상회", address : "제주특별자치도 제주시 도남로 25 1층 창성상회"},
+      { name : "통시돈", address : "제주 제주시 신산로 26"},
+      { name : "고기앞에 모두 평등하다", address : "제주 제주시 광양11길 18-1"}
+    ],
+
+    "떡볶이" : [
+      { name : "모닥치기 아라점", address: "제주 제주시 인다9길 8"}
+    ],
+
+    "" : [
+      { name : "모퉁이를 비추는 해", address : "제주특별자치도 제주시 인다6길 43"}
+    ],
+
+    "막창" : [
+      { name : "봉자막창 제주아라점", address : '제주 제주시 구산로 70 1층'}
+    ],
+
+    "덮밥" : [
+      { name : '시시한 덮밥', address : '제주 제주시 인다11길 13 1층 시시한덮밥'}
+    ],
+
+    "짬뽕" : [
+      { name : '월궁', address : '제주 제주시 산천단동2길 20'},
+      { name : "고서방 짬뽕", address : '제주 제주시 인다5길 11-5'},
+      { name : "용짜형뽕", address : "제주 제주시 용두암길 62 1층"}
+    ],
+
+    "짜장면" : [
+      { name : '월궁', address : '제주 제주시 산천단동2길 20'},
+      { name : "고서방 짬뽕", address : '제주 제주시 인다5길 11-5'},
+      { name : "용짜형뽕", address : "제주 제주시 용두암길 62 1층"}
+    ],
+
+    "탕수육" : [
+      { name : '월궁', address : '제주 제주시 산천단동2길 20'},
+      { name : "고서방 짬뽕", address : '제주 제주시 인다5길 11-5'},
+      { name : "용짜형뽕", address : "제주 제주시 용두암길 62 1층"}
+    ],
+
+    "피자" : [
+      { name : '자가제빵 선명희피자 제주점', address : '제주특별자치도 제주시 아라이동 3001-17 1층'},
+    ],
+
+    "국밥" : [
+      { name : "큰맘할매순대국 제주아라점", address : "제주특별자치도 제주시 아라일동 6104-7 1층"},
+      { name : "미듬", address : '제주 제주시 삼봉로 115 상가동101호'}
+    ],
+
+    "찜닭" : [
+      { name : "두찜 제주일도점", address : "제주 제주시 일도이동 고마로 90"}
+    ],
+
+    "회" : [
+      { name : "사랑물", address : "제주특별자치도 제주시 고마로 55"},
+      { name : "오렌찌", address : "제주 제주시 동광로6길 19 1층"}
+    ],
+
+    "냉면" : [
+      { name : "서울냉면", address : "제주 제주시 광양7길 49 1층"},
+    ],
+
+    "프레즐" : [
+      { name : "앤티앤스 프레즐 제주시청점", address : "제주 제주시 신성로13길 15 1층 앤티앤스프레즐 제주시청점"}
+    ],
+
+    "전골" : [
+      { name : "영현이네", address : "제주특별자치도 제주시 연삼로 449 1층 영현이네"}
+    ],
+
+    "파스타" : [
+      { name : "공공시", address : "제주 제주시 연수로1길 6 2층"},
+      { name : "101동 파스타", address : "제주 제주시 박성내서길 12-7 1층"}
+    ],
+
+    "닭볶음탕" : [
+      { name : "낭푼이 닭한마리", address : '제주 제주시 광양13길 6-4'}
+    ],
+
+    "샐러드" : [
+      { name : "리프리지", address : "제주 제주시 탑동로 109 1층"}
+    ],
+
+    "닭발" : [
+      { name : "불등불닭", address : "제주 제주시 남성로 165 1층 불등불닭"}
+    ],
+
+    "꽈배기" : [
+      { name : "스마일 찰진 꽈배기", address : "제주 제주시 서흘4길 1 1층스마일꽈배기"}
+    ], 
+
+    "칼국수" : [
+      { name : "양씨네 제주전복칼국수 본점", address : "제주 제주시 관덕로13길 10-1 1층"}
+    ], 
+    
+    "양갈비" : [
+      { name : "이치진 이도점", address : "제주 제주시 신설로7길 31 1층"}
+    ],
+
+    "샤브샤브" : [
+      { name : "제주 미소", address : "제주 제주시 연수로1길 6 1층"}
+    ], 
+
+    ""
+  };
+
+  const recommendBtn = document.getElementById("recommendBtn");
+  const modal = document.getElementById("foodModal");
+  const closeBtn = document.getElementById("closeBtn");
+  const foodName = document.getElementById("foodName");
+  const partnerList = document.getElementById("partnerList");
+
+  recommendBtn.addEventListener("click", () => {
+    const type = document.querySelector("#foodType button.active")?.textContent;
+    const situation = document.querySelector("#situation button.active")?.textContent;
+    const location = document.querySelector("#location button.active")?.textContent;
+
+    const key = `${type}_${situation}_${location}`;
+    const foods = foodData[key] || foodData["default"];
+
+    foodName.textContent = "🎲 뽑는 중...";
+    partnerList.innerHTML = "";
+    modal.style.display = "flex";
+
+    let i = 0;
+    const interval = setInterval(() => {
+      const randomFood = foods[Math.floor(Math.random() * foods.length)];
+      foodName.textContent = randomFood;
+      i++;
+    }, 80);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      const finalFood = foods[Math.floor(Math.random() * foods.length)];
+      foodName.textContent = finalFood;
+
+      const list = partners[finalFood] || [{ name: "제휴 준비 중", address: "조만간 업데이트 예정" }];
+      partnerList.innerHTML = list.map(
+        p => `<div class="partner-item">🍴 <strong>${p.name}</strong><br>${p.address}</div>`
+      ).join("");
+    }, 800);
+  });
+
+  closeBtn.addEventListener("click", () => modal.style.display = "none");
+  window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
+</script>
+
+</body>
+</html>
