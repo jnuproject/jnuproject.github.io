@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>정책 OX 퀴즈</title>
+    <style>
+        /* CSS 코드 */
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Poppins:wght@600;700&display=swap');
+
+        :root {
+            --bg-color: #2c3e50;
+            --primary-color: #3498db;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --text-color: #ecf0f1;
+            --card-color: #34495e;
+        }
+
+        body {
+            font-family: 'Jua', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a202c;
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #game-container {
+            width: 100%;
+            height: 100%;
+            max-width: 420px;
+            max-height: 800px;
+            background-color: var(--bg-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--bg-color);
+            z-index: 10;
+            transition: opacity 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+            color: var(--text-color);
+        }
+
+        .screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .screen h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .screen p {
+            font-size: 1.2em;
+        }
+
+        .screen button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-size: 1.5em;
+            font-family: 'Jua', sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .screen button:hover {
+            transform: scale(1.05);
+        }
+
+        #result-screen h2 {
+            font-size: 4em;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        #game-screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color);
+        }
+
+        #header-ui {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .stat-box {
+            background-color: rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box span {
+            display: block;
+        }
+
+        .stat-box span:first-child {
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        .stat-box span:last-child {
+            font-size: 1.8em;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #combo-display, #fever-display {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            font-family: 'Poppins', sans-serif;
+            color: #f1c40f;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            animation: bounce 0.5s;
+        }
+
+        #fever-display {
+            font-size: 4em;
+            animation: fever-glow 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+        }
+
+        @keyframes fever-glow {
+            from { text-shadow: 0 0 10px #f1c40f, 0 0 20px #f1c40f; }
+            to { text-shadow: 0 0 20px #f1c40f, 0 0 40px #f1c40f; }
+        }
+
+        #card-area {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        #card {
+            width: 100%;
+            min-height: 300px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 1.8em;
+            position: relative;
+            transition: transform 0.3s ease-out, opacity 0.3s;
+        }
+
+        #card-text {
+            margin: 0;
+            z-index: 1; /* 텍스트가 피드백 영역 위에 오도록 설정 */
+        }
+
+        #feedback-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8em;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        #feedback-area.show {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        #feedback-area.fact {
+            background-color: rgba(46, 204, 113, 0.9);
+            color: white;
+        }
+
+        #feedback-area.fake {
+            background-color: rgba(231, 76, 60, 0.9);
+            color: white;
+        }
+        
+        #feedback-text {
+            margin-top: 10px;
+        }
+        
+        #feedback-icon {
+            font-size: 2em;
+        }
+
+        #control-area {
+            display: flex;
+            height: 150px;
+        }
+
+        .control-btn {
+            flex: 1;
+            border: none;
+            font-size: 3em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #btn-x {
+            background-color: var(--danger-color);
+        }
+
+        #btn-o {
+            background-color: var(--success-color);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn:disabled {
+            background-color: #7f8c8d;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #wrong-answers-container {
+            width: 100%;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #wrong-answers-list {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-top: 10px;
+            max-height: 200px; /* 목록이 길어지면 스크롤 생성 */
+            overflow-y: auto;
+            font-size: 0.8em;
+        }
+
+        .wrong-answer-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .wrong-answer-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .wrong-answer-item .question {
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 0 0 5px 0;
+        }
+
+        .wrong-answer-item .explanation {
+            color: #bdc3c7;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-screen">
+            <div id="header-ui">
+                <div class="stat-box">
+                    <span>TIME</span>
+                    <span id="time-display">60</span>
+                </div>
+                <div class="stat-box">
+                    <span>SCORE</span>
+                    <span id="score-display">0</span>
+                </div>
+            </div>
+
+            <div id="combo-display" class="hidden">COMBO x<span>2</span></div>
+            <div id="fever-display" class="hidden">FEVER TIME!</div>
+
+            <div id="card-area">
+                <div id="card">
+                    <p id="card-text">정책 OX 퀴즈를 시작합니다!</p>
+                    <div id="feedback-area" class="hidden">
+                        <span id="feedback-icon"></span>
+                        <span id="feedback-text"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="control-area">
+                <button id="btn-x" class="control-btn">X</button>
+                <button id="btn-o" class="control-btn">O</button>
+            </div>
+        </div>
+
+        <div id="intro-screen" class="screen">
+            <h1>정책 OX 퀴즈</h1>
+            <p>핵심 정책들을 퀴즈로 다시 확인해보세요!</p>
+            <button id="start-btn">START</button>
+        </div>
+        
+        <div id="result-screen" class="screen hidden">
+            <h1>GAME OVER</h1>
+            <p>최종 점수</p>
+            <h2 id="final-score">0</h2>
+            
+            <div id="wrong-answers-container" class="hidden">
+                <h3>다시 확인해 보세요! 👇</h3>
+                <div id="wrong-answers-list"></div>
+            </div>
+
+            <button id="restart-btn">다시 도전하기</button>
+        </div>
+        </div>
+    <script>
+        // --- JavaScript 코드 ---
+        let audioCtx;
+
+        function playSound(type) {
+            // ... (생략) ...
+        }
+        
+        // ▼▼▼▼▼ 수정된 퀴즈 데이터 ▼▼▼▼▼
+        const QUIZ_DATA = [
+            { question: "‘내 친구 드리미’는 학생들이 학교 정보를 쉽게 얻을 수 있도록 만든 챗봇 서비스이다.", answer: true, explanation: "O! ‘내 친구 드리미’는 학생들이 학교 정보를 쉽게 얻을 수 있도록 만든 챗봇 서비스입니다." },
+            { question: "‘공약 RE;dream’은 학생들의 새로운 아이디어를 발굴하는 프로그램이다.", answer: false, explanation: "X! ‘공약 RE;dream’은 이전 공약 중 미이행된 정책을 다시 추진하는 제도입니다." },
+            { question: "‘JNU 소통 허브’는 학생과 학교 본부 간 소통 강화를 위한 간담회 형식의 플랫폼이다.", answer: true, explanation: "O! ‘JNU 소통 허브’는 학생과 학교 본부 간 소통 강화를 위한 간담회 형식의 플랫폼입니다." },
+            { question: "JNU PASS는 교통비를 지원받을 수 있는 제도로, 월 이용 횟수 제한이 있다.", answer: false, explanation: "X! JNU PASS는 월 이용 횟수 제한을 폐지하고 교통비의 90%를 환급하는 제도입니다." },
+            { question: "DREAM 천원샵은 학생들에게 무료로 생필품을 나눠주는 행사이다.", answer: false, explanation: "X! DREAM 천원샵은 1천 원에 1만 원 상당의 물품을 구매할 수 있는 행사입니다." },
+            { question: "드림 장학금은 후원 기업과 연계된 새로운 형태의 장학금이다.", answer: true, explanation: "O! 드림 장학금은 후원 기업과 연계된 새로운 형태의 장학금입니다." },
+            { question: "서귀포 통학 버스 노선 확대 정책은 서귀포와 제주대학교 정문을 바로 연결하는 버스 노선을 추가하는 것이다.", answer: true, explanation: "O! 서귀포 통학 버스 노선 확대는 서귀포와 제주대학교 정문을 바로 연결하는 노선을 추가하는 정책입니다." },
+            { question: "수강신청 대기 순번제는 인기 과목의 대기자를 자동으로 관리하는 시스템이다.", answer: true, explanation: "O! 수강신청 대기 순번제는 인기 과목의 대기자를 자동으로 관리하는 시스템입니다." },
+            { question: "Dream 융합 트랙 가이드는 새로운 융합 전공을 설계하는 시스템이다.", answer: false, explanation: "X! Dream 융합 트랙 가이드는 기존 융합트랙 정보를 안내하고 홍보하는 플랫폼입니다." },
+            { question: "JNU Career Camp는 취업 준비를 위한 특강과 실습이 결합된 프로그램이다.", answer: true, explanation: "O! JNU Career Camp는 취업 준비를 위한 특강과 실습이 결합된 프로그램입니다." },
+            { question: "학점 인정 인턴십 확대 정책은 인턴십 경험을 학점으로 인정받을 수 있도록 하는 것이다.", answer: true, explanation: "O! 학점 인정 인턴십 확대는 인턴십 경험을 학점으로 인정받을 수 있도록 확대하는 정책입니다." },
+            { question: "예산 의결 학생 참여제는 학생들이 직접 예산 사용 우선순위를 정하는 투표제도이다.", answer: true, explanation: "O! 예산 의결 학생 참여제는 학생들이 직접 예산 사용 우선순위를 정하는 투표제도입니다." },
+            { question: "학내 학생 공간 확보 정책은 학생회 사무실을 늘리는 것이 목표이다.", answer: false, explanation: "X! 해당 정책은 학생 전용 휴게 및 활동 공간을 확보하고 임시 과방을 대체하는 것이 목표입니다." },
+            { question: "‘모두의 출범식’은 총학생회 중심의 내부 행사이다.", answer: false, explanation: "X! ‘모두의 출범식’은 모든 학우가 참여하는 축제 형식의 행사입니다." },
+            { question: "‘문화의 날’은 매월 테마별 교내 행사를 운영하는 정책이다.", answer: true, explanation: "O! ‘문화의 날’은 매월 테마별 교내 행사를 운영하는 정책입니다." },
+            { question: "드림 포인트제는 교내 행사 참여 시 포인트를 쌓아 보상을 받는 제도이다.", answer: true, explanation: "O! 드림 포인트제는 교내 행사 참여 시 포인트를 쌓아 보상을 받는 제도입니다." },
+            { question: "학생회관 냉난방 시스템 확립은 자동 온도 조절 시스템 도입을 포함한다.", answer: true, explanation: "O! 학생회관 냉난방 시스템 확립 정책은 자동 온도 조절 시스템 도입을 포함합니다." },
+            { question: "교양동 프린터기 설치 정책은 학생들이 인쇄를 편하게 하기 위한 것이다.", answer: true, explanation: "O! 교양동 프린터기 설치 정책은 학생들의 인쇄 편의를 위한 것입니다." },
+            { question: "DOR+MUNITY와 DORM LIFE+ 두 정책 모두 기숙사 내 생활 환경 개선을 목표로 한다.", answer: true, explanation: "O! DOR+MUNITY와 DORM LIFE+ 모두 기숙사 내 생활 환경 개선을 목표로 하는 정책입니다." },
+            { question: "제2운동장 환경 개선 정책은 조명을 제거하고 공간을 축소하는 내용이다.", answer: false, explanation: "X! 제2운동장 환경 개선 정책은 LED 조명을 설치하여 야간 안전을 개선하는 것이 목표입니다." },
+            { question: "친환경 허브 캠퍼스 프로젝트는 화학 살충제를 대체해 허브 식물로 벌레를 억제하는 방안이다.", answer: true, explanation: "O! 친환경 허브 캠퍼스 프로젝트는 화학 살충제 대신 허브 식물로 벌레를 억제하는 방안입니다." },
+            { question: "Green JNU Challenge는 환경 아이디어 공모전, 챌린지, 플로깅을 포함한 친환경 캠페인이다.", answer: true, explanation: "O! Green JNU Challenge는 환경 아이디어 공모전, 챌린지, 플로깅 등을 포함하는 친환경 캠페인입니다." },
+            { question: "대학교 교류전은 도내 대학 간 체육대회 중심의 단기 교류 행사이다.", answer: true, explanation: "O! 대학교 교류전은 도내 대학 간 체육대회 중심의 단기 교류 행사입니다." },
+            { question: "제휴 박람회는 학생이 업체와 직접 만나 제휴 혜택을 체험할 수 있는 행사이다.", answer: true, explanation: "O! 제휴 박람회는 학생이 업체와 직접 만나 제휴 혜택을 체험할 수 있는 행사입니다." }
+        ];
+        // ▲▲▲▲▲ 수정된 퀴즈 데이터 ▲▲▲▲▲
+        
+        const introScreen = document.getElementById('intro-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const timeDisplay = document.getElementById('time-display');
+        const scoreDisplay = document.getElementById('score-display');
+        const finalScore = document.getElementById('final-score');
+        const cardText = document.getElementById('card-text');
+        const cardEl = document.getElementById('card');
+        const btnO = document.getElementById('btn-o');
+        const btnX = document.getElementById('btn-x');
+        const comboDisplay = document.getElementById('combo-display');
+        const feverDisplay = document.getElementById('fever-display');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackText = document.getElementById('feedback-text');
+        const wrongAnswersContainer = document.getElementById('wrong-answers-container');
+        const wrongAnswersList = document.getElementById('wrong-answers-list');
+
+        let score, timer, timeLeft, combo, currentQuiz, quizPool, isFever;
+        let wrongAnswers; // 틀린 문제를 저장할 배열
+
+        function init() {
+            score = 0;
+            timeLeft = 60;
+            combo = 0;
+            isFever = false;
+            quizPool = shuffle([...QUIZ_DATA]);
+            wrongAnswers = []; // 게임 시작 시 초기화
+            
+            introScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            gameScreen.style.opacity = 1;
+            
+            // 다시 시작할 때 틀린 문제 목록 숨기기
+            wrongAnswersContainer.classList.add('hidden');
+            wrongAnswersList.innerHTML = '';
+
+            updateScore();
+            updateComboDisplay();
+            timeDisplay.textContent = timeLeft;
+            nextQuiz();
+
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            timeDisplay.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                gameOver();
+            }
+        }
+
+        function nextQuiz() {
+            if (quizPool.length === 0) {
+                gameOver();
+                return;
+            }
+            currentQuiz = quizPool.pop();
+            cardText.textContent = currentQuiz.question;
+            cardEl.style.transform = 'translateX(0)';
+            cardEl.style.opacity = 1;
+            cardText.classList.remove('hidden');
+            feedbackArea.classList.add('hidden');
+            feedbackArea.classList.remove('show');
+            setButtons(false);
+        }
+
+
+        function handleAnswer(userAnswer) {
+            setButtons(true);
+            const isCorrect = userAnswer === currentQuiz.answer;
+            
+            showFeedback(isCorrect);
+            
+            setTimeout(() => {
+                let scoreToAdd = isCorrect ? 100 : -50;
+                if(isFever) scoreToAdd *= 2;
+
+                score += scoreToAdd;
+                if (score < 0) score = 0;
+
+                if (isCorrect) {
+                    playSound('correct');
+                    combo++;
+                    if (combo > 0 && combo % 5 === 0) {
+                        playSound('combo');
+                        startFever();
+                    }
+                } else {
+                    playSound('wrong');
+                    combo = 0;
+                    wrongAnswers.push(currentQuiz); // 틀렸을 경우, 배열에 추가
+                }
+
+                updateScore();
+                updateComboDisplay();
+
+                cardEl.style.transform = `translateX(${isCorrect ? (userAnswer ? '100%' : '-100%') : (userAnswer ? '-100%' : '100%')})`;
+                cardEl.style.opacity = 0;
+                
+                setTimeout(nextQuiz, 500);
+            }, 1500);
+        }
+
+        function showFeedback(isCorrect) {
+            cardText.classList.add('hidden'); // 원래 질문 숨기기
+            feedbackArea.classList.remove('hidden', 'fact', 'fake');
+            
+            if (isCorrect) {
+                feedbackIcon.textContent = "O (정답)";
+                feedbackArea.classList.add('fact');
+            } else {
+                feedbackIcon.textContent = "X (오답)";
+                feedbackArea.classList.add('fake');
+            }
+            feedbackText.textContent = currentQuiz.explanation;
+            feedbackArea.classList.add('show');
+        }
+
+        function startFever() {
+            isFever = true;
+            feverDisplay.classList.remove('hidden');
+            setTimeout(() => {
+                isFever = false;
+                feverDisplay.classList.add('hidden');
+            }, 5000);
+        }
+
+
+        function gameOver() {
+            clearInterval(timer);
+            finalScore.textContent = score;
+            
+            // 틀린 문제가 있으면 목록을 만들어서 보여줌
+            if (wrongAnswers.length > 0) {
+                wrongAnswersContainer.classList.remove('hidden');
+                wrongAnswers.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'wrong-answer-item';
+                    
+                    const questionEl = document.createElement('p');
+                    questionEl.className = 'question';
+                    questionEl.textContent = `Q. ${item.question}`;
+                    
+                    const explanationEl = document.createElement('p');
+                    explanationEl.className = 'explanation';
+                    explanationEl.textContent = item.explanation;
+                    
+                    itemEl.appendChild(questionEl);
+                    itemEl.appendChild(explanationEl);
+                    wrongAnswersList.appendChild(itemEl);
+                });
+            }
+
+            resultScreen.classList.remove('hidden');
+            gameScreen.style.opacity = 0;
+        }
+
+        function updateScore() {
+            scoreDisplay.textContent = score;
+        }
+
+        function updateComboDisplay() {
+            if (combo > 1) {
+                comboDisplay.classList.remove('hidden');
+                comboDisplay.querySelector('span').textContent = combo;
+                comboDisplay.style.animation = 'none';
+                void comboDisplay.offsetWidth;
+                comboDisplay.style.animation = 'bounce 0.5s';
+            } else {
+                comboDisplay.classList.add('hidden');
+            }
+        }
+
+        function setButtons(disabled) {
+            btnO.disabled = disabled;
+            btnX.disabled = disabled;
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+
+        startBtn.addEventListener('click', () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            init();
+        });
+
+        restartBtn.addEventListener('click', init);
+        btnO.addEventListener('click', () => handleAnswer(true));
+        btnX.addEventListener('click', () => handleAnswer(false));
+    </script>
+</body>
+</html>
