@@ -120,6 +120,7 @@ export default function HomeScreen() {
           contentContainerStyle={s.recommendRow}
         >
           {affiliates
+            .filter(item => item.category !== "기업제휴")
             .sort(() => 0.5 - Math.random())
             .slice(0, 5)
             .map((item, i) => (
