@@ -93,15 +93,15 @@ export default function HomeScreen() {
                   <Image
                     source={getImageSource(item.image)}
                     style={s.majorImage}
-                    contentFit="cover"
+                    contentFit="contain"
                   />
                   <LinearGradient
                     colors={['transparent', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,0.9)']}
                     style={s.majorOverlay}
                   >
                     <Text style={s.majorTitle}>{item.name}</Text>
-                    {item.benefits && (
-                      <Text style={s.majorBenefits}>{item.benefits}</Text>
+                    {item.description && (
+                      <Text style={s.majorBenefits}>{item.description}</Text>
                     )}
                   </LinearGradient>
                 </View>
