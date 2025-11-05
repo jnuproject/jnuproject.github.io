@@ -1500,16 +1500,5 @@
     "image": "require('../assets/list_images/37.png')",
     "latitude": 33.4996,
     "longitude": 126.5312
-  },
-  {
-    "id": "148",
-    "name": "테스트",
-    "category": "기업제휴",
-    "subcategory": "식음료",
-    "region": "제주",
-    "description": "음료 N% 할인 및 '제주대학교 X 유동커피' 실습 프로모션 진행",
-    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6xNnepBJYSQkjH40fBzQW0EtBs4dJ8_1iUPXuzSMQyhZdwy-cQTvnBza6GStVdxplCOkJkUd8GeD98U3WR-6d-_s0HP_rByTFo_EyKWsZ77aBZ2G9heumNf4EzMQ-uFwuzZ-k7GuLR1Ghfsfkqc_D4QBB6OH618G7TWZjQT_bbvN2IyQuyLQWzN_htOQOuCL9lggHNmasiYdnNTJnRfpK3KnYZy06gZhGF_E7XdlGglSrs4nhRymx1MU-chu7iHkMlOboe84lheCHk4-zNn0YlSQYQ9pVJkYI-vLjl8PBpJWA6loVtO7EOEllQs6JSIMpEdOB3utcBDVfsHS21ptY4FEdCV8EKeDYvmO2GNwh6yPNWHphJWxkWoo_3i1CLUQtPX3boSI6Zz7POanrq8_CplIgqKrwlFl77Fl8I8BbT7ow&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
-    "latitude": 33.509662714,
-    "longitude": 126.590140068
   }
 ]
