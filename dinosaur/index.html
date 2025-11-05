@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>정책을 먹는 공룡 🦖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+:root {
+  --bg:#f4f4f4;
+  --ground:#d0d0d0;
+  --dino:#333;
+  --obstacle:#000;
+  --coin-communication:#ff7676;
+  --coin-welfare:#f5cd06;
+  --coin-education:#3da5ff;
+  --coin-student:#36b37e;
+  --coin-jeju:#ff9d00;
+  --coin-human:#b86bff;
+  --coin-safety:#ff5ab3;
+  --coin-campus:#6ad69e;
+  --coin-culture:#ffa347;
+  --coin-response:#5ec7f7;
+  --coin-glocal:#6b7cff;
+  --coin-region:#ffb300;
+  --coin-partnership:#8bc34a;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#ffffff 0%,#e8edf3 100%);
+  font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  gap:1rem;
+  padding:1rem;
+}
+h1{
+  margin:0;
+  font-size:1.6rem;
+  color:#333;
+}
+#gameWrapper{
+  position:relative;
+  width:min(1200px, 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.5rem;
+}
+#gameCanvas{
+  background:var(--bg);
+  width:100%;
+  max-width:1200px;
+  height:auto;
+  border:1px solid rgba(0,0,0,0.05);
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+#hud {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.6rem;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 500px) {
+  #hud {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px){
+  body{
+    padding:0.6rem;
+    gap:0.7rem;
+  }
+  #gameWrapper{
+    gap:0.4rem;
+  }
+  #hud{
+    gap:0.4rem;
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 180px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  font-size: clamp(0.6rem, 2vw, 0.9rem);
+}
+
+.dot {
+  width: clamp(10px, 1.6vw, 14px);
+  height: clamp(10px, 1.6vw, 14px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.modal, .overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(3px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+.hidden{display:none !important;}
+.modal-box, .intro-box{
+  background:white;
+  width:min(420px, 95vw);
+  border-radius:18px;
+  padding:1.5rem 1.5rem 1.55rem;
+  box-shadow:0 20px 40px rgba(0,0,0,0.12);
+  text-align:center;
+  animation:pop 0.15s ease-out;
+}
+@keyframes pop{from{transform:scale(.9); opacity:0;}to{transform:scale(1); opacity:1;}}
+.policy-list{margin:1rem 0;text-align:left;list-style:disc; line-height:1.4;}
+.btn{
+  border:none;background:#111827;color:white;padding:.55rem 1.1rem;
+  border-radius:999px;font-weight:600;cursor:pointer;
+}
+.btn:active{transform:translateY(1px);}
+#gameOverBox{
+  position:absolute;inset:0;display:flex;justify-content:center;align-items:center;
+  background:rgba(244,244,244,0.8);backdrop-filter:blur(2px);
+  flex-direction:column;gap:0.6rem;z-index:20;border-radius:14px;
+}
+#gameOverBox.hidden{display:none;}
+#gameOverBox h2{margin:0;}
+#hint{font-size:0.7rem;color:#888;}
+
+#footerBanner {
+  width: 100%;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, #00bfa5, #0097a7);
+  color: white;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+  </style>
+</head>
+<body>
+  
+  <h1>정책을 먹는 공룡 🦖</h1>
+  <div id="gameWrapper">
+    <canvas id="gameCanvas" width="1200" height="400"></canvas>
+
+    <div id="hud">
+      <div class="counter" data-type="communication"><span class="dot" style="background:var(--coin-communication)"></span>소통: <span id="communication">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="welfare"><span class="dot" style="background:var(--coin-welfare)"></span>복지: <span id="welfare">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="education"><span class="dot" style="background:var(--coin-education)"></span>교육취업: <span id="education">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="student"><span class="dot" style="background:var(--coin-student)"></span>학생자치: <span id="student">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="jeju"><span class="dot" style="background:var(--coin-jeju)"></span>제주4·3: <span id="jeju">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="human"><span class="dot" style="background:var(--coin-human)"></span>인권: <span id="human">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="safety"><span class="dot" style="background:var(--coin-safety)"></span>시설안전: <span id="safety">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="campus"><span class="dot" style="background:var(--coin-campus)"></span>그린캠퍼스: <span id="campus">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="culture"><span class="dot" style="background:var(--coin-culture)"></span>문화참여: <span id="culture">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="response"><span class="dot" style="background:var(--coin-response)"></span>현안대응: <span id="response">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="glocal"><span class="dot" style="background:var(--coin-glocal)"></span>글로컬대학30: <span id="glocal">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="region"><span class="dot" style="background:var(--coin-region)"></span>지역상생: <span id="region">0</span>/<span class="goal">2</span></div>
+      <div class="counter" data-type="partnership"><span class="dot" style="background:var(--coin-partnership)"></span>제휴: <span id="partnership">0</span>/<span class="goal">2</span></div>
+      <div class="counter scoreBox">점수: <span id="score">0</span></div>
+    </div>
+    <div id="hint">PC: 스페이스/↑ / 모바일: 화면 터치</div>
+
+    <div id="gameOverBox" class="hidden">
+      <h2>게임 오버 😅</h2>
+      <p>다시 달릴래?</p>
+      <button class="btn" id="restartBtn">다시 시작</button>
+    </div>
+  </div>
+
+  <div id="policyModal" class="modal hidden">
+    <div class="modal-box">
+      <h2 id="policyTitle">정책</h2>
+      <ul id="policyList" class="policy-list"></ul>
+      <button class="btn" id="closeModal">다시 달리기 🦖</button>
+    </div>
+  </div>
+
+  <div id="winModal" class="modal hidden">
+    <div class="modal-box">
+      <h2>🎉 모든 정책을 모았어요!</h2>
+      <p>이제 모든 정책을 완성했어요! 멋져요 🦖</p>
+      <button class="btn" onclick="location.reload()">처음으로 돌아가기</button>
+    </div>
+  </div>
+
+  <div id="introOverlay" class="overlay">
+    <div class="intro-box">
+      <h2>정책을 먹는 공룡 🦖</h2>
+      <p>스페이스바나 화면 터치로 점프하며 장애물을 피해 달려봐!<br><br>
+      <b>각 색상 코인을 2개 모으면</b> 해당 분야의 정책을 확인할 수 있어.<br><br>
+      모든 정책을 모으면 승리해!</p>
+      <button class="btn" id="startGame">시작하기 🚀</button>
+    </div>
+  </div>
+  <div id="footerBanner">제주대학교 58대 DREAM 총학생회 선거운동본부</div>
+<script>
+const canvas=document.getElementById("gameCanvas");
+const ctx=canvas.getContext("2d");
+
+const calculateCanvasSize=()=>{
+  const vw=window.innerWidth;
+  if(vw<=480)return{width:650,height:300};
+  if(vw<=768)return{width:900,height:340};
+  return{width:1200,height:400};
+};
+
+const applyInitialCanvasSize=()=>{
+  const {width,height}=calculateCanvasSize();
+  canvas.width=width;
+  canvas.height=height;
+  return {width,height};
+};
+
+const initialSize=applyInitialCanvasSize();
+let W=initialSize.width,H=initialSize.height;
+let groundY=H-40;
+
+const dino={x:60,y:groundY-40,w:38,h:40,vy:0,gravity:0.7,jumpPower:-12,onGround:true};
+const obstacles=[],coins=[];
+let gameSpeed=6,spawnObstacleTimer=0,spawnCoinTimer=0,score=0;
+let isGameOver=false,paused=true;
+
+const handleCanvasResize=()=>{
+  const {width,height}=calculateCanvasSize();
+  if(width===canvas.width&&height===canvas.height)return;
+  canvas.width=width;
+  canvas.height=height;
+  W=width;
+  H=height;
+  groundY=H-40;
+  if(dino.onGround){
+    dino.y=groundY-dino.h;
+  }else{
+    dino.y=Math.min(dino.y,groundY-dino.h);
+  }
+  obstacles.length=0;
+  coins.length=0;
+};
+
+window.addEventListener("resize",handleCanvasResize);
+
+const coinTypes=["communication","welfare","education","student","jeju","human","safety","campus","culture","response","glocal","region","partnership"];
+const coinsCollected={};coinTypes.forEach(k=>coinsCollected[k]=0);
+let activeCoinTypes=[...coinTypes];
+
+const policyNames={
+  communication:"소통",welfare:"복지",education:"교육취업",student:"학생자치",jeju:"제주4·3",human:"인권",
+  safety:"시설안전",campus:"그린캠퍼스",culture:"문화참여",response:"현안대응",glocal:"글로컬대학30",
+  region:"지역상생",partnership:"제휴"
+};
+const policyData={
+  communication:["공약 RE:dream", "내 친구 드리미", "JNU CONNECT : 제주대학교를 잇는 소통의 시작"],welfare:["DREAM 장학금", "학생증 기반 디지털 통합 복지 시스템", "JNU-PASS", "DREAM 천원샵", "정후문 거주 학우들을 위한 월세지원 사업"],education:["수강신청 대기 순번제", "Dream 융합 트랙 가이드", "JNU Career Camp"],
+  student:["예산 의결 학생 참여제", "JNU 통합 감사 체계 개선"],jeju:["전국 학생 제주4·3 포럼 개최"],human:["불법 카메라 확인 구역 확대", "새각 화재경보기 설치", "예비군 3권 보장", "Dream On", "Join Us"],
+  safety:["학생회관 냉난방 시스템 확립", "교양강의동 프린터 설치", "DOR+MUNITY", "DORM LIFE+", "정후문 환경 개선", "주차 사전 정산 시스템 도입"],campus:["친환경 허브 캠퍼스 조성", "Green JNU Challenge"],culture:["꿈꾸는 아라대동제", "모두의 출범식", "드림 포인트제"],
+  response:["현안대응국 신설", "사고대책위원회 및 대응 매뉴얼 정립", "학사제도 수요 조사 및 제도 개선"],glocal:["제주대학교 학생회관 리뉴얼 프로젝트", "글로컬 학사 혁신 참여 플랫폼 구축"],region:["대학교 교류전", "제주상생 그린오더"],
+  partnership:["제휴 박람회", "제휴 소통 플랫폼"]
+};
+
+const refs={};coinTypes.forEach(id=>refs[id]=document.getElementById(id));
+const policyModal=document.getElementById("policyModal");
+const policyTitle=document.getElementById("policyTitle");
+const policyList=document.getElementById("policyList");
+const closeModalBtn=document.getElementById("closeModal");
+const gameOverBox=document.getElementById("gameOverBox");
+const restartBtn=document.getElementById("restartBtn");
+const scoreEl=document.getElementById("score");
+const introOverlay=document.getElementById("introOverlay");
+const startGameBtn=document.getElementById("startGame");
+const winModal=document.getElementById("winModal");
+
+const rand=(min,max)=>Math.random()*(max-min)+min;
+
+startGameBtn.onclick=()=>{paused=false;introOverlay.classList.add("hidden");};
+
+function jump(){if(paused||isGameOver)return;if(dino.onGround){dino.vy=dino.jumpPower;dino.onGround=false;}}
+document.addEventListener("keydown",e=>{if(["Space","ArrowUp"].includes(e.code)){e.preventDefault();jump();}});
+document.body.addEventListener("touchstart", e => {
+  if (e.target.closest('.btn') || e.target.closest('.modal') || e.target.closest('.intro-box')) return;
+  jump();
+}, { passive: true });
+
+
+function spawnObstacle(){const width=Math.random()<0.5?22:28;const height=rand(35,60);obstacles.push({x:W+20,y:groundY-height,w:width,h:height});}
+
+function spawnCoin(){
+  if(activeCoinTypes.length===0)return;
+  const type=activeCoinTypes[Math.floor(Math.random()*activeCoinTypes.length)];
+  const color=getComputedStyle(document.documentElement).getPropertyValue("--coin-"+type);
+  const heightAbove=rand(100,130);
+  coins.push({x:W+40,y:groundY-heightAbove,r:12,type,color:color.trim()});
+}
+
+function rectRectCollision(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;}
+function dinoCoinCollision(coin){const box={x:coin.x-coin.r,y:coin.y-coin.r,w:coin.r*2,h:coin.r*2};return rectRectCollision(dino,box);}
+function updateCoinHud(){coinTypes.forEach(k=>{if(refs[k])refs[k].textContent=coinsCollected[k];});scoreEl.textContent=score;}
+
+function showPolicyModal(type){
+  paused=true;
+  policyTitle.textContent=policyNames[type];
+  policyList.innerHTML=policyData[type].map(p=>`<li>${p}</li>`).join("");
+  policyModal.classList.remove("hidden");
+}
+
+function removeCounterBox(type){
+  const box=document.querySelector(`.counter[data-type="${type}"]`);
+  if(box)box.remove();
+}
+
+function checkWinCondition(){
+  if(activeCoinTypes.length===0){
+    paused=true;
+    winModal.classList.remove("hidden");
+  }
+}
+
+closeModalBtn.onclick=()=>{
+  policyModal.classList.add("hidden");
+  obstacles.length=0;coins.length=0;
+  removeCounterBox(currentCategory);
+  activeCoinTypes=activeCoinTypes.filter(t=>t!==currentCategory);
+  coinsCollected[currentCategory]=0;
+  updateCoinHud();
+  paused=false;
+  checkWinCondition();
+};
+
+function gameOver(){isGameOver=true;gameOverBox.classList.remove("hidden");}
+restartBtn.onclick=()=>{
+  isGameOver=false;paused=false;gameOverBox.classList.add("hidden");
+  obstacles.length=0;coins.length=0;score=0;
+  for(const k in coinsCollected)coinsCollected[k]=0;
+  activeCoinTypes=[...coinTypes];
+  document.getElementById("hud").innerHTML=document.querySelectorAll('.counter[data-type]').length?document.getElementById("hud").innerHTML:"";
+  location.reload();
+};
+
+let currentCategory=null;
+function update(){
+  if(paused||isGameOver)return;
+  score++;
+  dino.vy+=dino.gravity;dino.y+=dino.vy;
+  if(dino.y+dino.h>=groundY){dino.y=groundY-dino.h;dino.vy=0;dino.onGround=true;}
+
+  spawnObstacleTimer--;
+  if(spawnObstacleTimer<=0){spawnObstacle();spawnObstacleTimer=Math.floor(rand(90,150));}
+  spawnCoinTimer--;
+  if(spawnCoinTimer<=0){spawnCoin();spawnCoinTimer=Math.floor(rand(130,200));}
+
+  for(let i=obstacles.length-1;i>=0;i--){
+    const ob=obstacles[i];
+    ob.x-=gameSpeed;
+    if(ob.x+ob.w<0)obstacles.splice(i,1);
+    else if(rectRectCollision(dino,ob))gameOver();
+  }
+
+  for(let i=coins.length-1;i>=0;i--){
+    const coin=coins[i];
+    coin.x-=gameSpeed;
+    if(coin.x+coin.r<0)coins.splice(i,1);
+    else if(dinoCoinCollision(coin)){
+      coinsCollected[coin.type]++;
+      updateCoinHud();
+      const current=coinsCollected[coin.type];
+      coins.splice(i,1);
+      if(current>=2){
+        currentCategory=coin.type;
+        showPolicyModal(coin.type);
+      }
+    }
+  }
+  updateCoinHud();
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fdfdfd";ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--ground");
+  ctx.fillRect(0,groundY,W,H-groundY);
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--dino");
+  ctx.fillRect(dino.x,dino.y,dino.w,dino.h);
+  ctx.fillStyle="#fff";ctx.fillRect(dino.x+dino.w-12,dino.y+8,6,6);
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--obstacle");
+  obstacles.forEach(ob=>ctx.fillRect(ob.x,ob.y,ob.w,ob.h));
+  coins.forEach(c=>{
+    ctx.beginPath();ctx.fillStyle=c.color;ctx.arc(c.x,c.y,c.r,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,0.85)";
+    ctx.font="10px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";
+    const short={communication:"소",welfare:"복",education:"교",student:"학",jeju:"제",human:"인",safety:"안",campus:"캠",culture:"문",response:"현",glocal:"글",region:"지",partnership:"제"}[c.type];
+    ctx.fillText(short,c.x,c.y+0.5);
+  });
+  ctx.fillStyle="#555";ctx.font="13px sans-serif";ctx.textAlign="right";
+  ctx.fillText("Score: "+score,W-10,20);
+}
+
+function loop(){update();draw();requestAnimationFrame(loop);}
+spawnObstacleTimer=60;spawnCoinTimer=90;loop();
+</script>
+</body>
+</html>
