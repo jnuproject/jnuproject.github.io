@@ -34,7 +34,7 @@ export default function DetailPage() {
                 marginBottom: 20,
                 backgroundColor: "#FFFFFF",
               }}
-              contentFit="contain"
+              contentFit="cover"
             />
           )}
           <Text style={s.title}>{item.name}</Text>

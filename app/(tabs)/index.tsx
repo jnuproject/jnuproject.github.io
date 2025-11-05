@@ -89,7 +89,7 @@ export default function HomeScreen() {
                 <Image
                   source={getImageSource(item.image)}
                   style={s.recommendImage}
-                  contentFit="contain"
+                  contentFit="cover"
                 />
                 <Text style={s.recommendTitle}>{item.name}</Text>
                 <Text style={s.recommendDesc}>{item.category}</Text>
