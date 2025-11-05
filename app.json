@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "Dream Connect",
+    "slug": "dream-connect",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "dreamconnect",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+
+    "splash": {
+      "image": "./assets/images/logo-round.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#E7F3F1"
+    },
+
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "현재 위치를 표시하기 위해 위치 접근 권한이 필요합니다."
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI"
+      }
+    },
+
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#E7F3F1"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI"
+        }
+      },
+      "edgeToEdgeEnabled": true
+    },
+
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
+    },
+
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/logo-round.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#E7F3F1"
+        }
+      ]
+    ],
+
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

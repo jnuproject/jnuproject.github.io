@@ -1,0 +1,362 @@
+import { CATEGORIES } from "@/constants/categories";
+import affiliates from "@/data/affiliates.json";
+import { getImageSource } from "@/constants/imageMap";
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+let hasShownInitialNotice = false;
+
+export default function HomeScreen() {
+  const router = useRouter();
+  const [showNotice, setShowNotice] = useState(false);
+
+  useEffect(() => {
+    if (!hasShownInitialNotice) {
+      setShowNotice(true);
+      hasShownInitialNotice = true;
+    }
+  }, []);
+
+  return (
+    <SafeAreaView style={s.safe}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={s.scrollContent}>
+        {/* 헤더 */}
+        <View style={s.header}>
+          <View style={s.heroCard}>
+            <Image
+              source={require("../../assets/images/logo.png")}
+              style={s.heroLogo}
+              resizeMode="contain"
+              accessibilityRole="image"
+              accessibilityLabel="Dream 로고"
+            />
+            <Text style={s.heroCaption}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
+          </View>
+        </View>
+
+        {/* 카테고리 */}
+        <Text style={[s.sectionTitle, s.sectionSpacing]}>카테고리</Text>
+        <View style={s.categoryGrid}>
+          {[{ title: "전체" }, ...CATEGORIES].map((category) => (
+            <TouchableOpacity
+              key={category.title}
+              style={s.categoryWrapper}
+              activeOpacity={0.85}
+              onPress={() => router.push(`../category/${encodeURIComponent(category.title)}`)}
+            >
+              <View style={s.categoryCard}>
+                {category.title === "전체" && <Ionicons name="grid-outline" size={38} color="#10B981" />}
+                {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
+                {category.title === "음식점" && <Ionicons name="restaurant-outline" size={38} color="#F59E0B" />}
+                {category.title === "카페" && <Ionicons name="cafe-outline" size={38} color="#3B82F6" />}
+                {category.title === "문화생활/복지" && <Ionicons name="musical-notes-outline" size={38} color="#8B5CF6" />}
+                {category.title === "의류" && <Ionicons name="shirt-outline" size={38} color="#EC4899" />}
+                {category.title === "미용/뷰티/패션" && <Ionicons name="cut-outline" size={38} color="#F472B6" />}
+                {category.title === "병원" && <Ionicons name="medkit-outline" size={38} color="#EF4444" />}
+                {category.title === "교육/취업" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
+                {category.title === "기타" && <Ionicons name="ellipsis-horizontal-circle-outline" size={38} color="#6B7280" />}
+              </View>
+              <Text style={s.categoryText}>{category.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* 추천 제휴 */}
+        <View style={[s.sectionDivider, s.sectionDividerTight]} />
+        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>추천 제휴</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={170}
+          decelerationRate="fast"
+          contentContainerStyle={s.recommendRow}
+        >
+          {affiliates
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 5)
+            .map((item, i) => (
+              <TouchableOpacity
+                key={`${item.name}-${i}`}
+                style={[s.recommendCardHorizontal, i === 4 && { marginRight: 0 }]}
+                activeOpacity={0.9}
+                onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
+              >
+                {item.image && item.image !== 'https://placehold.co/200x200' ? (
+                  <Image
+                    source={getImageSource(item.image)}
+                    style={s.recommendImage}
+                    contentFit="contain"
+                  />
+                ) : (
+                  <View style={s.recommendImage} />
+                )}
+                <Text style={s.recommendTitle}>{item.name}</Text>
+                <Text style={s.recommendDesc}>{item.category}</Text>
+              </TouchableOpacity>
+            ))}
+        </ScrollView>
+
+        {/* SNS */}
+        <View style={[s.sectionDivider, s.sectionDividerTight]} />
+        <View style={[s.sectionHeaderCenter, s.sectionSpacingTight]}>
+          <Text style={[s.sectionTitle, s.sectionTitleCenter]}>DREAM 공식 SNS</Text>
+          <Text style={s.sectionSubtitle}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
+        </View>
+        <View style={s.snsContainer}>
+          <TouchableOpacity
+            style={[s.snsButtonWide, { backgroundColor: "#E1306C" }]}
+            activeOpacity={0.8}
+            onPress={() => {
+              if (Platform.OS === 'web' && typeof window !== 'undefined') {
+                window.location.href = "https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==";
+              } else {
+                router.push("https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==");
+              }
+            }}
+          >
+            <Ionicons name="logo-instagram" size={32} color="#fff" />
+            <Text style={s.snsTextWide}>DREAM 인스타그램</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[s.snsButtonWide, { backgroundColor: "#FEE500" }]}
+            activeOpacity={0.8}
+            onPress={() => {
+              if (Platform.OS === 'web' && typeof window !== 'undefined') {
+                window.location.href = "https://tr.ee/Fp6OL6ZuO6";
+              } else {
+                router.push("https://tr.ee/Fp6OL6ZuO6");
+              }
+            }}
+          >
+            <Ionicons name="chatbubble-ellipses-outline" size={32} color="#3C1E1E" />
+            <Text style={s.snsTextWide}>DREAM 카카오톡</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      <Modal visible={showNotice} transparent animationType="fade" onRequestClose={() => setShowNotice(false)}>
+        <Pressable style={s.noticeOverlay} onPress={() => setShowNotice(false)}>
+          <Pressable style={s.noticeCard} onPress={(e) => e.stopPropagation()}>
+            <Text style={s.noticeTitle}>안내</Text>
+            <Text style={s.noticeBody}>
+              앱이 심사 중이라 부득이하게 웹에서 먼저 만나보실 수 있도록 안내드리고 있습니다. 조금만 기다려 주세요!
+            </Text>
+            <TouchableOpacity style={s.noticeButton} onPress={() => setShowNotice(false)}>
+              <Text style={s.noticeButtonText}>확인</Text>
+            </TouchableOpacity>
+          </Pressable>
+        </Pressable>
+      </Modal>
+    </SafeAreaView>
+  );
+}
+
+const s = StyleSheet.create({
+  safe: {
+    flex: 1,
+    backgroundColor: "#F8FAFC",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingBottom: 60,
+  },
+  header: {
+    paddingTop: 28,
+    paddingBottom: 18,
+  },
+  heroCard: {
+    width: "100%",
+    backgroundColor: "#ECFDF5",
+    borderRadius: 28,
+    paddingHorizontal: 24,
+    paddingVertical: 28,
+    shadowColor: "#0F172A",
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 12 },
+    shadowRadius: 20,
+    elevation: 6,
+  },
+  heroLogo: {
+    width: 200,
+    height: 56,
+  },
+  heroCaption: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#1F2937",
+    lineHeight: 22,
+    marginTop: 12,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#111827",
+    marginBottom: 16,
+  },
+  sectionTitleCenter: {
+    textAlign: "center",
+  },
+  sectionSpacing: {
+    marginTop: 32,
+  },
+  sectionSpacingTight: {
+    marginTop: 14,
+  },
+  sectionHeaderCenter: {
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  sectionSubtitle: {
+    fontSize: 14,
+    color: "#6B7280",
+    textAlign: "center",
+    marginTop: 4,
+  },
+  categoryGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    rowGap: 20,
+    columnGap: 12,
+  },
+  categoryWrapper: {
+    width: "22%",
+    alignItems: "center",
+  },
+  categoryCard: {
+    width: "100%",
+    aspectRatio: 1,
+    borderRadius: 24,
+    backgroundColor: "#F1F5F9",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  categoryText: {
+    color: "#1F2937",
+    fontWeight: "600",
+    fontSize: 14,
+    marginTop: 12,
+  },
+  recommendRow: {
+    paddingHorizontal: 20,
+    paddingBottom: 12,
+  },
+  recommendCardHorizontal: {
+    width: 150,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 16,
+    marginRight: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: 7,
+    elevation: 5,
+  },
+  recommendImage: {
+    width: "100%",
+    height: 110,
+    backgroundColor: "#F9FAFB",
+    borderRadius: 16,
+    marginBottom: 12,
+    padding: 12,
+  },
+  recommendTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#111827",
+  },
+  recommendDesc: {
+    fontSize: 13,
+    color: "#6B7280",
+    marginTop: 4,
+  },
+  noticeOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.35)",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 24,
+  },
+  noticeCard: {
+    width: "100%",
+    maxWidth: 340,
+    backgroundColor: "#fff",
+    borderRadius: 18,
+    paddingVertical: 28,
+    paddingHorizontal: 24,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  noticeTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#111827",
+    marginBottom: 12,
+  },
+  noticeBody: {
+    fontSize: 15,
+    color: "#4B5563",
+    lineHeight: 22,
+    marginBottom: 24,
+  },
+  noticeButton: {
+    alignSelf: "flex-end",
+    backgroundColor: "#4EA49B",
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+  },
+  noticeButtonText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  snsContainer: {
+    alignItems: "center",
+    gap: 16,
+    marginBottom: 40,
+  },
+  snsButtonWide: {
+    width: "90%",
+    height: 80,
+    borderRadius: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  snsTextWide: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#fff",
+  },
+  sectionDivider: {
+    height: 12,
+    backgroundColor: "#F3F4F6",
+    marginVertical: 36,
+    marginHorizontal: -20,
+  },
+  sectionDividerTight: {
+    marginVertical: 16,
+  },
+});
