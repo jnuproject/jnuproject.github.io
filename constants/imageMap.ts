@@ -52,6 +52,11 @@ export const IMAGE_MAP: Record<string, any> = {
 
 // 이미지 소스 가져오기 헬퍼 함수
 export function getImageSource(imageString: string) {
+  // 이미지가 없거나 placeholder인 경우 로고 반환
+  if (!imageString || imageString === '' || imageString === 'https://placehold.co/200x200') {
+    return require('../assets/images/logo.png');
+  }
+
   // URL인 경우
   if (imageString.startsWith('http://') || imageString.startsWith('https://')) {
     return { uri: imageString };
@@ -62,6 +67,6 @@ export function getImageSource(imageString: string) {
     return IMAGE_MAP[imageString];
   }
 
-  // 매칭되지 않으면 null 반환
-  return null;
+  // 매칭되지 않으면 로고 반환
+  return require('../assets/images/logo.png');
 }
