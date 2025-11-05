@@ -3,9 +3,10 @@ import { getImageSource } from "@/constants/imageMap";
 import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 let hasShownInitialNotice = false;
@@ -65,6 +66,48 @@ export default function HomeScreen() {
             </TouchableOpacity>
           ))}
         </View>
+
+        {/* 대형 제휴 */}
+        <View style={[s.sectionDivider, s.sectionDividerTight]} />
+        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>대형 제휴</Text>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          decelerationRate="fast"
+          snapToInterval={Platform.OS === 'web' ? undefined : undefined}
+          style={s.majorSlider}
+        >
+          {affiliates
+            .filter(item => item.category === "기업제휴")
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 5)
+            .map((item, i) => (
+              <TouchableOpacity
+                key={`major-${item.name}-${i}`}
+                style={s.majorSlide}
+                activeOpacity={0.95}
+                onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
+              >
+                <View style={s.majorCard}>
+                  <Image
+                    source={getImageSource(item.image)}
+                    style={s.majorImage}
+                    contentFit="cover"
+                  />
+                  <LinearGradient
+                    colors={['transparent', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,0.9)']}
+                    style={s.majorOverlay}
+                  >
+                    <Text style={s.majorTitle}>{item.name}</Text>
+                    {item.benefits && (
+                      <Text style={s.majorBenefits}>{item.benefits}</Text>
+                    )}
+                  </LinearGradient>
+                </View>
+              </TouchableOpacity>
+            ))}
+        </ScrollView>
 
         {/* 추천 제휴 */}
         <View style={[s.sectionDivider, s.sectionDividerTight]} />
@@ -355,5 +398,49 @@ const s = StyleSheet.create({
   },
   sectionDividerTight: {
     marginVertical: 16,
+  },
+  majorSlider: {
+    marginHorizontal: -20,
+  },
+  majorSlide: {
+    width: Dimensions.get('window').width,
+    paddingHorizontal: 20,
+  },
+  majorCard: {
+    width: '100%',
+    height: 320,
+    borderRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  majorImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  majorOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 24,
+    paddingTop: 80,
+    justifyContent: 'flex-end',
+  },
+  majorTitle: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    marginBottom: 8,
+  },
+  majorBenefits: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    lineHeight: 24,
   },
 });
