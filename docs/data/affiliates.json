@@ -1500,5 +1500,16 @@
     "image": "require('../assets/list_images/37.png')",
     "latitude": 33.4996,
     "longitude": 126.5312
+  },
+  {
+    "id": "148",
+    "name": "테스트",
+    "category": "기업제휴",
+    "subcategory": "식음료",
+    "region": "제주",
+    "description": "음료 N% 할인 및 '제주대학교 X 유동커피' 실습 프로모션 진행",
+    "image": "require('../assets/list_images/37.png')",
+    "latitude": 33.4996,
+    "longitude": 126.5312
   }
 ]
