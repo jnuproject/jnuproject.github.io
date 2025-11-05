@@ -1,6 +1,6 @@
 import { CATEGORIES } from "@/constants/categories";
 import { REGIONS } from "@/constants/regions";
-import affiliatesData from "@/data/affiliates.json";
+import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -37,8 +37,7 @@ export default function ExploreScreen() {
   const [filterStep, setFilterStep] = useState<"category" | "region">("category");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedRegion, setSelectedRegion] = useState("전체");
-  const [affiliates, setAffiliates] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: affiliates, loading } = useAllAffiliates();
   const [selectedStore, setSelectedStore] = useState<any | null>(null);
   const [mapCenter, setMapCenter] = useState({ lat: 33.4996, lng: 126.5312 });
 
@@ -64,10 +63,6 @@ export default function ExploreScreen() {
   const mapBottomMargin = Platform.OS === "web" ? sheetBottomOffset + 60 : sheetBottomOffset + 20;
   const sheetPaddingBottom = 12 + navBottomSpacing;
 
-  useEffect(() => {
-    setAffiliates(affiliatesData);
-    setLoading(false);
-  }, []);
 
   const filtered = affiliates.filter(a => {
     const categoryMatch = !selectedCategory || a.category === selectedCategory;

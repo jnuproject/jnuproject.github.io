@@ -1,4 +1,4 @@
-import affiliates from "@/data/affiliates.json"; // 실제 데이터 import
+import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { Slot, usePathname, useRouter } from "expo-router";
@@ -23,6 +23,7 @@ export default function TabsLayout() {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
   const navBottomSpacing = Math.max(insets.bottom > 0 ? insets.bottom - 18 : 12, 8);
+  const { data: affiliates } = useAllAffiliates();
 
   // 검색 필터 로직
   const filtered = affiliates.filter((item) =>
@@ -115,7 +116,7 @@ export default function TabsLayout() {
                     style={styles.resultItem}
                     onPress={() => {
                       setShowSearch(false);
-                      router.push(`/details/${item.id}`);
+                      router.push(`/details/${encodeURIComponent(item.name)}`);
                     }}
                   >
                     <Text style={styles.resultText}>{item.name}</Text>

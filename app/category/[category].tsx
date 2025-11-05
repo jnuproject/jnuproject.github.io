@@ -2,13 +2,14 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import data from "../../data/affiliates.json";
+import { useAllAffiliates } from "../../hooks/useAffiliates";
 
 export default function CategoryScreen() {
   const { category } = useLocalSearchParams();
   const categoryTitle = typeof category === "string" ? category : Array.isArray(category) ? category[0] : "전체";
   const [selectedSub, setSelectedSub] = useState("전체");
   const router = useRouter();
+  const { data } = useAllAffiliates();
 
   // ... (subCategories, regions 정의는 동일) ...
   const subCategories = [

@@ -1,6 +1,6 @@
 import { CATEGORIES } from "@/constants/categories";
-import affiliates from "@/data/affiliates.json";
 import { getImageSource } from "@/constants/imageMap";
+import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -13,6 +13,7 @@ let hasShownInitialNotice = false;
 export default function HomeScreen() {
   const router = useRouter();
   const [showNotice, setShowNotice] = useState(false);
+  const { data: affiliates } = useAllAffiliates();
 
   useEffect(() => {
     if (!hasShownInitialNotice) {

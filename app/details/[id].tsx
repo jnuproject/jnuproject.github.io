@@ -4,11 +4,12 @@ import { Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import data from "../../data/affiliates.json";
+import { useAllAffiliates } from "../../hooks/useAffiliates";
 import { getImageSource } from "@/constants/imageMap";
 
 export default function DetailPage() {
   const { id } = useLocalSearchParams();
+  const { data } = useAllAffiliates();
   const item = data.find((d) => d.name === decodeURIComponent(Array.isArray(id) ? id[0] : id || ""));
 
   if (!item) {
