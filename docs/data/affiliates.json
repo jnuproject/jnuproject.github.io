@@ -1500,5 +1500,15 @@
     "image": "require('../assets/list_images/37.png')",
     "latitude": 33.4996,
     "longitude": 126.5312
-  }
+  },
+  {
+    "id": "148",
+    "name": "명륜진사갈비 서귀명동점",
+    "category": "의류",
+    "region": "서귀포",
+    "address": "제주 서귀포시 명동로 4 1층",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6Fig99NViOBjFe89LQX3MQ0sL2YlQGjIQYFypcv0FPWWMqlA77urYLfP9ApsQupReQSyx_C_PoCELZ0_VscFsIAVxyoa38EyBmWni4TMsfdZCHsSJR1Fw0UovW1l75uw2yTx1Ny2CDCdRSLfUk276XyiFAKE_to7gSoGpDdE_ZhOzLJ1zKHEWe2BVveK7ZYYx6Xv7emSa5fCqc2tgN9LBBtvWPlAzKVJGWvA0rvFDFZ-nNjgvqmE2DtsqN1OC7wTyXiuEc1P-WofRazQDdt2KCOlx-H42eEOFLiGlgyTQ5cUr2qXRR8ohRqgV_b0FCGsDox8YvGEV4Ad7MYbP_skBMrBMOEmqwWrIgxA_MQPGK8UpMlRykvMYffbBtf8WQM6Bp69AmPoWEJZyMQYrOe9DEJe4eJIQSVyzeZSuXYBvyww&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.2469,
+    "longitude": 126.5625
+  },
 ]
