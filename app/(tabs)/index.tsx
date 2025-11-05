@@ -86,15 +86,11 @@ export default function HomeScreen() {
                 activeOpacity={0.9}
                 onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
               >
-                {item.image && item.image !== 'https://placehold.co/200x200' ? (
-                  <Image
-                    source={getImageSource(item.image)}
-                    style={s.recommendImage}
-                    contentFit="contain"
-                  />
-                ) : (
-                  <View style={s.recommendImage} />
-                )}
+                <Image
+                  source={getImageSource(item.image)}
+                  style={s.recommendImage}
+                  contentFit="contain"
+                />
                 <Text style={s.recommendTitle}>{item.name}</Text>
                 <Text style={s.recommendDesc}>{item.category}</Text>
               </TouchableOpacity>
