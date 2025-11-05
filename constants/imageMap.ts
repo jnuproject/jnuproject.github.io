@@ -70,3 +70,23 @@ export function getImageSource(imageString: string) {
   // 매칭되지 않으면 로고 반환
   return require('../assets/images/logo.png');
 }
+
+// 로고 이미지인지 확인하는 헬퍼 함수
+export function isLogoImage(imageString: string): boolean {
+  // 이미지가 없거나 placeholder인 경우
+  if (!imageString || imageString === '' || imageString === 'https://placehold.co/200x200') {
+    return true;
+  }
+
+  // URL인 경우는 로고가 아님
+  if (imageString.startsWith('http://') || imageString.startsWith('https://')) {
+    return false;
+  }
+
+  // 로컬 이미지가 없는 경우 로고 반환
+  if (!IMAGE_MAP[imageString]) {
+    return true;
+  }
+
+  return false;
+}

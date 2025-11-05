@@ -1,5 +1,5 @@
 import { CATEGORIES } from "@/constants/categories";
-import { getImageSource } from "@/constants/imageMap";
+import { getImageSource, isLogoImage } from "@/constants/imageMap";
 import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
@@ -133,7 +133,7 @@ export default function HomeScreen() {
                 <Image
                   source={getImageSource(item.image)}
                   style={s.recommendImage}
-                  contentFit="cover"
+                  contentFit={isLogoImage(item.image) ? "contain" : "cover"}
                 />
                 <Text style={s.recommendTitle}>{item.name}</Text>
                 <Text style={s.recommendDesc}>{item.category}</Text>
