@@ -46,7 +46,7 @@ export default function ExploreScreen() {
   // Load Google Maps API for web
   const { isLoaded: isGoogleMapsLoaded } = Platform.OS === 'web' && useJsApiLoader
     ? useJsApiLoader({
-        googleMapsApiKey: "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+        googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "",
       })
     : { isLoaded: true };
 

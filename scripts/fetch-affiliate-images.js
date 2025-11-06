@@ -1,9 +1,15 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
-const API_KEY = 'AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI';
+const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
 const affiliates = require('../data/affiliates.json');
+
+if (!API_KEY) {
+  console.error('Error: EXPO_PUBLIC_GOOGLE_MAPS_API_KEY not found in .env file');
+  process.exit(1);
+}
 
 async function findPlaceByLocation(name, latitude, longitude) {
   try {

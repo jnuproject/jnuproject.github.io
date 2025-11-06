@@ -5,9 +5,15 @@
 
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
-// Google Geocoding API 키 (여기에 본인의 API 키를 입력하세요)
-const GOOGLE_API_KEY = 'AIzaSyDygrwI4tVJkH2NZB4ThJeEnkz_n0672II';
+// Google Geocoding API 키
+const GOOGLE_API_KEY = process.env.GOOGLE_GEOCODING_API_KEY;
+
+if (!GOOGLE_API_KEY) {
+  console.error('Error: GOOGLE_GEOCODING_API_KEY not found in .env file');
+  process.exit(1);
+}
 
 // 파일 경로
 const DATA_FILE = path.join(__dirname, '../data/affiliates.json');

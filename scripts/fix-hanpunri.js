@@ -1,6 +1,12 @@
 const axios = require('axios');
+require('dotenv').config();
 
-const API_KEY = 'AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI';
+const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+if (!API_KEY) {
+  console.error('Error: EXPO_PUBLIC_GOOGLE_MAPS_API_KEY not found in .env file');
+  process.exit(1);
+}
 
 // 한푼리 포차 좌표 (affiliates.json에서)
 const latitude = 33.4753;
