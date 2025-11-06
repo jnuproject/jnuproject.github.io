@@ -8,13 +8,11 @@
     "scheme": "dreamconnect",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "splash": {
       "image": "./assets/images/logo-round.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#E7F3F1"
     },
-
     "ios": {
       "bundleIdentifier": "com.jnudream.connect",
       "buildNumber": "1",
@@ -26,7 +24,6 @@
         "googleMapsApiKey": "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI"
       }
     },
-
     "android": {
       "package": "com.jnudream.connect",
       "versionCode": 1,
@@ -39,30 +36,37 @@
           "apiKey": "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI"
         }
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "navigationBar": {
+        "visible": "leanback",
+        "backgroundColor": "#00000000"
+      }
     },
-
     "web": {
       "output": "single",
       "favicon": "./assets/images/favicon.png",
       "bundler": "metro"
     },
-
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
           "image": "./assets/images/logo-round.png",
-          "resizeMode": "contain",
+          "resizeMode": "cover",
           "backgroundColor": "#E7F3F1"
         }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "5b0ec3e5-c30c-466b-b14d-7f661c0af6c2"
+      }
     }
   }
 }

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import * as SystemUI from "expo-system-ui";
 
 // Conditionally import MapView for native vs web
 let MapView: any = null;
@@ -69,6 +70,13 @@ export default function ExploreScreen() {
     const regionMatch = selectedRegion === "전체" || a.region === selectedRegion;
     return categoryMatch && regionMatch;
   });
+
+  useEffect(() => {
+    // Android 네비게이션 바 숨김
+    if (Platform.OS === 'android') {
+      SystemUI.setBackgroundColorAsync('#E7F3F1');
+    }
+  }, []);
 
   if (loading || (Platform.OS === 'web' && !isGoogleMapsLoaded))
     return (

@@ -8,6 +8,7 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Dimensions, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as SystemUI from "expo-system-ui";
 
 let hasShownInitialNotice = false;
 
@@ -15,11 +16,17 @@ export default function HomeScreen() {
   const router = useRouter();
   const [showNotice, setShowNotice] = useState(false);
   const { data: affiliates } = useAllAffiliates();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     if (!hasShownInitialNotice) {
       setShowNotice(true);
       hasShownInitialNotice = true;
+    }
+
+    // Android 네비게이션 바 숨김
+    if (Platform.OS === 'android') {
+      SystemUI.setBackgroundColorAsync('#E7F3F1');
     }
   }, []);
 
@@ -67,9 +74,9 @@ export default function HomeScreen() {
           ))}
         </View>
 
-        {/* 대형 제휴 */}
+        {/* 기업 제휴 */}
         <View style={[s.sectionDivider, s.sectionDividerTight]} />
-        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>대형 제휴</Text>
+        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>기업 제휴</Text>
         <ScrollView
           horizontal
           pagingEnabled
@@ -77,6 +84,12 @@ export default function HomeScreen() {
           decelerationRate="fast"
           snapToInterval={Platform.OS === 'web' ? undefined : undefined}
           style={s.majorSlider}
+          onScroll={(event) => {
+            const slideWidth = Dimensions.get('window').width;
+            const index = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
+            setCurrentSlide(index);
+          }}
+          scrollEventThrottle={16}
         >
           {affiliates
             .filter(item => item.category === "기업제휴")
@@ -108,6 +121,19 @@ export default function HomeScreen() {
               </TouchableOpacity>
             ))}
         </ScrollView>
+
+        {/* 페이지 인디케이터 */}
+        <View style={s.pageIndicator}>
+          {[0, 1, 2, 3, 4].map((index) => (
+            <View
+              key={index}
+              style={[
+                s.dot,
+                currentSlide === index && s.activeDot
+              ]}
+            />
+          ))}
+        </View>
 
         {/* 추천 제휴 */}
         <View style={[s.sectionDivider, s.sectionDividerTight]} />
@@ -443,5 +469,24 @@ const s = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
     lineHeight: 24,
+  },
+  pageIndicator: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
+    marginBottom: 8,
+    gap: 8,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#D1D5DB',
+  },
+  activeDot: {
+    backgroundColor: '#4EA49B',
+    width: 24,
+    borderRadius: 4,
   },
 });
