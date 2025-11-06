@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SystemUI from "expo-system-ui";
+import * as NavigationBar from "expo-navigation-bar";
 
 let hasShownInitialNotice = false;
 
@@ -27,6 +28,9 @@ export default function HomeScreen() {
     // Android 네비게이션 바 숨김
     if (Platform.OS === 'android') {
       SystemUI.setBackgroundColorAsync('#E7F3F1');
+      NavigationBar.setVisibilityAsync('hidden');
+      NavigationBar.setPositionAsync('absolute');
+      NavigationBar.setBehaviorAsync('overlay-swipe');
     }
   }, []);
 

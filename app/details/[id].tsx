@@ -1,16 +1,31 @@
 import { useLocalSearchParams } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import { getImageSource } from "@/constants/imageMap";
+import * as NavigationBar from "expo-navigation-bar";
 
 export default function DetailPage() {
   const { id } = useLocalSearchParams();
   const { data } = useAllAffiliates();
   const item = data.find((d) => d.name === decodeURIComponent(Array.isArray(id) ? id[0] : id || ""));
+
+  useEffect(() => {
+    // 상세 페이지에서는 네비게이션 바 표시
+    if (Platform.OS === 'android') {
+      NavigationBar.setVisibilityAsync('visible');
+    }
+
+    // 페이지를 떠날 때 다시 숨김
+    return () => {
+      if (Platform.OS === 'android') {
+        NavigationBar.setVisibilityAsync('hidden');
+      }
+    };
+  }, []);
 
   if (!item) {
     return (

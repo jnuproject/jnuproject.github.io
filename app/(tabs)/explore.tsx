@@ -9,6 +9,7 @@ import { ActivityIndicator, Linking, Platform, ScrollView, StyleSheet, Text, Tou
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import * as SystemUI from "expo-system-ui";
+import * as NavigationBar from "expo-navigation-bar";
 
 // Conditionally import MapView for native vs web
 let MapView: any = null;
@@ -75,6 +76,9 @@ export default function ExploreScreen() {
     // Android 네비게이션 바 숨김
     if (Platform.OS === 'android') {
       SystemUI.setBackgroundColorAsync('#E7F3F1');
+      NavigationBar.setVisibilityAsync('hidden');
+      NavigationBar.setPositionAsync('absolute');
+      NavigationBar.setBehaviorAsync('overlay-swipe');
     }
   }, []);
 
