@@ -185,14 +185,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 3,
     paddingHorizontal: 20,
-    borderRadius: 16,
+    borderRadius: 24,
     backgroundColor: "transparent",
     transition: "all 0.2s ease-in-out",
+    overflow: "hidden",
   },
   tabActive: {
     backgroundColor: "rgba(78,164,155,0.15)",
     transform: [{ scale: 1.05 }],
     marginHorizontal: 8, // add gap between highlight and outer edge
+    overflow: "hidden",
   },
   tabLabel: {
     fontSize: 12,
