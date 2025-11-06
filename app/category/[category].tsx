@@ -1,8 +1,10 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
+import * as NavigationBar from "expo-navigation-bar";
+import * as SystemUI from "expo-system-ui";
 
 export default function CategoryScreen() {
   const { category } = useLocalSearchParams();
@@ -10,6 +12,16 @@ export default function CategoryScreen() {
   const [selectedSub, setSelectedSub] = useState("전체");
   const router = useRouter();
   const { data } = useAllAffiliates();
+
+  useEffect(() => {
+    // Android 네비게이션 바 숨김
+    if (Platform.OS === 'android') {
+      SystemUI.setBackgroundColorAsync('#E7F3F1');
+      NavigationBar.setVisibilityAsync('hidden');
+      NavigationBar.setPositionAsync('absolute');
+      NavigationBar.setBehaviorAsync('overlay-swipe');
+    }
+  }, []);
 
   // ... (subCategories, regions 정의는 동일) ...
   const subCategories = [
