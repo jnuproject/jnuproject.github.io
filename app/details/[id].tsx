@@ -29,12 +29,12 @@ export default function DetailPage() {
               source={getImageSource(item.image)}
               style={{
                 width: "100%",
-                height: 200,
+                height: 300,
                 borderRadius: 20,
                 marginBottom: 20,
                 backgroundColor: "#FFFFFF",
               }}
-              contentFit="cover"
+              contentFit="contain"
             />
           )}
           <Text style={s.title}>{item.name}</Text>
