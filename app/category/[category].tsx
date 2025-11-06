@@ -4,7 +4,6 @@ import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, Vi
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
-import * as SystemUI from "expo-system-ui";
 
 export default function CategoryScreen() {
   const { category } = useLocalSearchParams();
@@ -14,13 +13,17 @@ export default function CategoryScreen() {
   const { data } = useAllAffiliates();
 
   useEffect(() => {
-    // Android 네비게이션 바 숨김
+    // Android 네비게이션 바 표시
     if (Platform.OS === 'android') {
-      SystemUI.setBackgroundColorAsync('#E7F3F1');
-      NavigationBar.setVisibilityAsync('hidden');
-      NavigationBar.setPositionAsync('absolute');
-      NavigationBar.setBehaviorAsync('overlay-swipe');
+      NavigationBar.setVisibilityAsync('visible');
     }
+
+    // 페이지를 떠날 때 다시 숨김
+    return () => {
+      if (Platform.OS === 'android') {
+        NavigationBar.setVisibilityAsync('hidden');
+      }
+    };
   }, []);
 
   // ... (subCategories, regions 정의는 동일) ...
