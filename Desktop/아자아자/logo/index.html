@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream 로고 3x3 슬라이딩 퍼즐</title>
+<style>
+:root {
+  --bg-top: #f5fbff;
+  --bg-bottom: #c7f0ff;
+  --accent: #00a99c;
+  --accent-dark: #00796b;
+  --text: #0f172a;
+  --shadow-lg: 0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  min-height: 100vh;
+  margin: 0;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  color: #0f172a;
+  text-align: center;
+  font-size: clamp(19px, 4.2vw, 30px);
+  letter-spacing: -0.03em;
+  padding: 10px 20px;
+  border-radius: 999px;
+}
+
+/* 퍼즐 */
+#puzzle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: min(92vw, 480px);
+  aspect-ratio: 1 / 1;
+  position: relative;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0));
+  border-radius: 22px;
+  padding: 5px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255,255,255,0.35);
+  backdrop-filter: blur(14px);
+}
+
+.piece {
+  background-size: 300% 300%;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  box-shadow: 0 5px 18px rgba(15,23,42,0.12);
+  background-color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.empty {
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+  border: 1px dashed rgba(255,255,255,0.45);
+  box-shadow: none;
+}
+.piece:not(.empty):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15,23,42,0.18);
+}
+
+#successBanner { 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 20px 40px;
+  font-size: clamp(18px, 5vw, 32px);
+  border-radius: 25px;
+  opacity: 0;
+  backdrop-filter: blur(5px);
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  z-index: 10; }
+
+#completeLogo {
+  width: min(92vw, 480px);
+  display: none;
+  margin-top: 14px;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.12);
+  border: 1px solid rgba(255,255,255,0.45);
+  background: #fff;
+  opacity: 0;
+}
+
+#controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+button {
+  background: rgba(255,255,255,0.6);
+  border: none;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-size: 16px;
+  color: var(--accent-dark);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+}
+button:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+}
+.modal.show {
+  display: flex;
+}
+.modal-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  padding: 30px 40px;
+  text-align: center;
+  max-width: 420px;
+}
+.modal-card h2 {
+  color: var(--accent-dark);
+  margin-bottom: 12px;
+}
+.modal-card p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.modal-card button {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+#footerBanner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, #00bfa5, #0097a7);
+  color: white;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+</style>
+</head>
+
+<body>
+<h1>Dream 로고 슬라이딩 퍼즐</h1>
+<div id="puzzle"></div>
+<div id="successBanner">🎉 성공! 🎉</div>
+<img id="completeLogo" src="logo2.png" alt="완성 로고">
+
+<div id="controls">
+  <button id="hintBtn">힌트 보기</button>
+  <button id="restartBtn">다시하기</button>
+</div>
+
+<div id="startModal" class="modal show">
+  <div class="modal-card">
+    <h2>🧩 퍼즐 맞추기 게임</h2>
+    <p>Dream 로고 이미지를 완성해보세요.<br>조각을 누르면 빈칸과 위치를 교환할 수 있어요!</p>
+    <button id="startBtn">시작하기</button>
+  </div>
+</div>
+
+<div id="hintModal" class="modal">
+  <div class="modal-card">
+    <h2>💡 힌트</h2>
+    <p>완성 이미지는 아래 로고와 같아요!</p>
+    <img src="logo2.png" alt="힌트 이미지" style="width:100%; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.15); margin-bottom:20px;">
+    <button id="closeHintBtn">닫기</button>
+  </div>
+</div>
+<div id="footerBanner">제주대학교 58대 DREAM 총학생회 선거운동본부</div>
+<script>
+const rows = 3, cols = 3;
+const imageURL = 'logo2.png';
+let positions = Array.from({length: rows*cols-1}, (_,i)=>i);
+positions.push(null);
+shuffle(positions);
+
+const puzzle = document.getElementById('puzzle');
+const importantPieces = [3,4,5];
+const banner = document.getElementById('successBanner');
+const completeLogo = document.getElementById('completeLogo');
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+}
+
+function render(){
+  puzzle.innerHTML='';
+  positions.forEach((p,index)=>{
+    const div=document.createElement('div');
+    div.classList.add('piece');
+    if(p===null) div.classList.add('empty');
+    else {
+      const r=Math.floor(p/cols), c=p%cols;
+      div.style.backgroundImage=`url(${imageURL})`;
+      div.style.backgroundSize='300% 300%';
+      div.style.backgroundPosition=`${(c/(cols-1))*100}% ${(r/(rows-1))*100}%`;
+    }
+    div.dataset.index=index;
+    puzzle.appendChild(div);
+  });
+}
+
+puzzle.addEventListener('click',e=>{
+  if(!e.target.classList.contains('piece')||e.target.classList.contains('empty')) return;
+  const idx=Number(e.target.dataset.index);
+  const emptyIdx=positions.indexOf(null);
+  const [er,ec]=[Math.floor(emptyIdx/cols),emptyIdx%cols];
+  const [cr,cc]=[Math.floor(idx/cols),idx%cols];
+  if((Math.abs(er-cr)+Math.abs(ec-cc))===1){
+    [positions[idx],positions[emptyIdx]]=[positions[emptyIdx],positions[idx]];
+    render(); checkComplete();
+  }
+});
+
+function mergePuzzle(){
+  const pieces=Array.from(document.querySelectorAll('.piece'));
+  pieces.forEach(div=>{
+    div.style.position='absolute';
+    div.style.top='0'; div.style.left='0';
+    div.style.width='100%'; div.style.height='100%';
+    div.style.borderRadius='0';
+    div.style.backgroundPosition='center';
+  });
+  setTimeout(()=>{
+    puzzle.style.display='none';
+    completeLogo.style.display='block';
+    completeLogo.style.opacity='1';
+  },100);
+}
+
+function showBanner(){
+  banner.style.display='block';
+  setTimeout(()=>{
+    banner.style.opacity=1;
+    banner.style.transform='translate(-50%, -50%) scale(1)';
+  },10);
+  setTimeout(()=>{
+    banner.style.opacity=0;
+    banner.style.transform='translate(-50%, -50%) scale(0.8)';
+    setTimeout(()=>{banner.style.display='none'; mergePuzzle();},800);
+  },3000);
+}
+
+function checkComplete(){
+  for(const idx of importantPieces){
+    if(positions[idx]!==idx) return;
+  }
+  showBanner();
+}
+
+
+document.getElementById('restartBtn').onclick=()=>{
+  positions=Array.from({length: rows*cols-1}, (_,i)=>i);
+  positions.push(null);
+  shuffle(positions);
+  puzzle.style.display='grid';
+  completeLogo.style.display='none';
+  render();
+};
+
+const hintModal=document.getElementById('hintModal');
+document.getElementById('hintBtn').onclick=()=>hintModal.classList.add('show');
+document.getElementById('closeHintBtn').onclick=()=>hintModal.classList.remove('show');
+
+document.getElementById('startBtn').onclick=()=>{
+  document.getElementById('startModal').classList.remove('show');
+  render();
+};
+</script>
+</body>
+</html>

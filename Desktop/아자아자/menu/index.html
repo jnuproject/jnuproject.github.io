@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🍽 오늘 뭐 먹지?</title>
+<style>
+:root {
+  --bg: #f4f4f4;
+  --text-strong: #111;
+  --text-muted: #555;
+  --surface-strong: #ffffff;
+  --border-soft: rgba(0, 0, 0, 0.08);
+  --teal-400: #00b3a4;
+  --teal-500: #00a99c;
+  --teal-600: #009485;
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+html, body {
+  height: auto;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Pretendard", sans-serif;
+  background-color: #f2f1f1;
+  color: var(--text-strong);
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-bottom: 27px;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 5vw, 48px) clamp(16px, 4vw, 32px);
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("butterfly.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  z-index: -2;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255,255,255,0.6);
+  z-index: -1;
+}
+.hidden {
+  display: none;
+}
+.view {
+  width: 100%;
+  max-width: 408px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.view-card {
+  width: 100%;
+  background: linear-gradient(135deg, var(--surface-strong), rgba(246,255,254,0.86));
+  border-radius: 20px;
+  padding: clamp(20px, 5vw, 36px);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+.view-card::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -90px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle at center, rgba(0,169,156,0.22), transparent 68%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0,169,156,0.12);
+  color: var(--teal-500);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.badge img {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+#main {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+.panel-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: clamp(16px, 5vw, 24px);
+  align-items: center;
+  text-align: center;
+}
+.panel-header h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+  color: #000000;
+  letter-spacing: -0.6px;
+}
+.panel-subtitle {
+  display: none;
+}
+.selector-grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 4vw, 22px);
+}
+.selector-card {
+  background: rgba(255,255,255,0.78);
+  border-radius: 18px;
+  padding: clamp(14px, 3vw, 18px);
+  border: 1px solid rgba(0,169,156,0.1);
+  box-shadow: 0 10px 20px rgba(0,169,156,0.12), 0 4px 10px rgba(15,43,40,0.08);
+  backdrop-filter: blur(12px);
+}
+.selector-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(0,169,156,0.2), rgba(0,169,156,0.08));
+  color: var(--teal-500);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.selector-heading h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text-strong);
+}
+.selector-heading p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.category-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 14px;
+  width: 100%;
+  padding: 10px 5px;
+  box-sizing: border-box;
+}
+.category-group::-webkit-scrollbar {
+  display: none;
+}
+
+.category-group button {
+  flex: 1 1 calc(33.333% - 14px);
+  max-width: 180px;
+  min-width: 100px;   
+  min-height: 50px;
+  border-radius: 18px;
+  border: 1.6px solid rgba(0,169,156,0.4);
+  background: linear-gradient(145deg, #f8fefe, #e9f7f6);
+  box-shadow: 0 6px 14px rgba(0,169,156,0.12);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.category-group button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,169,156,0.22);
+}
+.category-group button.active {
+  background: linear-gradient(145deg, var(--teal-500), var(--teal-400));
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,169,156,0.28);
+  border: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+.primary-button,
+#recommendBtn,
+#retryBtn {
+  background: linear-gradient(135deg, var(--teal-400), var(--teal-500));
+  color: #ffffff;
+  border: none;
+  border-radius: 18px;
+  padding: 12px 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, background 0.35s ease;
+  box-shadow: 0 18px 36px rgba(0,169,156,0.32), 0 6px 14px rgba(0,0,0,0.12);
+  letter-spacing: 0.3px;
+}
+#recommendBtn:hover,
+#retryBtn:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+}
+#recommendBtn:active,
+#retryBtn:active {
+  transform: translateY(-1px) scale(0.99);
+}
+#recommendBtn {
+  width: 100%;
+  font-size: 1rem;
+}
+.cta-row {
+  margin-top: clamp(16px, 5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cta-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(16,44,41,0.55);
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  z-index: 50;
+  overflow-y: auto;
+}
+.modal-content {
+  background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(246,255,254,0.92));
+  padding: clamp(28px, 4vw, 40px);
+  border-radius: 28px;
+  width: min(100%, 440px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 28px 64px rgba(0,169,156,0.25), 0 14px 28px rgba(0,0,0,0.14);
+  border: 1px solid rgba(0,169,156,0.18);
+  backdrop-filter: blur(18px);
+  animation: fadeIn 0.45s ease;
+  margin: auto;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.modal-content h2 {
+  color: var(--teal-500);
+  margin-bottom: 12px;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.4;
+}
+.food-name {
+  font-size: clamp(1.8rem, 4.5vw, 2.3rem);
+  font-weight: 800;
+  color: #000000;
+  margin-bottom: 24px;
+  letter-spacing: -0.4px;
+}
+.partner-title {
+  margin-top: 20px;
+  color: var(--teal-500);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.partner-list {
+  margin-top: 14px;
+  text-align: left;
+  color: var(--text-strong);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.partner-item {
+  margin-bottom: 16px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+.partner-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-strong);
+  margin-bottom: 4px;
+}
+.partner-address {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 26px;
+}
+.modal-buttons button {
+  flex: 1;
+  min-height: 50px;
+  font-size: 1rem;
+}
+#closeBtn {
+  background: #ffffff;
+  color: var(--teal-500);
+  border: 1.6px solid rgba(0,169,156,0.4);
+  box-shadow: 0 10px 20px rgba(0,169,156,0.08), 0 4px 10px rgba(0,0,0,0.06);
+}
+#closeBtn:hover {
+  background: rgba(0,169,156,0.08);
+}
+#closeBtn:active {
+  transform: translateY(-1px);
+}
+#alertModal .modal-content {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px 24px;
+  border: 1px solid rgba(242,92,92,0.2);
+}
+#alertModal h2 {
+  color: #f25c5c;
+  margin-bottom: 12px;
+  font-size: 1.35rem;
+}
+#alertModal p {
+  color: var(--text-strong);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+#alertCloseBtn {
+  background: linear-gradient(135deg, var(--teal-400), var(--teal-500));
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 26px rgba(0,169,156,0.22), 0 4px 12px rgba(0,0,0,0.08);
+}
+#alertCloseBtn:hover {
+  transform: translateY(-2px);
+}
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+@media (min-width: 1024px) {
+  body {
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 0;
+    background-attachment: fixed;
+  }
+
+  .view {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .view-card {
+    border-radius: 36px;
+    padding: 56px 64px;
+    box-shadow: var(--shadow-lg);
+    margin: auto;
+  }
+
+  .selector-card {
+    border-radius: 28px;
+    padding: 28px;
+  }
+
+  .panel-header h1 {
+    font-size: clamp(2rem, 2.2vw, 2.8rem);
+  }
+
+  .panel-subtitle {
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    line-height: 1.6;
+  }
+
+  .category-group {
+    overflow-y: visible;
+    gap: 14px;
+    justify-content: center;
+    padding: 10px 0 14px;
+    flex-wrap: wrap;
+  }
+
+  .category-group button {
+    min-width: 120px;
+    min-height: 56px;
+    font-size: 1rem;
+    border-radius: 20px;
+    flex-grow: 1;
+    transition: all 0.25s ease;
+  }
+
+  .category-group button:hover {
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  .selector-grid {
+    gap: 28px;
+  }
+
+  .cta-row {
+    margin-top: 36px;
+    gap: 20px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1600px) {
+  .view-card {
+    max-width: 1040px;
+    padding: 64px 80px;
+  }
+
+  .category-group button {
+    min-width: 140px;
+    font-size: 1.05rem;
+  }
+}
+@media (max-width: 720px) {
+  .selector-heading {
+    gap: 12px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .step-index {
+    width: 38px;
+    height: 38px;
+  }
+}
+@media (max-width: 520px) {
+  body {
+    padding: 20px 16px 28px;
+  }
+  .view {
+    max-width: 100%;
+  }
+  .view-card {
+    border-radius: 22px;
+    padding: clamp(18px, 5vw, 24px);
+  }
+  .panel-header h1 {
+    font-size: 1.8rem;
+  }
+  .category-group button {
+    min-height: 46px;
+    font-size: 0.88rem;
+  }
+  .modal-buttons {
+    flex-direction: column;
+  }
+  .modal-buttons button {
+    width: 100%;
+  }
+  .modal-content {
+    padding: 20px;
+    width: calc(100vw - 32px);
+  }
+  .partner-name {
+    font-size: 0.95rem;
+  }
+  .partner-address {
+    font-size: 0.82rem;
+  }
+  .food-name {
+    font-size: 1.6rem;
+  }
+
+  .suggest-link {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, var(--teal-400), var(--teal-500));
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,169,156,0.25);
+}
+.suggest-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0,169,156,0.35);
+}
+}
+
+#footerBanner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  width: auto;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, #00bfa5, #0097a7);
+  color: white;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+</style>
+</head>
+
+<body>
+<div id="main" class="view">
+  <div class="view-card main-card">
+    <div class="panel-header">
+      <span class="badge"><img src="logo.png" alt="Deem" onerror="this.style.display='none'"></span>
+      <h1>오늘 뭐 먹지?</h1>
+    </div>
+
+    <div class="selector-grid">
+      <section class="selector-card">
+        <div class="selector-heading">
+          <span class="step-index">01</span>
+          <div>
+            <h2>어떤 음식이 끌리나요?</h2>
+            <p>당기는 카테고리를 하나 골라주세요.</p>
+          </div>
+        </div>
+        <div class="category-group" id="foodType">
+          <button>한식</button>
+          <button>중식</button>
+          <button>일식</button>
+          <button>양식</button>
+          <button>안주</button>
+        </div>
+      </section>
+
+      <section class="selector-card">
+        <div class="selector-heading">
+          <span class="step-index">02</span>
+          <div>
+            <h2>몇 명이 함께하나요?</h2>
+            <p>오늘 식탁을 함께할 사람을 떠올려보세요.</p>
+          </div>
+        </div>
+        <div class="category-group" id="situation">
+          <button>1인</button>
+          <button>2~3인</button>
+          <button>4인 이상</button>
+        </div>
+      </section>
+
+      <section class="selector-card">
+        <div class="selector-heading">
+          <span class="step-index">03</span>
+          <div>
+            <h2>어디에서 만날까요?</h2>
+            <p>가고 싶은 동네를 선택하면 추천해드릴게요.</p>
+          </div>
+        </div>
+        <div class="category-group" id="location">
+          <button>아라동</button>
+          <button>시청</button>
+          <button>구제주</button>
+          <button>신제주</button>
+          <button>애월·한림</button>
+          <button>조천·구좌·함덕</button>
+          <button>서귀포</button>
+          <button>성산·표선</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="cta-row">
+      <p class="cta-hint">tip. 선택을 바꾸고 싶을 때는 버튼을 다시 눌러보세요.</p>
+      <button id="recommendBtn">추천받기</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="foodModal">
+  <div class="modal-content">
+    <h2>오늘의 추천 음식</h2>
+    <div class="food-name" id="foodName">랜덤 음식</div>
+    <div class="partner-title">제휴 음식점 🏪</div>
+    <div id="partnerList"></div>
+    <div class="modal-buttons">
+      <button id="retryBtn">다시하기</button>
+      <button class="close" id="closeBtn">닫기</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="alertModal">
+  <div class="modal-content">
+    <h2>⚠️ 선택이 부족해요</h2>
+    <p>음식 종류, 인원, 지역을 모두 골라주세요!</p>
+    <button id="alertCloseBtn">확인</button>
+  </div>
+</div>
+<div id="footerBanner">제주대학교 58대 DREAM 총학생회 선거운동본부</div>
+<script>
+["foodType","situation","location"].forEach(id=>{
+  const btns=document.querySelectorAll(`#${id} button`);
+  btns.forEach(btn=>btn.addEventListener("click",()=>{
+    btns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+  }));
+});
+
+const restaurants=[
+    { name: "리릭", address: "제주 제주시 아란9길 25 1층 리릭", region: "아라동", tags: ["돈가스"], foodCategory: "일식", groups: ["1인","2~3인"] },
+    { name: "한점", address: "제주 제주시 인다2길 30 2층", region: "아라동", tags: ["돈가스"], foodCategory: "일식", groups: ["1인","2~3인"] },
+    { name: "마왕족발 제주 아라점", address: "제주 제주시 아란7길 3-2", region: "아라동", tags: ["족발"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "명륜진사갈비 제주 아라점", address: "제주 제주시 아란7길 6 1층", region: "아라동", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "고요남 제주 아라점", address: "제주 제주시 구남동8길 51", region: "아라동", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "모닥치기 아라점", address: "제주 제주시 인다9길 8", region: "아라동", tags: ["김밥","떡볶이"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "모퉁이를 비추는 해", address: "제주특별자치도 제주시 인다6길 43", region: "아라동", tags: ["육포","두부제육"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "봉자막창 제주아라점", address: "제주 제주시 구산로 70 1층", region: "아라동", tags: ["막창","고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "시시한 덮밥", address: "제주 제주시 인다11길 13 1층 시시한덮밥", region: "아라동", tags: ["덮밥"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "월궁", address: "제주 제주시 산천단동2길 20", region: "아라동", tags: ["짬뽕","짜장면","탕수육"], foodCategory: "중식", groups: ["1인","2~3인"] },
+    { name: "고서방 짬뽕", address: "제주 제주시 인다5길 11-5", region: "아라동", tags: ["짬뽕","짜장면","탕수육"], foodCategory: "중식", groups: ["1인","2~3인"] },
+    { name: "자가제빵 선명희피자 제주점", address: "제주특별자치도 제주시 아라이동 3001-17 1층", region: "아라동", tags: ["피자"], foodCategory: "양식", groups: ["2~3인"] },
+    { name: "큰맘할매순대국 제주아라점", address: "제주특별자치도 제주시 아라일동 6104-7 1층", region: "아라동", tags: ["국밥"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "크라운호프 아라점", address: "제주 제주시 아란7길 3-3 101호", region: "아라동", tags: ["치킨", "피자"], foodCategory: "안주", groups: ["4인 이상","2~3인"] },
+
+    { name: "마초왕갈비", address: "제주 제주시 서광로32길 18 마초왕갈비", region: "시청", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "어디가코", address: "제주 제주시 서광로32길 23 어디가코 시청점", region: "시청", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "영현이네", address: "제주특별자치도 제주시 연삼로 449 1층 영현이네", region: "시청", tags: ["고기","전골"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "서울냉면", address: "제주 제주시 광양7길 49 1층", region: "시청", tags: ["냉면"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "앤티앤스 프레즐 제주시청점", address: "제주시 신성로13길 15 1층 앤티앤스프레즐 제주시청점", region: "시청", tags: ["프레즐"], foodCategory: "양식", groups: ["1인"] },
+    { name: "낭푼이 닭한마리", address: "제주 제주시 광양13길 6-4", region: "시청", tags: ["닭볶음탕"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "불등불닭", address: "제주 제주시 남성로 165 1층 불등불닭", region: "시청", tags: ["닭발"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "먹주", address: "제주 제주시 신성로13길 1 2층 먹주", region: "시청", tags: ["화채","전골"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "모던뽀이", address: "제주 제주시 신성로13길 4 3층", region: "시청", tags: ["전골","피자"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "삼차", address: "제주 제주시 신성로13길 14", region: "시청", tags: ["과일"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "식전당포", address: "제주 제주시 광양14길 17-1", region: "시청", tags: ["전"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "오마오", address: "제주 제주시 서광로32길 27-3 1층", region: "시청", tags: ["전골","볶음"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "온평", address: "제주특별자치도 제주시 서광로32길 28-1 1층", region: "시청", tags: ["바베큐"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "월계관", address: "제주특별자치도 제주시 신성로 107-1 1층", region: "시청", tags: ["해산물","전골"], foodCategory: "일식", groups: ["2~3인","4인 이상"] },
+    { name: "제주 오뎅", address: "제주 제주시 광양13길 6-2 1층", region: "시청", tags: ["어묵","꼬치"], foodCategory: "안주", groups: ["1인","2~3인"] },
+    { name: "탑동골목", address: "제주특별자치도 제주시 중앙로5길 13 1층", region: "구제주", tags: ["칵테일"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "포차천국", address: "제주특별자치도 제주시 이도이동 1765-3 2층", region: "구제주", tags: ["치킨","화채"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "한푼리 포차", address: "제주특별자치도 제주시 광양14길 18 1층", region: "시청", tags: ["닭볶음탕"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "화사랑", address: "제주특별자치도 제주시 서광로32길 10", region: "시청", tags: ["닭볶음탕","전"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "1943", address: "제주특별자치도 제주시 이도이동 1771-1 2층 201호", region: "구제주", tags: ["전골","칼국수"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "광양8길9", address: "제주 제주시 광양8길 9 2층", region: "시청", tags: ["화채","우동"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "젠칸투스", address: "제주 제주시 연삼로 145 가동 지층", region: "시청", tags: ["칵테일","와인"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "AMU 아무", address: "제주특별자치도 제주시 남성로 160", region: "시청", tags: ["칵테일","와인"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+
+    { name: "한라 돈까스", address: "제주특별자치도 제주시 탑동로 27 한라돈까스", region: "구제주", tags: ["돈가스"], foodCategory: "일식", groups: ["1인","2~3인"] },
+    { name: "은화수식당 제주용담점", address: "제주 제주시 용담로 85-1 1층", region: "구제주", tags: ["돈가스"], foodCategory: "일식", groups: ["1인","2~3인"] },
+    { name: "돈사촌 본점", address: "제주 제주시 서사로 7", region: "구제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "마리조아 본점", address: "제주 제주시 삼봉로 99 1층", region: "구제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "왕생가든", address: "제주 제주시 연신로 261-3", region: "구제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "육쌈고기뷔페 일도점", address: "제주 제주시 연수로3길 4 2층", region: "구제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "제주으뜸흑돼지", address: "제주특별자치도 제주시 동한두기길 23 제주으뜸흑돼지", region: "구제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "용짜형뽕", address: "제주 제주시 용두암길 62 1층", region: "구제주", tags: ["짬뽕","짜장면","탕수육"], foodCategory: "중식", groups: ["1인","2~3인"] },
+    { name: "미듬", address: "제주 제주시 삼봉로 115 상가동101호", region: "구제주", tags: ["국수"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "두찜 제주일도점", address: "제주 제주시 일도이동 고마로 90", region: "구제주", tags: ["찜닭"], foodCategory: "한식", groups: ["2~3인"] },
+    { name: "사랑물", address: "제주특별자치도 제주시 고마로 55", region: "구제주", tags: ["해산물"], foodCategory: "일식", groups: ["4인 이상","2~3인"] },
+    { name: "공공시", address: "제주 제주시 연수로1길 6 2층", region: "구제주", tags: ["파스타"], foodCategory: "양식", groups: ["2~3인"] },
+    { name: "101동 파스타", address: "제주 제주시 박성내서길 12-7 1층", region: "구제주", tags: ["파스타"], foodCategory: "양식", groups: ["2~3인"] },
+    { name: "리프리지", address: "제주 제주시 탑동로 109 1층", region: "구제주", tags: ["샐러드"], foodCategory: "양식", groups: ["1인","2~3인"] },
+    { name: "스마일 찰진 꽈배기", address: "제주 제주시 서흘4길 1 1층스마일꽈배기", region: "구제주", tags: ["꽈배기"], foodCategory: "한식", groups: ["1인"] },
+    { name: "양씨네 제주전복칼국수", address: "제주 제주시 관덕로13길 10-1 1층", region: "구제주", tags: ["해산물","칼국수","국수"], foodCategory: "한식", groups: ["1인","2~3인","4인 이상"] },
+    { name: "이치진 이도점", address: "제주 제주시 신설로7길 31 1층", region: "구제주", tags: ["양갈비","고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "제주 미소", address: "제주 제주시 연수로1길 6 1층", region: "구제주", tags: ["샤브샤브"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "연향주옥", address: "제주 제주시 남광로 17 1층", region: "시청", tags: ["전","샐러드"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "착한제주고등어", address: "제주특별자치도 제주시 동문로11길 5 착한제주고등어", region: "구제주", tags: ["해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+
+    { name: "창성상회", address: "제주특별자치도 제주시 도남로 25 1층 창성상회", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "촌뜨기 화로구이", address: "제주 제주시 도남로 117 1층 촌뜨기 화로구이", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "냉삼춘", address: "제주특별자치도 제주시 도남로 26 1층 냉삼춘", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "돈내코 숯불갈비", address: "제주특별자치도 제주시 연동4길 28-16 1층", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "마므레", address: "제주특별자치도 제주시 노형로 301 마므레 제주공항본점", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "식당 마요네즈", address: "제주특별자치도 제주시 다랑곶3길 18", region: "신제주", tags: ["파스타","스테이크"], foodCategory: "양식", groups: ["2~3인"] },
+    { name: "이모밥상", address: "제주특별자치도 제주시 연북로 173", region: "신제주", tags: ["해산물"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "장충왕족발보쌈", address: "제주특별자치도 제주시 선덕로 12 1층", region: "신제주", tags: ["족발","보쌈"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "제주소풍김밥", address: "제주특별자치도 제주시 수덕5길 40 1층", region: "신제주", tags: ["김밥"], foodCategory: "한식", groups: ["1인"] },
+    { name: "중앙원", address: "제주특별자치도 제주시 수덕5길 45 다온주택 1층", region: "신제주", tags: ["전골"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "진도새기", address: "제주 제주시 광평동로 67 진도새기", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "크라운호프 원노형점", address: "제주 제주시 원노형로 54 1층", region: "신제주", tags: ["치킨","피자"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "평민닭발 연동점", address: "제주 제주시 성신로1길 21 1층", region: "신제주", tags: ["닭발"], foodCategory: "안주", groups: ["2~3인"] },
+    { name: "황금돼지등갈비", address: "제주특별자치도 제주시 월랑로4길 17 1층황금돼지등갈비", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "갈치장", address: "제주 제주시 원노형로 35 1층 제주 갈치장 갈치조림 전문점", region: "신제주", tags: ["해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "김밥천국 외도점", address: "제주 제주시 우정로11길 2 1층", region: "신제주", tags: ["김밥","떡볶이"], foodCategory: "한식", groups: ["1인"] },
+    { name: "테그42", address: "제주 제주시 우정로11길 2 1층", region: "신제주", tags: ["토스트"], foodCategory: "양식", groups: ["1인"] },
+    { name: "꼼닭", address: "제주특별자치도 제주시 은남길 33 1층", region: "신제주", tags: ["고기"], foodCategory: "한식", groups: ["2~3인"] },
+    { name: "도두 후레쉬 버거", address: "제주 제주시 도공로 34 도두후레쉬", region: "신제주", tags: ["햄버거"], foodCategory: "양식", groups: ["1인","2~3인"] },
+    { name: "빨강코끼리", address: "제주 제주시 다랑곶6길 26-1", region: "신제주", tags: ["돈가스"], foodCategory: "일식", groups: ["1인"] },
+    { name: "샐럽올데이", address: "제주특별자치도 제주시 귀아랑길 13 1층 샐럽올데이", region: "신제주", tags: ["샐러드"], foodCategory: "양식", groups: ["1인"] },
+    { name: "예소담 도두점", address: "제주 제주시 도두항서길 13", region: "신제주", tags: ["해산물","국수"], foodCategory: "한식", groups: ["2~3인"] },
+
+    { name: "시키", address: "제주특별자치도 제주시 애월읍 하귀동남1길 25 1층", region: "애월·한림", tags: ["해산물"], foodCategory: "일식", groups: ["2~3인","4인 이상"] },
+    { name: "뽕꼬랑샌드", address: "제주 제주시 애월읍 하귀동남1길 41 1층", region: "애월·한림", tags: ["샌드위치"], foodCategory: "양식", groups: ["1인"] },
+    { name: "독개물항", address: "제주 제주시 한림읍 한림로 478", region: "애월·한림", tags: ["해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "이춘옥의 고등어쌈밥", address: "제주 제주시 애월읍 일주서로 7213", region: "애월·한림", tags: ["해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "힘쎈 숯불장어", address: "제주 제주시 애월읍 하귀11길 3-11 1층", region: "애월·한림", tags: ["장어","해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+
+    { name: "다래향", address: "제주특별자치도 제주시 조천읍 조함해안로 428-4", region: "조천·구좌·함덕", tags: ["짬뽕","짜장면","탕수육"], foodCategory: "중식", groups: ["1인","2~3인"] },
+    { name: "제주뜰향기", address: "제주특별자치도 제주시 조천읍 남조로 2326 1층", region: "조천·구좌·함덕", tags: ["해산물"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "몰돗", address: "제주 제주시 조천읍 함대로 2", region: "조천·구좌·함덕", tags: ["고기"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "시차", address: "제주특별자치도 제주시 조천읍 신북로 88 지1층 104호", region: "조천·구좌·함덕", tags: ["찌개","닭볶음탕"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "월정국수", address: "제주특별자치도 제주시 구좌읍 월정3길 6", region: "조천·구좌·함덕", tags: ["국수"], foodCategory: "한식", groups: ["1인"] },
+    { name: "제주로움", address: "제주 제주시 구좌읍 월정3길 16 1층 제주로움", region: "조천·구좌·함덕", tags: ["돈가스"], foodCategory: "일식", groups: ["1인","2~3인"] },
+
+    { name: "대광장식당", address: "제주 서귀포시 중앙로 79 한라안경콘텍트", region: "서귀포", tags: ["찌개","비빔밥"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "마주앉아", address: "제주 서귀포시 명동로 27", region: "서귀포", tags: ["탕수육","닭발"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+    { name: "명륜진사갈비 서귀명동점", address: "제주 서귀포시 명동로 4 1층", region: "서귀포", tags: ["고기"], foodCategory: "한식", groups: ["4인 이상","2~3인"] },
+    { name: "사계바다", address: "제주 서귀포시 안덕면 형제해안로 26 1층 사계바다", region: "서귀포", tags: ["해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "제주 곶 서귀포 해물라면", address: "제주 서귀포시 칠십리로214번길 36 제주곶 서귀포 해물라면", region: "서귀포", tags: ["해산물","라면"], foodCategory: "한식", groups: ["1인","2~3인"] },
+    { name: "1943 서귀포 명동로점", address: "제주 서귀포시 명동로 29-1 2층", region: "서귀포", tags: ["전골","칼국수"], foodCategory: "안주", groups: ["2~3인","4인 이상"] },
+
+    { name: "갈치왕 성산점", address: "제주 서귀포시 성산읍 성산중앙로37번길 9 1층 갈치왕 성산점", region: "성산·표선", tags: ["해산물"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "명문가시리음식점", address: "제주 서귀포시 표선면 중산간동로 5218", region: "성산·표선", tags: ["고기","국수"], foodCategory: "한식", groups: ["2~3인","4인 이상"] },
+    { name: "바다의집", address: "제주 서귀포시 성산읍 병문로 236 1층", region: "성산·표선", tags: ["해산물"], foodCategory: "한식", groups: ["1인","2~3인","4인 이상"] }
+  ];
+
+function getFoodOptions(foodType, situation, location) {
+  const matched = restaurants.filter(r =>
+    r.foodCategory === foodType &&
+    r.region === location &&
+    r.groups.includes(situation)
+  );
+
+  const foodSet = new Set();
+  matched.forEach(r => {
+    r.tags.forEach(tag => foodSet.add(tag));
+  });
+
+  return Array.from(foodSet);
+}
+
+const recommendBtn=document.getElementById("recommendBtn");
+const modal=document.getElementById("foodModal");
+const closeBtn=document.getElementById("closeBtn");
+const retryBtn=document.getElementById("retryBtn");
+const foodName=document.getElementById("foodName");
+const partnerList=document.getElementById("partnerList");
+const alertModal=document.getElementById("alertModal");
+const alertCloseBtn=document.getElementById("alertCloseBtn");
+
+alertCloseBtn.addEventListener("click",()=>alertModal.style.display="none");
+closeBtn.addEventListener("click",()=>modal.style.display="none");
+retryBtn.addEventListener("click",()=>{
+  modal.style.display="none";
+  document.querySelectorAll("button.active").forEach(b=>b.classList.remove("active"));
+});
+
+window.addEventListener("click",e=>{
+  if(e.target===modal)modal.style.display="none";
+  if(e.target===alertModal)alertModal.style.display="none";
+});
+
+recommendBtn.addEventListener("click",()=>{
+  const type = document.querySelector("#foodType button.active")?.textContent;
+  const situation = document.querySelector("#situation button.active")?.textContent;
+  const location = document.querySelector("#location button.active")?.textContent;
+
+  if(!type || !situation || !location){
+    alertModal.style.display="flex";
+    return;
+  }
+
+  const foods = getFoodOptions(type, situation, location);
+
+  if(!foods.length){
+    document.querySelector("#foodModal h2").style.display = "none";
+    foodName.style.display = "none";
+    document.querySelector(".partner-title").style.display = "none";
+
+    partnerList.innerHTML = `
+      <div class="partner-item" style="text-align:center;">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf4YAIleH-K6YQuyybGjoaR8-VLIRv6_ZMAdxrgcYZC6NRITQ/viewform?usp=sharing&ouid=110442007361307919260"
+          target="_blank" class="suggest-link">
+            👉 제휴 제안하기
+          </a>
+      <p class="empty-desc">
+      <strong>DREAM 총학생회 선거운동본부</strong>는 정식 선거운동 기간 동안 학우들이 원하는 <span class="highlight">제휴를 직접 반영</span>하고자 노력하고 있습니다.
+      </p>
+    </div>
+    `;
+    modal.style.display = "flex";
+    return;
+  }
+
+  document.querySelector("#foodModal h2").style.display = "";
+  foodName.style.display = "";
+  foodName.textContent = "뽑는 중...";
+  partnerList.innerHTML = "";
+  modal.style.display = "flex";
+
+  let displayFoods = [...foods];
+if (foods.length === 1) {
+  const dummyFoods = ["파스타", "치킨", "초밥", "돈까스", "김밥", "라멘", "스테이크", "덮밥", "볶음밥", "피자"];
+  const shuffled = dummyFoods.sort(() => 0.5 - Math.random()).slice(0, 4);
+  displayFoods = [...foods, ...shuffled];
+}
+
+  let tick = 0;
+const spin = setInterval(() => {
+  foodName.textContent = displayFoods[Math.floor(Math.random() * displayFoods.length)];
+  tick++;
+  if (tick > 12) {
+    clearInterval(spin);
+    const finalFood = foods[Math.floor(Math.random() * foods.length)] || displayFoods[0];
+    showResult(finalFood, location, situation);
+  }
+}, 80);
+});
+
+
+function showResult(finalFood,location,situation){
+  foodName.textContent=finalFood;
+  const matched=restaurants.filter(r=>{
+    const okRegion=r.region===location;
+    const okFood=r.tags?.includes(finalFood);
+    const okGroup=!r.groups||r.groups.includes(situation);
+    return okRegion&&okFood&&okGroup;
+  });
+  if(!matched.length){
+    partnerList.innerHTML=`제휴 준비 중 - 조만간 업데이트 예정`;
+    return;
+  }
+  partnerList.innerHTML=matched.map(m=>`
+    <div class="partner-item">
+      <div class="partner-name">${m.name}</div>
+      <div class="partner-address">${m.address}</div>
+    </div>
+  `).join("");
+}
+</script>
+</body>
+</html>
