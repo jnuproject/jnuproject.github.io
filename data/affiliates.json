@@ -1670,5 +1670,181 @@
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU44hwY_WqCU2nLpKa9fw8VuMkn8xMZv-8yygTEifxDGnisg9xy3WcF2Kf3rEeW8qz1UjkDJxnd_EzYSqF5JveOIhBLBGtjG-Cf6j1q3pAtm5nFUYGF5YB66rLTkSAXgm5Bf1Ao-Zly05j8R8kYe3-WHhQBVcT7AjyDXMVVV7VN4GG0OZHPdEZ1Gvv2M-j90SwO-NeAPIAIznaKZqvxu_VUQ7xU9y3GKGzU4iIeNHMYnQB4rEho0q_NZvcIxfnOzhIYMG_l88JvcL8JYwswl9kmVRLgea0w0xyMWxNmXHy8PjlIV-x8&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4707882,
     "longitude": 126.6570166
+  },
+  {
+    "id": "163",
+    "name": "나이체",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 인다6길 35 1층",
+    "description": "",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5Gk4nwIm77JebT2Fr8L27PdsBjdVinWdmmfNu9cJpBJVVj6CzvysU1yPkZLKIsA4hAcvRaEwfokqQLb2TC_JAJsm8VrYSfxRXwu1u8h2J9Gf23BW9JHqg6P6xOpknNZ-p639mTvWK2RbkePPuAI9eD8RImMBpjvRb9dE0S2quyMeVIsxo0rVTDNsZ0d2vxGVbyx37avqKyKDWma5PV_KrL75tKKGqju8rkjwHZWqfN1jEw7Y-3TreVCteiqak2tsXB8pgedjaqDPu7tctlAiWj7oeZYcQUBvnH6QTts56nJDv77Oama98r8OsA79-6WmFrCxs081HNn-hyCoQNWZIn8jxSFsvMuL2ZhB_2o6asmwRGcINYD3Grj-obxOdNv61KdkTsg_pGVV-qbZzQhxiWNeYFIm_9-YAa_qmCgejrkSQtt9vk_f2AXlnj4_BRCQWa1-uWgGQk_-qEwbFzhT0NvXZ5VcVmU_LqZIbgj7QwGBdBHE1OlbZF1FbKNpojRPELrkJ0ZCLDtATiUKkqi_aBjCTf3W_aEXRaBqJgzpPmzpCyGHd7uywuAbzwW-ws1sqfD9XMQwXd3g&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4751906,
+    "longitude": 126.5468314
+  },
+  {
+    "id": "164",
+    "name": "장산다방",
+    "category": "카페",
+    "region": "구제주",
+    "address": "제주특별자치도 제주시 서부두2길 26 휘슬락호텔 1층",
+    "description": "",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7gjO9s1_MNZd4p1KZQ4shu0HlmsIq5qOmlagf5wjIJUWpvnt3LMJXQR4dMO4MybAbaX-CjVLBfN0MJnWKWmynwk-1q-1LaF9qjGs-IFRBM50TbRn-omX-V3F-2J69f_c_W3mOVafOimbV7d9C0NReUBwznGAPzABIhR_mrmi1Gya8A5sQg3k2rACKxZd8yRXNzhNlST9JgxGJCIx_F3x-vzMSqaitPRZJXk2szuy5Z-Tp-zNhOjOQwEV-ok-vxroNuoZ6vO4mbTi04fEu1vfkrFdRflZNULwHXU2JcmANDUJcoNKDU8jJfit19rWv7ew0skcCAuRVfvRChG1DvBdEV3FpStL_2dfRQpzoZGVKztkjRyEym700ebp6NRo0_VSFCo1ccZjO9ScgbQz0C8K7-gLuDz_9Eqry0wqlYzJESN7VSAJeUR2avVbFiB1JBzYdOQeccS-sTc5jyi8OyHFSweEGnrdwf6cXmRgVoop-oFdLRMhJ5NZUi5i5DFtvIwn83HtSIeoQRSGDThyWHBDLen0UAlDtrqIcLIrTSLSPIV5NbGYTKmLQwy9jJZj4i2kODFEKy3SPppg&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5173509,
+    "longitude": 126.5278
+  },
+  {
+    "id": "165",
+    "name": "하이리보",
+    "category": "카페",
+    "region": "구제주",
+    "address": "제주시 도련동길 19 1층",
+    "description": "애견 입장료 40% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.5087515,
+    "longitude": 126.59202
+  },
+  {
+    "id": "166",
+    "name": "트윗스터 윗",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 고산동산1길 11 1층",
+    "description": "매장 방문시 10% 할인, 5개 구매 시 1개 서비스",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5gpnCy4cUbdr-Osb1dUTprePSV3r9qqAuX7Wx1hMTd-LEYIyxpRmGLpqpcKADMVGyTKI7UADSTUJ1C-Cq0UU2ZG_h-SMfKoaCm4h8EqbJCHp2wOK8UY_ub2DcfOx0ype3WiTPNXKCs8Sc4kC263HPSym0s5Ma1depoHTivIGkJkIlr21jmUYIcK-M6ZjoiR9hFCN7OPY1sAyVkDW7IZdDAYoG8dmefRHIUmRAsbc95RVfHEh0bak7MUlX9yXy4S0ZKTNii_sfd5yCVcBc8MoOlxvsHXGf3NRHAYa9O_DP4Y9__CSE2pwB6ieorXg5rO6i3FHHy38_RzuaHI7Haz6N0seqyglo6wYVU1yasGEYVngXorX4UAmVPnSZjsgPg6vDw8OL6aZGg6EG6a8fhyS0EMl1MJO3fe_xPkYpFwOnS-zuSnQZTVW9LbMdr296P61xQes18yWyhYxM6zebQFm-a857SdyuK60UQvE1Pq6mfzREGA3xo4eCpDhsCDxvb_LfNkSZgkHfWkbBpT1DUiz4dnKweGhbIva2TUf4_H9jxGg9HRZkrEDr1KbHvtR5KNWEAVJxzjcyTjA&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4977616,
+    "longitude": 126.5324304
+  },
+  {
+    "id": "167",
+    "name": "좋수다",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주특별자치도 제주시 고마로 11길 45",
+    "description": "20% 할인 + 리뷰이벤트 시 미니 요거트볼",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU78axzjjuB1ULfRK1srOny3Mr-mLyTOi8iTrcn7rXseeAW6a3FplZmXZmdezrZLC8d8oj6igbGboON5QjEpRuruWsHk_kFoJAGs5dgmX6snw4GxyL8n3g7_XH2zc3vtY5LjVZwrXBMfV0z0nXdzMqbmaIgNTRhS28uySdM2Tcde5vAY1A1Zwn21vAfRioYQ-O_KgD2kRJYB9mcqk-e8jWRQijasQxr4BOmiwqDCWq1uKik95rs8Y8T-0mGIRdO80yu8SnGmfYNh31u2mumTe1waguzZAATvwGdhS5tJJP7N5o5qcFoXBivFsFU5IeClP-z08Um9xV_NgkrGZd9Bquy_5Gtr-ZrlGeqkMN-n3hgYCSxQi49lr4ZQO7j_Cr85irjMCvtLNJBM4_dn7vWICHVrFcV9ruYnt800RKxAiflcBiTxe9fen_4MAYUIFpcMvWgjQOEJHT8QwIzuYX-HasWdxSETyonWR0RvHN7eqADv_xevh2ztqbv5jMFrq9b_UjWDPMixGkafG6IeBt536fr86AmYBIiXZEGVW8Enqq1hbZR6SdUiMQDpN6zED_XNM0rStQQNfr4rSQ&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5124944,
+    "longitude": 126.5390958
+  },
+  {
+    "id": "168",
+    "name": "뭉실뭉실",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 구남동6길 15 1층",
+    "description": "음료 20% 할인 또는 휘낭시에 1개 제공",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4881924,
+    "longitude": 126.5376853
+  },
+  {
+    "id": "169",
+    "name": "청연 디저트",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 도남로 189 1층",
+    "description": "음료 5% 할인 (네이버리뷰 작성시 10% 적용)",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6P-yal6BRY4fgoy3hGoVUWhg4LP8GPeC03gUdQDcjQmsYen9u15iPRomDMywEovxNdnLanOW15uCtbH-0-LemZoM4Te_ySycO0JX8JRtA3-FtOa7KqQwvUjCUCsmSYDt3-P2XWJFP3Z-P-qVRwYa3nFg3duY7XH_2fo3SjFfQ-JoCfaeoNCXPyb2skS7k4-Pu7VzJU92lsbxJXvpGwVeDkGMO4_2fBYlXtoTk29qQnSbDaMTy2ExDZQSprqgU78BQGYroBuhauic_27aK2uuyn8K9MM8p315H2UtYQ423igJqSgTlmNfqvpwp2ys48HkJkc5tCE-QViZjooxmLnE-lMKo2J6cgYBUuUcH3fS5YUYBvdUakWIvwgCxxWkLN29hTldCwSVA7MGJDxb68G0a8-Wq1-cBqs85VMDVrjjbcB5wKT6kUsE6Fd1tvOQLredTQ262rZcObOqjwNZM0av1a2cJa-OI58_zZ5XT1A-Im69fUtq-Vd30P-SYefbOns2iEOr7LKID9N-IgPmhnkHEPFNaZikiAgDj-PyJ8cSBH0YGZtQpo9YeJysDW0RWu0RxO5QyK&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4857467,
+    "longitude": 126.5345589
+  },
+  {
+    "id": "170",
+    "name": "브레드버프",
+    "category": "카페",
+    "region": "구제주",
+    "address": "제주 제주시 우정로3길 4 1층",
+    "description": "5~10% 할인 (당선 이후 방문 원하심)",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7nc1j0bQwZT0rD_ixsUAPehKSQM2AKc2NpAAC9TbVgsewoLpDFAj_w3C1BTk5HoSytp3QNeyWPfCTvm1IWRDH8XymTPZ6HoTgUzuJv8zohK7O-Jeb_PhkLbc4m4kLTYOSZ4pzcLhloLgC5AO2gGNDCRSE3oxLD2umPR-UMNzWPWHokm1jRYHzd3YDEypdYVw40RWmWO6Somm5X1jpFEZQv6fmCDTc4SWH4d183FVnIQU-JDtdy3yHVspwZyIJ7zVwRdGyXmiQPoZkFHve2bhvefzgcsjNI6cYvme9PP2Uu8YXAVIn1ZjIbkFN_GLCM6gs2rJKNuQd7rTAHk_YZV_V43rTp7wLxc2yXDdtinap9FNYpAivm2e0-lBNCNbgtNI9VMJhWulqAEy2pjG7ejLU5kmUxxcYfrDkzAUjfABoZiWi4dHkcuhOMsgMdXqEORTeh_dJBd4utdnFwlGN08dKfuvNZ6sWWthU0yLJII99KR6CbHVMV1-oiD2Ha9OmXl3xgUprTNDF-qn5Xf26lxYZs6ua2m17ofqGh5z7nEd5OkD3Xmttn85tF8jEGCp3_l0JdL1vv&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4912757,
+    "longitude": 126.4314192
+  },
+  {
+    "id": "171",
+    "name": "모찌롱",
+    "category": "카페",
+    "region": "구제주",
+    "address": "제주시 관덕로6길 12 1층",
+    "description": "디저트류 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU53GAdXFYMphFN-Q-UXonxBdxZwxu9eCjenYjhd7iRV8oAU33lIeh4khgBXozLc9nIWHbcXmgsoqvM9-2S53EA0nppG4hvO4UXH2k8G2RfJxbsh4TKy0rXWbqPrlGTC-omZUnb1Fzk6BkrAiCAEVzpKKfGrmbeI3GNVqi4aHFYX0BHZPPaA5O9jq4wZFFdVg6inHQoXjAQ0b3NH84ryLsPSIBWHrkLK0cMOX1LEn_bmGqTMIAJwi-oj6T84lPrIavVBqR3OjLe3ftfowBZn-tsNq9uFQvdfJkVj2VbjGX_GMEvo3uaYRUnqO9Ep1M6NjebYZXIJTdhoL25ict2JDpbAyhv8yUSDcgX_ez669D-3c1ckPDtRcdjaJkMhW391LHi9wgZIFxlgaYPXtTb1bjM4n6j3i3J7sRJ_vo8slOl-pG0xIVTa2ItpYMQj_ma-7Ex9Sq2QhRgOJY0Leh2BmrSZ4nFkhNkZwpuLtzessWFMB4XpFs4bDpcQJnVCAgt6JO3H6RE3vtilV-ul_ED6Tzw4m4al49MW6ejbthWmYg2broo12KZQEezesxWQrwARMb8sb9-B39jNQw&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5120672,
+    "longitude": 126.5219381
+  },
+  {
+    "id": "172",
+    "name": "플레르",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 구산로 22-7 102호",
+    "description": "꽃 + 케이크 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7Bm7-ijEXUtH81X1Zb5Oz3S-fRBng3FNNfl-8IZqJRt0aEyUK-FTqlmII0KJgtLpn0-7tr4i6-cjvaT36OY5u0p2DG6jNukA-OlYUljyftMUHkEn4YJPVCouggl-j6Wk7Aza4ZMfLEWfTkbP9-09S26aYwGQ5RIdAFrLgeQDw7T0bjt6pwfy-NRq7Ang22pnGJFxkPlhgt41tilarC70c30n2_or6EiC8adBmxRWQE3lAzibGMDm3NDEzwi3Jv1YZ9uZsV98Kptij4knxGwX43kXKqC-v1xn6JPCSXMJ94TJ7NgleZ086tumWXDxSVRX433vbEia6T-v0GKKIFuw4deHfzWVlJbdiJSqQEn2fIFlpbKGRZPPHwYj2BLPJDLoTf4cCu0va7uSsHD4cTv1wLjVHEJhvhY7Tvv8i1Dk0lOeyC6G-5b8D3SFxPWcqhouEsPV-3Jzff5jNG3D3rYtdJvoQy0XeTFs9ZBH10PfxdqLVWR5sZiKiUzkBoTLkG0bj4IECD5QQDKn_cNZURV3kjCK4QxAJEATGeyuPPP-NBNpgWHvCVQuCKIBwMJnh-58QATpwNx_uzVg&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4830715,
+    "longitude": 126.5369065
+  },
+  {
+    "id": "173",
+    "name": "카페 블레스",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주특별자치도 제주시 서광로 297",
+    "description": "음료 주문 시 쿠키 무료 제공",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6GUCAWbNbWF9OyMPD9tNYKSJpkvbxwgQICPufkzkxwEjdJGTbfem3HjkSa2FucjNeZDcgCv4kIl3wP2sSvuRtZGD34rmBRgnvKEbc2JNvx-uuXaGftQmPE7L3bZm7cGxIGxAdLyrKMperTgf4MjxZNffByRhWqSihQZ7j4-DxY9vZWoxSb73N-Cws3cmeCTZDlc7FV7N9KqIePq0giud_YSjS6RFow9Z7okHFgvHmfBb_6H2gA197vIrrS7YRIm0D6N4awqEa92kA56RAQX7FVoJ97DUSfqH5-WKooqFxYAN0cZDLgKRRa0_sxrjLiByhQToQ9wTEXOUQ7_ykdMz9Q5sxOq9b35xkvx3he8Rt3fkOELvHYZPfsUUYctJvyiAiG14ua497xxmyox6xzxD3E2ByiYNDnbIZ7LUBWLysMbGLdSDT7ExXuj1Ufqblq9HVnLUP7FKT5ssdP0kb1A0HdHBOy12lQ0G0zdxDvvVW40shLcwoBsPzVjtwUNWi_a6MGtNO9HsTijYa_Lakux_1wPyhCgqAoqSY-tJTAtFo3JBYk_q7WWjgR3ykQlDZ-IlyD9fsz&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.50075,
+    "longitude": 126.5281949
+  },
+  {
+    "id": "174",
+    "name": "라스트플라츠커피",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 구남로8길 26 1층",
+    "description": "모든음료 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU4bK_cnPCDD77f1UMC3AjHbaZxxs0O4WRInYkgk7FzelXbrbsb4OmRATaAVQeXbixLYhsYp9g0KacOJENIjiJWVzXvm2sZQQm1C0OUo-XFfvgQUVtA_mK8-g_8FhwLkelz4NdYaZv2R1Ya7kGmSDRxT4iYWeoDOAJrX1_q5Znw0H2630roOgi4tSSEB8PGwuabaRs-VHzMKolVH15h6WHoKxfTyuXUGTRYjLJDZKDy1JTVMM5O_QFovrSvi4mlXL7sRh3thk4XdxeDGQYL1ApzJ_B-rDDKc73mkqWfvwmHFgoez0pvUbQxBm_orDIiEhFyfMu1yQTOkYhhkKM1uTgYFSwI7eIkXjdPvsDsciS07ZgfO2QyqnToffsvf2fAIvmAIa6etLG5ZOJc_hN3I5tkBqGyVxorjawSRZjzvwyAU56tH699i6VFh8A2Kf1vd0eDYnpAynGq0jI4w9UuDuyYqsTwq1Yfj81maug2Kk-Pm58WHbmBgyy0IExWKLt1czbDInxCV30mfbzBlLzVS3Wr2GXDyN3UMS9TlBfrnBU6awTYBR-TNo7zWs2g7Wha8LABQmOpz&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4897155,
+    "longitude": 126.5374586
+  },
+  {
+    "id": "175",
+    "name": "베이커리우빵",
+    "category": "카페",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 동고산로 34 1층",
+    "description": "10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5whZfbKYd0r_YpQipuPtu-_kBAM7nABBnaOqblHKrWLv2BqPfJJUGYWIbWodsOLGqykRZRVXu0uwl1mBhbAp72L8b047-X3Y6-HsdH-UXFPmIiqrS0P4Cp1tawzyx676sJ5V4bZAalEw9eSeevzgSMBOtlUC_UZAzrYISceT-8lHJiDlRDAzl-3AwSNqIVCQVYvhgSm_zx35PEYU0LjxWEnJhMTmvinKgE7SbBrrrFI8Prs66rjAl9BakZz-Xu6d9l52_8kZxouYjYJ4raSvvTGtS4jxlUk5N6nLJ6hIWu8GZilWVMeL5SF3wVZKRhew4zlg84LVioa7VIkIo-Fxu_XiwKLr_XXH-TSDx7T8r1UPSASttxaLU2NK9DPGs8b-lq7jj0XW8Yjgkhd1o6K9tyfh80mL7Iyg2IoCzn6Px42FPaCyKnq5tlOpeZihlftzNyBptq5xDS4dMXLH5UNFZa9XU_ZWBUovD1sAghMuiLn8DKEzceJ7qevKodD0a-q-OKDiVfoEzw5PTytkoZO6OI3NlZ84AR9DMl0ti0B8lcc3JRkPRisbvrmQaYrOe7H6RXLg&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.49886780000001,
+    "longitude": 126.5345049
+  },
+  {
+    "id": "176",
+    "name": "제주트립티산지",
+    "category": "카페",
+    "region": "구제주",
+    "address": "제주시 관덕로 17길 29",
+    "description": "음료 15% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7MlNjCAK1XFK8hSfbij-gVYQcs9Vw5s59Podkal3_UXl7TwO9vyUPLpGs7RP7h5pzBQ4_3XH08dUlPabUBXhwiYh_zuNWCRsjrC0tsV7PhoTOyZ7cLcOjVaqe15990G-2ftS39GIyyxueSA6KUUTs1DkwPrcJ_dAjO1rxkTpWEpA5TIdYxGuszgS6o-x2CELSHV6R_qP9BbAYtcR4P7Z1_H-m5YdF5p5pSMxsttRguuvS85bXUWq-mOjAaQjieSFYklETfi0BOV41FH74FTNIjkzcztjT1Vi1gF9Sjrq7UHyW9ado&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5151127,
+    "longitude": 126.5284899
+  },
+  {
+    "id": "177",
+    "name": "커피스트릿16",
+    "category": "카페",
+    "region": "용담",
+    "address": "제주시 용두암길 16",
+    "description": "전 메뉴 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7af4L-YBZzzGNYZt2jTrcbpZ8quolt325jxt0dVDMtLBRZ_Uu2MHL6qiRmCWBLV2eAyIJebIwSQRBDg4SKtM24iJO4FDaTqgzZWmjNCBE7HQtliUJHuS58tSMIr0l2w04jMuZBs8ezIc6qSgGkvg1t40tAkGRM_d4Nmzq3v-Wpxqi7qHPM4INItjElr0-QMH7q8ZFiaNF92uIJpC78NsQ-lw8lgGm169HVtvDiJpJiL2nRtHDZ65QXVM4rt2DiQ0aa6QnUfx8N44BYofLyOyoyam1vMyk-WwOJ-mHAKVu2aYtVLqrMR2tnpKrfpVQ4rgeQA_RMr2Bem8BSfnVjyBAaaN9MUBx_d-Y7OneLgPocbPEbSsZ-1HaINFoL81sKBdodj7EB1mAeIhxwUlJgYEahBSw7x6yO_-ibc4ICCka5MtSlVq1vOORJG2LKLZ65GRFWXMnb1ipUuMxFcONJjuNpBASewmPZzltf42Gv_6ML7ATwlCXOr5WNjXIa47Yws1NwvpVkWZqBlCK6EhadoiezkrIXSxv0XZk1A_uR6xLtOws8iCr_h__eFUSbjGRR536vPcI4r3nGZg&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5145005,
+    "longitude": 126.5122808
+  },
+  {
+    "id": "178",
+    "name": "킥커피",
+    "category": "카페",
+    "region": "노형",
+    "address": "제주특별자치도 제주시 연북로 12 1층",
+    "description": "동일 혜택 적용",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6dejd2TgW9Mfe76dQlBQAmCsCyXaqhYbTfijPpNh_wZOGPGmm4yXlVLhV7lwT3p81M-xLiL3JAuddqoNzJOhm-_piolijS_sp7qS1bpTJVN6p0vtUS68xn4yGam3aV636LWm3vVdxhPtbJDIZXEZ51FqIwpfynUTy9uUL3svfwAIWeIe51KJOntuJ8rRM-jX_pJAdLZbU4lFallT9gyQDQTmv5hSpOAzhFdrVF3bPC41jjnDtBfJEUIKhdGJ8LWn70ExN4WR9_Cm5X8pIP52yUBWxBjvvHyTDj1SXqMj72eaj5LRPVhovTRsxZfSYWuBgYZOVtvj7jxHRKnfHXDiwagFNE_CyfB9wUt1rM78LFAMPTwEtYkE8g6pk6f_x7WA0kvbWAQVhRHSqQ0cxXSnLzUgvClQE_0exFeWFo9TadFKIn9fxWnHmtV5I0WC05oeOXT1e9S-L8Y4VcUepp3XW9mI1LNF6A1prugtzsKBcN46LHLtHLQ9irjcyE_UPO6xG7JCxvnvQlI6b3aaM_UoXHLLk-9Jp8gHFC3Sr-FtdkpaEw79nvBOUjNd9J5wjrYl3e0BrGuUyzMHv6gZoZZrWxaj2d5w&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4817045,
+    "longitude": 126.4824816
   }
 ]
