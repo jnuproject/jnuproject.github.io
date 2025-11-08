@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// 파일 경로
-const affiliatesPath = path.join(__dirname, '../data/affiliates.json');
+// 파일 경로 - GitHub Pages용 docs 폴더만 사용
+const affiliatesPath = path.join(__dirname, '../docs/data/affiliates.json');
 
 // 데이터 읽기
 const affiliates = JSON.parse(fs.readFileSync(affiliatesPath, 'utf8'));
