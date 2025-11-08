@@ -1846,5 +1846,159 @@
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6dejd2TgW9Mfe76dQlBQAmCsCyXaqhYbTfijPpNh_wZOGPGmm4yXlVLhV7lwT3p81M-xLiL3JAuddqoNzJOhm-_piolijS_sp7qS1bpTJVN6p0vtUS68xn4yGam3aV636LWm3vVdxhPtbJDIZXEZ51FqIwpfynUTy9uUL3svfwAIWeIe51KJOntuJ8rRM-jX_pJAdLZbU4lFallT9gyQDQTmv5hSpOAzhFdrVF3bPC41jjnDtBfJEUIKhdGJ8LWn70ExN4WR9_Cm5X8pIP52yUBWxBjvvHyTDj1SXqMj72eaj5LRPVhovTRsxZfSYWuBgYZOVtvj7jxHRKnfHXDiwagFNE_CyfB9wUt1rM78LFAMPTwEtYkE8g6pk6f_x7WA0kvbWAQVhRHSqQ0cxXSnLzUgvClQE_0exFeWFo9TadFKIn9fxWnHmtV5I0WC05oeOXT1e9S-L8Y4VcUepp3XW9mI1LNF6A1prugtzsKBcN46LHLtHLQ9irjcyE_UPO6xG7JCxvnvQlI6b3aaM_UoXHLLk-9Jp8gHFC3Sr-FtdkpaEw79nvBOUjNd9J5wjrYl3e0BrGuUyzMHv6gZoZZrWxaj2d5w&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4817045,
     "longitude": 126.4824816
+  },
+  {
+    "id": "179",
+    "name": "플루즈(pelouse)",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 서광로32길 42 1층",
+    "description": "카드 5%, 현금 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU4igGXDdBuH4V-mFk9Dx-f9d98OA5h8ZJ1gE_XM8h2YfkpT2UKjzRp21ID3IRFKfRIEGpCXAm4rx5SwNdpgsCB4lIEHDLwzZztrIbkGfLrnET4ClDcJl-_0Wl90-b3f9Oy7bKeDa_oMKyFXOibesikFdVo-i-CqK8Y6Vw4qm6riyCVUKLx2IzFE3rivxAiFIVYednsqZ5P3viVpgD5H3jGxLwB5UW6moPJ98wALn9SZbh0dpBzcuX2puRJQIGeHDS6uAms1jL9tganLDY7AcD0kpbo_uIk4LnfjwFTnr0mx9iUPL9ZvRP0P0lKtdTTpNUeeedx08uBwL1hvdEhH1M7OnOeXWov8DqOGYjkdOvOzxGz8NrkDTytUt3WQ9fsypk9wQTO_-kc8CG33E3_Aq1M0XIhRAvgFw3Ka8boyOh3akt1Vm3Dp3bQtQPmThnnzxT3fBp9IX6QgBoMJrmUltGBCO92PupHKWnbGisOW0voEpy563ZVX8m7t9IH9IXvPrcS_JVhguGbrC5V_rrodoAOT6ao-afzrJrwcM6OqpQuuKH6Y-JVSYdNsKLaVB54VEBM7vFGE3GF18A&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4972262,
+    "longitude": 126.5298487
+  },
+  {
+    "id": "180",
+    "name": "네일해나",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 신성로13길 25-1 1층",
+    "description": "3천원 할인 + 네이버 포토리뷰 5천원 할인 (중복가능, 케어제외)",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU4A08Ku74o0DblZXPA6-km9yHqyPS6yz5AhQ8qRACOvxdq1OdgmkuRu6aoO7fSaVPY8AZ51pDZhvj9kwDOc_9TuNhd2Raa8TLK30yS-Vs0c1yEhAXMJNiZiBuhiVD8ZbQClReH1h9HG3HBXCW7YMmJcpqi7O55DCu3kLKDqSTVgkWfFvg5ka5HJv08BkNR12HnQBMFgVXBxuJo_pkcz3FWXzmm1dJhPgFMVwpuKzywOxyJUbDtc6d9iASQ58c0O9OUsEqDsDc1k5rkvIhLXi5-JTphCqcqKT5LecYBT4dzquSj-u0Q&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4980467,
+    "longitude": 126.5304078
+  },
+  {
+    "id": "181",
+    "name": "크롬웰 안경제주점",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주시 중앙로 206 1층 (시청)",
+    "description": "추가할인 15%, 콘텍트렌즈 제주 최저가, 원데이렌즈 30p 15,000원",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.5009615,
+    "longitude": 126.5286298
+  },
+  {
+    "id": "182",
+    "name": "디테일 안경 제주점",
+    "category": "미용/뷰티/패션",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 아란7길 10-1 1층",
+    "description": "안경, 안경렌즈, 선글라스 품목 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5E4KrO6mROiKMxyGroQa4AoLjtWedL0E6mlouTDkD-O_1fqe3QZNBjNzTyBL8Zyp-63oqki_N-xjRcD1BSwlmD5R3iUKJ4nXslYe5DcqybXgv1ubGUtdy1l4G7_S_p5KC4k4GUkQLUPSAwgz_m_7d88zzabk-U329Fjzv5wPhUgrvCCGAi4Xg4QSpvUasVPTCpoJwlZkcbyN6Ny9h27qxBOuY68HNkMUFu_ByF_OP6oZLMmNHKNLDBpxMiUiW3NdpT-TaxpPZh1Um90yV-CvrH2ACXsj5UK7kggkljYN4ZIFqcWho&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4746062,
+    "longitude": 126.5443016
+  },
+  {
+    "id": "183",
+    "name": "소모소빈티지샵",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주시 중앙로2길 21",
+    "description": "제주대학교 학생 전제품 5% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.51691050000001,
+    "longitude": 126.5226412
+  },
+  {
+    "id": "184",
+    "name": "베베뷰티",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 중앙로7길 19 3층",
+    "description": "케어제외, 젤시술 시 15% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU40manYiiJNEYZqXvRDxcI32w1kOxMmk_mib9hQMH_QxoUUVs9v2pE_J4oXwFmOBKnk2zp4F1BoRNVVTBuJiBX5lKJR1XC06XF7ti3Qf85uhe5JYSJ8BKXtMZ3GoPdIJjhn0XtwD5Vr4s4rfx96ASo1yT6iEzO1kCIYhQlkaV6AzOEfXWZaZyxkXMvOHOXOePmYQOONAeZRVbD_xgHqOm8UKluWw2Hs8XV051xdchvEZ8_PIfXIjJI2kdqc_jXJsefPJqRC53fQ-1bck4aujJu-uWJ7rvE0O3sBZCpVtHGyEfdb9RM&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5149818,
+    "longitude": 126.5266361
+  },
+  {
+    "id": "185",
+    "name": "라라라",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 신성로13길 16 1층",
+    "description": "카드 5%, 현금 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.498715,
+    "longitude": 126.5294978
+  },
+  {
+    "id": "186",
+    "name": "뢰임안경",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 중앙로 350",
+    "description": "20% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7qNeY35sj1ZUmBG90yZGMVnQOqYvStX8vKhW-Kp_mnG0rpFvA2hTvpYNz6HF3fVXg2H5HDnSso6Ok5by6kMfqSgJ-8FaSGOeiNgwk56A3-Qs1oSbAWoBS6A6Te82heU98czWJPT4JD0r5JS_V6aDHSc3TdCfM9OqoyUObBVm7_tL0aCEJW9T77_vQiUGp-l5brIhqKOs2vd84ZY-xIkHq15_w5HVRYisLyUZGpCTDTb8ItcFJk1LD4woNYJw_i7LC8lHHnvHAcS_7hka-tP6lFJSfvtThV1WJL_WVJDDHqCY-x73IcrfYsGKeIdX6ScM5vtTq7ItxIXjD8ImLVw53CevzpO2z24rNYsv6YUimg0eI1ff4sytiwLB0auMCWZ7_vr5-l8LVVol0QW8TM7TkO8NQmmYr5sbXQUQyegPTBaudDieCCZazu70WWVE_djqQStMeOBufGjXakF4VfPxh-GEc-3kZRvxtRQQNKOGP9TEggocSUjsGSZpnReq78NIwRSvi7st-7mt20UREc8ppMg-MZqKvt4-UpoIA492vKoe5oRUF0cZwFRS6urpKOTCIbc7-S4_KuKw&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4903506,
+    "longitude": 126.5375156
+  },
+  {
+    "id": "187",
+    "name": "지니스안경 제주외도점",
+    "category": "미용/뷰티/패션",
+    "region": "외도",
+    "address": "제주 제주시 우정로 62-1 1층",
+    "description": "",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU40DpFuINr3aGqtF-pvD7kEHnYFKfMPtWGE9SeKdlRqDxsGILW9GvQqkQTcqUr3HBjEAyU-ZnfX8bWmyO3XiXmMEgOe-MI9vFbuT7Wt2_Kc9bAFdvUnP9uFv832mmEDdAj2Fonhh989t3AI7eG1dwkRkKxNERZTzM0aMvPGymExuwXlTQ4gpjkqRDRVq6OpBpewfG_UZLq0-m4mRq4iQtXPUN_er98QqxYgClstiK2lNcPxy7vVCw-NzAEtPfuDVqwvOTpB6F0pR3wtNX4oUuhkToi2BJdrPy5UoGyPovd2N9s1ItD3sisD3e7SloOA-kwCcAt2k9Xo50IUeZsTFcSh-_6rEuMOwcKvMDJLmBVa7yEG627JfNVQPaRncHIa534kuDyOKnud3oBtSdYj0uTdWEq5M0U6_-nQYAvzZWuiQkluRBB-34sSm0KIsU0horJqNPw__3gLMkiGqKkjKYOijHdbd74pRE7WZT768JEjw4JSC_d9iQ72lbXIEaHzOpnI1ZOidbIPYa3e9_nZL1PUkzj_p9h8NiCCtmnCdSQ8TpkZhTPd5xIZgHfdgepqG5gDPT7X&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4872135,
+    "longitude": 126.4307011
+  },
+  {
+    "id": "188",
+    "name": "명동안경",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 서문로 23-1 1층",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.510317,
+    "longitude": 126.5138464
+  },
+  {
+    "id": "189",
+    "name": "프로디헤어 본점",
+    "category": "미용/뷰티/패션",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 한라대학로 37 2층",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4783004,
+    "longitude": 126.4754592
+  },
+  {
+    "id": "190",
+    "name": "추나헤어",
+    "category": "미용/뷰티/패션",
+    "region": "노형",
+    "address": "제주 제주시 노형6길 18 1층",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.481009,
+    "longitude": 126.4777683
+  },
+  {
+    "id": "191",
+    "name": "진스헤어살롱",
+    "category": "미용/뷰티/패션",
+    "region": "노형",
+    "address": "제주 제주시 노형로 388 1층",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4842222,
+    "longitude": 126.4770571
+  },
+  {
+    "id": "192",
+    "name": "주바뷰티샵",
+    "category": "미용/뷰티/패션",
+    "region": "구제주",
+    "address": "제주 제주시 도령로 129 2층",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4930328,
+    "longitude": 126.4907617
   }
 ]
