@@ -2002,17 +2002,6 @@
     "longitude": 126.4907617
   },
   {
-    "id": "193",
-    "name": "이제주고속관광",
-    "category": "문화생활/복지",
-    "region": "노형",
-    "address": "제주 제주시 노형로 120-1",
-    "description": "차량 임차 시 10% 할인",
-    "image": "https://placehold.co/200x200",
-    "latitude": 33.4657288,
-    "longitude": 126.4586555
-  },
-  {
     "id": "194",
     "name": "달토록도자공방",
     "category": "문화생활/복지",
@@ -2022,17 +2011,6 @@
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6FPGc0iEhr34jN38HDYS7GAfTFrlW6T6hUmQz5i-OYHvwRNGryiJ7H0Jkjw4VEqqm8ZgnvfFSvEMb1G-zUbyiwfTQ4GlVOPIwSZt2iP-1l4NZqV6Zi3ghJ5FSfLn5ItSvCWhs6ZUYhk5W1UVzYI7DaIJeSqh0I6gPFkFnxNbg-O8nBSOpc-eDiTT90Gx4cnC3SeJwp00l56ViCALw8QUQx5_qqAr3dPSv9brHIIebpHfcc6faSfGztp9MUKspen_sJT_KyVRcVh4XGFumbWYZCOScDNNd7oQ_EnUUEwKZwrT3JKnPjrgvQ5qO3cgiSINnyPE2qRRSsPtVFwSTLcvoWriT2fwMxsXYPcXw8f7oTF9SbfD4HeJTgBlC7ERLGy7HR27TtePspPw8nTaYeblfw2gRZA4oNhUa__FpMMhkxzugBZr-_AeQ3q8SBZBGsuENlBUr30GH3UPqgt88qRhAzH172ly97VvCOqgAh5ldAm5NDPbyj-ippZjxwKuZ6AH1tAXrX477ONkyR-8UFQB0poIECpgkFwqETHoWv8PCbvLVf1q6gcvX9JFZXcIsTpernz6lqx22bKQ&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4963876,
     "longitude": 126.5271218
-  },
-  {
-    "id": "195",
-    "name": "삼다자동차운전전문학원",
-    "category": "문화생활/복지",
-    "region": "제대, 아라동",
-    "address": "제주시 서회천길 88",
-    "description": "수강료 10% 할인",
-    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5TCmRwQTWja3WVwngElZjAwNGT40FQ__l0dk--TCtCD0MedY9fYjiNhHeeBXbGlgaKrDz_KJh6KZcw-S_TvOSN2rTeXg2LtADXC0d-vhNCBKfgDfirZ-UP9neUM-fq1jPoG7AhC9_Sn9PCUsx4cEaRJH2l0BgYpNrJxrDNeRi6nKxjpieObYnHnteyfUzY_Vu7fBhPp3nAjYOAQXJNuZ9XKO0Hp2mwbEU4SeEwFBbH6d5y_4T_Zox7zVHknZVpErjJc7Y2LWkdVM4jBunkocmLCgMYhGjtnyD8VGEqpghiIqGZKrSN5OyCa5X5yh_etu_wnkqZxL9L-H3rAG7YzCWqCQYxCcEz8y1i2NqKkRlKccpXi_OCP1jJZXKB99RvbQdDga_YmBSS_8g5CzCLuyW4x2qjW4xA8JwFtISibL5XqUVms0SHSJDJ7yz9YizcCcOJ5VaSB3RM0brfCQUubwYb2zQAVQ0WWYyRex5EylYtWpwlJvmEDorAJfhnbSgFPJOgB1OWrsu2HH09qAgYJ9OtoldJMEXLYje-Bcr0DyKCxsdo9i9YBNYFBUVgX0lIUcTXuU_I&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
-    "latitude": 33.5010877,
-    "longitude": 126.6093125
   },
   {
     "id": "196",
