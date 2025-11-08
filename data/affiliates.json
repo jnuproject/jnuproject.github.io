@@ -7,7 +7,8 @@
     "address": "제주 제주시 아란9길 25 1층 리릭",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5CPMfyMJHOcpF0WJUCE6igoxO2ro7o5v_KzUeJSbLR3NxVTrVWyoI4H0rGkqtWUarLlqLzrBMHW-aCqcoFRRXG8b2tHFxeBqJpcolhE5mIT3lVDSHmF-5-TAlA9YtzDKqxC9mQhGM5MVAQl15TdzgFiCKrv54fHCSEUzWKLtgku63iQlqD25eHvhimAxQJ73FDybYsZmIfHrT9fBZnRB6gbd1OVE4YQN01I_siySNd7XFd88HtMLiacW7MgVWSL3PL_Uk4EmM8QPKbx6CEyhi8_nl6ZMs-grq90yKz8Z6_-RNnBh5X4m0KHWaMQ-4hdtj8ngNNqZgxknvqTFcZ0SKQkFnbi4y_fJFyV8-uoo6DbSHmSvgXaAAjXBAOY6ygI3UVx2in5_PNApMHSigY0puOPqxcIqsFUfbxqURFwNvSjtwiOYxeC8202wa_nQ&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4725,
-    "longitude": 126.5426
+    "longitude": 126.5426,
+    "description": "2인당 음료 1개 제공"
   },
   {
     "id": "2",
@@ -17,7 +18,8 @@
     "address": "제주 제주시 아란7길 3-2",
     "image": "https://placehold.co/200x200",
     "latitude": 33.4742,
-    "longitude": 126.5448
+    "longitude": 126.5448,
+    "description": "볶음밥, 음료수 1.25L 중 택 1 서비스"
   },
   {
     "id": "3",
@@ -27,7 +29,8 @@
     "address": "제주 제주시 아란7길 6 1층",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5n_VQ_KKo3hKS9yMXTGG1C5jpDpV9f5UNfQNmh5rl7IUoEWh91fqfzNY0duwTVfCnUvmGzwCtU9Wdx6s1XPOivKbWSIsgqPQoZfRL9ACYJkeZzvd-vF5c9G_VO2ffyROB3Wapxk-DiloqPvs8E140NSXF5fBaXFhwAxISf7oV5idx7Bmr4r_oszBy_jYuhtriZfhwLB3DcNs6JUgPPy3-mi0CAfnUX3-MbDWIOA8mPT68KLQQpLWX_cd5faTd1sDT2S8juaKi0Nu2yW-2kE44z0cQfwzgz_WlXE8a6ovGP9nIIHoAUeAVjrsUv6kJoyzqpNkIC_fhUN4bZ8AGiShCkABgvQVm0uISrbPtPLHYoW3e6Y-_0Yf0UbA7s1OXHCPGNd6jXEtFZIAqglDYYgs1-n9fkv-dVCgQtYbhJ0lHBFz8&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4746,
-    "longitude": 126.5447
+    "longitude": 126.5447,
+    "description": "제주대 학생증 지참시 3000원 할인"
   },
   {
     "id": "4",
@@ -87,7 +90,8 @@
     "address": "제주특별자치도 제주시 아라이동 3001-17 1층",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5efCk24cqlexI6mX7XRaPu99kU39miijqOLariVLBwl7tU-MrH8-2jo_6KkSK6ncYKAIm811K3vI5De3jrUqCQ1SUeg9b0GiZQHHjLLD7AY8YNo3fs7PLKNhIHHSyuVyjFoTLJCA5WICKQgIN6bFuG1imAQfnaR_Woy5W6Rqi1iNqe10mEfUrKZCC-9WKyWej2Ea3yOu8nhDKSRbfNJKSQ6l0D3j-cVSmQRLrtNVSqUka0jSrnuB87YdO2V5bbVqzTqBxDmN3JuB2PIxzQk4LMhfdoec_pbXrDIOhrhwmHghdtnHWgNKF1_cnFeVnH5njLjn38OQZFmBdwunHcGz9ouGqw0Xs52tLIlxz5gv5vwaI2HSWeTSVvpeEXy-XgNxv2cr00IMjxD96ZhB3XXC43MXKawhuuCJVnQ4-6fJM9ejkJ&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4929,
-    "longitude": 126.544
+    "longitude": 126.544,
+    "description": "포장 시 음료 1.25L 제공"
   },
   {
     "id": "10",
@@ -664,7 +668,8 @@
     "address": "제주 제주시 광양11길 18-1",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6AoiAXEsHP2erHVsiocEoKC7LyTirupuMZXqMK69ZdpKsYSZtZzPjcszuMs5M2tkywofqKMXweePPUgGB_3RlvCIowfSM53F_rX6RwoD3gSxycuJ1b0xAVSUAV2DEVLcPcOWR1c9Um4l9VqZac4ME9_t0XJi0-MOZnz9gjdGwtcOrb9LZcmIoJhu-Q3WHJdF9M1qtXUNbUxH8XVH3Ss9ldTX39Y5O4EyC91Q1Nuzql1Zu_J4kuI8PHLnl-EdDqiG7rCL5pICFBhNeRuveOa8eoFPidupd44tQyvvvB319bMQpOFnHuH3hPIGH3JwPlMBxfcBJd0zO9dO5E6U1k9oftlUABynZIncGU-Pnyului46MLB6vVTn3eq2FOnYFZGygZQwXD7zeQfoZpZMroebak8O5iSuR79YBE82a59tL8FA&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4997,
-    "longitude": 126.5321
+    "longitude": 126.5321,
+    "description": ""
   },
   {
     "id": "68",
@@ -1498,6 +1503,171 @@
     "region": "제주",
     "description": "음료 N% 할인 및 '제주대학교 X 유동커피' 실습 프로모션 진행",
     "image": "require('../assets/list_images/37.png')",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "148",
+    "name": "한양고깃집 제주아라점",
+    "category": "음식점",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 도남로 199 1층",
+    "description": "사이드메뉴(주류 포함) 1개 제공",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "149",
+    "name": "오라방 솥뚜껑",
+    "category": "음식점",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 도남로 48-1",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "150",
+    "name": "친정집",
+    "category": "음식점",
+    "region": "제대, 아라동",
+    "address": "제주시 일주동로 260",
+    "description": "20% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "151",
+    "name": "아구듬뿍 알곤마니",
+    "category": "음식점",
+    "region": "제대, 아라동",
+    "address": "제주시 정든로 5길 24",
+    "description": "음료 1.25L 무료 제공",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "152",
+    "name": "부지깽이",
+    "category": "음식점",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 광양13길 11-2",
+    "description": "테이블 당 음료 2개 제공",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "153",
+    "name": "못난이 꽈배기",
+    "category": "음식점",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 구남동1길 32 1층",
+    "description": "",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "154",
+    "name": "두끼 노형점",
+    "category": "음식점",
+    "region": "노형",
+    "address": "제주특별자치도 제주시 연북로 48 2층 203호",
+    "description": "1000원 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "155",
+    "name": "별미돈",
+    "category": "음식점",
+    "region": "",
+    "address": "",
+    "description": "2인분 이상 주문시 음료 1개, 3인분 이상 계란찜 서비스",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "156",
+    "name": "행복한족발",
+    "category": "음식점",
+    "region": "",
+    "address": "",
+    "description": "음주 시: 현금결제 시 5% 할인 및 순대국 서비스 / 비음주 시: 2인 기준 음료 1개 제공",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "157",
+    "name": "돗깨비",
+    "category": "음식점",
+    "region": "이호일동",
+    "address": "",
+    "description": "동일하게 진행(대리협약)",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "158",
+    "name": "착한괴기",
+    "category": "음식점",
+    "region": "하효동",
+    "address": "",
+    "description": "2인 이상 방문시 음료수 제공",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "159",
+    "name": "훔쳐온뒷고기화북점",
+    "category": "음식점",
+    "region": "화북일동",
+    "address": "",
+    "description": "동일 혜택 적용",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "160",
+    "name": "백제삼계",
+    "category": "음식점",
+    "region": "삼양이동",
+    "address": "",
+    "description": "삼계탕 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "161",
+    "name": "제주 함덕흑돼지 왕표고기",
+    "category": "음식점",
+    "region": "조천읍",
+    "address": "",
+    "description": "10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "162",
+    "name": "면주막 제주본점",
+    "category": "음식점",
+    "region": "조천읍",
+    "address": "",
+    "description": "10% 할인",
+    "image": "https://placehold.co/200x200",
     "latitude": 33.4996,
     "longitude": 126.5312
   }
