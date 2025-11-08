@@ -3,7 +3,8 @@ const path = require('path');
 const https = require('https');
 
 const API_KEY = 'AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI';
-const affiliatesPath = path.join(__dirname, '../docs/data/affiliates.json');
+const affiliatesPath = path.join(__dirname, '../data/affiliates.json');
+const docsPath = path.join(__dirname, '../docs/data/affiliates.json');
 const affiliates = JSON.parse(fs.readFileSync(affiliatesPath, 'utf8'));
 
 function httpsGet(url) {
@@ -82,7 +83,13 @@ async function main() {
   }
 
   if (updatedCount > 0) {
-    fs.writeFileSync(affiliatesPath, JSON.stringify(affiliates, null, 2), 'utf8');
+    const jsonData = JSON.stringify(affiliates, null, 2);
+    fs.writeFileSync(affiliatesPath, jsonData, 'utf8');
+    console.log('✓ /data/affiliates.json 저장됨');
+
+    fs.writeFileSync(docsPath, jsonData, 'utf8');
+    console.log('✓ docs/data/affiliates.json 복사됨');
+
     console.log(`\n✅ 완료! ${updatedCount}개 업체 업데이트됨`);
   } else {
     console.log('\n✅ 업데이트할 업체가 없습니다.');

@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// 파일 경로 - GitHub Pages용 docs 폴더만 사용
-const affiliatesPath = path.join(__dirname, '../docs/data/affiliates.json');
+// 파일 경로
+const affiliatesPath = path.join(__dirname, '../data/affiliates.json');
+const docsPath = path.join(__dirname, '../docs/data/affiliates.json');
 
 // 데이터 읽기
 const affiliates = JSON.parse(fs.readFileSync(affiliatesPath, 'utf8'));
@@ -156,7 +157,13 @@ newRestaurantsIncomplete.forEach(restaurant => {
 });
 
 // 파일 저장
-fs.writeFileSync(affiliatesPath, JSON.stringify(affiliates, null, 2), 'utf8');
+const jsonData = JSON.stringify(affiliates, null, 2);
+fs.writeFileSync(affiliatesPath, jsonData, 'utf8');
+console.log('✓ /data/affiliates.json 저장됨');
+
+// docs 폴더에도 복사
+fs.writeFileSync(docsPath, jsonData, 'utf8');
+console.log('✓ docs/data/affiliates.json 복사됨');
 
 console.log(`\n완료! 총 업체 수: ${affiliates.length}`);
 console.log(`기존 업체 업데이트: 5개`);
