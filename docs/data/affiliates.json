@@ -2000,5 +2000,203 @@
     "image": "https://placehold.co/200x200",
     "latitude": 33.4930328,
     "longitude": 126.4907617
+  },
+  {
+    "id": "193",
+    "name": "이제주고속관광",
+    "category": "문화생활/복지",
+    "region": "노형",
+    "address": "제주 제주시 노형로 120-1",
+    "description": "차량 임차 시 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4657288,
+    "longitude": 126.4586555
+  },
+  {
+    "id": "194",
+    "name": "달토록도자공방",
+    "category": "문화생활/복지",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 도남로7길 44 4층",
+    "description": "2인 이상 방문 시 20% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6FPGc0iEhr34jN38HDYS7GAfTFrlW6T6hUmQz5i-OYHvwRNGryiJ7H0Jkjw4VEqqm8ZgnvfFSvEMb1G-zUbyiwfTQ4GlVOPIwSZt2iP-1l4NZqV6Zi3ghJ5FSfLn5ItSvCWhs6ZUYhk5W1UVzYI7DaIJeSqh0I6gPFkFnxNbg-O8nBSOpc-eDiTT90Gx4cnC3SeJwp00l56ViCALw8QUQx5_qqAr3dPSv9brHIIebpHfcc6faSfGztp9MUKspen_sJT_KyVRcVh4XGFumbWYZCOScDNNd7oQ_EnUUEwKZwrT3JKnPjrgvQ5qO3cgiSINnyPE2qRRSsPtVFwSTLcvoWriT2fwMxsXYPcXw8f7oTF9SbfD4HeJTgBlC7ERLGy7HR27TtePspPw8nTaYeblfw2gRZA4oNhUa__FpMMhkxzugBZr-_AeQ3q8SBZBGsuENlBUr30GH3UPqgt88qRhAzH172ly97VvCOqgAh5ldAm5NDPbyj-ippZjxwKuZ6AH1tAXrX477ONkyR-8UFQB0poIECpgkFwqETHoWv8PCbvLVf1q6gcvX9JFZXcIsTpernz6lqx22bKQ&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4963876,
+    "longitude": 126.5271218
+  },
+  {
+    "id": "195",
+    "name": "삼다자동차운전전문학원",
+    "category": "문화생활/복지",
+    "region": "제대, 아라동",
+    "address": "제주시 서회천길 88",
+    "description": "수강료 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5TCmRwQTWja3WVwngElZjAwNGT40FQ__l0dk--TCtCD0MedY9fYjiNhHeeBXbGlgaKrDz_KJh6KZcw-S_TvOSN2rTeXg2LtADXC0d-vhNCBKfgDfirZ-UP9neUM-fq1jPoG7AhC9_Sn9PCUsx4cEaRJH2l0BgYpNrJxrDNeRi6nKxjpieObYnHnteyfUzY_Vu7fBhPp3nAjYOAQXJNuZ9XKO0Hp2mwbEU4SeEwFBbH6d5y_4T_Zox7zVHknZVpErjJc7Y2LWkdVM4jBunkocmLCgMYhGjtnyD8VGEqpghiIqGZKrSN5OyCa5X5yh_etu_wnkqZxL9L-H3rAG7YzCWqCQYxCcEz8y1i2NqKkRlKccpXi_OCP1jJZXKB99RvbQdDga_YmBSS_8g5CzCLuyW4x2qjW4xA8JwFtISibL5XqUVms0SHSJDJ7yz9YizcCcOJ5VaSB3RM0brfCQUubwYb2zQAVQ0WWYyRex5EylYtWpwlJvmEDorAJfhnbSgFPJOgB1OWrsu2HH09qAgYJ9OtoldJMEXLYje-Bcr0DyKCxsdo9i9YBNYFBUVgX0lIUcTXuU_I&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5010877,
+    "longitude": 126.6093125
+  },
+  {
+    "id": "196",
+    "name": "그램 필라테스 아라점",
+    "category": "문화생활/복지",
+    "region": "제대, 아라동",
+    "address": "제주시 아봉로 56 이수빌 2층",
+    "description": "그룹수업 등록 시 횟수 추가 (8+1, 16+2, 24+3, 48+4)",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU4lqVdVGmd_9vP1vB7rhqoV9tbqdt8H-ls-6muqRRhcO6RbMAJcUrsqO-i1ExXfyGsfLuyd_savCKJdY40bfe3SzlneafMA879p_HlrKT7lnkzJduy4XyX3qwCH3OdsONNU7cAxAAFd86mNmJf-5kj9zgljZLtUEysrtlBGCsoFRU1ecBk4E8jX8TCxHA9sJaDk5thx2LS7y7kL8dWi7lN9ZfM_f-_gne4YHqYI-Jx-M0wwjZ6ZQAAOBPf3kju67fPn1tfGir7Df_dOR5Z28jVnqAQjZYQLInvSw5lgcDPq7F6Avxk&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4775602,
+    "longitude": 126.5496088
+  },
+  {
+    "id": "197",
+    "name": "그램 필라테스 노형점",
+    "category": "문화생활/복지",
+    "region": "노형",
+    "address": "제주시 노형로 367 3층",
+    "description": "그룹수업 등록 시 횟수 추가 (8+1, 16+2, 24+3, 48+4)",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.48343,
+    "longitude": 126.4752549
+  },
+  {
+    "id": "198",
+    "name": "아하 필라테스 & 발레",
+    "category": "문화생활/복지",
+    "region": "구제주",
+    "address": "제주시 건주로 43 4층",
+    "description": "그룹수업 등록 시 횟수 추가 (8+1, 16+2, 24+3, 48+4)",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU4UJLFA94EUlflCIDellJxcVlMkex7dFcjJ4TTFx7FcuaGmAqxCW-csLI6-b2joJBelfrqCEif0ew3qKpDFM4s-h4_SeHbxKyOq2pZyytQ8fNHS9jhF32HT3kiigo2myvNci8A64fgNvS2PZuq4IoOZwkG2TiBqKELOB1wSFkEALyzBDSFG4_j2FIHnE3lJp8McsUrCC0pMLzMyaQfsgF6UaGsZRCzLz9CblvTvnY0Jwbx-8kngYnKWVoKyXT9KrVsEUNOBEqK2Lw1fDJCSkNFdt4tUiaJGh_rm6LA-WV66qRqx8fUwtdXstmFnRbKS3vWMNQq-ohxRwTepWbimmczsvtnTCQub-F1Ps1hvrF_qe8ZmAAEvfdc95AcOtN6OTZQaFm2GfoZ3O5-e5-6wT98kfEbJJ9VWfOq-ToyPU_9AJeDnKbUzBqzt3Gbe7Airxf5QY-14YcNCPnh6tNV3Y0jfWLaIqd6OdQ4c1Tr5WNMEsOOPENLlCoIE6AXctvICw8mC_dNfr52eVtkYmN8jmcwxOzT0zVRaiswIUQSEtejDGoRx1bzcq_IhV5PSwVY0wxXBkuOe4AyIuyt0QwEB93krEHXCHA&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5155705,
+    "longitude": 126.58101
+  },
+  {
+    "id": "199",
+    "name": "묘량묘다 미술공방",
+    "category": "문화생활/복지",
+    "region": "구제주",
+    "address": "제주 제주시 수덕11길 1 1층 코너",
+    "description": "오일파스텔 (a4) 수강 시 액자 무료 증정 (혜택 변경 가능)",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6R_RNuxbmUOdUshe-j36iatCUIKxV7xkEyRk7eoaRzHDUO9ClWvuUbJ3wPLRhFOmKKv7iKBBR3LJVR1ehb0__Q3zRDYy9iASTlPFeUBz3BiczZfOm7TGPN9LhiVTbo9hgQy0HiUx_MujzW33RcjeG5ogO-FOIN_7NgbAnGKhJybx6bzsneRxgzhZqU0l7PAPxEAXSyuQOBI037v8FZSOFLDh3CwBRYj1DBnWgEEXjvb7O7C8HUDBEYLWX8FH1zAI8juZRbKK98wKMHfDYRXEoCjvqJ1tGkgkb7ZM27NhC9aOE2Irs&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4880031,
+    "longitude": 126.4759714
+  },
+  {
+    "id": "200",
+    "name": "파랑책방",
+    "category": "문화생활/복지",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 인다5길 11-7 102호",
+    "description": "책 구매 시 파랑로고 양말 증정",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU7yAWv-hz1urqvoGOJEi1xoIgY7AThYZzPFP9DeEENLMhy7hPSLypkJw0k-TD8_gm48kle-nKP7p31w-PclzZWb_lEERIaHiDXwfPkJuP48sI-WIqOPlipWeSN9P8bg0IYBN5HxC_jv13BS_87zu18mKIeluQ4ITwiG3XcEtbGtBBDDn9hD4Rr_tuXge-1QJnCOxQXlummlPumnYLOtvaEvg5sy48Du-9GS6y4LzjwH2NJUY3kklxXxJYv2fayTG81G5-JQtmVPkK373oBg_JqmRxu2mqfKleUQ76EYCJpQVqfrW84ZAOWkBPNjbYW8pefMZ3c5kZVqqY0xyJ_Alu6TzFIud4pBdP-_smWZJx30cNL7LtH6PKk7XYP7ceF65i45W3rIRYcACMFRuf7Bna-XmJ1g745cLjtU7l4cA0seh5ybEnfQHLbLK4EfvyHKUMILp69vuTyd6YG8j6LOFhYG7W0S2uAmDbEVlf9CckaxFkGeNKRU4_depfaBArMRrrhPseIw85SMewe02KyZqFn_zaHeYSdcKRTzX2YiseUp6Ial52P2fLkEA7lSxeNVPwQm8471&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4759231,
+    "longitude": 126.5483018
+  },
+  {
+    "id": "201",
+    "name": "몸냥공작소",
+    "category": "문화생활/복지",
+    "region": "애월",
+    "address": "제주 제주시 애월읍 하소로 594",
+    "description": "와펜 체험시 와펜 1개 무료 증정",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU4TDbRtXVhQ-h14W_xrYlYwJOOHCwBjnc9jreKmsMM0ZH6a6lE1e8dDWSYHE1fB88sXQ9p0mznpXCFSRtDlbsxJD_iqAH0gIE_zg0kAtTS1rwU1f1W_MZT0hgj9OrMc8YVoLv2w0akIXRVp7wTDv8X2PnkVxZDCzoUdtmak2bXwMsNl_ow6-rRUgpEYXmwyrt75GBTJcfoOujiJIM2SOiZfd-6FjwOF9wpRaDoq6zycenGlkdfVUcRpTH7KVWFk5bC_5BgutbPTyR_P9a82n8UvACwRTaLMMA3GborSJHc1wDNB-GE&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4310508,
+    "longitude": 126.397398
+  },
+  {
+    "id": "202",
+    "name": "WISE 퍼스널컬러",
+    "category": "문화생활/복지",
+    "region": "구제주",
+    "address": "제주 제주시 남광로4길 15 1층",
+    "description": "20% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4921071,
+    "longitude": 126.5397747
+  },
+  {
+    "id": "203",
+    "name": "고수의 운전면허",
+    "category": "문화생활/복지",
+    "region": "구제주",
+    "address": "제주 제주시 서광로 291 1층",
+    "description": "제주대학교 재학생 이용권 10% 할인",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6r3t--pjGMytsB34zHZIHUoq0ZSWmHGrR9CZYtZ-mdrX1d81-OltPN8PxlYFMTT2ff6Ivf8GjbV4uW4RvOcDByuJPng2IqH8qZfmDqSfm4g0FQ5wvQW7hAwyUne5lQeGDQ7azxQM0JTn725uwLYpJZGC7X5p1bMCAWTHW5BhehYeXmEGUYsyFs8TtIVugue4zntvEa6MwENFbEliLxkl335Z93wYrKt5pPbedHiXF4X2e-0utAqaSmvucPGBx1lYH_1Q_RiPOeHZ8-j-IAZfS3hkTKgnGnwRSlx6csRnlWeZDCfjk&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.5006572,
+    "longitude": 126.5275683
+  },
+  {
+    "id": "204",
+    "name": "114 칼라 스튜디오",
+    "category": "문화생활/복지",
+    "region": "구제주",
+    "address": "제주 제주시 과원북2길 50",
+    "description": "원본 파일 전송, 추가 인화 2장 이상",
+    "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5plVAgNjMHV_2sBz0msUHkgR0d9fULgn427Rw79UPxEFsigQ0zhXAg2p7WfscjvrhF9oeL9FrC4FFBhkvbAETwm8oZ8Tv-Ebx-mmkkYfflg0oSIDWb8UBrKTPRlSTZqmeVNxvjKDoc64czV2Aaeu3n8CUGDHYK2KGBxmvkwkvZn1XjMS-uAJ23kVAIjevN-sHNU-OV4ApDPSrasc73pFQVRPEFCR0KCMbQNhMnFcPo3T-iH66s4GTbbAeU1VB2Rua-4GycwcUSDvMsO705IQyMkmQI23N9bTBFGVNX3C7f8ys7AE4BqFiXB2xNom7rIKGYuppRw1qKrH_GUJeKDWD5R6ULEQHrxu1bHBxxL2XSyOx1_LaM1icwR_MkVA_519q1hDtdtFidH57OjrmDQmA_o9o0pZOvEnieqoL1a3ojQJZ91tppLvjAxuM7Z2F3v970FCBjDRdUsKJCADHNkeKqLexrdBX2N26-e_nU2kDJSOStOBpmVOHRSwO_jPi_FV6KLtKFWUEH2o0r5utr13nPfUp25NIqcL295lN1HvC5Zd6y6Gn_AVT6_IeYGKrsNyW03w&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
+    "latitude": 33.4787253,
+    "longitude": 126.4877504
+  },
+  {
+    "id": "205",
+    "name": "에브리블룸",
+    "category": "문화생활/복지",
+    "region": "구제주",
+    "address": "제주시 동문로 62",
+    "description": "꽃다발 5만원이상 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.5132402,
+    "longitude": 126.5332692
+  },
+  {
+    "id": "206",
+    "name": "린플라워",
+    "category": "문화생활/복지",
+    "region": "제대, 아라동",
+    "address": "제주 제주시 구남동1길 10 1층",
+    "description": "꽃 구입 시 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4922431,
+    "longitude": 126.539699
+  },
+  {
+    "id": "207",
+    "name": "자연인글램핑",
+    "category": "문화생활/복지",
+    "region": "",
+    "address": "",
+    "description": "제주대 학생증 지참시 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "208",
+    "name": "그림리조트",
+    "category": "문화생활/복지",
+    "region": "용담삼동",
+    "address": "",
+    "description": "10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "209",
+    "name": "모루티스테이",
+    "category": "문화생활/복지",
+    "region": "법환동",
+    "address": "",
+    "description": "1층 20% 할인, 2층 10% 할인",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
+  },
+  {
+    "id": "210",
+    "name": "더쉼팡스파앤풀빌라",
+    "category": "문화생활/복지",
+    "region": "표선면",
+    "address": "",
+    "description": "동일 혜택 적용",
+    "image": "https://placehold.co/200x200",
+    "latitude": 33.4996,
+    "longitude": 126.5312
   }
 ]
