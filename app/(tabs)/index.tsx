@@ -63,15 +63,13 @@ export default function HomeScreen() {
             >
               <View style={s.categoryCard}>
                 {category.title === "전체" && <Ionicons name="grid-outline" size={38} color="#10B981" />}
-                {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
                 {category.title === "음식점" && <Ionicons name="restaurant-outline" size={38} color="#F59E0B" />}
-                {category.title === "카페" && <Ionicons name="cafe-outline" size={38} color="#3B82F6" />}
-                {category.title === "문화생활/복지" && <Ionicons name="musical-notes-outline" size={38} color="#8B5CF6" />}
-                {category.title === "의류" && <Ionicons name="shirt-outline" size={38} color="#EC4899" />}
-                {category.title === "미용/뷰티/패션" && <Ionicons name="cut-outline" size={38} color="#F472B6" />}
-                {category.title === "병원" && <Ionicons name="medkit-outline" size={38} color="#EF4444" />}
-                {category.title === "교육/취업" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
-                {category.title === "기타" && <Ionicons name="ellipsis-horizontal-circle-outline" size={38} color="#6B7280" />}
+                {category.title === "카페・베이커리" && <Ionicons name="cafe-outline" size={38} color="#3B82F6" />}
+                {category.title === "문화생활・복지" && <Ionicons name="musical-notes-outline" size={38} color="#8B5CF6" />}
+                {category.title === "미용・뷰티・패션" && <Ionicons name="cut-outline" size={38} color="#F472B6" />}
+                {category.title === "레저・스포츠" && <Ionicons name="basketball-outline" size={38} color="#14B8A6" />}
+                {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
+                {category.title === "교육" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
               </View>
               <Text style={s.categoryText}>{category.title}</Text>
             </TouchableOpacity>
