@@ -21,7 +21,7 @@
         "NSLocationWhenInUseUsageDescription": "현재 위치를 표시하기 위해 위치 접근 권한이 필요합니다."
       },
       "config": {
-        "googleMapsApiKey": "REMOVED_FOR_SECURITY"
+        "googleMapsApiKey": "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI"
       }
     },
     "android": {
@@ -33,7 +33,7 @@
       },
       "config": {
         "googleMaps": {
-          "apiKey": "REMOVED_FOR_SECURITY"
+          "apiKey": "AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI"
         }
       },
       "edgeToEdgeEnabled": true,
