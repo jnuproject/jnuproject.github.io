@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useEffect } from "react";
-import { Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, Animated } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
@@ -13,12 +13,28 @@ export default function DetailPage() {
   const router = useRouter();
   const { data } = useAllAffiliates();
   const item = data.find((d) => d.name === decodeURIComponent(Array.isArray(id) ? id[0] : id || ""));
+  const fadeAnim = useState(() => new Animated.Value(0))[0];
+  const slideAnim = useState(() => new Animated.Value(50))[0];
 
   useEffect(() => {
     // 상세 페이지에서는 네비게이션 바 표시
     if (Platform.OS === 'android') {
       NavigationBar.setVisibilityAsync('visible');
     }
+
+    // 페이지 애니메이션
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 400,
+        useNativeDriver: true,
+      }),
+    ]).start();
 
     // 페이지를 떠날 때 다시 숨김
     return () => {
@@ -38,7 +54,15 @@ export default function DetailPage() {
 
   return (
     <SafeAreaView style={s.safe} edges={["top", "left", "right"]}>
-      <View style={s.inner}>
+      <Animated.View
+        style={[
+          s.inner,
+          {
+            opacity: fadeAnim,
+            transform: [{ translateY: slideAnim }]
+          }
+        ]}
+      >
         {/* 헤더 with 뒤로가기 버튼 */}
         <View style={s.header}>
           <TouchableOpacity
@@ -133,7 +157,7 @@ export default function DetailPage() {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -223,6 +247,7 @@ const s = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     elevation: 2,
+    transition: "all 0.2s ease",
   },
   linkButtonText: {
     fontSize: 13,

@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
@@ -12,12 +12,20 @@ export default function CategoryScreen() {
   const [selectedSub, setSelectedSub] = useState("전체");
   const router = useRouter();
   const { data } = useAllAffiliates();
+  const fadeAnim = useState(() => new Animated.Value(0))[0];
 
   useEffect(() => {
     // Android 네비게이션 바 표시
     if (Platform.OS === 'android') {
       NavigationBar.setVisibilityAsync('visible');
     }
+
+    // 페이지 페이드 인 애니메이션
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
 
     // 페이지를 떠날 때 다시 숨김
     return () => {
@@ -60,7 +68,7 @@ export default function CategoryScreen() {
 
   return (
     <SafeAreaView style={s.safe}>
-      <View style={{ flex: 1 }}>
+      <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
         {/* 헤더 with 뒤로가기 버튼 */}
         <View style={s.header}>
           <TouchableOpacity
@@ -188,7 +196,7 @@ export default function CategoryScreen() {
             </Text>
           )}
         </ScrollView>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -238,9 +246,11 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
+    transition: "all 0.2s ease",
   },
   active: {
     backgroundColor: "#62A89C",
+    transform: [{ scale: 1.05 }],
   },
   filterText: {
     fontSize: 15,
@@ -264,6 +274,7 @@ const s = StyleSheet.create({
     elevation: 3,
     borderWidth: 1,
     borderColor: "#E5E7EB",
+    transition: "all 0.2s ease",
   },
   circle: {
     width: 40,
