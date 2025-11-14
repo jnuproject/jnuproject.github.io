@@ -8,6 +8,7 @@ export interface Affiliate {
   latitude: number;
   longitude: number;
   subcategory?: string;
+  sectionTitle?: string;
   description?: string;
   phone?: string;
   hours?: string;

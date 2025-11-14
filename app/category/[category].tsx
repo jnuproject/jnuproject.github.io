@@ -90,29 +90,89 @@ export default function CategoryScreen() {
           showsVerticalScrollIndicator={false}
         >
           {filtered.length > 0 ? (
-            filtered.map((item, i) => (
-              <TouchableOpacity
-                key={i}
-                style={s.card}
-                onPress={() => router.push(`/details/${encodeURIComponent(item.name)}`)}
-              >
-                <View style={{ flex: 1 }}>
-                  <Text style={s.cardTitle}>{item.name}</Text>
-                  {item.description && (
-                    <Text style={s.cardDesc} numberOfLines={2}>{item.description}</Text>
-                  )}
-                  {categoryTitle === "기업제휴" ? (
-                    item.subcategory && (
-                      <Text style={s.cardSubcategory}>{item.subcategory}</Text>
-                    )
+            (() => {
+              // 섹션별로 그룹화
+              const sections: { sectionTitle: string | undefined; items: typeof filtered }[] = [];
+              let currentSection: typeof sections[0] | null = null;
+
+              filtered.forEach((item) => {
+                if (item.sectionTitle) {
+                  if (!currentSection || currentSection.sectionTitle !== item.sectionTitle) {
+                    currentSection = { sectionTitle: item.sectionTitle, items: [] };
+                    sections.push(currentSection);
+                  }
+                  currentSection.items.push(item);
+                } else {
+                  if (!currentSection || currentSection.sectionTitle !== undefined) {
+                    currentSection = { sectionTitle: undefined, items: [] };
+                    sections.push(currentSection);
+                  }
+                  currentSection.items.push(item);
+                }
+              });
+
+              return sections.map((section, sectionIdx) => (
+                <React.Fragment key={sectionIdx}>
+                  {section.sectionTitle ? (
+                    <View style={s.sectionContainer}>
+                      <View style={s.sectionHeader}>
+                        <Text style={s.sectionHeaderText}>{section.sectionTitle}</Text>
+                        <View style={s.sectionHeaderLine} />
+                      </View>
+                      <View style={s.sectionContent}>
+                        {section.items.map((item, i) => (
+                          <TouchableOpacity
+                            key={i}
+                            style={s.card}
+                            onPress={() => router.push(`/details/${encodeURIComponent(item.name)}`)}
+                          >
+                            <View style={{ flex: 1 }}>
+                              <Text style={s.cardTitle}>{item.name}</Text>
+                              {item.description && (
+                                <Text style={s.cardDesc} numberOfLines={2}>{item.description}</Text>
+                              )}
+                              {categoryTitle === "기업제휴" ? (
+                                item.subcategory && (
+                                  <Text style={s.cardSubcategory}>{item.subcategory}</Text>
+                                )
+                              ) : (
+                                item.region && (
+                                  <Text style={s.cardRegion}>{item.region}</Text>
+                                )
+                              )}
+                            </View>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
                   ) : (
-                    item.region && (
-                      <Text style={s.cardRegion}>{item.region}</Text>
-                    )
+                    section.items.map((item, i) => (
+                      <TouchableOpacity
+                        key={i}
+                        style={s.card}
+                        onPress={() => router.push(`/details/${encodeURIComponent(item.name)}`)}
+                      >
+                        <View style={{ flex: 1 }}>
+                          <Text style={s.cardTitle}>{item.name}</Text>
+                          {item.description && (
+                            <Text style={s.cardDesc} numberOfLines={2}>{item.description}</Text>
+                          )}
+                          {categoryTitle === "기업제휴" ? (
+                            item.subcategory && (
+                              <Text style={s.cardSubcategory}>{item.subcategory}</Text>
+                            )
+                          ) : (
+                            item.region && (
+                              <Text style={s.cardRegion}>{item.region}</Text>
+                            )
+                          )}
+                        </View>
+                      </TouchableOpacity>
+                    ))
                   )}
-                </View>
-              </TouchableOpacity>
-            ))
+                </React.Fragment>
+              ));
+            })()
           ) : (
             <Text style={{ textAlign: "center", color: "#6B7280" }}>
               {emptyMessage}
@@ -220,5 +280,34 @@ const s = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "flex-start",
     flexShrink: 0,
+  },
+  sectionContainer: {
+    marginTop: 20,
+    marginBottom: 12,
+    borderWidth: 2,
+    borderColor: "#62A89C",
+    borderRadius: 16,
+    padding: 16,
+    backgroundColor: "#FAFAFA",
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+    gap: 12,
+  },
+  sectionHeaderText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#62A89C",
+  },
+  sectionHeaderLine: {
+    flex: 1,
+    height: 2,
+    backgroundColor: "#62A89C",
+    borderRadius: 1,
+  },
+  sectionContent: {
+    gap: 12,
   },
 });

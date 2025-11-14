@@ -46,7 +46,7 @@
   },
   {
     "id": "6",
-    "name": "키움",
+    "name": "키움 히어로즈",
     "category": "기업제휴",
     "subcategory": "문화",
     "region": "온라인/전국",
@@ -201,7 +201,7 @@
     "id": "23",
     "name": "정후문 원룸",
     "category": "기업제휴",
-    "subcategory": "숙박",
+    "subcategory": "지역상생",
     "region": "온라인/전국",
     "description": "선정 업체 10곳 년세 3~10% 할인",
     "image": ""
@@ -1059,13 +1059,15 @@
   {
     "id": "104",
     "name": "박물관은 살아있다",
-    "category": "문화생활・복지",
+    "category": "기업제휴",
     "region": "서귀포",
     "address": "제주 서귀포시 중문관광로 42 박물관은살아있다 제주",
     "description": "30% 할인",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU6_CZnKhaarsYcpWtlp4i5TshVKo_CGc1EZfSy1wA1bCF3P88HLce3YkADwG1LQ16sUImWDMMBGjdrhl6RxSoTGU1sp0HZ-_AJ-6QyrgxwNpC1QLCAv8qUikaLtbb1RnrTOoycAobq8xQbeZju5j8WzHND84u1CeWeYQD3ChhHEIn5C7ZfS2Cxki3MmpE9Gb4IGe4QDTE0H29PHIkL9RjI6jAgP-n1kB6bkfviYoLkeu-hJ7vrFBSeGU5BIAK_4moNKsFxB7PnksBOf2ppr-J5Y5nd8sg9FyfY0RXpGnwPRsrxoOEg&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.254918,
-    "longitude": 126.4087189
+    "longitude": 126.4087189,
+    "subcategory": "문화",
+    "sectionTitle": "도내문화"
   },
   {
     "id": "105",
@@ -1235,24 +1237,28 @@
   {
     "id": "120",
     "name": "런닝맨 제주점",
-    "category": "문화생활・복지",
+    "category": "기업제휴",
     "region": "서귀포",
     "address": "제주 서귀포시 중문관광로 42",
     "description": "19,000 -> 13,000",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU71wgU-bHUVLA0dgcCvjcesNBvWn-r_sfv74UjaJhBqbOppjbXYv5haSdIbbAYmlCrbJWWciAt2EOYhcl4VIsdDC9xnaTQ8ujsIoQH4OVAdpGtspINNGR7IrwvVZtQ6ispDS_3StaHQFNzJ8O_egenO9RFmNdPtI0q23_vvfzzeAe2GDv4B1AVGbZGLRpLcVmh0fQu_IHPYsaI7I0RBjUxVwjX_6lku0sk1Sm0aTNO6ll54BStNE8PFO9p3zNRFaQ3CWVnACxATIgnIzOilJGt6ZRm1kHfETRkA3h5T4rKT2h56uG-8EuZeu9EXhPwuUfDp8C3JSgaf-9BzfsMPZlL2Ipz_XjjaEYK6ccz_ff7n0fJ1U5m0Up1rigpDW5GIZ_iJD9yzXSEw4Be8rmWvMcwn0-tZSEM7WfhhXcAraphVQZAG6f09J_Yk5S_SmtBfdBq2xJY4alDaXeq5Nv-mcRXl5klFtaBpuG1m6r1o-AdxkvIFwOvoCtyK39RCuydLPRXk4ANoNwULXvFA-kRqpuQ5rKgRo4Z1bQIFuuCbsK9Ppp_CYKfit_lhHOgR96-iaPw22XRdmKPQL2d7p2GmZ5HzZQcRGg&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.254854,
-    "longitude": 126.4092614
+    "longitude": 126.4092614,
+    "subcategory": "문화",
+    "sectionTitle": "도내문화"
   },
   {
     "id": "121",
     "name": "감귤카트",
-    "category": "문화생활・복지",
+    "category": "기업제휴",
     "region": "서귀포",
     "address": "제주 서귀포시 중문관광로 42 감귤카트(맥도날드 안쪽)",
     "description": "55%할인",
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5cDOQehoJCuDcklf-wN1t-2sNTZnrIEYZZdc7PSYkDgwsbumriniDMG603U_DRU26XjWMV_ZzMvxNNQBhCr0iUVIgsqqWQqQUiCiCQUuiaVgzNkJdCZVJ7oKuwAkjdXFwUgKCGFFs_UZSyoxIxmnsOp9Gut1kxlxdo1aVF_abPqQlWyNLmDBiItGl08vhDCFY0sJ7_Jqeh5BU52H8r2xWgFozUDyktKRuoR-E5WgEKcmOkL-9W20lvER5cmI-5hvfJKZC6qCCArXTXXSca8NVXObDRc9M_PAhSmLJD_7j4wjCV&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.2549444,
-    "longitude": 126.4078378
+    "longitude": 126.4078378,
+    "subcategory": "문화",
+    "sectionTitle": "도내문화"
   },
   {
     "id": "122",
@@ -5951,5 +5957,31 @@
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5XyHHyGl5IFSZJ5ebXpgD7__71mecRHsy-zOmZfw7oi1kO7_R_DwG4hlFGldyUxh6wb99IAjad08kORQG_j2MskeLqkZdtt7a9J_p6SfFMIigQFuQwhcGuJi9wB-_idbD2zQeVhF0Rq5DUJ2pujKV0cOP65docYmI67pBBUgCI_oXJlNREYWdwVcbCfu_5KABO4st05UmKGbUldOFuFEE27DaxJpRR9NccJxS907fZ4OdodKXAMFvYHQL4AUtgQFTz5ckM57LAtO8gTJffXxpc5hio5EcfM3H88vftkc12MzUdkpjFbOO6r9JgMAf3_M9WzPs-Iy1UOGql9oubch1Jq92ywVx-Kv0zA4DTH2kaK7JY_Gx1xQV74q7GVoeU4nH4waQPdj-nwOu22QIjlttdru2s4bZ-EobPT7v2fhTHW5paxsmuAJfkIf7uRrD78C9t7CLpTTiLMZTGZ-Bf8BxPvOJPopEUr1_pGjyUdtxUIBSQoVbzKYGvratHEuwS0tP02jV3iAXM8jsM6UIvSZfmVjxcnXyysU00gKkqFZKCOt0bxa3fJsxIfHbRRhSof5MF4w&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4845575,
     "longitude": 126.4781064
+  },
+  {
+    "id": "549",
+    "name": "981파크",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "sectionTitle": "도내문화",
+    "region": "",
+    "address": "",
+    "description": "",
+    "image": "",
+    "latitude": 0,
+    "longitude": 0
+  },
+  {
+    "id": "550",
+    "name": "하리보월드",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "sectionTitle": "도내문화",
+    "region": "",
+    "address": "",
+    "description": "",
+    "image": "",
+    "latitude": 0,
+    "longitude": 0
   }
 ]
