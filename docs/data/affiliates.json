@@ -1,78 +1,6 @@
 [
   {
-    "id": "1",
-    "name": "아이티렛츠고",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "수강권 90% 이상 할인",
-    "image": "require('../assets/list_images/1.png')"
-  },
-  {
-    "id": "2",
-    "name": "렛츠커리어",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "클래스 프로그램 50% 할인 및 무료 세미나 참여 기회 제공",
-    "image": "require('../assets/list_images/2.png')"
-  },
-  {
-    "id": "3",
-    "name": "시원스쿨",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "제주대학교 전용 사이트 개설 후 수강권 혜택 제공",
-    "image": "require('../assets/list_images/3.jpeg')"
-  },
-  {
-    "id": "4",
-    "name": "한국검정평가원",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "이용권 20% 할인",
-    "image": "require('../assets/list_images/4.jpg')"
-  },
-  {
-    "id": "5",
-    "name": "미리캔버스",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "1년간 미리캔버스 Pro 요금제 33% 할인 제공 (공동 구매 시)",
-    "image": "require('../assets/list_images/5.png')"
-  },
-  {
-    "id": "6",
-    "name": "YBM",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "수강료 최대 90% 할인",
-    "image": "require('../assets/list_images/6.png')"
-  },
-  {
-    "id": "7",
-    "name": "다산에듀",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "10명 이상 주문 시 책 10% 할인",
-    "image": "require('../assets/list_images/7.png')"
-  },
-  {
-    "id": "8",
-    "name": "잡플래닛",
-    "category": "기업제휴",
-    "subcategory": "교육취업",
-    "region": "온라인/전국",
-    "description": "홈페이지 활성화 정책을 위한 홍보 제휴 및 잡플래닛 프리미엄 콘텐츠 무료 무제한 열람",
-    "image": "require('../assets/list_images/8.png')"
-  },
-  {
-    "id": "9",
+    "id": 1,
     "name": "세이프닥",
     "category": "기업제휴",
     "subcategory": "의료",
@@ -81,7 +9,7 @@
     "image": "require('../assets/list_images/9.png')"
   },
   {
-    "id": "10",
+    "id": 2,
     "name": "GS안과",
     "category": "기업제휴",
     "subcategory": "의료",
@@ -90,16 +18,7 @@
     "image": "require('../assets/list_images/10.jpg')"
   },
   {
-    "id": "11",
-    "name": "중앙병원",
-    "category": "기업제휴",
-    "subcategory": "의료",
-    "region": "온라인/전국",
-    "description": "종합건강검진 항목 20% 감면 및 비급여 항목 10% 감면 (MRI, 초음파, 병실차액)",
-    "image": "require('../assets/list_images/11.png')"
-  },
-  {
-    "id": "12",
+    "id": 3,
     "name": "롯데시네마",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -108,7 +27,7 @@
     "image": "require('../assets/list_images/12.png')"
   },
   {
-    "id": "13",
+    "id": 4,
     "name": "오션월드",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -117,7 +36,7 @@
     "image": ""
   },
   {
-    "id": "14",
+    "id": 5,
     "name": "젠지 (E-sports)",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -126,7 +45,7 @@
     "image": "require('../assets/list_images/13.png')"
   },
   {
-    "id": "15",
+    "id": 6,
     "name": "키움",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -135,88 +54,16 @@
     "image": "require('../assets/list_images/14.png')"
   },
   {
-    "id": "16",
-    "name": "LG트윈스",
-    "category": "기업제휴",
-    "subcategory": "문화",
-    "region": "온라인/전국",
-    "description": "티켓 N장 제공 및 특강 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/15.png')"
-  },
-  {
-    "id": "17",
-    "name": "아르떼뮤지엄",
-    "category": "기업제휴",
-    "subcategory": "문화",
-    "region": "온라인/전국",
-    "description": "티켓 30% 할인",
-    "image": "require('../assets/list_images/16.png')"
-  },
-  {
-    "id": "18",
-    "name": "이월드",
-    "category": "기업제휴",
-    "subcategory": "문화",
-    "region": "온라인/전국",
-    "description": "이용권 50% 할인",
-    "image": "require('../assets/list_images/17.jpeg')"
-  },
-  {
-    "id": "19",
-    "name": "제주아쿠아플라넷",
-    "category": "기업제휴",
-    "subcategory": "문화",
-    "region": "온라인/전국",
-    "description": "해양 환경 플로깅 추진 예정 및 금액 할인 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/18.png')"
-  },
-  {
-    "id": "20",
-    "name": "포시즌",
-    "category": "기업제휴",
-    "subcategory": "문화",
-    "region": "온라인/전국",
-    "description": "2026년도 시즌 맞이 할인 프로모션 혜택 제공",
-    "image": "require('../assets/list_images/19.png')"
-  },
-  {
-    "id": "21",
+    "id": 7,
     "name": "LG전자",
     "category": "기업제휴",
     "subcategory": "가전",
     "region": "온라인/전국",
-    "description": "APPLE 제품 및 iPhone 할인 티켓 선착순 제공, LG Gram 신학기 할인 프로모션 진행",
+    "description": "apple 제품 및 iPhone 할인 티켓 선착순 제공, LG gram 신학기 할인 프로모션 진행",
     "image": "require('../assets/list_images/20.png')"
   },
   {
-    "id": "22",
-    "name": "LG U+",
-    "category": "기업제휴",
-    "subcategory": "가전",
-    "region": "온라인/전국",
-    "description": "요금제 할인 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/21.png')"
-  },
-  {
-    "id": "23",
-    "name": "삼성스토어",
-    "category": "기업제휴",
-    "subcategory": "가전",
-    "region": "온라인/전국",
-    "description": "2026년도 할인 및 신학기 프로모션 할인 혜택 진행",
-    "image": "require('../assets/list_images/22.png')"
-  },
-  {
-    "id": "24",
-    "name": "어도비",
-    "category": "기업제휴",
-    "subcategory": "가전",
-    "region": "온라인/전국",
-    "description": "기존 구매가 316,800원 -> 264,000원 (공동구매 / 2026년 프로모션 변경 가능)",
-    "image": "require('../assets/list_images/23.jpg')"
-  },
-  {
-    "id": "25",
+    "id": 8,
     "name": "쏘카",
     "category": "기업제휴",
     "subcategory": "교통",
@@ -225,79 +72,7 @@
     "image": "require('../assets/list_images/24.jpeg')"
   },
   {
-    "id": "26",
-    "name": "이제주 버스 회사",
-    "category": "기업제휴",
-    "subcategory": "교통",
-    "region": "온라인/전국",
-    "description": "차량 임대 10% 할인",
-    "image": ""
-  },
-  {
-    "id": "27",
-    "name": "삼다자동차학원",
-    "category": "기업제휴",
-    "subcategory": "교통",
-    "region": "온라인/전국",
-    "description": "수강권 10% 할인",
-    "image": "require('../assets/list_images/26.jpeg')"
-  },
-  {
-    "id": "28",
-    "name": "여기어때",
-    "category": "기업제휴",
-    "subcategory": "숙박",
-    "region": "온라인/전국",
-    "description": "2026년 매달 새로운 할인 프로모션 진행",
-    "image": "require('../assets/list_images/27.jpg')"
-  },
-  {
-    "id": "29",
-    "name": "정후문 원룸",
-    "category": "기업제휴",
-    "subcategory": "숙박",
-    "region": "온라인/전국",
-    "description": "선정 업체 10곳 년세 3~10% 할인",
-    "image": ""
-  },
-  {
-    "id": "30",
-    "name": "제주유스호스텔",
-    "category": "기업제휴",
-    "subcategory": "숙박",
-    "region": "온라인/전국",
-    "description": "단체 이용료 2026년도 기준 할인 혜택 제공",
-    "image": ""
-  },
-  {
-    "id": "31",
-    "name": "제주한화리조트",
-    "category": "기업제휴",
-    "subcategory": "숙박",
-    "region": "온라인/전국",
-    "description": "개인 및 단체 이용료 2026년도 기준 할인 혜택 제공",
-    "image": "require('../assets/list_images/30.jpg')"
-  },
-  {
-    "id": "32",
-    "name": "이사대학",
-    "category": "기업제휴",
-    "subcategory": "편의",
-    "region": "온라인/전국",
-    "description": "이용료 10% 할인",
-    "image": "require('../assets/list_images/31.png')"
-  },
-  {
-    "id": "33",
-    "name": "사람휘트니스",
-    "category": "기업제휴",
-    "subcategory": "편의",
-    "region": "온라인/전국",
-    "description": "2026년도 기준 회원권 할인 혜택 제공",
-    "image": "require('../assets/list_images/32.jpg')"
-  },
-  {
-    "id": "34",
+    "id": 9,
     "name": "카카오",
     "category": "기업제휴",
     "subcategory": "소셜플랫폼",
@@ -306,7 +81,7 @@
     "image": "require('../assets/list_images/33.png')"
   },
   {
-    "id": "35",
+    "id": 10,
     "name": "네이버",
     "category": "기업제휴",
     "subcategory": "소셜플랫폼",
@@ -315,7 +90,124 @@
     "image": "require('../assets/list_images/34.png')"
   },
   {
-    "id": "36",
+    "id": 11,
+    "name": "LG트윈스",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "region": "온라인/전국",
+    "description": "티켓 N장 제공 및 특강 (실현 가능성 검토 완료)",
+    "image": "require('../assets/list_images/15.png')"
+  },
+  {
+    "id": 12,
+    "name": "아이티렛츠고",
+    "category": "기업제휴",
+    "subcategory": "교육취업",
+    "region": "온라인/전국",
+    "description": "수강권 90% 이상 할인",
+    "image": "require('../assets/list_images/1.png')"
+  },
+  {
+    "id": 13,
+    "name": "렛츠커리어",
+    "category": "기업제휴",
+    "subcategory": "교육취업",
+    "region": "온라인/전국",
+    "description": "클래스 프로그램 50% 할인 및 무료 세미나 참여 기회 제공",
+    "image": "require('../assets/list_images/2.png')"
+  },
+  {
+    "id": 14,
+    "name": "시원스쿨",
+    "category": "기업제휴",
+    "subcategory": "교육취업",
+    "region": "온라인/전국",
+    "description": "제주대학교 전용 사이트 개설 후 수강권 혜택 제공",
+    "image": "require('../assets/list_images/3.jpeg')"
+  },
+  {
+    "id": 15,
+    "name": "한국검정평가원",
+    "category": "기업제휴",
+    "subcategory": "교육취업",
+    "region": "온라인/전국",
+    "description": "이용권 20% 할인",
+    "image": "require('../assets/list_images/4.jpg')"
+  },
+  {
+    "id": 16,
+    "name": "중앙병원",
+    "category": "기업제휴",
+    "subcategory": "의료",
+    "region": "온라인/전국",
+    "description": "종합건강검진 항목 20% 감면 및 비급여 항목 10% 감면 (MRI, 초음파, 병실차액)",
+    "image": "require('../assets/list_images/11.png')"
+  },
+  {
+    "id": 17,
+    "name": "아르떼뮤지엄",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "region": "온라인/전국",
+    "description": "티켓 30% 할인",
+    "image": "require('../assets/list_images/16.png')"
+  },
+  {
+    "id": 18,
+    "name": "이월드",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "region": "온라인/전국",
+    "description": "이용권 50% 할인",
+    "image": "require('../assets/list_images/17.jpeg')"
+  },
+  {
+    "id": 19,
+    "name": "제주아쿠아플라넷",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "region": "온라인/전국",
+    "description": "해양 환경 플로깅 추진 예정 및 금액 할인 (실현 가능성 검토 완료)",
+    "image": "require('../assets/list_images/18.png')"
+  },
+  {
+    "id": 20,
+    "name": "여기어때",
+    "category": "기업제휴",
+    "subcategory": "숙박",
+    "region": "온라인/전국",
+    "description": "2026년 매달 새로운 할인 프로모션 진행",
+    "image": "require('../assets/list_images/27.jpg')"
+  },
+  {
+    "id": 21,
+    "name": "이사대학",
+    "category": "기업제휴",
+    "subcategory": "편의",
+    "region": "온라인/전국",
+    "description": "이용료 10% 할인",
+    "image": "require('../assets/list_images/31.png')"
+  },
+  {
+    "id": 22,
+    "name": "LG U+",
+    "category": "기업제휴",
+    "subcategory": "가전",
+    "region": "온라인/전국",
+    "description": "요금제 할인 (실현 가능성 검토 완료)",
+    "image": "require('../assets/list_images/21.png')"
+  },
+  {
+    "id": 23,
+    "name": "정후문 원룸",
+    "category": "기업제휴",
+    "subcategory": "숙박",
+    "region": "온라인/전국",
+    "description": "선정 업체 10곳 년세 3~10% 할인",
+    "image": ""
+  },
+  {
+    "id": 24,
     "name": "칠성로 상인회",
     "category": "기업제휴",
     "subcategory": "지역상생",
@@ -324,22 +216,112 @@
     "image": ""
   },
   {
-    "id": "37",
-    "name": "VIPS",
+    "id": 25,
+    "name": "미리캔버스",
     "category": "기업제휴",
-    "subcategory": "식음료",
+    "subcategory": "교육취업",
     "region": "온라인/전국",
-    "description": "학생 및 교직원 20% 할인(동반 포함), 단체 20명 이상 이용 시 25% 할인",
-    "image": "require('../assets/list_images/36.jpg')"
+    "description": "1년간 미리캔버스 Pro 요금제 33% 할인 제공 (공동 구매 시)",
+    "image": "require('../assets/list_images/5.png')"
   },
   {
-    "id": "38",
-    "name": "유동커피",
+    "id": 27,
+    "name": "YBM",
     "category": "기업제휴",
-    "subcategory": "식음료",
+    "subcategory": "교육취업",
     "region": "온라인/전국",
-    "description": "음료 N% 할인 및 '제주대학교 X 유동커피' 실습 프로모션 진행",
-    "image": "require('../assets/list_images/37.png')"
+    "description": "수강료 최대 90% 할인",
+    "image": "require('../assets/list_images/6.png')"
+  },
+  {
+    "id": 28,
+    "name": "다산에듀",
+    "category": "기업제휴",
+    "subcategory": "교육취업",
+    "region": "온라인/전국",
+    "description": "10명 이상 주문 시 책 10% 할인",
+    "image": "require('../assets/list_images/7.png')"
+  },
+  {
+    "id": 29,
+    "name": "잡플래닛",
+    "category": "기업제휴",
+    "subcategory": "교육취업",
+    "region": "온라인/전국",
+    "description": "홈페이지 활성화 정책을 위한 홍보 제휴 및 잡플래닛 프리미엄 콘텐츠 무료 무제한 열람",
+    "image": "require('../assets/list_images/8.png')"
+  },
+  {
+    "id": 30,
+    "name": "포시즌",
+    "category": "기업제휴",
+    "subcategory": "문화",
+    "region": "온라인/전국",
+    "description": "2026년도 시즌 맞이 할인 프로모션 혜택 제공",
+    "image": "require('../assets/list_images/19.png')"
+  },
+  {
+    "id": 31,
+    "name": "제주유스호스텔",
+    "category": "기업제휴",
+    "subcategory": "숙박",
+    "region": "온라인/전국",
+    "description": "단체 이용료 2026년도 기준 할인 혜택 제공",
+    "image": ""
+  },
+  {
+    "id": 32,
+    "name": "제주한화리조트",
+    "category": "기업제휴",
+    "subcategory": "숙박",
+    "region": "온라인/전국",
+    "description": "개인 및 단체 이용료 2026년도 기준 할인 혜택 제공",
+    "image": "require('../assets/list_images/30.jpg')"
+  },
+  {
+    "id": 33,
+    "name": "사람휘트니스",
+    "category": "기업제휴",
+    "subcategory": "편의",
+    "region": "온라인/전국",
+    "description": "2026년도 기준 회원권 할인 혜택 제공",
+    "image": "require('../assets/list_images/32.jpg')"
+  },
+  {
+    "id": 34,
+    "name": "어도비",
+    "category": "기업제휴",
+    "subcategory": "편의",
+    "region": "온라인/전국",
+    "description": "기존 구매가 316,800원 -> 264,000원 (공동구매 / 2026년 프로모션 변경 가능)",
+    "image": "require('../assets/list_images/23.jpg')"
+  },
+  {
+    "id": 35,
+    "name": "삼성스토어",
+    "category": "기업제휴",
+    "subcategory": "가전",
+    "region": "온라인/전국",
+    "description": "2026년도 할인 및 신학기 프로모션 할인 혜택 진행",
+    "image": "require('../assets/list_images/22.png')"
+  },
+  {
+    "id": 36,
+    "name": "이제주 버스 회사",
+    "category": "기업제휴",
+    "subcategory": "교통",
+    "region": "온라인/전국",
+    "description": "차량 임대 10% 할인",
+    "image": ""
+  },
+  {
+    "id": 37,
+    "name": "삼다자동차학원",
+    "category": "기업제휴",
+    "subcategory": "교통",
+    "region": "온라인/전국",
+    "description": "수강권 10% 할인",
+    "image": "require('../assets/list_images/26.jpeg')"
   },
   {
     "id": "39",
@@ -5951,5 +5933,23 @@
     "image": "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=AWn5SU5XyHHyGl5IFSZJ5ebXpgD7__71mecRHsy-zOmZfw7oi1kO7_R_DwG4hlFGldyUxh6wb99IAjad08kORQG_j2MskeLqkZdtt7a9J_p6SfFMIigQFuQwhcGuJi9wB-_idbD2zQeVhF0Rq5DUJ2pujKV0cOP65docYmI67pBBUgCI_oXJlNREYWdwVcbCfu_5KABO4st05UmKGbUldOFuFEE27DaxJpRR9NccJxS907fZ4OdodKXAMFvYHQL4AUtgQFTz5ckM57LAtO8gTJffXxpc5hio5EcfM3H88vftkc12MzUdkpjFbOO6r9JgMAf3_M9WzPs-Iy1UOGql9oubch1Jq92ywVx-Kv0zA4DTH2kaK7JY_Gx1xQV74q7GVoeU4nH4waQPdj-nwOu22QIjlttdru2s4bZ-EobPT7v2fhTHW5paxsmuAJfkIf7uRrD78C9t7CLpTTiLMZTGZ-Bf8BxPvOJPopEUr1_pGjyUdtxUIBSQoVbzKYGvratHEuwS0tP02jV3iAXM8jsM6UIvSZfmVjxcnXyysU00gKkqFZKCOt0bxa3fJsxIfHbRRhSof5MF4w&key=AIzaSyDt7ieN0wG23Zy5ZCuxg0pjHNqowquaZHI",
     "latitude": 33.4845575,
     "longitude": 126.4781064
+  },
+  {
+    "id": "37",
+    "name": "VIPS",
+    "category": "지역상생",
+    "subcategory": "식음료",
+    "region": "온라인/전국",
+    "description": "학생 및 교직원 20% 할인(동반 포함), 단체 20명 이상 이용 시 25% 할인",
+    "image": "require('../assets/list_images/36.jpg')"
+  },
+  {
+    "id": "38",
+    "name": "유동커피",
+    "category": "지역상생",
+    "subcategory": "식음료",
+    "region": "온라인/전국",
+    "description": "음료 N% 할인 및 '제주대학교 X 유동커피' 실습 프로모션 진행",
+    "image": "require('../assets/list_images/37.png')"
   }
 ]

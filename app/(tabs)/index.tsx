@@ -231,6 +231,13 @@ export default function HomeScreen() {
             <Text style={s.snsTextWide}>DREAM 카카오톡</Text>
           </TouchableOpacity>
         </View>
+
+        {/* 참조사항 */}
+        <View style={s.footerNote}>
+          <Text style={s.footerNoteText}>
+            ※ 본 앱은 앱 개발 및 2025년 이후 지속적인 운영 가능성을 입증하기 위해 제작되었습니다.
+          </Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -477,5 +484,17 @@ const s = StyleSheet.create({
     backgroundColor: '#4EA49B',
     width: 24,
     borderRadius: 4,
+  },
+  footerNote: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 30,
+    paddingBottom: 40,
+  },
+  footerNoteText: {
+    fontSize: 12,
+    color: '#9CA3AF',
+    textAlign: 'center',
+    lineHeight: 18,
   },
 });
