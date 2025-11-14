@@ -42,7 +42,7 @@ export default function RootLayout() {
           <Image
             source={require('../assets/images/logo-round.png')}
             style={styles.splashLogo}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </View>
       )}
