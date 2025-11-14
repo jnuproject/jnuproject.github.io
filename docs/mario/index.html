@@ -29,6 +29,67 @@ body {
   position: relative;
 }
 
+.start-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(14, 12, 52, 0.95), rgba(20, 80, 180, 0.9));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  z-index: 3000;
+  transition: opacity 0.6s ease;
+}
+
+.start-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.start-box {
+  padding: 40px 30px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  max-width: 320px;
+}
+
+.start-title {
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  color: #ffdd55;
+  text-shadow: 0 0 12px rgba(255, 221, 85, 0.8);
+}
+
+.start-subtitle {
+  font-size: 10px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  color: rgba(255,255,255,0.8);
+}
+
+.start-button {
+  border: none;
+  padding: 12px 24px;
+  font-size: 12px;
+  color: #1f1f1f;
+  background: linear-gradient(90deg, #ffe066, #ffb347);
+  border-radius: 999px;
+  box-shadow: 0 8px 0 #b76b00;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.start-button:active {
+  transform: translateY(3px);
+  box-shadow: 0 4px 0 #b76b00;
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -509,6 +570,14 @@ body::after {
 </head>
 <body>
 
+<div class="start-screen" id="start-screen">
+  <div class="start-box">
+    <h1 class="start-title">DREAM MARIO</h1>
+    <p class="start-subtitle">꿈속에서 펼쳐지는 새로운 모험으로 떠나보세요!</p>
+    <button class="start-button" id="start-button">게임 시작</button>
+  </div>
+</div>
+
 <div class="game-container">
   <div class="hud">
     <div class="hud-item">
@@ -555,6 +624,8 @@ body::after {
   const devConsole = document.getElementById('dev-console');
   const consoleOutput = document.getElementById('console-output');
   const consoleCloseButton = document.getElementById('console-close');
+  const startScreen = document.getElementById('start-screen');
+  const startButton = document.getElementById('start-button');
 
   function toggleConsole(force) {
     if (!devConsole) return;
@@ -586,7 +657,7 @@ body::after {
     }
   });
 
-  logToConsole('게임이 시작되었습니다');
+  logToConsole('타이틀 화면이 준비되었습니다');
 
   // ----- LEVELS -----
   const LEVELS = [
@@ -1364,6 +1435,7 @@ body::after {
   };
 
   let startLevelRef = null;
+  let hasGameStarted = false;
 
   const STATUS_LABELS = {
     lost: '실패',
@@ -1418,6 +1490,28 @@ body::after {
     updateHUD();
     hideMessage();
     if (startLevelRef) startLevelRef();
+  }
+
+  function initializeAdventureState() {
+    gameState.level = 0;
+    gameState.coins = 0;
+    gameState.lives = 3;
+    gameState.distance = 0;
+    gameState.shield = false;
+    gameState.checkpoint = 0;
+    updateHUD();
+  }
+
+  function beginAdventure() {
+    if (hasGameStarted) return;
+    hasGameStarted = true;
+    if (startScreen) startScreen.classList.add('hidden');
+    initializeAdventureState();
+    runGame(LEVELS, DOMDisplay);
+  }
+
+  if (startButton) {
+    startButton.addEventListener('click', beginAdventure);
   }
 
   // ----- GAME LOOP -----
@@ -1489,7 +1583,6 @@ body::after {
 
   window.restartGame = restartGame;
   updateHUD();
-  runGame(LEVELS, DOMDisplay);
 
   // 추가 구름 생성
   function createClouds() {
