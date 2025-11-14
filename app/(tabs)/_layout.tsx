@@ -200,17 +200,24 @@ export default function TabsLayout() {
           style={styles.modalOverlay}
         >
           <View style={styles.modalContent}>
-            <TextInput
-              style={styles.input}
-              placeholder="검색어를 입력하세요..."
-              placeholderTextColor="#999"
-              autoFocus
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-            />
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>제휴 검색</Text>
+              <Text style={styles.modalSubtitle}>찾고 싶은 매장 이름을 입력해주세요.</Text>
+            </View>
 
-            {/* 검색 결과 */}
-            <ScrollView style={{ marginTop: 15 }}>
+            <View style={styles.inputWrapper}>
+              <Ionicons name="search" size={20} color="#4EA49B" />
+              <TextInput
+                style={styles.input}
+                placeholder="검색어를 입력하세요..."
+                placeholderTextColor="#94A3B8"
+                autoFocus
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+              />
+            </View>
+
+            <ScrollView style={styles.resultList} showsVerticalScrollIndicator={false}>
               {filtered.length > 0 ? (
                 filtered.map((item) => (
                   <Pressable
@@ -221,15 +228,21 @@ export default function TabsLayout() {
                       router.push(`/details/${encodeURIComponent(item.name)}`);
                     }}
                   >
-                    <Text style={styles.resultText}>{item.name}</Text>
+                    <View>
+                      <Text style={styles.resultName}>{item.name}</Text>
+                      {item.region && <Text style={styles.resultMeta}>{item.region}</Text>}
+                    </View>
+                    <Ionicons name="arrow-forward" size={18} color="#0F172A" />
                   </Pressable>
                 ))
               ) : (
-                <Text style={styles.noResult}>검색 결과가 없습니다.</Text>
+                <View style={styles.noResultCard}>
+                  <Ionicons name="information-circle-outline" size={18} color="#4EA49B" />
+                  <Text style={styles.noResult}>검색 결과가 없습니다.</Text>
+                </View>
               )}
             </ScrollView>
 
-            {/* 닫기 버튼 */}
             <Pressable
               onPress={() => {
                 setSearchQuery("");
@@ -237,7 +250,7 @@ export default function TabsLayout() {
               }}
               style={styles.closeButton}
             >
-              <Ionicons name="close" size={24} color="#4EA49B" />
+              <Ionicons name="close" size={20} color="#fff" />
             </Pressable>
           </View>
         </KeyboardAvoidingView>
@@ -325,42 +338,115 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(8, 25, 32, 0.5)",
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 20,
   },
   modalContent: {
-    width: "90%",
-    backgroundColor: "#fff",
-    borderRadius: 16,
-    padding: 20,
-    elevation: 6,
-    maxHeight: "70%",
+    width: "100%",
+    backgroundColor: "rgba(255,255,255,0.96)",
+    borderRadius: 28,
+    padding: 24,
+    elevation: 12,
+    maxHeight: "75%",
+    borderWidth: 3,
+    borderColor: "rgba(255,255,255,0.8)",
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.9,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 50,
+  },
+  modalHeader: {
+    gap: 4,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#0F172A",
+  },
+  modalSubtitle: {
+    fontSize: 13,
+    color: "#64748B",
+  },
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    borderRadius: 18,
+    backgroundColor: "#F1F5F9",
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderWidth: 1.5,
+    borderColor: "rgba(148, 163, 184, 0.4)",
+    marginTop: 18,
   },
   input: {
+    flex: 1,
     fontSize: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    paddingVertical: 8,
-    color: "#333",
+    color: "#0F172A",
+    paddingVertical: 0,
+  },
+  resultList: {
+    marginTop: 18,
+    width: "100%",
   },
   resultItem: {
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: "rgba(226, 232, 240, 0.9)",
+    backgroundColor: "#FFFFFF",
+    marginBottom: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    shadowColor: "#000000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    elevation: 4,
   },
-  resultText: {
+  resultName: {
     fontSize: 16,
-    color: "#333",
+    fontWeight: "700",
+    color: "#0F172A",
+  },
+  resultMeta: {
+    fontSize: 12,
+    color: "#94A3B8",
+    marginTop: 4,
+  },
+  noResultCard: {
+    marginTop: 30,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "rgba(148, 163, 184, 0.3)",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+    backgroundColor: "#F8FAFC",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
   },
   noResult: {
     textAlign: "center",
-    color: "#999",
-    marginTop: 20,
+    color: "#64748B",
+    fontWeight: "600",
   },
   closeButton: {
-    position: "absolute",
-    right: 15,
-    top: 15,
+    alignSelf: "center",
+    marginTop: 8,
+    paddingHorizontal: 26,
+    paddingVertical: 10,
+    borderRadius: 999,
+    backgroundColor: "#4EA49B",
+    shadowColor: "#4EA49B",
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 10,
+    elevation: 6,
   },
 });

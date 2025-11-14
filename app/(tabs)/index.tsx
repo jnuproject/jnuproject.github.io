@@ -12,10 +12,36 @@ import * as SystemUI from "expo-system-ui";
 import * as NavigationBar from "expo-navigation-bar";
 
 export default function HomeScreen() {
+  const CATEGORY_ICON_COLOR = "#2CA69A";
+  const CATEGORY_ICON_MAP: Record<string, React.ComponentProps<typeof Ionicons>["name"]> = {
+    "전체": "grid-outline",
+    "음식점": "restaurant-outline",
+    "카페・베이커리": "cafe-outline",
+    "문화생활・복지": "musical-notes-outline",
+    "미용・뷰티・패션": "cut-outline",
+    "레저・스포츠": "basketball-outline",
+    "기업제휴": "briefcase-outline",
+    "교육": "school-outline",
+  };
+  const SOCIAL_LINKS = [
+    {
+      title: "DREAM 인스타그램",
+      icon: "logo-instagram" as const,
+      url: "https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==",
+      gradient: ["#8EC5FC", "#3BA99F"],
+    },
+    {
+      title: "DREAM 카카오톡",
+      icon: "chatbubble-ellipses-outline" as const,
+      url: "https://tr.ee/Fp6OL6ZuO6",
+      gradient: ["#6FE3C4", "#30B89F"],
+    },
+  ];
   const router = useRouter();
   const { data: affiliates } = useAllAffiliates();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobileSafari, setIsMobileSafari] = useState(false);
+  const [carouselWidth, setCarouselWidth] = useState(Dimensions.get("window").width);
 
   useEffect(() => {
     // Android 네비게이션 바 숨김
@@ -47,63 +73,82 @@ export default function HomeScreen() {
 
   const scrollContainerStyles = [s.scrollContent, isMobileSafari && s.scrollContentSafari];
 
+  const openExternalLink = (url: string) => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      window.location.href = url;
+    } else {
+      router.push(url);
+    }
+  };
+
   const pageContent = (
     <>
       {/* 헤더 */}
       <View style={s.header}>
-        <View style={s.heroCard}>
+        <View style={s.logoGlowContainer}>
           <Image
             source={require("../../assets/images/logo.png")}
             style={s.heroLogo}
             resizeMode="contain"
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
+            tintColor="#FFFFFF"
           />
         </View>
       </View>
 
       {/* 카테고리 */}
-      <Text style={[s.sectionTitle, s.sectionSpacing]}>카테고리</Text>
-      <View style={s.categoryGrid}>
-        {[{ title: "전체" }, ...CATEGORIES].map((category) => (
-          <TouchableOpacity
-            key={category.title}
-            style={s.categoryWrapper}
-            activeOpacity={0.85}
-            onPress={() => router.push(`../category/${encodeURIComponent(category.title)}`)}
-          >
-            <View style={s.categoryCard}>
-              {category.title === "전체" && <Ionicons name="grid-outline" size={38} color="#10B981" />}
-              {category.title === "음식점" && <Ionicons name="restaurant-outline" size={38} color="#F59E0B" />}
-              {category.title === "카페・베이커리" && <Ionicons name="cafe-outline" size={38} color="#3B82F6" />}
-              {category.title === "문화생활・복지" && <Ionicons name="musical-notes-outline" size={38} color="#8B5CF6" />}
-              {category.title === "미용・뷰티・패션" && <Ionicons name="cut-outline" size={38} color="#F472B6" />}
-              {category.title === "레저・스포츠" && <Ionicons name="basketball-outline" size={38} color="#14B8A6" />}
-              {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
-              {category.title === "교육" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
-            </View>
-            <Text style={s.categoryText} numberOfLines={1}>{category.title}</Text>
-          </TouchableOpacity>
-        ))}
+      <View style={s.sectionCard}>
+        <Text style={s.sectionTitle}>카테고리</Text>
+        <View style={s.categoryGrid}>
+          {[{ title: "전체" }, ...CATEGORIES].map((category) => (
+            <TouchableOpacity
+              key={category.title}
+              style={s.categoryWrapper}
+              activeOpacity={0.85}
+              onPress={() => router.push(`../category/${encodeURIComponent(category.title)}`)}
+            >
+              <View style={s.categoryCard}>
+                {CATEGORY_ICON_MAP[category.title] && (
+                  <Ionicons
+                    name={CATEGORY_ICON_MAP[category.title]}
+                    size={38}
+                    color={CATEGORY_ICON_COLOR}
+                  />
+                )}
+              </View>
+              <Text style={s.categoryText} numberOfLines={1}>{category.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
 
       {/* 기업 제휴 */}
-      <View style={[s.sectionDivider, s.sectionDividerTight]} />
-      <Text style={[s.sectionTitle, s.sectionSpacingTight]}>기업 제휴</Text>
-      <ScrollView
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        decelerationRate="fast"
-        snapToInterval={Platform.OS === 'web' ? undefined : undefined}
-        style={s.majorSlider}
-        onScroll={(event) => {
-          const slideWidth = Dimensions.get('window').width;
-          const index = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
-          setCurrentSlide(index);
-        }}
-        scrollEventThrottle={16}
-      >
+      <View style={s.sectionCard}>
+        <Text style={s.sectionTitle}>기업 제휴</Text>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          decelerationRate="fast"
+          snapToInterval={Platform.OS === 'web' ? undefined : undefined}
+          style={s.majorSlider}
+          onLayout={(event) => {
+            const width = event.nativeEvent.layout.width;
+            if (width > 0 && width !== carouselWidth) {
+              setCarouselWidth(width);
+            }
+          }}
+          onScroll={(event) => {
+            const slideWidth = carouselWidth || Dimensions.get('window').width;
+            if (!slideWidth) {
+              return;
+            }
+            const index = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
+            setCurrentSlide(index);
+          }}
+          scrollEventThrottle={16}
+        >
         {affiliates
           .filter(item => item.category === "기업제휴")
           .sort(() => 0.5 - Math.random())
@@ -111,7 +156,7 @@ export default function HomeScreen() {
           .map((item, i) => (
             <TouchableOpacity
               key={`major-${item.name}-${i}`}
-              style={s.majorSlide}
+              style={[s.majorSlide, { width: carouselWidth }]}
               activeOpacity={0.95}
               onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
             >
@@ -133,24 +178,25 @@ export default function HomeScreen() {
               </View>
             </TouchableOpacity>
           ))}
-      </ScrollView>
+        </ScrollView>
 
-      {/* 페이지 인디케이터 */}
-      <View style={s.pageIndicator}>
-        {[0, 1, 2, 3, 4].map((index) => (
-          <View
-            key={index}
-            style={[
-              s.dot,
-              currentSlide === index && s.activeDot
-            ]}
-          />
-        ))}
+        {/* 페이지 인디케이터 */}
+        <View style={s.pageIndicator}>
+          {[0, 1, 2, 3, 4].map((index) => (
+            <View
+              key={index}
+              style={[
+                s.dot,
+                currentSlide === index && s.activeDot
+              ]}
+            />
+          ))}
+        </View>
       </View>
 
       {/* 실시간 제휴 */}
-      <View style={[s.sectionDivider, s.sectionDividerTight]} />
-      <Text style={[s.sectionTitle, s.sectionSpacingTight]}>실시간 제휴</Text>
+      <View style={s.sectionCard}>
+        <Text style={s.sectionTitle}>실시간 제휴</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -179,11 +225,12 @@ export default function HomeScreen() {
               <Text style={s.recommendDesc}>{item.category}</Text>
             </TouchableOpacity>
           ))}
-      </ScrollView>
+        </ScrollView>
+      </View>
 
       {/* 추천 제휴 */}
-      <View style={[s.sectionDivider, s.sectionDividerTight]} />
-      <Text style={[s.sectionTitle, s.sectionSpacingTight]}>추천 제휴</Text>
+      <View style={s.sectionCard}>
+        <Text style={s.sectionTitle}>추천 제휴</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -211,44 +258,33 @@ export default function HomeScreen() {
               <Text style={s.recommendDesc}>{item.category}</Text>
             </TouchableOpacity>
           ))}
-      </ScrollView>
+        </ScrollView>
+      </View>
 
       {/* SNS */}
-      <View style={[s.sectionDivider, s.sectionDividerTight]} />
-      <View style={[s.sectionHeaderCenter, s.sectionSpacingTight]}>
+      <View style={s.sectionCard}>
         <Text style={[s.sectionTitle, s.sectionTitleCenter]}>DREAM 공식 SNS</Text>
         <Text style={s.sectionSubtitle}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
-      </View>
-      <View style={s.snsContainer}>
-        <TouchableOpacity
-          style={[s.snsButtonWide, { backgroundColor: "#E1306C" }]}
-          activeOpacity={0.8}
-          onPress={() => {
-            if (Platform.OS === 'web' && typeof window !== 'undefined') {
-              window.location.href = "https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==";
-            } else {
-              router.push("https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==");
-            }
-          }}
-        >
-          <Ionicons name="logo-instagram" size={32} color="#fff" />
-          <Text style={s.snsTextWide}>DREAM 인스타그램</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[s.snsButtonWide, { backgroundColor: "#FEE500" }]}
-          activeOpacity={0.8}
-          onPress={() => {
-            if (Platform.OS === 'web' && typeof window !== 'undefined') {
-              window.location.href = "https://tr.ee/Fp6OL6ZuO6";
-            } else {
-              router.push("https://tr.ee/Fp6OL6ZuO6");
-            }
-          }}
-        >
-          <Ionicons name="chatbubble-ellipses-outline" size={32} color="#3C1E1E" />
-          <Text style={s.snsTextWide}>DREAM 카카오톡</Text>
-        </TouchableOpacity>
+        <View style={s.snsContainer}>
+          {SOCIAL_LINKS.map((link) => (
+            <TouchableOpacity
+              key={link.title}
+              style={s.snsCard}
+              activeOpacity={0.88}
+              onPress={() => openExternalLink(link.url)}
+            >
+              <LinearGradient colors={link.gradient} style={s.snsCardGradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+                <View style={s.snsCardHeader}>
+                  <Ionicons name={link.icon} size={30} color="#FFFFFF" />
+                  <View style={s.snsBadge}>
+                    <Text style={s.snsBadgeText}>공식</Text>
+                  </View>
+                </View>
+                <Text style={s.snsCardTitle}>{link.title}</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
 
       {/* 참조사항 */}
@@ -261,26 +297,33 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={[s.safe, isMobileSafari && s.safeSafari]} edges={['left', 'right']}>
-      {isMobileSafari ? (
-        <View style={scrollContainerStyles}>{pageContent}</View>
-      ) : (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={scrollContainerStyles}
-          scrollEventThrottle={16}
-        >
-          {pageContent}
-        </ScrollView>
-      )}
-    </SafeAreaView>
+    <LinearGradient
+      colors={['#00a99c', '#98d2c6']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <SafeAreaView style={[s.safe, isMobileSafari && s.safeSafari]} edges={['left', 'right']}>
+        {isMobileSafari ? (
+          <View style={scrollContainerStyles}>{pageContent}</View>
+        ) : (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={scrollContainerStyles}
+            scrollEventThrottle={16}
+          >
+            {pageContent}
+          </ScrollView>
+        )}
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const s = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: "#F5F8FA",
+    backgroundColor: "transparent",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   safeSafari: {
@@ -301,24 +344,18 @@ const s = StyleSheet.create({
     paddingTop: Platform.OS === "web" ? 28 : 0,
     paddingBottom: 18,
   },
-  heroCard: {
-    width: "100%",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 32,
-    paddingHorizontal: 28,
-    paddingVertical: 24,
-    shadowColor: "#62A89C",
-    shadowOpacity: 0.18,
-    shadowOffset: { width: 0, height: 12 },
-    shadowRadius: 24,
-    elevation: 8,
-    borderWidth: 0,
+  logoGlowContainer: {
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 80,
+    elevation: 25,
   },
   heroLogo: {
-    width: 200,
-    height: 56,
+    width: 220,
+    height: 64,
   },
   heroCaption: {
     fontSize: 15,
@@ -328,33 +365,37 @@ const s = StyleSheet.create({
     marginTop: 14,
     letterSpacing: -0.2,
   },
+  sectionCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 28,
+    padding: 24,
+    marginTop: 20,
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 60,
+    elevation: 20,
+    borderWidth: 3,
+    borderColor: "rgba(255, 255, 255, 0.9)",
+  },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "800",
     color: "#0F172A",
-    marginBottom: 18,
-    letterSpacing: -0.5,
+    marginBottom: 20,
+    letterSpacing: -0.3,
   },
   sectionTitleCenter: {
     textAlign: "center",
   },
-  sectionSpacing: {
-    marginTop: 32,
-  },
-  sectionSpacingTight: {
-    marginTop: 14,
-  },
-  sectionHeaderCenter: {
-    alignItems: "center",
-    marginBottom: 12,
-  },
   sectionSubtitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#64748B",
     textAlign: "center",
-    marginTop: 6,
+    marginTop: 4,
+    marginBottom: 16,
     letterSpacing: -0.2,
-    lineHeight: 20,
+    lineHeight: 18,
   },
   categoryGrid: {
     flexDirection: "row",
@@ -370,16 +411,12 @@ const s = StyleSheet.create({
   categoryCard: {
     width: "100%",
     aspectRatio: 1,
-    borderRadius: 28,
-    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    backgroundColor: "#F8FAFC",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 16,
-    elevation: 4,
-    borderWidth: 0,
+    borderWidth: 1.5,
+    borderColor: "rgba(148, 163, 184, 0.12)",
   },
   categoryText: {
     color: "#334155",
@@ -392,21 +429,18 @@ const s = StyleSheet.create({
     lineHeight: 16,
   },
   recommendRow: {
-    paddingHorizontal: 20,
-    paddingBottom: 12,
+    paddingLeft: 0,
+    paddingRight: 24,
+    paddingBottom: 0,
   },
   recommendCardHorizontal: {
     width: 150,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F8FAFC",
     borderRadius: 20,
-    padding: 18,
+    padding: 16,
     marginRight: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 16,
-    elevation: 5,
-    borderWidth: 0,
+    borderWidth: 1.5,
+    borderColor: "rgba(148, 163, 184, 0.12)",
   },
   recommendImage: {
     width: "100%",
@@ -434,7 +468,7 @@ const s = StyleSheet.create({
     position: "absolute",
     top: 8,
     right: 8,
-    backgroundColor: "#FF4757",
+    backgroundColor: "#2CA69A",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 12,
@@ -451,52 +485,63 @@ const s = StyleSheet.create({
     color: "#fff",
   },
   snsContainer: {
-    alignItems: "center",
-    gap: 16,
-    marginBottom: 40,
+    flexDirection: "column",
+    gap: 14,
+    marginTop: 10,
   },
-  snsButtonWide: {
-    width: "90%",
-    height: 80,
+  snsCard: {
+    width: "100%",
     borderRadius: 24,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.12,
-    shadowOffset: { width: 0, height: 8 },
-    shadowRadius: 20,
-    elevation: 6,
+    overflow: "hidden",
+    shadowColor: "#38B5AB",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 30,
+    elevation: 10,
   },
-  snsTextWide: {
-    fontSize: 17,
+  snsCardGradient: {
+    padding: 22,
+    borderRadius: 24,
+  },
+  snsCardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  snsBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    backgroundColor: "rgba(255,255,255,0.25)",
+    borderRadius: 999,
+  },
+  snsBadgeText: {
+    color: "#FFFFFF",
     fontWeight: "700",
-    color: "#fff",
+    fontSize: 11,
+    letterSpacing: 0.5,
+  },
+  snsCardTitle: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#FFFFFF",
     letterSpacing: -0.3,
   },
-  sectionDivider: {
-    height: 8,
-    backgroundColor: "#E2E8F0",
-    marginVertical: 40,
-    marginHorizontal: -20,
-  },
-  sectionDividerTight: {
-    marginVertical: 16,
-  },
   majorSlider: {
-    marginHorizontal: -20,
+    marginHorizontal: -24,
+    marginBottom: -24,
   },
   majorSlide: {
-    width: Dimensions.get('window').width,
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
   },
   majorCard: {
     width: '100%',
-    height: 320,
-    borderRadius: 32,
+    height: 300,
+    borderRadius: 24,
     overflow: 'hidden',
-    shadowColor: '#000',
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1.5,
+    borderColor: 'rgba(148, 163, 184, 0.12)',
     shadowOpacity: 0.15,
     shadowOffset: { width: 0, height: 12 },
     shadowRadius: 24,

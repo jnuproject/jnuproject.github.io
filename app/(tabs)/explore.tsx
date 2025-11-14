@@ -64,6 +64,7 @@ export default function ExploreScreen() {
   const sheetBottomOffset = navHeight + navBottomSpacing + navToSheetGap;
   const mapBottomMargin = Platform.OS === "web" ? sheetBottomOffset + 60 : sheetBottomOffset + 20;
   const sheetPaddingBottom = 12 + navBottomSpacing;
+  const topPadding = Math.max(insets.top, 16);
 
 
   const filtered = affiliates.filter(a => {
@@ -90,75 +91,95 @@ export default function ExploreScreen() {
     );
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* 상단 필터 (고정) */}
-      <SafeAreaView edges={["top"]} style={styles.regionBar}>
-        <Text style={styles.headerTitle}>제휴 지도</Text>
-        {filterStep === "category" ? (
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.regionScroll}
-          >
-            {CATEGORIES.map((c) => (
-              <TouchableOpacity
-                key={c.title}
-                style={styles.regionButton}
-                onPress={() => {
-                  setSelectedCategory(c.title);
-                  setFilterStep("region");
-                }}
-              >
-                <Text style={styles.regionText}>{c.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        ) : (
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+    <LinearGradient
+      colors={['#00a99c', '#98d2c6']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <SafeAreaView style={[styles.container, { paddingTop: topPadding }]}>
+        <View style={styles.regionBar}>
+          <Text style={styles.filterEyebrow}>Dream Benefit Map</Text>
+          <View style={styles.regionHeaderRow}>
+            <Text style={styles.headerTitle}>제휴 지도</Text>
+            {selectedCategory && (
+              <View style={styles.selectedChip}>
+                <Ionicons name="layers-outline" size={16} color="#0F172A" />
+                <Text style={styles.selectedChipText}>{selectedCategory}</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.filterSubtext}>
+            {filterStep === "category"
+              ? "먼저 카테고리를 선택해주세요."
+              : `${selectedCategory ?? "전체"}에 해당하는 지역을 골라보세요.`}
+          </Text>
+          {filterStep === "category" ? (
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.regionScroll}
-              style={{ flex: 1 }}
             >
-              {["전체", ...REGIONS.filter(r => r !== "온라인/전국")].map((r) => (
+              {[{ title: "전체" }, ...CATEGORIES.filter((c) => c.title !== "기업제휴")].map((c) => (
                 <TouchableOpacity
-                  key={r}
-                  style={[
-                    styles.regionButton,
-                    selectedRegion === r && styles.activeRegion,
-                  ]}
-                  onPress={() => setSelectedRegion(r)}
+                  key={c.title}
+                  style={styles.regionButton}
+                  onPress={() => {
+                    setSelectedCategory(c.title === "전체" ? null : c.title);
+                    setFilterStep("region");
+                  }}
                 >
-                  <Text
-                    style={[
-                      styles.regionText,
-                      selectedRegion === r && styles.activeText,
-                    ]}
-                  >
-                    {r}
-                  </Text>
+                  <Text style={styles.regionText}>{c.title}</Text>
                 </TouchableOpacity>
               ))}
             </ScrollView>
-            <TouchableOpacity
-              onPress={() => {
-                setFilterStep("category");
-                setSelectedRegion("전체");
-              }}
-              style={{ paddingHorizontal: 12, paddingVertical: 6 }}
-            >
-              <Text style={{ color: "#4EA49B", fontWeight: "600" }}>카테고리 변경</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </SafeAreaView>
+          ) : (
+            <>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.regionScroll}
+              >
+                {["전체", ...REGIONS.filter((r) => r !== "온라인/전국")].map((r) => (
+                  <TouchableOpacity
+                    key={r}
+                    style={[
+                      styles.regionButton,
+                      selectedRegion === r && styles.activeRegion,
+                    ]}
+                    onPress={() => setSelectedRegion(r)}
+                  >
+                    <Text
+                      style={[
+                        styles.regionText,
+                        selectedRegion === r && styles.activeText,
+                      ]}
+                    >
+                      {r}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+              <TouchableOpacity
+                style={styles.resetButton}
+                onPress={() => {
+                  setFilterStep("category");
+                  setSelectedCategory(null);
+                  setSelectedRegion("전체");
+                }}
+              >
+                <Ionicons name="refresh" size={16} color="#4EA49B" />
+                <Text style={styles.resetText}>카테고리 다시 선택</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </View>
 
-      {/* 구글 지도 */}
+        {/* 구글 지도 */}
       <View style={[styles.mapContainer, { marginBottom: mapBottomMargin }]}>
         {Platform.OS === 'web' ? (
           <GoogleMap
-            mapContainerStyle={{ width: '100%', height: '100%', borderRadius: 20 }}
+            mapContainerStyle={{ width: '100%', height: '100%', borderRadius: 28 }}
             center={mapCenter}
             zoom={13}
             options={{
@@ -347,150 +368,221 @@ export default function ExploreScreen() {
           </LinearGradient>
         </Animated.View>
       )}
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#222",
-    textAlign: "left",
-    marginTop: Platform.OS === "ios" ? 16 : 12,
-    marginBottom: 10,
-    marginLeft: 16,
+  container: {
+    flex: 1,
+    backgroundColor: "transparent",
+    paddingHorizontal: 20,
   },
   regionBar: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#fff",
-    zIndex: 10,
+    width: "100%",
+    backgroundColor: "rgba(255,255,255,0.92)",
+    borderRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 18,
+    borderWidth: 3,
+    borderColor: "rgba(255,255,255,0.7)",
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.85,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 45,
+    elevation: 16,
+  },
+  regionHeaderRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+  },
+  filterEyebrow: {
+    fontSize: 12,
+    color: "#94A3B8",
+    fontWeight: "700",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    marginBottom: 4,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#0F172A",
+    letterSpacing: -0.3,
+  },
+  selectedChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 12,
     paddingVertical: 6,
-    borderBottomWidth: 0,
-    shadowColor: "transparent",
-    elevation: 0,
+    borderRadius: 18,
+    backgroundColor: "#E3F3F0",
+    gap: 6,
+  },
+  selectedChipText: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#0F172A",
+  },
+  filterSubtext: {
+    marginTop: 10,
+    marginBottom: 14,
+    color: "#475569",
+    fontSize: 13,
   },
   regionScroll: {
-    paddingHorizontal: 16,
+    flexDirection: "row",
     alignItems: "center",
+    gap: 12,
+    paddingRight: 10,
   },
   regionButton: {
     paddingHorizontal: 18,
-    height: 40,
-    backgroundColor: "rgba(240,242,241,0.95)",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    marginRight: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
+    paddingVertical: 10,
+    backgroundColor: "#F1F5F9",
+    borderRadius: 22,
+    borderWidth: 1.5,
+    borderColor: "rgba(148,163,184,0.3)",
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.6,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 20,
+    elevation: 4,
   },
   activeRegion: {
-    backgroundColor: "#4EA49B",
-    shadowOpacity: 0.15,
+    backgroundColor: "#2CA69A",
+    borderColor: "#2CA69A",
+    shadowColor: "transparent",
+    shadowOpacity: 0,
   },
   regionText: {
     fontSize: 14,
-    color: "#333",
-    fontWeight: "600",
+    fontWeight: "700",
+    color: "#0F172A",
   },
   activeText: {
-    color: "#fff",
+    color: "#FFFFFF",
+  },
+  resetButton: {
+    marginTop: 14,
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 18,
+    backgroundColor: "rgba(78,164,155,0.15)",
+  },
+  resetText: {
+    color: "#2D8C82",
+    fontWeight: "700",
+    fontSize: 13,
   },
   mapContainer: {
     flex: 1,
-    marginTop: Platform.OS === "ios" ? 110 : 100, // Adjust for header and filter bar height
-    marginBottom: Platform.OS === "web" ? 160 : 140,
-    marginHorizontal: 16,
-    borderRadius: 20,
+    alignSelf: "stretch",
+    marginTop: 20,
+    borderRadius: 28,
     overflow: "hidden",
+    borderWidth: 0,
+    borderColor: "transparent",
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.85,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 45,
+    elevation: 12,
   },
   map: {
     width: "100%",
     height: "100%",
     zIndex: 1,
+    borderRadius: 28,
   },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F0F9F7",
+  },
   bottomSheet: {
     position: "absolute",
     left: 0,
     right: 0,
     backgroundColor: "transparent",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: -3 },
-    shadowRadius: 6,
-    elevation: 10,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.8,
+    shadowOffset: { width: 0, height: -8 },
+    shadowRadius: 28,
+    elevation: 12,
     zIndex: 50,
   },
   gradient: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 24,
+    paddingTop: 18,
+    backgroundColor: "rgba(255,255,255,0.98)",
   },
   handleBar: {
     alignSelf: "center",
-    width: 40,
+    width: 44,
     height: 5,
     borderRadius: 3,
-    backgroundColor: "#ccc",
+    backgroundColor: "#CBD5F5",
     marginBottom: 12,
   },
   bottomTitle: {
     fontSize: 18,
-    fontWeight: "700",
-    color: "#222",
-    marginBottom: 6,
+    fontWeight: "800",
+    color: "#0F172A",
+    marginBottom: 2,
   },
   bottomSubtitle: {
-    fontSize: 14,
-    color: "#777",
-    marginBottom: 8,
+    fontSize: 13,
+    color: "#64748B",
+    marginBottom: 6,
   },
   addressText: {
     fontSize: 13,
-    color: "#555",
-    marginBottom: 6,
+    color: "#475569",
+    marginBottom: 8,
     lineHeight: 18,
     minHeight: 30,
   },
   linkButtonsContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 4,
-    gap: 6,
+    justifyContent: "space-between",
+    marginTop: 6,
+    gap: 10,
   },
   linkButton: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#FFFFFF",
     paddingVertical: 16,
     paddingHorizontal: 12,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
+    borderRadius: 18,
+    borderWidth: 2,
+    borderColor: "rgba(148, 163, 184, 0.25)",
+    shadowColor: "#000000",
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 10,
+    elevation: 6,
+    gap: 8,
   },
   linkButtonText: {
     fontSize: 14,
-    color: "#333",
-    fontWeight: "600",
-    marginTop: 8,
+    color: "#0F172A",
+    fontWeight: "700",
     textAlign: "center",
   },
   webListContainer: {
@@ -535,19 +627,18 @@ const styles = StyleSheet.create({
   },
   webBottomInfo: {
     position: "absolute",
-    bottom: 80,
     left: 0,
     right: 0,
-    backgroundColor: "#ffffff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: -3 },
-    shadowRadius: 6,
-    elevation: 10,
-    padding: 20,
-    paddingBottom: 20,
+    backgroundColor: "rgba(255,255,255,0.95)",
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.85,
+    shadowOffset: { width: 0, height: -8 },
+    shadowRadius: 28,
+    elevation: 12,
+    paddingHorizontal: 24,
+    paddingTop: 18,
     minHeight: 160,
     zIndex: 20,
   },

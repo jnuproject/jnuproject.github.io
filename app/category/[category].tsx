@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function CategoryScreen() {
   const { category } = useLocalSearchParams();
@@ -41,7 +42,7 @@ export default function CategoryScreen() {
   ];
   const regions = [
     "전체", "제대, 아라동", "시청, 탑동", "구제주",
-    "노형, 연동", "신제주", "애월, 한림", "구좌, 조천, 함덕", "서귀포", "성산, 표선"
+    "신제주", "애월, 한림", "구좌, 조천, 함덕", "서귀포", "성산, 표선"
   ];
   const isAllCategory = categoryTitle === "전체";
   const filterOptions = isAllCategory ? regions : categoryTitle === "기업제휴" ? subCategories : regions;
@@ -67,15 +68,21 @@ export default function CategoryScreen() {
   });
 
   return (
-    <SafeAreaView style={s.safe}>
-      <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+    <LinearGradient
+      colors={['#00a99c', '#98d2c6']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <SafeAreaView style={s.safe}>
+        <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
         {/* 헤더 with 뒤로가기 버튼 */}
         <View style={s.header}>
           <TouchableOpacity
             style={s.backButton}
             onPress={() => router.back()}
           >
-            <Ionicons name="arrow-back" size={24} color="#111827" />
+            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
           </TouchableOpacity>
           <Text style={s.headerTitle}>{categoryTitle}</Text>
           <View style={{ width: 40 }} />
@@ -198,13 +205,14 @@ export default function CategoryScreen() {
         </ScrollView>
       </Animated.View>
     </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const s = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: "#F8FAFB",
+    backgroundColor: "transparent",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   header: {
@@ -215,86 +223,88 @@ const s = StyleSheet.create({
     paddingVertical: 12,
   },
   backButton: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 22,
+    backgroundColor: "rgba(255,255,255,0.15)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.2)",
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "800",
-    color: "#111827",
+    color: "#FFFFFF",
     flex: 1,
     textAlign: "center",
+    letterSpacing: -0.3,
   },
   filterContainer: {
-    height: 60,
-    backgroundColor: "transparent",
-    zIndex: 10,
+    paddingVertical: 8,
+    marginBottom: 4,
   },
   filterScroll: {
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
   filterBtn: {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.28)",
+    paddingHorizontal: 22,
+    paddingVertical: 12,
+    borderRadius: 999,
     marginRight: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-start",
-    transition: "all 0.2s ease",
-    shadowColor: "#62A89C",
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    elevation: 2,
-    borderWidth: 1.5,
-    borderColor: "rgba(98, 168, 156, 0.15)",
-  },
-  active: {
-    backgroundColor: "#62A89C",
-    transform: [{ scale: 1.05 }],
-    shadowOpacity: 0.25,
+    shadowColor: "#000000",
+    shadowOpacity: Platform.OS === "android" ? 0.08 : 0.15,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 12,
     elevation: 4,
-    borderColor: "#62A89C",
+    borderWidth: 0,
+    gap: 6,
+  },
+  active: {
+    backgroundColor: "rgba(255,255,255,0.92)",
+    transform: [{ scale: 1.02 }],
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 25,
+    elevation: 8,
   },
   filterText: {
     fontSize: 14,
-    color: "#374151",
+    color: "#F3FAF9",
     fontWeight: "600",
     letterSpacing: 0.3,
   },
   activeText: {
-    color: "#fff",
+    color: "#256355",
     fontWeight: "700",
   },
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "rgba(255,255,255,0.92)",
     padding: 18,
-    borderRadius: 16,
+    borderRadius: 20,
     marginBottom: 14,
-    shadowColor: "#62A89C",
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 3 },
-    shadowRadius: 12,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: "rgba(98, 168, 156, 0.1)",
+    shadowColor: "#A5DFD6",
+    shadowOpacity: 0.45,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 28,
+    elevation: 12,
+    borderWidth: 0,
     transition: "all 0.2s ease",
   },
   circle: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#CDE5DE",
+    backgroundColor: "#D4F0EC",
     marginRight: 12,
   },
   cardTitle: {
@@ -311,14 +321,14 @@ const s = StyleSheet.create({
   },
   cardSubcategory: {
     fontSize: 12,
-    color: "#62A89C",
+    color: "#4EA49B",
     marginTop: 7,
     fontWeight: "600",
     letterSpacing: 0.3,
   },
   cardRegion: {
     fontSize: 12,
-    color: "#62A89C",
+    color: "#4EA49B",
     marginTop: 7,
     fontWeight: "600",
     letterSpacing: 0.3,
@@ -326,6 +336,7 @@ const s = StyleSheet.create({
   filterRow: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 12,
   },
   list: {
     flex: 1,
@@ -341,16 +352,16 @@ const s = StyleSheet.create({
   sectionContainer: {
     marginTop: 20,
     marginBottom: 12,
-    borderWidth: 2,
-    borderColor: "#62A89C",
-    borderRadius: 16,
-    padding: 16,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#62A89C",
-    shadowOpacity: 0.12,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    elevation: 3,
+    borderWidth: 0,
+    borderColor: "transparent",
+    borderRadius: 20,
+    padding: 18,
+    backgroundColor: "rgba(255,255,255,0.94)",
+    shadowColor: "#9CD9CF",
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 32,
+    elevation: 10,
   },
   sectionHeader: {
     flexDirection: "row",
@@ -361,13 +372,13 @@ const s = StyleSheet.create({
   sectionHeaderText: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#62A89C",
+    color: "#4EA49B",
     letterSpacing: 0.5,
   },
   sectionHeaderLine: {
     flex: 1,
     height: 2,
-    backgroundColor: "rgba(98, 168, 156, 0.3)",
+    backgroundColor: "rgba(78, 164, 155, 0.4)",
     borderRadius: 1,
   },
   sectionContent: {
