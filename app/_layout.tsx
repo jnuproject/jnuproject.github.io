@@ -68,7 +68,9 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   splashLogo: {
-    width: 150,
-    height: 150,
+    width: '80%',
+    height: '80%',
+    maxWidth: 500,
+    maxHeight: 500,
   },
 });
