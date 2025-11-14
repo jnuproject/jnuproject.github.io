@@ -12,4 +12,5 @@ export interface Affiliate {
   phone?: string;
   hours?: string;
   benefits?: string;
+  isRealtime?: boolean;
 }

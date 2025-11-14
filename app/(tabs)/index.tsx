@@ -129,6 +129,39 @@ export default function HomeScreen() {
           ))}
         </View>
 
+        {/* 실시간 제휴 */}
+        <View style={[s.sectionDivider, s.sectionDividerTight]} />
+        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>실시간 제휴</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={170}
+          decelerationRate="fast"
+          contentContainerStyle={s.recommendRow}
+        >
+          {affiliates
+            .filter(item => item.isRealtime === true)
+            .map((item, i) => (
+              <TouchableOpacity
+                key={`realtime-${item.name}-${i}`}
+                style={[s.recommendCardHorizontal, i === 0 && { marginRight: 0 }]}
+                activeOpacity={0.9}
+                onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
+              >
+                <View style={s.realtimeBadge}>
+                  <Text style={s.realtimeBadgeText}>지금 진행 중</Text>
+                </View>
+                <Image
+                  source={getImageSource(item.image)}
+                  style={s.recommendImage}
+                  contentFit={isLogoImage(item.image) ? "contain" : "cover"}
+                />
+                <Text style={s.recommendTitle}>{item.name}</Text>
+                <Text style={s.recommendDesc}>{item.category}</Text>
+              </TouchableOpacity>
+            ))}
+        </ScrollView>
+
         {/* 추천 제휴 */}
         <View style={[s.sectionDivider, s.sectionDividerTight]} />
         <Text style={[s.sectionTitle, s.sectionSpacingTight]}>추천 제휴</Text>
@@ -328,6 +361,26 @@ const s = StyleSheet.create({
     fontSize: 13,
     color: "#6B7280",
     marginTop: 4,
+  },
+  realtimeBadge: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    backgroundColor: "#FF4757",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 12,
+    zIndex: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  realtimeBadgeText: {
+    fontSize: 11,
+    fontWeight: "700",
+    color: "#fff",
   },
   snsContainer: {
     alignItems: "center",

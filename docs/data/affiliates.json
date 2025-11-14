@@ -2418,7 +2418,8 @@
     "description": "포장시 5,000원 할인",
     "image": "https://placehold.co/200x200",
     "latitude": 33.5037069,
-    "longitude": 126.5277372
+    "longitude": 126.5277372,
+    "isRealtime": true
   },
   {
     "id": "228",
