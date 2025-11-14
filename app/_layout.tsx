@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@/hooks/useThemeColor';
+import Head from 'expo-router/head';
 import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Platform, StyleSheet, View, Image } from 'react-native';
-import Head from 'expo-router/head';
+import { Image, Platform, StyleSheet, View } from 'react-native';
 
 export default function RootLayout() {
   const [showSplash, setShowSplash] = useState(Platform.OS === 'web');
@@ -25,6 +25,67 @@ export default function RootLayout() {
         clearTimeout(hideTimer);
       };
     }
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof navigator === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
+    const userAgent = navigator.userAgent;
+    const vendor = navigator.vendor;
+    const isAppleVendor = typeof vendor === 'string' && vendor.includes('Apple');
+    const isSafariEngine = /Safari/i.test(userAgent) && !/CriOS/i.test(userAgent) && !/FxiOS/i.test(userAgent);
+    const hasTouch =
+      typeof navigator.maxTouchPoints === 'number'
+        ? navigator.maxTouchPoints > 0
+        : /Mobile|iP(hone|od|ad)/i.test(userAgent);
+    const isiOSFamily = /iP(hone|od|ad)/i.test(userAgent) || (isAppleVendor && hasTouch);
+
+    if (!(isiOSFamily && isAppleVendor && isSafariEngine)) {
+      return;
+    }
+
+    const html = document.documentElement;
+    const body = document.body;
+    const root = document.getElementById('root');
+
+    const previous = {
+      htmlHeight: html.style.height,
+      htmlMinHeight: html.style.minHeight,
+      bodyOverflowY: body.style.overflowY,
+      bodyHeight: body.style.height,
+      bodyMinHeight: body.style.minHeight,
+      rootHeight: root?.style.height,
+      rootMinHeight: root?.style.minHeight,
+      webkitOverflowScrolling: body.style.getPropertyValue('-webkit-overflow-scrolling'),
+    };
+
+    html.style.height = 'auto';
+    html.style.minHeight = '100vh';
+    body.style.overflowY = 'auto';
+    body.style.height = 'auto';
+    body.style.minHeight = '100vh';
+    body.style.setProperty('-webkit-overflow-scrolling', 'touch');
+
+    if (root) {
+      root.style.height = 'auto';
+      root.style.minHeight = '100vh';
+    }
+
+    return () => {
+      html.style.height = previous.htmlHeight;
+      html.style.minHeight = previous.htmlMinHeight;
+      body.style.overflowY = previous.bodyOverflowY;
+      body.style.height = previous.bodyHeight;
+      body.style.minHeight = previous.bodyMinHeight;
+      body.style.setProperty('-webkit-overflow-scrolling', previous.webkitOverflowScrolling || '');
+
+      if (root) {
+        root.style.height = previous.rootHeight || '';
+        root.style.minHeight = previous.rootMinHeight || '';
+      }
+    };
   }, []);
 
   return (
