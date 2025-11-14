@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>🍄 Super Mario Mobile</title>
+<title>🍄 슈퍼 마리오 모바일</title>
 <style>
 * {
   margin: 0;
@@ -172,6 +172,29 @@ body::after {
   pointer-events: none;
 }
 
+.question-block {
+  background: linear-gradient(180deg, #ffeaa9 0%, #ffc557 45%, #ff9226 100%);
+  border: 2px solid #a44a00;
+  border-radius: 8px;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.75),
+    inset 0 -3px 0 rgba(0,0,0,0.35),
+    0 2px 6px rgba(0,0,0,0.35);
+  position: relative;
+}
+
+.question-block::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 5px;
+  border: 1px dashed rgba(255,255,255,0.45);
+  box-shadow: 0 0 12px rgba(255,200,0,0.5);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
 .actor {
   position: absolute;
   background-size: contain !important;
@@ -247,59 +270,85 @@ body::after {
   box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
 }
 
-.sky {
-  background: radial-gradient(circle at 40% 30%, #ffffff 0%, #ffe066 45%, #ff9800 70%, rgba(255,106,0,0.9) 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 14px rgba(255, 170, 0, 0.9), inset 0 -4px 6px rgba(0,0,0,0.3);
-  opacity: 0.9;
-}
-
-.question {
-  background:
-    linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.8) 35%, transparent 35%),
-    linear-gradient(-45deg, transparent 30%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.8) 35%, transparent 35%),
-    linear-gradient(135deg, transparent 65%, rgba(200,150,0,0.4) 65%, rgba(200,150,0,0.4) 70%, transparent 70%),
-    linear-gradient(-135deg, transparent 65%, rgba(200,150,0,0.4) 65%, rgba(200,150,0,0.4) 70%, transparent 70%),
-    linear-gradient(180deg, #ffff00 0%, #ffee00 30%, #ffdd00 70%, #eebb00 100%);
-  border: 3px solid #e0a800;
-  border-radius: 4px;
+.actor.question {
+  background: radial-gradient(circle at 30% 30%, #fffcd1 0%, #ffe46f 38%, #ffb724 60%, #f07400 100%);
+  border: 3px solid #5c2100;
+  border-radius: 10px;
   box-shadow:
-    inset 3px 3px 5px rgba(255,255,255,0.9),
-    inset -3px -3px 5px rgba(200,150,0,0.4),
-    0 3px 8px rgba(0,0,0,0.4),
-    0 0 15px rgba(255,255,0,0.5);
+    inset 0 4px 0 rgba(255,255,255,0.7),
+    inset 0 -5px 0 rgba(0,0,0,0.35),
+    0 6px 0 #2f0d00,
+    0 0 25px rgba(255,180,0,0.75);
   position: relative;
-  animation: questionPulse 1.5s ease-in-out infinite;
+  overflow: hidden;
+  animation: questionGlow 1.2s ease-in-out infinite;
 }
 
-@keyframes questionPulse {
+.actor.question::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 45%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.15) 6px, transparent 6px, transparent 12px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.actor.question::after {
+  content: '?';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  color: #fff8d9;
+  font-size: 24px;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow:
+    0 4px 0 #b54d00,
+    0 7px 0 #5a1f00,
+    0 0 12px rgba(255,255,0,0.8);
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes questionGlow {
   0%, 100% {
-    filter: brightness(1.1);
-    transform: scale(1);
+    transform: translateY(0) scale(1);
     box-shadow:
-      inset 3px 3px 5px rgba(255,255,255,0.9),
-      inset -3px -3px 5px rgba(200,150,0,0.4),
-      0 3px 8px rgba(0,0,0,0.4),
-      0 0 15px rgba(255,255,0,0.5);
+      inset 0 4px 0 rgba(255,255,255,0.7),
+      inset 0 -5px 0 rgba(0,0,0,0.35),
+      0 6px 0 #2f0d00,
+      0 0 25px rgba(255,180,0,0.75);
   }
   50% {
-    filter: brightness(1.3);
-    transform: scale(1.05);
+    transform: translateY(-2px) scale(1.02);
     box-shadow:
-      inset 3px 3px 5px rgba(255,255,255,0.9),
-      inset -3px -3px 5px rgba(200,150,0,0.4),
-      0 3px 8px rgba(0,0,0,0.4),
-      0 0 25px rgba(255,255,0,0.8);
+      inset 0 5px 0 rgba(255,255,255,0.9),
+      inset 0 -6px 0 rgba(0,0,0,0.45),
+      0 8px 0 #2f0d00,
+      0 0 35px rgba(255,205,0,0.9);
   }
 }
 
-.question.used {
-  background: linear-gradient(180deg, #777 0%, #555 50%, #333 100%);
-  border-color: #222;
+.actor.question.used {
+  background: linear-gradient(180deg, #8a8a8a 0%, #555 50%, #2d2d2d 100%);
+  border-color: #1c1c1c;
   animation: none;
   box-shadow:
-    inset 1px 1px 2px rgba(255,255,255,0.2),
-    inset -1px -1px 2px rgba(0,0,0,0.5);
+    inset 0 3px 0 rgba(255,255,255,0.2),
+    inset 0 -4px 0 rgba(0,0,0,0.5),
+    0 4px 0 #0f0f0f;
+}
+
+.actor.question.used::before {
+  opacity: 0.1;
+  background: none;
+}
+
+.actor.question.used::after {
+  content: '';
 }
 
 .shield {
@@ -463,13 +512,13 @@ body::after {
 <div class="game-container">
   <div class="hud">
     <div class="hud-item">
-      <span>LV <span class="hud-value" id="level">1</span></span>
-      <span>DIST <span class="hud-value" id="distance">0m</span></span>
+      <span>레벨 <span class="hud-value" id="level">1</span></span>
+      <span>거리 <span class="hud-value" id="distance">0미터</span></span>
     </div>
     <div class="hud-item">
-      <span>COIN <span class="hud-value" id="coins">0</span></span>
-      <span>LIFE <span class="hud-value" id="lives">3</span></span>
-      <span>ITEM <span class="hud-value" id="item-status">OFF</span></span>
+      <span>코인 <span class="hud-value" id="coins">0</span></span>
+      <span>목숨 <span class="hud-value" id="lives">3</span></span>
+      <span>아이템 <span class="hud-value" id="item-status">꺼짐</span></span>
     </div>
   </div>
 
@@ -479,25 +528,25 @@ body::after {
 
   <div class="controls">
     <button class="control-btn direction" id="btn-left">←</button>
-    <button class="control-btn jump" id="btn-jump">JUMP</button>
+    <button class="control-btn jump" id="btn-jump">점프</button>
     <button class="control-btn direction" id="btn-right">→</button>
   </div>
 </div>
 
 <div class="message-overlay" id="message-overlay">
   <div class="message-box">
-    <h2 id="message-title">Ready!</h2>
-    <p id="message-text">Touch controls to play!</p>
-    <button class="restart-btn" id="restart-btn" style="display:none;" onclick="location.reload()">RESTART</button>
+    <h2 id="message-title">준비 완료!</h2>
+    <p id="message-text">터치 컨트롤을 눌러서 플레이하세요!</p>
+    <button class="restart-btn" id="restart-btn" style="display:none;" onclick="restartGame()">다시 시작</button>
   </div>
 </div>
 
 <div class="dev-console hidden" id="dev-console">
   <div class="console-header">
-    <span>Dev Console</span>
-    <button id="console-close" aria-label="Close console">×</button>
+    <span>개발자 콘솔</span>
+    <button id="console-close" aria-label="콘솔 닫기">×</button>
   </div>
-  <pre id="console-output">[Console ready] Press ` to toggle in-game console. F12 for browser console.</pre>
+  <pre id="console-output">[콘솔 준비 완료] &#96; 키를 누르면 게임 내 콘솔을 열고 닫습니다. F12를 누르면 브라우저 콘솔이 열립니다.</pre>
 </div>
 
 <script>
@@ -537,7 +586,7 @@ body::after {
     }
   });
 
-  logToConsole('Game booted');
+  logToConsole('게임이 시작되었습니다');
 
   // ----- LEVELS -----
   const LEVELS = [
@@ -550,17 +599,17 @@ body::after {
       "                                                                                ",
       "                                                                                ",
       "                                                                                ",
-      "                 o                       f                                      ",
+      "                 o                                                              ",
       "                                                                                ",
       "                xxxx                                                            ",
       "                                                                                ",
       "                                                                                ",
       "              o                                                                 ",
       "            xxxx                           xxxx                                 ",
-      "            ?                                                                   ",
-      "                       xxxx                                                     ",
       "                                                                                ",
-      "   o                 o        ? f           ?   o            o                  ",
+      "                       x?xx                                                     ",
+      "                                                                                ",
+      "   o                 o                          o            o                  ",
       "  @      g        u  g                        g                                 ",
       "xxxxxxxxxxxxx!!!xxxxxxxxxxxx!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -571,7 +620,7 @@ body::after {
       "                                                                                ",
       "                                                                                ",
       "                                                                                ",
-      "                  x      f        x               x    f          x             ",
+      "                  x               x               x               x             ",
       "                  x               x               x               x             ",
       "                  x               x               x               x             ",
       "                  x               x               x               x             ",
@@ -579,15 +628,15 @@ body::after {
       "                  x               x               x               x             ",
       "        o         x     o         x         o     x         o     x             ",
       "                  x               x               x               x             ",
-      "            xxxxxxxx            xxxxxxxx            xxxxxxxxxxxx                ",
+      "            xxxxxxxx            xxxxxxxx            xxxxxxxx                    ",
       "                                                                                ",
-      "        u ?      o                   o                   o       u       o      ",
+      "        u        o                   o                   o               o      ",
       "                                                                                ",
-      "     xxxxxxxxx      xxxxxx?xxx          xxxxxxxxxxxxxxx     u    xxxxxxxxxxxxx  ",
-      "                  f                       !                   !                 ",
+      "     xxxxxxxxx      xxxxxx?xxx          xxxxxxxxxxxxxxx     u   u  xxxxxxxxxxx  ",
+      "                                          !                   !                 ",
       "       o                 o               o!                o  !        o        ",
       "                 u                        !            u      !                 ",
-      "  @     g              g      u       g   ?               g   !       g         ",
+      "  @     g              g       u   u   u  !               g   !       g         ",
       "xxxxxxxxxxx!!xxxxxxxxxxxxxxx!!!!!xxxxxxxxxxxxx!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -596,10 +645,10 @@ body::after {
     [
       "                                                                                ",
       "                                                                                ",
-      "                              f                 f                               ",
+      "                                                                                ",
       "                                                                                ",
       "                                o   o   o   o   o                               ",
-      "                            ? xxxxxxxxxxxxxxxxxxxx          f                   ",
+      "                            ? xxxxxxxxxxxxxxxxxxxx                              ",
       "                                                                                ",
       "            o                                             u                     ",
       "                              xxxxxxxxxxxxxxxxxxxx  g                           ",
@@ -623,7 +672,7 @@ body::after {
       "                                                                                ",
       "                                                                                ",
       "                                                                                ",
-      "                  f                           f                                 ",
+      "                                                                                ",
       "                                                                                ",
       "                                                                                ",
       "                                                                                ",
@@ -667,7 +716,6 @@ body::after {
     "v": Lava,
     "g": Goomba,
     "u": Lift,
-    "f": SkyOrb,
     "?": QuestionBlock
   };
 
@@ -731,7 +779,7 @@ body::after {
     this.used = false;
   }
   QuestionBlock.prototype.type = "question";
-  QuestionBlock.prototype.solidType = "wall";
+  QuestionBlock.prototype.solidType = "question-block";
   QuestionBlock.prototype.act = function(step, level) {
     // Question blocks are static, no animation needed
   };
@@ -749,17 +797,6 @@ body::after {
     this.floatSpeed = 3;
   }
   ShieldItem.prototype.type = "shield";
-
-  function SkyOrb(pos) {
-    const clampedY = Math.max(1, Math.min(pos.y, 20));
-    this.basePos = new Vector(pos.x + 0.5, clampedY);
-    this.pos = this.basePos;
-    this.size = new Vector(1.1, 1.1);
-    this.wobble = Math.random() * Math.PI * 2;
-    this.wobbleSpeed = 1.5 + Math.random();
-    this.range = 2 + Math.random() * 1.5;
-  }
-  SkyOrb.prototype.type = "sky";
 
   // ----- LEVEL -----
   Level.prototype.isFinished = function() {
@@ -804,7 +841,7 @@ body::after {
   Level.prototype.spawnShieldItem = function(block) {
     const itemPos = block.pos.plus(new Vector(0.1, -0.8));
     this.actors.push(new ShieldItem(itemPos));
-    logToConsole('Item released!');
+    logToConsole('아이템이 튀어나왔습니다!');
   };
 
   Level.prototype.bumpQuestionBlock = function(tileX, tileY) {
@@ -827,7 +864,7 @@ body::after {
     this.player.hasShield = false;
     gameState.shield = false;
     updateHUD();
-    logToConsole('Shield absorbed the hit!');
+    logToConsole('실드가 공격을 막아냈습니다!');
     return true;
   };
 
@@ -977,7 +1014,9 @@ body::after {
       for (let x = xStart; x <= xEnd; x++) {
         const outside = x < 0 || x >= this.width || y < 0 || y >= this.height;
         const fieldType = outside ? "wall" : this.grid[y][x];
-        if (fieldType === type) return true;
+        const normalizedField = fieldType === "question-block" ? "wall" : fieldType;
+        const normalizedType = type === "question-block" ? "wall" : type;
+        if (normalizedField === normalizedType) return true;
       }
     }
     return false;
@@ -1090,15 +1129,6 @@ body::after {
     this.pos = this.basePos.plus(new Vector(0, offsetY));
   };
 
-  SkyOrb.prototype.act = function(step) {
-    this.wobble += step * this.wobbleSpeed;
-    const offsetX = Math.cos(this.wobble) * this.range;
-    const offsetY = Math.sin(this.wobble * 1.5) * 0.15;
-    let newX = this.basePos.x + offsetX;
-    if (newX < 0.5) newX = 0.5;
-    if (newX > 78.5) newX = 78.5;
-    this.pos = new Vector(newX, this.basePos.y + offsetY);
-  };
   const wobbleSpeed = 10, wobbleDist = 0.1;
   Coin.prototype.act = function(step) {
     this.wobble += step * wobbleSpeed;
@@ -1223,7 +1253,7 @@ body::after {
         this.actors = this.actors.filter(a => a != actor);
         // Make player bounce
         player.speed.y = -jumpSpeed * 0.7;
-        logToConsole('Goomba stomped!');
+        logToConsole('굼바를 밟았습니다!');
         return;
       } else {
         // Player touched goomba from side or below - player loses
@@ -1231,7 +1261,7 @@ body::after {
           player.speed.y = -jumpSpeed * 0.3;
           return;
         }
-        logToConsole(`Player touched goomba from side - losing level`);
+        logToConsole('플레이어가 옆에서 굼바와 부딪혀 실패했습니다');
         this.status = "lost";
         this.finishDelay = 1;
       }
@@ -1242,20 +1272,21 @@ body::after {
       if (this.player) this.player.hasShield = true;
       gameState.shield = true;
       updateHUD();
-      logToConsole('Shield item collected');
+      logToConsole('실드 아이템을 획득했습니다');
     } else if (type === "sky" || (type === "lava" && this.status == null)) {
       if (this.consumeShield()) return;
-      logToConsole(`Player touched ${type} - losing level`);
+      const touchedLabel = TYPE_LABELS[type] || type;
+      logToConsole(`플레이어가 ${touchedLabel}에 닿아 실패했습니다`);
       this.status = "lost";
       this.finishDelay = 1;
     } else if (type == "coin") {
       this.actors = this.actors.filter(a => a != actor);
       gameState.coins++;
       updateHUD();
-      logToConsole(`Coin collected (total ${gameState.coins})`);
+      logToConsole(`코인을 획득했습니다 (총 ${gameState.coins}개)`);
 
       if (!this.actors.some(a => a.type == "coin")) {
-        logToConsole('All coins collected - level complete');
+        logToConsole('모든 코인을 모아 레벨을 완료했습니다');
         this.status = "won";
         this.finishDelay = 1;
       }
@@ -1328,17 +1359,35 @@ body::after {
     coins: 0,
     lives: 3,
     distance: 0,
-    shield: false
+    shield: false,
+    checkpoint: 0
+  };
+
+  let startLevelRef = null;
+
+  const STATUS_LABELS = {
+    lost: '실패',
+    won: '클리어'
+  };
+
+  const TYPE_LABELS = {
+    lava: '용암',
+    sky: '하늘 밖',
+    goomba: '굼바',
+    shield: '실드',
+    coin: '코인',
+    lift: '리프트',
+    "question-block": '물음표 블록'
   };
 
   function updateHUD() {
     document.getElementById('level').textContent = gameState.level + 1;
     document.getElementById('coins').textContent = gameState.coins;
     document.getElementById('lives').textContent = gameState.lives;
-    document.getElementById('distance').textContent = Math.floor(gameState.distance) + 'm';
+    document.getElementById('distance').textContent = `${Math.floor(gameState.distance)}미터`;
     const itemEl = document.getElementById('item-status');
     if (itemEl)
-      itemEl.textContent = gameState.shield ? 'ON' : 'OFF';
+      itemEl.textContent = gameState.shield ? '사용 중' : '꺼짐';
   }
 
   function showMessage(title, text, showRestart = false) {
@@ -1358,11 +1407,24 @@ body::after {
     document.getElementById('message-overlay').classList.remove('visible');
   }
 
+  function restartGame(resetCheckpoint = false) {
+    if (resetCheckpoint) {
+      gameState.checkpoint = 0;
+    }
+    gameState.coins = 0;
+    gameState.distance = 0;
+    gameState.lives = 3;
+    gameState.shield = false;
+    updateHUD();
+    hideMessage();
+    if (startLevelRef) startLevelRef();
+  }
+
   // ----- GAME LOOP -----
   function runLevel(level, Display, andThen) {
     const display = new Display(document.getElementById('game-canvas'), level);
     hideMessage();
-    logToConsole(`Entered Level ${gameState.level + 1}`);
+    logToConsole(`${gameState.level + 1}번 레벨에 진입했습니다`);
 
     runAnimation(step => {
       level.animate(step, keys);
@@ -1376,7 +1438,8 @@ body::after {
 
       if (level.isFinished()) {
         display.clear();
-        logToConsole(`Level ${gameState.level + 1} finished with status ${level.status}`);
+        const statusLabel = STATUS_LABELS[level.status] || level.status;
+        logToConsole(`${gameState.level + 1}번 레벨 종료 - 결과: ${statusLabel}`);
         if (andThen) andThen(level.status);
         return false;
       }
@@ -1384,37 +1447,47 @@ body::after {
   }
 
   function runGame(plans, Display) {
-    function startLevel(n) {
-      gameState.level = n;
+    function startLevel(requestedLevel) {
+      const safeCheckpoint = Math.min(gameState.checkpoint, plans.length - 1);
+      let levelIndex = typeof requestedLevel === 'number' ? requestedLevel : safeCheckpoint;
+      levelIndex = Math.max(levelIndex, safeCheckpoint);
+      levelIndex = Math.max(0, Math.min(levelIndex, plans.length - 1));
+
+      gameState.level = levelIndex;
       gameState.shield = false;
       updateHUD();
-      logToConsole(`Starting Level ${n + 1}`);
+      logToConsole(`${levelIndex + 1}번 레벨을 시작합니다`);
 
-      runLevel(new Level(plans[n]), Display, status => {
+      runLevel(new Level(plans[levelIndex]), Display, status => {
         if (status == "lost") {
           gameState.lives--;
           updateHUD();
-          logToConsole(`Player lost a life. Lives left: ${gameState.lives}`);
+          logToConsole(`플레이어가 목숨을 하나 잃었습니다. 남은 목숨: ${gameState.lives}개`);
           if (gameState.lives <= 0) {
-            logToConsole('Game over');
-            showMessage('GAME OVER!', 'Try again!', true);
+            logToConsole('게임 오버');
+            showMessage('게임 오버!', '다시 도전하세요!', true);
           } else {
-            showMessage('Oops!', `Lives left: ${gameState.lives}`, false);
-            setTimeout(() => startLevel(n), 1500);
+            showMessage('이런!', `남은 목숨: ${gameState.lives}개`, false);
+            logToConsole(`${levelIndex + 1}번 레벨을 다시 도전합니다`);
+            setTimeout(() => startLevel(), 1500);
           }
-        } else if (n < plans.length - 1) {
-          logToConsole(`Level ${n + 1} cleared. Preparing next level.`);
-          showMessage('Level Clear!', 'Next level...', false);
-          setTimeout(() => startLevel(n + 1), 1500);
+        } else if (levelIndex < plans.length - 1) {
+          const nextLevel = Math.min(levelIndex + 1, plans.length - 1);
+          gameState.checkpoint = Math.max(gameState.checkpoint, nextLevel);
+          logToConsole(`${levelIndex + 1}번 레벨을 클리어했습니다. 다음 레벨을 준비합니다.`);
+          showMessage('레벨 클리어!', '다음 레벨로...', false);
+          setTimeout(() => startLevel(), 1500);
         } else {
-          logToConsole(`All levels cleared with ${gameState.coins} coins!`);
-          showMessage('YOU WIN!', `Coins: ${gameState.coins}`, true);
+          logToConsole(`모든 레벨을 ${gameState.coins}개의 코인과 함께 클리어했습니다!`);
+          showMessage('축하합니다!', `코인: ${gameState.coins}개`, true);
         }
       });
     }
-    startLevel(0);
+    startLevelRef = startLevel;
+    startLevel();
   }
 
+  window.restartGame = restartGame;
   updateHUD();
   runGame(LEVELS, DOMDisplay);
 
