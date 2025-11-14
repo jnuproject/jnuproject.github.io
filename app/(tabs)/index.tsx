@@ -356,10 +356,10 @@ const s = StyleSheet.create({
   heroLogo: {
     width: 220,
     height: 64,
+    backgroundColor: 'transparent',
     ...(Platform.OS === 'web' && {
       // @ts-ignore
-      WebkitFilter: 'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)',
-      filter: 'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)',
+      filter: 'brightness(0) invert(1)',
     }),
   },
   heroCaption: {
