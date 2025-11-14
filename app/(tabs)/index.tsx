@@ -59,7 +59,6 @@ export default function HomeScreen() {
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
           />
-          <Text style={s.heroCaption}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
         </View>
       </View>
 
@@ -307,13 +306,15 @@ const s = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 32,
     paddingHorizontal: 28,
-    paddingVertical: 32,
+    paddingVertical: 24,
     shadowColor: "#62A89C",
     shadowOpacity: 0.18,
     shadowOffset: { width: 0, height: 12 },
     shadowRadius: 24,
     elevation: 8,
     borderWidth: 0,
+    alignItems: "center",
+    justifyContent: "center",
   },
   heroLogo: {
     width: 200,
