@@ -15,6 +15,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const { data: affiliates } = useAllAffiliates();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobileSafari, setIsMobileSafari] = useState(false);
 
   useEffect(() => {
     // Android 네비게이션 바 숨김
@@ -26,223 +27,253 @@ export default function HomeScreen() {
     }
   }, []);
 
-  return (
-    <SafeAreaView style={s.safe} edges={['left', 'right']}>
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof navigator === 'undefined') {
+      return;
+    }
+
+    const vendor = navigator.vendor || '';
+    const userAgent = navigator.userAgent || '';
+    const hasTouch =
+      typeof navigator.maxTouchPoints === 'number'
+        ? navigator.maxTouchPoints > 0
+        : /Mobile|iP(hone|od|ad)/i.test(userAgent);
+    const isAppleVendor = vendor.includes('Apple');
+    const isiOSFamily = /iP(hone|od|ad)/i.test(userAgent) || (isAppleVendor && hasTouch);
+    const isSafariEngine = /Safari/i.test(userAgent) && !/CriOS/i.test(userAgent) && !/FxiOS/i.test(userAgent);
+
+    setIsMobileSafari(Boolean(isiOSFamily && isSafariEngine && isAppleVendor));
+  }, []);
+
+  const scrollContainerStyles = [s.scrollContent, isMobileSafari && s.scrollContentSafari];
+
+  const pageContent = (
+    <>
+      {/* 헤더 */}
+      <View style={s.header}>
+        <View style={s.heroCard}>
+          <Image
+            source={require("../../assets/images/logo.png")}
+            style={s.heroLogo}
+            resizeMode="contain"
+            accessibilityRole="image"
+            accessibilityLabel="Dream 로고"
+          />
+          <Text style={s.heroCaption}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
+        </View>
+      </View>
+
+      {/* 카테고리 */}
+      <Text style={[s.sectionTitle, s.sectionSpacing]}>카테고리</Text>
+      <View style={s.categoryGrid}>
+        {[{ title: "전체" }, ...CATEGORIES].map((category) => (
+          <TouchableOpacity
+            key={category.title}
+            style={s.categoryWrapper}
+            activeOpacity={0.85}
+            onPress={() => router.push(`../category/${encodeURIComponent(category.title)}`)}
+          >
+            <View style={s.categoryCard}>
+              {category.title === "전체" && <Ionicons name="grid-outline" size={38} color="#10B981" />}
+              {category.title === "음식점" && <Ionicons name="restaurant-outline" size={38} color="#F59E0B" />}
+              {category.title === "카페・베이커리" && <Ionicons name="cafe-outline" size={38} color="#3B82F6" />}
+              {category.title === "문화생활・복지" && <Ionicons name="musical-notes-outline" size={38} color="#8B5CF6" />}
+              {category.title === "미용・뷰티・패션" && <Ionicons name="cut-outline" size={38} color="#F472B6" />}
+              {category.title === "레저・스포츠" && <Ionicons name="basketball-outline" size={38} color="#14B8A6" />}
+              {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
+              {category.title === "교육" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
+            </View>
+            <Text style={s.categoryText} numberOfLines={1}>{category.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* 기업 제휴 */}
+      <View style={[s.sectionDivider, s.sectionDividerTight]} />
+      <Text style={[s.sectionTitle, s.sectionSpacingTight]}>기업 제휴</Text>
       <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={s.scrollContent}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        decelerationRate="fast"
+        snapToInterval={Platform.OS === 'web' ? undefined : undefined}
+        style={s.majorSlider}
+        onScroll={(event) => {
+          const slideWidth = Dimensions.get('window').width;
+          const index = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
+          setCurrentSlide(index);
+        }}
         scrollEventThrottle={16}
       >
-        {/* 헤더 */}
-        <View style={s.header}>
-          <View style={s.heroCard}>
-            <Image
-              source={require("../../assets/images/logo.png")}
-              style={s.heroLogo}
-              resizeMode="contain"
-              accessibilityRole="image"
-              accessibilityLabel="Dream 로고"
-            />
-            <Text style={s.heroCaption}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
-          </View>
-        </View>
-
-        {/* 카테고리 */}
-        <Text style={[s.sectionTitle, s.sectionSpacing]}>카테고리</Text>
-        <View style={s.categoryGrid}>
-          {[{ title: "전체" }, ...CATEGORIES].map((category) => (
+        {affiliates
+          .filter(item => item.category === "기업제휴")
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 5)
+          .map((item, i) => (
             <TouchableOpacity
-              key={category.title}
-              style={s.categoryWrapper}
-              activeOpacity={0.85}
-              onPress={() => router.push(`../category/${encodeURIComponent(category.title)}`)}
+              key={`major-${item.name}-${i}`}
+              style={s.majorSlide}
+              activeOpacity={0.95}
+              onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
             >
-              <View style={s.categoryCard}>
-                {category.title === "전체" && <Ionicons name="grid-outline" size={38} color="#10B981" />}
-                {category.title === "음식점" && <Ionicons name="restaurant-outline" size={38} color="#F59E0B" />}
-                {category.title === "카페・베이커리" && <Ionicons name="cafe-outline" size={38} color="#3B82F6" />}
-                {category.title === "문화생활・복지" && <Ionicons name="musical-notes-outline" size={38} color="#8B5CF6" />}
-                {category.title === "미용・뷰티・패션" && <Ionicons name="cut-outline" size={38} color="#F472B6" />}
-                {category.title === "레저・스포츠" && <Ionicons name="basketball-outline" size={38} color="#14B8A6" />}
-                {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
-                {category.title === "교육" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
+              <View style={s.majorCard}>
+                <Image
+                  source={getImageSource(item.image)}
+                  style={s.majorImage}
+                  contentFit="contain"
+                />
+                <LinearGradient
+                  colors={['transparent', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,0.9)']}
+                  style={s.majorOverlay}
+                >
+                  <Text style={s.majorTitle}>{item.name}</Text>
+                  {item.description && (
+                    <Text style={s.majorBenefits}>{item.description}</Text>
+                  )}
+                </LinearGradient>
               </View>
-              <Text style={s.categoryText} numberOfLines={1}>{category.title}</Text>
             </TouchableOpacity>
           ))}
-        </View>
+      </ScrollView>
 
-        {/* 기업 제휴 */}
-        <View style={[s.sectionDivider, s.sectionDividerTight]} />
-        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>기업 제휴</Text>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          decelerationRate="fast"
-          snapToInterval={Platform.OS === 'web' ? undefined : undefined}
-          style={s.majorSlider}
-          onScroll={(event) => {
-            const slideWidth = Dimensions.get('window').width;
-            const index = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
-            setCurrentSlide(index);
+      {/* 페이지 인디케이터 */}
+      <View style={s.pageIndicator}>
+        {[0, 1, 2, 3, 4].map((index) => (
+          <View
+            key={index}
+            style={[
+              s.dot,
+              currentSlide === index && s.activeDot
+            ]}
+          />
+        ))}
+      </View>
+
+      {/* 실시간 제휴 */}
+      <View style={[s.sectionDivider, s.sectionDividerTight]} />
+      <Text style={[s.sectionTitle, s.sectionSpacingTight]}>실시간 제휴</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={170}
+        decelerationRate="fast"
+        contentContainerStyle={s.recommendRow}
+      >
+        {affiliates
+          .filter(item => item.isRealtime === true)
+          .map((item, i) => (
+            <TouchableOpacity
+              key={`realtime-${item.name}-${i}`}
+              style={[s.recommendCardHorizontal, i === 0 && { marginRight: 0 }]}
+              activeOpacity={0.9}
+              onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
+            >
+              <View style={s.realtimeBadge}>
+                <Text style={s.realtimeBadgeText}>지금 진행 중</Text>
+              </View>
+              <Image
+                source={getImageSource(item.image)}
+                style={s.recommendImage}
+                contentFit={isLogoImage(item.image) ? "contain" : "cover"}
+              />
+              <Text style={s.recommendTitle}>{item.name}</Text>
+              <Text style={s.recommendDesc}>{item.category}</Text>
+            </TouchableOpacity>
+          ))}
+      </ScrollView>
+
+      {/* 추천 제휴 */}
+      <View style={[s.sectionDivider, s.sectionDividerTight]} />
+      <Text style={[s.sectionTitle, s.sectionSpacingTight]}>추천 제휴</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={170}
+        decelerationRate="fast"
+        contentContainerStyle={s.recommendRow}
+      >
+        {affiliates
+          .filter(item => item.category !== "기업제휴")
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 5)
+          .map((item, i) => (
+            <TouchableOpacity
+              key={`${item.name}-${i}`}
+              style={[s.recommendCardHorizontal, i === 4 && { marginRight: 0 }]}
+              activeOpacity={0.9}
+              onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
+            >
+              <Image
+                source={getImageSource(item.image)}
+                style={s.recommendImage}
+                contentFit={isLogoImage(item.image) ? "contain" : "cover"}
+              />
+              <Text style={s.recommendTitle}>{item.name}</Text>
+              <Text style={s.recommendDesc}>{item.category}</Text>
+            </TouchableOpacity>
+          ))}
+      </ScrollView>
+
+      {/* SNS */}
+      <View style={[s.sectionDivider, s.sectionDividerTight]} />
+      <View style={[s.sectionHeaderCenter, s.sectionSpacingTight]}>
+        <Text style={[s.sectionTitle, s.sectionTitleCenter]}>DREAM 공식 SNS</Text>
+        <Text style={s.sectionSubtitle}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
+      </View>
+      <View style={s.snsContainer}>
+        <TouchableOpacity
+          style={[s.snsButtonWide, { backgroundColor: "#E1306C" }]}
+          activeOpacity={0.8}
+          onPress={() => {
+            if (Platform.OS === 'web' && typeof window !== 'undefined') {
+              window.location.href = "https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==";
+            } else {
+              router.push("https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==");
+            }
           }}
+        >
+          <Ionicons name="logo-instagram" size={32} color="#fff" />
+          <Text style={s.snsTextWide}>DREAM 인스타그램</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[s.snsButtonWide, { backgroundColor: "#FEE500" }]}
+          activeOpacity={0.8}
+          onPress={() => {
+            if (Platform.OS === 'web' && typeof window !== 'undefined') {
+              window.location.href = "https://tr.ee/Fp6OL6ZuO6";
+            } else {
+              router.push("https://tr.ee/Fp6OL6ZuO6");
+            }
+          }}
+        >
+          <Ionicons name="chatbubble-ellipses-outline" size={32} color="#3C1E1E" />
+          <Text style={s.snsTextWide}>DREAM 카카오톡</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* 참조사항 */}
+      <View style={s.footerNote}>
+        <Text style={s.footerNoteText}>
+          ※ 본 앱은 앱 개발 및 2025년 이후 지속적인 운영 가능성을 입증하기 위해 제작되었습니다.
+        </Text>
+      </View>
+    </>
+  );
+
+  return (
+    <SafeAreaView style={[s.safe, isMobileSafari && s.safeSafari]} edges={['left', 'right']}>
+      {isMobileSafari ? (
+        <View style={scrollContainerStyles}>{pageContent}</View>
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={scrollContainerStyles}
           scrollEventThrottle={16}
         >
-          {affiliates
-            .filter(item => item.category === "기업제휴")
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 5)
-            .map((item, i) => (
-              <TouchableOpacity
-                key={`major-${item.name}-${i}`}
-                style={s.majorSlide}
-                activeOpacity={0.95}
-                onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
-              >
-                <View style={s.majorCard}>
-                  <Image
-                    source={getImageSource(item.image)}
-                    style={s.majorImage}
-                    contentFit="contain"
-                  />
-                  <LinearGradient
-                    colors={['transparent', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,0.9)']}
-                    style={s.majorOverlay}
-                  >
-                    <Text style={s.majorTitle}>{item.name}</Text>
-                    {item.description && (
-                      <Text style={s.majorBenefits}>{item.description}</Text>
-                    )}
-                  </LinearGradient>
-                </View>
-              </TouchableOpacity>
-            ))}
+          {pageContent}
         </ScrollView>
-
-        {/* 페이지 인디케이터 */}
-        <View style={s.pageIndicator}>
-          {[0, 1, 2, 3, 4].map((index) => (
-            <View
-              key={index}
-              style={[
-                s.dot,
-                currentSlide === index && s.activeDot
-              ]}
-            />
-          ))}
-        </View>
-
-        {/* 실시간 제휴 */}
-        <View style={[s.sectionDivider, s.sectionDividerTight]} />
-        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>실시간 제휴</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={170}
-          decelerationRate="fast"
-          contentContainerStyle={s.recommendRow}
-        >
-          {affiliates
-            .filter(item => item.isRealtime === true)
-            .map((item, i) => (
-              <TouchableOpacity
-                key={`realtime-${item.name}-${i}`}
-                style={[s.recommendCardHorizontal, i === 0 && { marginRight: 0 }]}
-                activeOpacity={0.9}
-                onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
-              >
-                <View style={s.realtimeBadge}>
-                  <Text style={s.realtimeBadgeText}>지금 진행 중</Text>
-                </View>
-                <Image
-                  source={getImageSource(item.image)}
-                  style={s.recommendImage}
-                  contentFit={isLogoImage(item.image) ? "contain" : "cover"}
-                />
-                <Text style={s.recommendTitle}>{item.name}</Text>
-                <Text style={s.recommendDesc}>{item.category}</Text>
-              </TouchableOpacity>
-            ))}
-        </ScrollView>
-
-        {/* 추천 제휴 */}
-        <View style={[s.sectionDivider, s.sectionDividerTight]} />
-        <Text style={[s.sectionTitle, s.sectionSpacingTight]}>추천 제휴</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={170}
-          decelerationRate="fast"
-          contentContainerStyle={s.recommendRow}
-        >
-          {affiliates
-            .filter(item => item.category !== "기업제휴")
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 5)
-            .map((item, i) => (
-              <TouchableOpacity
-                key={`${item.name}-${i}`}
-                style={[s.recommendCardHorizontal, i === 4 && { marginRight: 0 }]}
-                activeOpacity={0.9}
-                onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
-              >
-                <Image
-                  source={getImageSource(item.image)}
-                  style={s.recommendImage}
-                  contentFit={isLogoImage(item.image) ? "contain" : "cover"}
-                />
-                <Text style={s.recommendTitle}>{item.name}</Text>
-                <Text style={s.recommendDesc}>{item.category}</Text>
-              </TouchableOpacity>
-            ))}
-        </ScrollView>
-
-        {/* SNS */}
-        <View style={[s.sectionDivider, s.sectionDividerTight]} />
-        <View style={[s.sectionHeaderCenter, s.sectionSpacingTight]}>
-          <Text style={[s.sectionTitle, s.sectionTitleCenter]}>DREAM 공식 SNS</Text>
-          <Text style={s.sectionSubtitle}>제주대학교 58대 DREAM 총학생회 선거운동본부</Text>
-        </View>
-        <View style={s.snsContainer}>
-          <TouchableOpacity
-            style={[s.snsButtonWide, { backgroundColor: "#E1306C" }]}
-            activeOpacity={0.8}
-            onPress={() => {
-              if (Platform.OS === 'web' && typeof window !== 'undefined') {
-                window.location.href = "https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==";
-              } else {
-                router.push("https://www.instagram.com/jnu_dream_2026?igsh=MWd4MXQxbDBzbWwzbA==");
-              }
-            }}
-          >
-            <Ionicons name="logo-instagram" size={32} color="#fff" />
-            <Text style={s.snsTextWide}>DREAM 인스타그램</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[s.snsButtonWide, { backgroundColor: "#FEE500" }]}
-            activeOpacity={0.8}
-            onPress={() => {
-              if (Platform.OS === 'web' && typeof window !== 'undefined') {
-                window.location.href = "https://tr.ee/Fp6OL6ZuO6";
-              } else {
-                router.push("https://tr.ee/Fp6OL6ZuO6");
-              }
-            }}
-          >
-            <Ionicons name="chatbubble-ellipses-outline" size={32} color="#3C1E1E" />
-            <Text style={s.snsTextWide}>DREAM 카카오톡</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* 참조사항 */}
-        <View style={s.footerNote}>
-          <Text style={s.footerNoteText}>
-            ※ 본 앱은 앱 개발 및 2025년 이후 지속적인 운영 가능성을 입증하기 위해 제작되었습니다.
-          </Text>
-        </View>
-      </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
@@ -253,10 +284,19 @@ const s = StyleSheet.create({
     backgroundColor: "#F8FAFB",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
+  safeSafari: {
+    flex: undefined,
+    flexGrow: 0,
+    alignSelf: "stretch",
+    width: "100%",
+  },
   scrollContent: {
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 0 : 28,
     paddingBottom: 60,
+  },
+  scrollContentSafari: {
+    width: "100%",
   },
   header: {
     paddingTop: Platform.OS === "web" ? 28 : 0,

@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/hooks/useThemeColor';
+import Head from 'expo-router/head';
 import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Image, Platform, StyleSheet, View } from 'react-native';
@@ -89,43 +90,56 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="category/[category]" />
-        <Stack.Screen name="details/[id]" />
-      </Stack>
+      <View style={styles.root}>
+        {Platform.OS === 'web' && (
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+            <meta name="mobile-web-app-capable" content="yes" />
+          </Head>
+        )}
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="category/[category]" />
+          <Stack.Screen name="details/[id]" />
+        </Stack>
 
-      {showSplash && (
-        <View style={[
-          styles.splashContainer,
-          fadeOut && styles.splashFadeOut
-        ]}>
-          <Image
-            source={require('../assets/images/logo-round.png')}
-            style={styles.splashLogo}
-            resizeMode="cover"
-          />
-        </View>
-      )}
+        {showSplash && (
+          <View style={[
+            styles.splashContainer,
+            Platform.OS === 'web' && styles.splashContainerWeb,
+            fadeOut && styles.splashFadeOut
+          ]}>
+            <Image
+              source={require('../assets/images/logo-round.png')}
+              style={styles.splashLogo}
+              resizeMode="cover"
+            />
+          </View>
+        )}
+      </View>
     </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    position: 'relative',
+    backgroundColor: '#FFFFFF',
+  },
   splashContainer: {
-    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: Platform.OS === 'web' ? '100vw' : '100%',
-    height: Platform.OS === 'web' ? '100vh' : '100%',
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 9999,
     opacity: 1,
     transition: 'opacity 0.5s ease-out',
+  },
+  splashContainerWeb: {
+    position: 'fixed',
   },
   splashFadeOut: {
     opacity: 0,
