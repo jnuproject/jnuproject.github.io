@@ -21,6 +21,8 @@ export default function TabsLayout() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileSafari, setIsMobileSafari] = useState(false);
   const [safariToolbarOffset, setSafariToolbarOffset] = useState(0);
+  const [showTabBar, setShowTabBar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
@@ -34,6 +36,45 @@ export default function TabsLayout() {
 
   const isHome = pathname === "/index" || pathname === "/";
   const isExplore = pathname === "/explore";
+
+  // 스크롤 방향 감지
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          // 스크롤이 최상단에 있으면 항상 보이기
+          if (currentScrollY <= 0) {
+            setShowTabBar(true);
+          }
+          // 아래로 스크롤 (50px 이상 이동시)
+          else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            setShowTabBar(false);
+          }
+          // 위로 스크롤
+          else if (currentScrollY < lastScrollY) {
+            setShowTabBar(true);
+          }
+
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   useEffect(() => {
     if (Platform.OS !== "web" || typeof navigator === "undefined") {
@@ -92,7 +133,14 @@ export default function TabsLayout() {
       <Slot />
       {/* Custom Bottom Tab Bar & Search Button */}
       <>
-        <View style={[styles.tabBarContainer, { bottom: dynamicBottomSpacing }]}>
+        <View style={[
+          styles.tabBarContainer,
+          {
+            bottom: dynamicBottomSpacing,
+            transform: [{ translateY: showTabBar ? 0 : 150 }],
+            opacity: showTabBar ? 1 : 0,
+          }
+        ]}>
           <View style={styles.tabBarBlur}>
             <View style={{ flex: 1, flexDirection: "row", position: "relative" }}>
               <Pressable
@@ -128,7 +176,14 @@ export default function TabsLayout() {
 
         {/* 검색 버튼 */}
         <Pressable
-          style={[styles.searchButton, { bottom: dynamicBottomSpacing }]}
+          style={[
+            styles.searchButton,
+            {
+              bottom: dynamicBottomSpacing,
+              transform: [{ translateY: showTabBar ? 0 : 150 }],
+              opacity: showTabBar ? 1 : 0,
+            }
+          ]}
           onPress={() => setShowSearch(true)}
           android_ripple={{ color: "rgba(255,255,255,0.3)", borderless: true }}
           activeOpacity={0.7}
@@ -206,6 +261,7 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 10,
     zIndex: 10,
+    transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
   },
   tabBarBlur: {
     flex: 1,
@@ -265,6 +321,7 @@ const styles = StyleSheet.create({
     elevation: 12,
     overflow: "hidden",
     zIndex: 11,
+    transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
   },
   modalOverlay: {
     flex: 1,
