@@ -336,7 +336,7 @@ const s = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 0 : 28,
     paddingBottom: 60,
-    backgroundColor: '#98d2c6',
+    backgroundColor: '#00a99c',
   },
   scrollContentSafari: {
     width: "100%",
