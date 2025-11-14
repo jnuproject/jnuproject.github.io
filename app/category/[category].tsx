@@ -4,6 +4,7 @@ import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, Vi
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function CategoryScreen() {
   const { category } = useLocalSearchParams();
@@ -60,9 +61,17 @@ export default function CategoryScreen() {
   return (
     <SafeAreaView style={s.safe}>
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 22, fontWeight: "800", color: "#111827", paddingHorizontal: 16, marginTop: 10 }}>
-          {categoryTitle}
-        </Text>
+        {/* 헤더 with 뒤로가기 버튼 */}
+        <View style={s.header}>
+          <TouchableOpacity
+            style={s.backButton}
+            onPress={() => router.back()}
+          >
+            <Ionicons name="arrow-back" size={24} color="#111827" />
+          </TouchableOpacity>
+          <Text style={s.headerTitle}>{categoryTitle}</Text>
+          <View style={{ width: 40 }} />
+        </View>
         {/* 상단 필터 */}
         <View style={s.filterContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
@@ -189,6 +198,26 @@ const s = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: "#111827",
+    flex: 1,
+    textAlign: "center",
   },
   filterContainer: {
     height: 60,

@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,6 +10,7 @@ import * as NavigationBar from "expo-navigation-bar";
 
 export default function DetailPage() {
   const { id } = useLocalSearchParams();
+  const router = useRouter();
   const { data } = useAllAffiliates();
   const item = data.find((d) => d.name === decodeURIComponent(Array.isArray(id) ? id[0] : id || ""));
 
@@ -38,6 +39,17 @@ export default function DetailPage() {
   return (
     <SafeAreaView style={s.safe} edges={["top", "left", "right"]}>
       <View style={s.inner}>
+        {/* 헤더 with 뒤로가기 버튼 */}
+        <View style={s.header}>
+          <TouchableOpacity
+            style={s.backButton}
+            onPress={() => router.back()}
+          >
+            <Ionicons name="arrow-back" size={24} color="#111827" />
+          </TouchableOpacity>
+          <Text style={s.headerTitle}>업체 정보</Text>
+          <View style={{ width: 40 }} />
+        </View>
         <ScrollView>
           {item.image && (
             <Image
@@ -139,7 +151,25 @@ const s = StyleSheet.create({
   inner: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 12,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111827",
+    flex: 1,
+    textAlign: "center",
   },
   title: {
     fontSize: 22,
