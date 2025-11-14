@@ -719,22 +719,22 @@ body::after {
       "                                                                                ",
       "                                                                                ",
       "                                o   o   o   o   o                               ",
-      "                            ? xxxxxxxxxxxxxxxxxxxx                              ",
+      "                              xxxx!xxx!xxx!xxx!xxx                              ",
       "                                                                                ",
-      "            o                                             u                     ",
-      "                              xxxxxxxxxxxxxxxxxxxx  g                           ",
+      "            o                                                                   ",
+      "                         u    xxxxxxx!!!!!!!!xxxxx                              ",
       "                                                                    o           ",
       "            o                                 u                                 ",
-      "        xx?xxxxx        xxxxxxxx        xxxxgxxx        xxxxxxxx                ",
+      "        xx?xxxxx        xxxxxxxx        xxxxxxxx        xxxxxxxx                ",
       "                                                    o               o           ",
       "            o                     u                                             ",
-      "  xxxxxxxx      xxxxxxxx      xxgxxxxx      xxxxxxxx      xxxxxxxx              ",
-      "                                                            o                   ",
-      "            o         u                                                         ",
-      "      xxxxxxxx      xxxxgxxx      xxxxxxxx?       xxxxxxxx      xxxxxxxx        ",
+      "  xxxxxxxx      xxx!!xxx      xxxxxxxx      xxxxxxxx      xxxxxxxx              ",
       "                                                                                ",
-      "  @   g   u                                                                     ",
-      "xxxxxxxx!!!!xxxxxxxx!!!!  xxxxxxxx!!    xxxxxxxx!!    xxxxxxxx!!!!!!xxgxxxxxxxxx",
+      "            o                                                                   ",
+      "      xxxxxxxx      xxx!!xxx      xxxx!!xxx       xx!!!!xx      xx!!xxxx        ",
+      "                                                                                ",
+      "  @u  g         u                                                               ",
+      "xxxxxxxx!!!!xxxxxxxx!!!!!!xxxxxxxx!!!!!!xxxxxxxx!!!!!!xxxxxxxx!!!!!!xxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "                                                                                "
@@ -750,17 +750,17 @@ body::after {
       "                                                                                ",
       "     o         ?         o         o         o         o         o         o    ",
       "xxxxxxxxxxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "             xxx                                                                ",
-      "          xxx                     xxx                     xxx                   ",
-      "       xxx                     xxx                     xxx                      ",
-      "    xxx                     xxx                     xxx                         ",
-      "xxxxxxxgxxxxxxxxxx  ?   xxxxxxxxxxxx      xxgxxxxxxxxx      xxxxxxxxxxxgxxxxxxxx",
       "                                                                                ",
+      "                                                                                ",
+      "                      u                          u                              ",
+      "                                                                                ",
+      "xxxxxxx!!!!!!!xxxx      xxxxxxxxxxxx      xxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxx",
+      "                    u                                                           ",
       "            o     o             o     o           o     o           o     o     ",
       "      xxxxxxxxxx        xxxxxxxxxx        xxxxxx?xxx        xxxxxxxxxxxx        ",
       "                                                                                ",
-      "  @ g      u    g  u             g u             g u             g u            ",
-      "xxxxxxxx!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!xxxxxx",
+      "  @ g           g  u             g u             g u             g u            ",
+      "xxxxxxxxx!!!xxxxxxxxxx!!!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!xxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "                                                                                "
@@ -1263,7 +1263,7 @@ body::after {
       }
       level.playerTouched(obstacle);
       // 아래로 떨어지는 중 (바닥 충돌)일 때만 onGround를 true로 설정
-      if (previousSpeedY > 0) {
+      if (this.speed.y > 0) {
         this.onGround = true;
       } else {
         // 위로 올라가는 중 (천장 충돌)일 때는 onGround를 false로
