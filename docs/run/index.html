@@ -1,0 +1,1224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+  />
+  <title>길건너 길건너</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
+  <style>
+    :root {
+      --footer-banner-offset: calc(60px + env(safe-area-inset-bottom, 0px));
+    }
+    body {
+      margin: 0;
+      display: flex;
+      font-family: "Press Start 2P", cursive;
+      background-color: #1b1b1b;
+      overflow: hidden;
+    }
+    #footerBanner{
+      width:100%;
+      text-align:center;
+      padding:0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom,0px));
+      background:linear-gradient(90deg,#00bfa5,#0097a7);
+      color:#fff;
+      font-weight:600;
+      font-size:clamp(0.9rem,2vw,1.1rem);
+      border-top-left-radius:10px;
+      border-top-right-radius:10px;
+      box-shadow:0 -3px 10px rgba(0,0,0,0.1);
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+    }
+    canvas.game {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      touch-action: none;
+    }
+
+    #controls {
+      position: absolute;
+      bottom: calc(20px + var(--footer-banner-offset));
+      min-width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      pointer-events: none;
+      touch-action: none;
+    }
+    #controls div {
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      gap: 12px;
+      pointer-events: auto;
+    }
+    #controls button {
+      width: 100%;
+      min-width: 70px;
+      height: 60px;
+      background-color: white;
+      border: 1px solid lightgray;
+      box-shadow: 3px 5px 0px 0px rgba(0, 0, 0, 0.75);
+      cursor: pointer;
+      outline: none;
+      touch-action: manipulation;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #controls button:first-of-type { grid-column: 1 / -1; }
+
+    #score {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2em;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,.4);
+      user-select: none;
+    }
+
+    #result-container {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+    }
+    #result {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.2);
+      gap: 10px;
+    }
+    #result button {
+      background-color: red;
+      color: #fff;
+      padding: 14px 28px;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+    }
+    #result-message {
+      display: none;
+      margin: 8px 0 0;
+      text-align: center;
+      line-height: 1.4;
+    }
+    #start-container {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2;
+    }
+    #start-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      background: white;
+      padding: 24px 28px;
+      border-radius: 16px;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
+      text-align: center;
+    }
+    #start-content p {
+      margin: 0;
+      line-height: 1.5;
+      color: #333;
+    }
+    #start-button {
+      background-color: #1c9e9f;
+      color: #fff;
+      padding: 14px 32px;
+      font-family: inherit;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      #controls {
+        bottom: calc(16px + var(--footer-banner-offset));
+      }
+      #controls div {
+        grid-template-columns: repeat(3, 96px);
+        gap: 18px;
+      }
+      #controls button {
+        min-width: 96px;
+        height: 84px;
+        border-radius: 18px;
+        font-size: 1.8rem;
+      }
+      #score {
+        font-size: 1.6em;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <canvas class="game"></canvas>
+
+  <div id="start-container" role="dialog" aria-modal="true">
+    <div id="start-content">
+      <p>오늘도 무사히 학교를 갈 수 있을까?</p>
+      <button id="start-button" aria-label="게임 시작">시작하기</button>
+    </div>
+  </div>
+
+  <div id="controls" aria-label="터치 조작">
+    <div>
+      <button id="forward" aria-label="앞으로">▲</button>
+      <button id="left" aria-label="왼쪽">◀</button>
+      <button id="backward" aria-label="뒤로">▼</button>
+      <button id="right" aria-label="오른쪽">▶</button>
+    </div>
+  </div>
+
+  <div id="score">0</div>
+
+  <div id="result-container" role="dialog" aria-modal="true">
+    <div id="result">
+      <h1 id="result-title">Game Over</h1>
+      <p id="result-description">Your score: <span id="final-score"></span></p>
+      <p id="result-message"></p>
+      <button id="retry">Retry</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from "https://esm.sh/three";
+
+    const minTileIndex = -8;
+    const maxTileIndex = 8;
+    const tilesPerRow = maxTileIndex - minTileIndex + 1;
+    const tileSize = 42;
+
+    const isMobileDevice =
+      window.matchMedia("(pointer: coarse)").matches ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const rowBatchSize = 20;
+    const treesPerRow = 4;
+    const vehiclesPerRow = 2;
+    const winningScore = 50;
+    const gateRowOffset = 2;
+    const gateRow = winningScore + gateRowOffset;
+    const finishZoneStart = winningScore;
+    const enableShadows = true;
+    const gameCanvas = document.querySelector("canvas.game");
+
+    /* =========================
+       추가: 불편사항 텍스트 목록
+       ========================= */
+    const complaints = [
+      "소통 불편",
+      "스터디카페 부족",
+      "건물 노후화",
+      "교내 와이파이 느림",
+      "화재경보기 오류",
+      "쓰레기 문제",
+      "셔틀버스 어디 있지?",
+      "킥보드 불법 주차",
+      "주차 공간 부족",
+      "학교 너무 깜깜"
+    ];
+
+    function Camera() {
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 100, 900);
+      camera.up.set(0, 0, 1);
+      camera.position.set(300, -300, 300);
+      camera.lookAt(0, 0, 0);
+      updateCameraFraming(camera);
+      return camera;
+    }
+
+    function updateCameraFraming(camera) {
+      const baseSize = isMobileDevice ? 260 : 300;
+      const viewRatio = Math.max(window.innerWidth / window.innerHeight, 0.1);
+      const width = viewRatio < 1 ? baseSize : baseSize * viewRatio;
+      const height = viewRatio < 1 ? baseSize / viewRatio : baseSize;
+
+      camera.left = -width / 2;
+      camera.right = width / 2;
+      camera.top = height / 2;
+      camera.bottom = -height / 2;
+      camera.updateProjectionMatrix();
+    }
+
+    function Texture(width, height, rects) {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, width, height);
+      context.fillStyle = "rgba(0,0,0,0.6)";
+      rects.forEach((rect) => {
+        context.fillRect(rect.x, rect.y, rect.w, rect.h);
+      });
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    const truckFrontTexture      = Texture(30, 30, [{ x: 5,  y: 0,  w: 10, h: 30 }]);
+    const truckRightSideTexture  = Texture(25, 30, [{ x: 15, y: 5,  w: 10, h: 10 }]);
+    const truckLeftSideTexture   = Texture(25, 30, [{ x: 15, y: 15, w: 10, h: 10 }]);
+
+    /* =====================================================
+       추가: 텍스트 캔버스 텍스처 (자동 줄바꿈 포함, 한글 호환)
+       ===================================================== */
+    function wrapKoreanText(text, maxCharsPerLine = 10) {
+      // 공백 기준으로 먼저 시도, 공백이 거의 없으면 고정 길이로 분리
+      if (text.includes(" ")) {
+        const words = text.split(" ");
+        const lines = [];
+        let line = "";
+        for (const w of words) {
+          const test = line ? line + " " + w : w;
+          if (test.length > maxCharsPerLine) {
+            if (line) lines.push(line);
+            line = w;
+          } else {
+            line = test;
+          }
+        }
+        if (line) lines.push(line);
+        return lines.slice(0, 2); // 최대 2줄
+      } else {
+        const lines = [];
+        for (let i = 0; i < text.length; i += maxCharsPerLine) {
+          lines.push(text.slice(i, i + maxCharsPerLine));
+          if (lines.length >= 2) break;
+        }
+        return lines;
+      }
+    }
+
+    function makeTextTexture(text) {
+      const canvas = document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 128;
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const padding = 12;
+
+      ctx.strokeStyle = "#222";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(padding, padding, canvas.width - padding * 2, canvas.height - padding * 2);
+
+      const maxCharsPerLine = 9;
+      const lines = wrapKoreanText(text, maxCharsPerLine);
+      const fontSize = 24;
+      const lineHeight = 30;
+
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `bold ${fontSize}px 'Press Start 2P', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif`;
+
+      const totalHeight = (lines.length - 1) * lineHeight;
+      const startY = canvas.height / 2 - totalHeight / 2;
+      lines.forEach((line, index) => {
+        ctx.fillText(line, canvas.width / 2, startY + index * lineHeight);
+      });
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.anisotropy = 4;
+      texture.needsUpdate = true;
+      return texture;
+    }
+
+    function DirectionalLight() {
+      const dirLight = new THREE.DirectionalLight();
+      dirLight.position.set(-100, -100, 200);
+      dirLight.up.set(0, 0, 1);
+      if (enableShadows) {
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        dirLight.shadow.camera.up.set(0, 0, 1);
+        dirLight.shadow.camera.left = -400;
+        dirLight.shadow.camera.right = 400;
+        dirLight.shadow.camera.top = 400;
+        dirLight.shadow.camera.bottom = -400;
+        dirLight.shadow.camera.near = 50;
+        dirLight.shadow.camera.far = 400;
+      } else {
+        dirLight.castShadow = false;
+      }
+
+      return dirLight;
+    }
+
+    function Grass(rowIndex) {
+      const grass = new THREE.Group();
+      grass.position.y = rowIndex * tileSize;
+
+      const createSection = (color) =>
+        new THREE.Mesh(
+          new THREE.BoxGeometry(tilesPerRow * tileSize, tileSize, 3),
+          new THREE.MeshLambertMaterial({ color })
+        );
+
+      const middle = createSection(0xbaf455);
+      middle.receiveShadow = enableShadows;
+      grass.add(middle);
+
+      const left = createSection(0x99c846);
+      left.position.x = -tilesPerRow * tileSize;
+      grass.add(left);
+
+      const right = createSection(0x99c846);
+      right.position.x = tilesPerRow * tileSize;
+      grass.add(right);
+
+      return grass;
+    }
+
+    const metadata = [];
+    const map = new THREE.Group();
+
+    function initializeMap() {
+      metadata.length = 0;
+      map.remove(...map.children);
+
+      for (let rowIndex = 0; rowIndex > -10; rowIndex--) {
+        const grass = Grass(rowIndex);
+        map.add(grass);
+      }
+      addRows();
+    }
+
+    function addRows() {
+      const newMetadata = generateRows(rowBatchSize);
+
+      const startIndex = metadata.length;
+      metadata.push(...newMetadata);
+
+      newMetadata.forEach((rowData, index) => {
+        const rowIndex = startIndex + index + 1;
+
+        if (rowData.type === "forest") {
+          const row = Grass(rowIndex);
+          rowData.trees.forEach(({ tileIndex, height }) => {
+            const three = Tree(tileIndex, height);
+            row.add(three);
+          });
+          map.add(row);
+        }
+
+        if (rowData.type === "truck") {
+          const row = Road(rowIndex);
+          rowData.vehicles.forEach((vehicle) => {
+            const truck = Truck(
+              vehicle.initialTileIndex,
+              rowData.direction,
+              vehicle.color,
+              vehicle.text // ← 트럭에도 텍스트 전달
+            );
+            vehicle.ref = truck;
+            row.add(truck);
+          });
+          map.add(row);
+        }
+
+        if (rowData.type === "finish") {
+          const row = FinishRow(rowIndex);
+          map.add(row);
+        }
+
+        if (rowData.type === "gate") {
+          const row = CampusGate(rowIndex);
+          map.add(row);
+        }
+      });
+    }
+
+    const player = Player();
+
+    function Player() {
+      const student = new THREE.Group();
+
+      const torsoMaterial = new THREE.MeshLambertMaterial({
+        color: 0x1c9e9f,
+        flatShading: true,
+      });
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(18, 12, 24), torsoMaterial);
+      torso.position.z = 12;
+      torso.castShadow = enableShadows;
+      torso.receiveShadow = enableShadows;
+      student.add(torso);
+
+      const collar = new THREE.Mesh(new THREE.BoxGeometry(16, 4, 4), new THREE.MeshLambertMaterial({
+        color: 0xffffff,
+        flatShading: true,
+      }));
+      collar.position.set(0, 6, 20);
+      collar.castShadow = enableShadows;
+      collar.receiveShadow = enableShadows;
+      student.add(collar);
+
+      const headMaterial = new THREE.MeshLambertMaterial({
+        color: 0xf1c27d,
+        flatShading: true,
+      });
+      const head = new THREE.Mesh(new THREE.BoxGeometry(14, 14, 14), headMaterial);
+      head.position.z = 30;
+      head.castShadow = enableShadows;
+      head.receiveShadow = enableShadows;
+      student.add(head);
+
+      const hairGeom = new THREE.BoxGeometry(14, 14, 4);
+      hairGeom.translate(0, 0, 2);
+      const hairMaterial = new THREE.MeshLambertMaterial({
+        color: 0x2c1b10,
+        flatShading: true,
+      });
+      const hair = new THREE.Mesh(hairGeom, hairMaterial);
+      hair.position.z = 34;
+      hair.castShadow = enableShadows;
+      hair.receiveShadow = enableShadows;
+      student.add(hair);
+
+      const backpack = new THREE.Mesh(
+        new THREE.BoxGeometry(12, 4, 20),
+        new THREE.MeshLambertMaterial({ color: 0x3d2b1f, flatShading: true })
+      );
+      backpack.position.set(0, -8, 12);
+      backpack.castShadow = enableShadows;
+      backpack.receiveShadow = enableShadows;
+      student.add(backpack);
+
+      const leftArm = new THREE.Mesh(
+        new THREE.BoxGeometry(4, 4, 18),
+        new THREE.MeshLambertMaterial({ color: 0xf1c27d, flatShading: true })
+      );
+      leftArm.position.set(-12, 0, 9);
+      leftArm.castShadow = enableShadows;
+      leftArm.receiveShadow = enableShadows;
+      student.add(leftArm);
+
+      const rightArm = leftArm.clone();
+      rightArm.position.x = 12;
+      student.add(rightArm);
+
+      const leftLeg = new THREE.Mesh(
+        new THREE.BoxGeometry(6, 6, 16),
+        new THREE.MeshLambertMaterial({ color: 0x2f2f2f, flatShading: true })
+      );
+      leftLeg.position.set(-5, 0, 8);
+      leftLeg.castShadow = enableShadows;
+      leftLeg.receiveShadow = enableShadows;
+      student.add(leftLeg);
+
+      const rightLeg = leftLeg.clone();
+      rightLeg.position.x = 5;
+      student.add(rightLeg);
+
+      const playerContainer = new THREE.Group();
+      playerContainer.add(student);
+
+      return playerContainer;
+    }
+
+    const position = { currentRow: 0, currentTile: 0 };
+    const movesQueue = [];
+    let isGameCleared = false;
+    let isGameRunning = false;
+    let isAutoWalking = false;
+    let autoWalkTargetRow = null;
+
+    function initializePlayer() {
+      player.position.x = 0;
+      player.position.y = 0;
+      player.children[0].position.z = 0;
+
+      position.currentRow = 0;
+      position.currentTile = 0;
+
+      movesQueue.length = 0;
+      isGameCleared = false;
+      isGameRunning = false;
+      isAutoWalking = false;
+      autoWalkTargetRow = null;
+    }
+
+    function queueMove(direction) {
+      if (isGameCleared || !isGameRunning || isAutoWalking) return;
+      const isValidMove = endsUpInValidPosition(
+        { rowIndex: position.currentRow, tileIndex: position.currentTile },
+        [...movesQueue, direction]
+      );
+      if (!isValidMove) return;
+      movesQueue.push(direction);
+    }
+
+    function stepCompleted() {
+      const direction = movesQueue.shift();
+      if (direction === "forward")  position.currentRow += 1;
+      if (direction === "backward") position.currentRow -= 1;
+      if (direction === "left")     position.currentTile -= 1;
+      if (direction === "right")    position.currentTile += 1;
+
+      if (position.currentRow > metadata.length - 10) addRows();
+
+      if (scoreDOM) {
+        const displayScore = Math.min(position.currentRow, winningScore);
+        scoreDOM.innerText = displayScore.toString();
+      }
+
+      if (!isAutoWalking && position.currentRow >= winningScore) {
+        startAutoWalk();
+      }
+
+      if (isAutoWalking && autoWalkTargetRow !== null && position.currentRow >= autoWalkTargetRow) {
+        handleVictory();
+      }
+    }
+
+    function startAutoWalk() {
+      if (isAutoWalking) return;
+      isAutoWalking = true;
+      autoWalkTargetRow = gateRow + 1;
+      movesQueue.length = 0;
+      const stepsNeeded = Math.max(0, autoWalkTargetRow - position.currentRow);
+      for (let i = 0; i < stepsNeeded; i += 1) {
+        movesQueue.push("forward");
+      }
+    }
+
+    function Renderer() {
+      const canvas = gameCanvas;
+      if (!canvas) throw new Error("Canvas not found");
+
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        canvas: canvas,
+      });
+      const devicePixelRatio = window.devicePixelRatio || 1;
+      renderer.setPixelRatio(devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = enableShadows;
+
+      return renderer;
+    }
+
+    function Road(rowIndex) {
+      const road = new THREE.Group();
+      road.position.y = rowIndex * tileSize;
+
+      const createSection = (color) =>
+        new THREE.Mesh(
+          new THREE.PlaneGeometry(tilesPerRow * tileSize, tileSize),
+          new THREE.MeshLambertMaterial({ color })
+        );
+
+      const middle = createSection(0x454a59);
+      middle.receiveShadow = enableShadows;
+      road.add(middle);
+
+      const left = createSection(0x393d49);
+      left.position.x = -tilesPerRow * tileSize;
+      road.add(left);
+
+      const right = createSection(0x393d49);
+      right.position.x = tilesPerRow * tileSize;
+      road.add(right);
+
+      return road;
+    }
+
+    function FinishRow(rowIndex) {
+      const path = new THREE.Group();
+      path.position.y = rowIndex * tileSize;
+
+      const base = new THREE.Mesh(
+        new THREE.BoxGeometry(tilesPerRow * tileSize, tileSize, 3),
+        new THREE.MeshLambertMaterial({ color: 0xb3b3b3, flatShading: true })
+      );
+      base.receiveShadow = enableShadows;
+      path.add(base);
+
+      const stripeMaterial = new THREE.MeshLambertMaterial({ color: 0x9a9a9a, flatShading: true });
+      const stripeGeometry = new THREE.BoxGeometry(tileSize * 2, tileSize - 4, 2);
+      const stripes = [-tileSize * 3, 0, tileSize * 3];
+      stripes.forEach((x) => {
+        const stripe = new THREE.Mesh(stripeGeometry, stripeMaterial);
+        stripe.position.set(x, 0, 2);
+        stripe.receiveShadow = enableShadows;
+        path.add(stripe);
+      });
+
+      return path;
+    }
+
+    function CampusGate(rowIndex) {
+      const gate = new THREE.Group();
+      gate.position.y = rowIndex * tileSize;
+
+      const plaza = new THREE.Mesh(
+        new THREE.BoxGeometry(tilesPerRow * tileSize, tileSize, 3),
+        new THREE.MeshLambertMaterial({ color: 0xb3b3b3, flatShading: true })
+      );
+      plaza.receiveShadow = enableShadows;
+      gate.add(plaza);
+
+      const walkway = new THREE.Mesh(
+        new THREE.BoxGeometry(tileSize * 4, tileSize - 6, 3),
+        new THREE.MeshLambertMaterial({ color: 0x9a9a9a, flatShading: true })
+      );
+      walkway.position.z = 3;
+      walkway.receiveShadow = enableShadows;
+      gate.add(walkway);
+
+      const columnMaterial = new THREE.MeshLambertMaterial({
+        color: 0xffffff,
+        flatShading: true,
+      });
+      const columnGeometry = new THREE.BoxGeometry(20, 20, 70);
+      [-tileSize * 2.5, tileSize * 2.5].forEach((x) => {
+        const column = new THREE.Mesh(columnGeometry, columnMaterial);
+        column.position.set(x, 0, 35);
+        column.castShadow = enableShadows;
+        column.receiveShadow = enableShadows;
+        gate.add(column);
+      });
+
+      const beam = new THREE.Mesh(
+        new THREE.BoxGeometry(tileSize * 6, 20, 18),
+        new THREE.MeshLambertMaterial({ color: 0x3f4a56, flatShading: true })
+      );
+      beam.position.set(0, 0, 74);
+      beam.castShadow = enableShadows;
+      beam.receiveShadow = enableShadows;
+      gate.add(beam);
+
+      const signTexture = makeTextTexture("제주대학교");
+      const signMaterial = new THREE.MeshLambertMaterial({
+        map: signTexture,
+        transparent: true,
+        side: THREE.DoubleSide,
+      });
+      signMaterial.depthWrite = false;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(tileSize * 3.2, 40), signMaterial);
+      sign.position.set(0, -tileSize * 0.35, 85);
+      sign.rotation.x = Math.PI / 2;
+      sign.renderOrder = 1;
+      gate.add(sign);
+
+      return gate;
+    }
+
+    function Tree(tileIndex, height) {
+      const tree = new THREE.Group();
+      tree.position.x = tileIndex * tileSize;
+
+      const trunk = new THREE.Mesh(
+        new THREE.BoxGeometry(15, 15, 20),
+        new THREE.MeshLambertMaterial({ color: 0x4d2926, flatShading: true })
+      );
+      trunk.position.z = 10;
+      trunk.castShadow = enableShadows;
+      trunk.receiveShadow = enableShadows;
+      tree.add(trunk);
+
+      const crown = new THREE.Mesh(
+        new THREE.BoxGeometry(30, 30, height),
+        new THREE.MeshLambertMaterial({ color: 0x7aa21d, flatShading: true })
+      );
+      crown.position.z = height / 2 + 20;
+      crown.castShadow = enableShadows;
+      crown.receiveShadow = enableShadows;
+      tree.add(crown);
+
+      return tree;
+    }
+
+    /* =========================
+       트럭에도 텍스트 적용
+       ========================= */
+    function Truck(initialTileIndex, direction, color, text = "") {
+      const truck = new THREE.Group();
+      truck.position.x = initialTileIndex * tileSize;
+      if (!direction) truck.rotation.z = Math.PI;
+
+      // 화물칸에 텍스트 텍스처 적용
+      const cargoMap = makeTextTexture(text || "불편사항");
+      const cargo = new THREE.Mesh(
+        new THREE.BoxGeometry(70, 35, 35),
+        new THREE.MeshLambertMaterial({ map: cargoMap, flatShading: true })
+      );
+      cargo.position.x = -15;
+      cargo.position.z = 25;
+      cargo.castShadow = enableShadows;
+      cargo.receiveShadow = enableShadows;
+      if (!direction) {
+        cargo.rotation.z = Math.PI; // 왼쪽 진행 시 글자 반전 방지
+      }
+      truck.add(cargo);
+
+      const cabin = new THREE.Mesh(new THREE.BoxGeometry(30, 30, 30), [
+        new THREE.MeshLambertMaterial({ color, flatShading: true, map: truckFrontTexture }),
+        new THREE.MeshLambertMaterial({ color, flatShading: true }),
+        new THREE.MeshLambertMaterial({ color, flatShading: true, map: truckLeftSideTexture }),
+        new THREE.MeshLambertMaterial({ color, flatShading: true, map: truckRightSideTexture }),
+        new THREE.MeshPhongMaterial({ color, flatShading: true }),
+        new THREE.MeshPhongMaterial({ color, flatShading: true }),
+      ]);
+      cabin.position.x = 35;
+      cabin.position.z = 20;
+      cabin.castShadow = enableShadows;
+      cabin.receiveShadow = enableShadows;
+      truck.add(cabin);
+
+      const frontWheel  = Wheel(37);
+      const middleWheel = Wheel(5);
+      const backWheel   = Wheel(-35);
+      truck.add(frontWheel, middleWheel, backWheel);
+
+      return truck;
+    }
+
+    function Wheel(x) {
+      const wheel = new THREE.Mesh(
+        new THREE.BoxGeometry(12, 33, 12),
+        new THREE.MeshLambertMaterial({ color: 0x333333, flatShading: true })
+      );
+      wheel.position.x = x;
+      wheel.position.z = 6;
+      return wheel;
+    }
+
+    function calculateFinalPosition(currentPosition, moves) {
+      return moves.reduce((position, direction) => {
+        if (direction === "forward")  return { rowIndex: position.rowIndex + 1, tileIndex: position.tileIndex };
+        if (direction === "backward") return { rowIndex: position.rowIndex - 1, tileIndex: position.tileIndex };
+        if (direction === "left")     return { rowIndex: position.rowIndex,     tileIndex: position.tileIndex - 1 };
+        if (direction === "right")    return { rowIndex: position.rowIndex,     tileIndex: position.tileIndex + 1 };
+        return position;
+      }, currentPosition);
+    }
+
+    function endsUpInValidPosition(currentPosition, moves) {
+      const finalPosition = calculateFinalPosition(currentPosition, moves);
+
+      if (
+        finalPosition.rowIndex === -1 ||
+        finalPosition.tileIndex === minTileIndex - 1 ||
+        finalPosition.tileIndex === maxTileIndex + 1
+      ) {
+        return false;
+      }
+
+      const finalRow = metadata[finalPosition.rowIndex - 1];
+      if (
+        finalRow &&
+        finalRow.type === "forest" &&
+        finalRow.trees.some((tree) => tree.tileIndex === finalPosition.tileIndex)
+      ) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function generateRows(amount) {
+      const rows = [];
+      for (let i = 0; i < amount; i++) {
+        const nextRowNumber = metadata.length + rows.length + 1;
+        if (nextRowNumber >= finishZoneStart) {
+          if (nextRowNumber === gateRow) rows.push({ type: "gate" });
+          else rows.push({ type: "finish" });
+          continue;
+        }
+        rows.push(generateRow());
+      }
+      return rows;
+    }
+
+    function generateRow() {
+      const type = randomElement(["truck", "forest"]);
+      if (type === "truck") return generateTruckLaneMetadata();
+      return generateForesMetadata();
+    }
+
+    function randomElement(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function generateForesMetadata() {
+      const occupiedTiles = new Set();
+      const trees = Array.from({ length: treesPerRow }, () => {
+        let tileIndex;
+        do {
+          tileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+        } while (occupiedTiles.has(tileIndex));
+        occupiedTiles.add(tileIndex);
+
+        const height = randomElement([20, 45, 60]);
+        return { tileIndex, height };
+      });
+
+      return { type: "forest", trees };
+    }
+
+    function generateTruckLaneMetadata() {
+      const direction = randomElement([true, false]);
+      const speed = randomElement([125, 156, 188]);
+
+      const occupiedTiles = new Set();
+      const vehicles = Array.from({ length: vehiclesPerRow }, () => {
+        let initialTileIndex;
+        do {
+          initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+        } while (occupiedTiles.has(initialTileIndex));
+        occupiedTiles.add(initialTileIndex - 2);
+        occupiedTiles.add(initialTileIndex - 1);
+        occupiedTiles.add(initialTileIndex);
+        occupiedTiles.add(initialTileIndex + 1);
+        occupiedTiles.add(initialTileIndex + 2);
+
+        const color = randomElement([0xa52523, 0xbdb638, 0x78b14b]);
+        const text = randomElement(complaints); // ← 텍스트 지정
+        return { initialTileIndex, color, text };
+      });
+
+      return { type: "truck", direction, speed, vehicles };
+    }
+
+    const moveClock = new THREE.Clock(false);
+
+    function animatePlayer() {
+      if (isGameCleared || !isGameRunning) return;
+      if (!movesQueue.length) return;
+
+      if (!moveClock.running) moveClock.start();
+
+      const stepTime = 0.2;
+      const progress = Math.min(1, moveClock.getElapsedTime() / stepTime);
+      setPosition(progress);
+      setRotation(progress);
+
+      if (progress >= 1) {
+        stepCompleted();
+        moveClock.stop();
+      }
+    }
+
+    function setPosition(progress) {
+      const startX = position.currentTile * tileSize;
+      const startY = position.currentRow * tileSize;
+      let endX = startX, endY = startY;
+      if (movesQueue[0] === "left")     endX -= tileSize;
+      if (movesQueue[0] === "right")    endX += tileSize;
+      if (movesQueue[0] === "forward")  endY += tileSize;
+      if (movesQueue[0] === "backward") endY -= tileSize;
+
+      player.position.x = THREE.MathUtils.lerp(startX, endX, progress);
+      player.position.y = THREE.MathUtils.lerp(startY, endY, progress);
+      player.children[0].position.z = Math.sin(progress * Math.PI) * 8;
+    }
+
+    function setRotation(progress) {
+      let endRotation = 0;
+      if (movesQueue[0] == "forward")  endRotation = 0;
+      if (movesQueue[0] == "left")     endRotation = Math.PI / 2;
+      if (movesQueue[0] == "right")    endRotation = -Math.PI / 2;
+      if (movesQueue[0] == "backward") endRotation = Math.PI;
+
+      player.children[0].rotation.z = THREE.MathUtils.lerp(
+        player.children[0].rotation.z,
+        endRotation,
+        progress
+      );
+    }
+
+    const clock = new THREE.Clock();
+
+    function animateVehicles() {
+      const delta = clock.getDelta();
+      if (!isGameRunning || isGameCleared) return;
+
+      metadata.forEach((rowData) => {
+        if (rowData.type === "truck") {
+          const beginningOfRow = (minTileIndex - 2) * tileSize;
+          const endOfRow = (maxTileIndex + 2) * tileSize;
+
+          rowData.vehicles.forEach(({ ref }) => {
+            if (!ref) throw Error("Vehicle reference is missing");
+            if (rowData.direction) {
+              ref.position.x =
+                ref.position.x > endOfRow
+                  ? beginningOfRow
+                  : ref.position.x + rowData.speed * delta;
+            } else {
+              ref.position.x =
+                ref.position.x < beginningOfRow
+                  ? endOfRow
+                  : ref.position.x - rowData.speed * delta;
+            }
+          });
+        }
+      });
+    }
+
+    document.getElementById("forward") ?.addEventListener("click", () => queueMove("forward"));
+    document.getElementById("backward")?.addEventListener("click", () => queueMove("backward"));
+    document.getElementById("left")     ?.addEventListener("click", () => queueMove("left"));
+    document.getElementById("right")    ?.addEventListener("click", () => queueMove("right"));
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        queueMove("forward");
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        queueMove("backward");
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        queueMove("left");
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        queueMove("right");
+      }
+    });
+
+    if (isMobileDevice && gameCanvas) {
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+
+      gameCanvas.addEventListener(
+        "touchstart",
+        (event) => {
+          const touch = event.changedTouches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          touchStartTime = performance.now();
+        },
+        { passive: true }
+      );
+
+      gameCanvas.addEventListener(
+        "touchmove",
+        (event) => {
+          if (event.touches.length === 1) event.preventDefault();
+        },
+        { passive: false }
+      );
+
+      gameCanvas.addEventListener(
+        "touchend",
+        (event) => {
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - touchStartX;
+          const dy = touch.clientY - touchStartY;
+          const distance = Math.hypot(dx, dy);
+          const duration = performance.now() - touchStartTime;
+
+          if (distance < 30 || duration > 500) return;
+
+          event.preventDefault();
+
+          if (Math.abs(dx) > Math.abs(dy)) {
+            if (dx > 0) queueMove("right");
+            else queueMove("left");
+          } else {
+            if (dy > 0) queueMove("backward");
+            else queueMove("forward");
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    if (isMobileDevice) {
+      const preventZoom = (event) => event.preventDefault();
+      document.addEventListener("dblclick", preventZoom, { passive: false });
+      document.addEventListener("gesturestart", preventZoom);
+      document.addEventListener("gesturechange", preventZoom);
+      document.addEventListener("gestureend", preventZoom);
+    }
+
+    function hitTest() {
+      if (isGameCleared || !isGameRunning) return;
+
+      const row = metadata[position.currentRow - 1];
+      if (!row || row.type !== "truck") return;
+
+      const playerBoundingBox = new THREE.Box3();
+      playerBoundingBox.setFromObject(player);
+
+      row.vehicles.forEach(({ ref }) => {
+        if (!ref) throw Error("Vehicle reference is missing");
+
+        const vehicleBoundingBox = new THREE.Box3();
+        vehicleBoundingBox.setFromObject(ref);
+        if (playerBoundingBox.intersectsBox(vehicleBoundingBox)) {
+          handleGameOver();
+        }
+      });
+    }
+
+    function handleGameOver() {
+      if (isGameCleared) return;
+      isGameCleared = true;
+      movesQueue.length = 0;
+      moveClock.stop();
+      isGameRunning = false;
+      isAutoWalking = false;
+      autoWalkTargetRow = null;
+      if (player.children[0]) player.children[0].position.z = 0;
+      displayResult({
+        title: "Game Over",
+        score: position.currentRow,
+      });
+    }
+
+    function handleVictory() {
+      if (isGameCleared) return;
+      isGameCleared = true;
+      movesQueue.length = 0;
+      moveClock.stop();
+      isGameRunning = false;
+      isAutoWalking = false;
+      autoWalkTargetRow = null;
+      if (player.children[0]) player.children[0].position.z = 0;
+      displayResult({
+        title: "게임 클리어!",
+        score: winningScore,
+        message: "오늘도 무사히 학교로 왔다!",
+      });
+    }
+
+    function displayResult({ title, score, message }) {
+      if (!resultDOM) return;
+      if (resultTitleDOM) resultTitleDOM.innerText = title;
+      if (typeof score === "number" && finalScoreDOM) {
+        finalScoreDOM.innerText = score.toString();
+      }
+      if (resultDescriptionDOM) {
+        resultDescriptionDOM.style.display = "block";
+      }
+      if (resultMessageDOM) {
+        if (message) {
+          resultMessageDOM.innerText = message;
+          resultMessageDOM.style.display = "block";
+        } else {
+          resultMessageDOM.style.display = "none";
+          resultMessageDOM.innerText = "";
+        }
+      }
+
+      resultDOM.style.visibility = "visible";
+    }
+
+    const scene = new THREE.Scene();
+    scene.add(player);
+    scene.add(map);
+
+    const ambientLight = new THREE.AmbientLight();
+    scene.add(ambientLight);
+
+    const dirLight = DirectionalLight();
+    dirLight.target = player;
+    player.add(dirLight);
+
+    const camera = Camera();
+    player.add(camera);
+
+    const scoreDOM = document.getElementById("score");
+    const resultDOM = document.getElementById("result-container");
+    const finalScoreDOM = document.getElementById("final-score");
+    const resultTitleDOM = document.getElementById("result-title");
+    const resultDescriptionDOM = document.getElementById("result-description");
+    const resultMessageDOM = document.getElementById("result-message");
+    const startDOM = document.getElementById("start-container");
+    const startButtonDOM = document.getElementById("start-button");
+
+    initializeGame();
+
+    startButtonDOM?.addEventListener("click", startGame);
+    document.querySelector("#retry")?.addEventListener("click", initializeGame);
+
+    function initializeGame() {
+      initializePlayer();
+      initializeMap();
+      moveClock.stop();
+      moveClock.elapsedTime = 0;
+      isGameRunning = false;
+      if (scoreDOM)  scoreDOM.innerText = "0";
+      if (finalScoreDOM) finalScoreDOM.innerText = "0";
+      if (resultDOM) resultDOM.style.visibility = "hidden";
+      if (resultTitleDOM) resultTitleDOM.innerText = "Game Over";
+      if (resultDescriptionDOM) resultDescriptionDOM.style.display = "block";
+      if (resultMessageDOM) {
+        resultMessageDOM.style.display = "none";
+        resultMessageDOM.innerText = "";
+      }
+      if (startDOM) startDOM.style.display = "flex";
+    }
+
+    function startGame() {
+      if (isGameRunning) return;
+      isGameRunning = true;
+      moveClock.stop();
+      moveClock.elapsedTime = 0;
+      if (startDOM) startDOM.style.display = "none";
+    }
+
+    const renderer = Renderer();
+    renderer.setAnimationLoop(animate);
+
+    function onResize() {
+      const devicePixelRatio = window.devicePixelRatio || 1;
+      renderer.setPixelRatio(devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      updateCameraFraming(camera);
+    }
+    window.addEventListener("resize", onResize);
+
+    function animate() {
+      animateVehicles();
+      animatePlayer();
+      hitTest();
+      renderer.render(scene, camera);
+    }
+  </script>
+  <div id="footerBanner">제주대학교 58대 DREAM 총학생회 선거운동본부</div>
+</body>
+</html>

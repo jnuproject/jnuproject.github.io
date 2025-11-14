@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>제휴사 폭탄게임</title>
+<style>
+:root{
+  --bg:#f7fbff;
+  --card:#ffffff;
+  --primary:#00a99c;
+  --accent:#00a99c;
+  --text:#222;
+  --muted:#666;
+  --bomb:#00a99c;
+}
+* { box-sizing: border-box; font-family: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; }
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto;
+}
+
+body {
+  background: linear-gradient(180deg,#e8f0ff 0%, var(--bg) 60%);
+  color: var(--text);
+  display: flex;
+  flex-direction: column; 
+  align-items: center;  
+  justify-content: flex-start;
+  padding: 10px;
+  background-attachment: fixed;
+}
+
+@media (min-width: 901px) {
+  body {
+    justify-content: center;
+    align-items: center;
+  }
+}
+.wrap{
+  width:100%; max-width:980px; background:var(--card); border-radius:14px; 
+  box-shadow:0 10px 30px rgba(30,30,60,0.08); padding:22px;
+  display:grid; grid-template-columns: 1fr 320px; gap:18px;
+}
+
+@media (max-width:900px){
+  .wrap{ grid-template-columns:1fr; padding:16px; }
+  .side{ order:2; }
+}
+
+.game{ display:flex; flex-direction:column; gap:14px; }
+.top-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
+h1{ font-size:clamp(18px,4vw,22px); margin:0; }
+.meta{ color:var(--muted); font-size:clamp(12px,2vw,14px); }
+
+.question{
+  background: linear-gradient(90deg, rgba(30,136,229,0.06), rgba(30,136,229,0.02));
+  border-radius:10px; padding:14px; font-weight:700; display:flex; align-items:center; gap:12px;
+  font-size:clamp(14px,3vw,16px);
+}
+
+.answer{
+  margin-top:6px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+
+.char-box{
+  min-width:38px; height:48px; border-radius:8px; background:#f3f6fb; display:flex; 
+  align-items:center; justify-content:center; font-size:18px; font-weight:800; color:var(--text);
+  border:2px solid transparent; user-select:none;
+
+  width: clamp(38px, 8vw, 48px);
+  height: clamp(38px, 8vw, 48px);
+  font-size: clamp(14px,4vw,18px);
+}
+.char-box.revealed{ background:#fff; border-color: #e3f2fd; color:#0d47a1; }
+
+.keyboard{ display:grid; grid-template-columns: repeat(5,1fr); gap:8px; margin-top:12px; }
+.key{
+  background:#fff; border-radius:8px; padding:12px; text-align:center; cursor:pointer; user-select:none;
+  border:1px solid #e6eefc; box-shadow:0 6px 12px rgba(30,136,229,0.04); font-weight:800;
+  font-size: clamp(12px,3vw,16px);
+  padding: clamp(8px,2vw,12px);
+}
+.key:active { transform: translateY(1px); }
+.key.disabled{ opacity:0.36; pointer-events:none; }
+
+.controls{ display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+button.btn{
+  background:var(--primary); color:white; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700;
+  font-size:clamp(12px,3vw,14px);
+}
+button.ghost{ background:transparent; border:1px solid #e6eefc; color:var(--primary); padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:700;
+  font-size:clamp(12px,3vw,14px);
+}
+
+.side{ display:flex; flex-direction:column; gap:14px; align-items:stretch; }
+
+.bombs{
+  background:#fff; border-radius:12px; padding:14px; min-height:160px; display:flex; flex-direction:column; gap:12px; 
+  justify-content:center; align-items:center; border:1px dashed #fcebea;
+}
+.bomb-row{ display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; }
+.bomb{
+  width: clamp(40px,8vw,48px); 
+  height: clamp(40px,8vw,48px); 
+  border-radius:50%; background:var(--bomb); position:relative; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 16px rgba(244,67,54,0.28);
+  transform:scale(0.9);
+}
+.bomb .fuse{
+  position:absolute; top:-12px; width: clamp(3px,0.5vw,4px); height: clamp(15px,2vw,18px); 
+  background:#333; border-radius:2px; left:50%; transform:translateX(-50%);
+}
+.bomb.exploding{ animation:boom 700ms ease forwards; }
+@keyframes boom{
+  0% { transform:scale(1); opacity:1; filter:blur(0); }
+  60% { transform:scale(1.8); opacity:0.9; filter:blur(0.6px); }
+  100% { transform:scale(2.5); opacity:0; filter:blur(4px); }
+}
+.lives-text{ font-size:clamp(12px,2.5vw,13px); color:var(--muted); text-align:center; }
+
+.score-card{
+  background: linear-gradient(180deg,#fff,#fbfdff); border-radius:12px; padding:14px; display:flex; flex-direction:column; gap:10px;
+  border:1px solid #e8f3ff;
+}
+.score-big{ font-size:clamp(22px,6vw,28px); font-weight:800; color:var(--primary); }
+.result-actions{ display:flex; gap:10px; justify-content:space-between; align-items:center; }
+
+/* 모달 */
+.modal {
+  position: fixed; inset:0; display:none;
+  align-items:center; justify-content:center;
+  background: rgba(10,10,30,0.55);
+  z-index:50; backdrop-filter: blur(4px);
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modal.show { display:flex; }
+
+.modal-card{
+  width:100%; max-width:720px; background:#fff; border-radius:10px;
+  padding:clamp(16px,4vw,24px);
+  text-align:center;
+  font-size:clamp(16px,2.5vw,18px);
+  line-height:1.6;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+  animation: modalPop 300ms ease-out;
+  max-height:85vh;
+  overflow-y:auto;
+}
+
+@keyframes modalPop { 0% { transform: scale(0.95); opacity:0; } 100% { transform:scale(1); opacity:1; } }
+.modal-card h2{ font-size:clamp(20px,5vw,22px); margin-bottom:12px; color:var(--primary); font-weight:800; }
+.modal-card p.meta{ font-size:clamp(14px,3vw,16px); color:var(--muted); margin-bottom:12px; }
+.aff-list{ display:grid; gap:12px; margin-top:12px; }
+.aff-item{ padding:12px 14px; border-radius:12px; background:linear-gradient(90deg,#f0f7ff,#ffffff); border:1px solid #dceeff; font-size:clamp(14px,3vw,15px); font-weight:500; text-align:left; }
+.modal-card .ghost{ padding:10px 14px; font-weight:700; border-radius:10px; border:1px solid var(--primary); color:var(--primary); background:transparent; cursor:pointer; transition:all 0.15s; }
+.modal-card .ghost:hover{ background:var(--primary); color:#fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="game">
+    <div class="top-row">
+      <h1>제휴사 퀴즈</h1>
+      <div class="meta" id="progressMeta">문제 1/7 • 틀릴 수 있는 횟수 5회</div>
+    </div>
+    <div class="question" id="questionBox">문제를 불러오는 중...</div>
+    <div class="answer" id="answerBox" aria-live="polite"></div>
+    <div class="keyboard" id="keyboard"></div>
+    <div class="controls">
+      <button class="btn" id="hintBtn">힌트 보기</button>
+      <button class="ghost" id="skipBtn">다음 문제</button>
+      <div style="flex:1"></div>
+      <button class="ghost" id="restartBtn">다시하기</button>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="bombs" aria-hidden="false">
+      <div style="text-align:center; font-weight:700; color:var(--accent)">폭탄 게이지</div>
+      <div class="bomb-row" id="bombRow">
+        <div class="bomb" id="bomb0" style="opacity:0.18;"><div class="fuse"></div></div>
+        <div class="bomb" id="bomb1" style="opacity:0.18;"><div class="fuse"></div></div>
+        <div class="bomb" id="bomb2" style="opacity:0.18;"><div class="fuse"></div></div>
+        <div class="bomb" id="bomb3" style="opacity:0.18;"><div class="fuse"></div></div>
+        <div class="bomb" id="bomb4" style="opacity:0.18;"><div class="fuse"></div></div>
+      </div>
+      <div class="lives-text" id="livesText">남은 오류 허용: 5</div>
+    </div>
+
+    <div class="score-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div class="meta">점수 합계</div>
+          <div class="score-big" id="scoreDisplay">0</div>
+        </div>
+        <div style="text-align:right">
+          <div class="meta">정답 수</div>
+          <div style="font-size:20px; font-weight:800;" id="correctCount">0 / 7</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:12px;">
+  <img src="로고.png" alt="로고" style="width:200px; border-radius:50%; max-width:80%; height:auto;">
+</div>
+  </div>
+</div>
+
+<!-- 모달 & 메시지 모달 -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <h2>대형 제휴 소개 및 혜택</h2>
+    <div class="aff-list" id="affList"></div>
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
+      <button class="ghost" id="closeModal">닫기</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="msgModal">
+  <div class="modal-card">
+    <h2 id="msgTitle"></h2>
+    <p class="meta" id="msgBody"></p>
+    <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+      <button class="ghost" id="msgClose">확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 전체 문제 */
+const QUESTIONS_ALL = [
+  { q:"스마트폰과 전자제품으로 유명한 제휴 브랜드는?", a:"삼성스토어" },
+  { q:"가전제품과 TV로 유명한 제휴 전자기업은?", a:"엘지" },
+  { q:"숙박·여행 예약 서비스로 잘 알려진 제휴 플랫폼은?", a:"여기어때" },
+  { q:"차량 공유 서비스를 제공하는 제휴사는?", a:"쏘카" },
+  { q:"국민 메신저로 유명한 제휴 기업은?", a:"카카오" },
+  { q:"영화 관람권 제휴 혜택을 제공하는 기업은?", a:"롯데시네마" },
+  { q:"디자인 템플릿을 제공하는 제휴사는?", a:"미리캔버스" },
+  { q:"강원도에 위치한 워터파크 제휴지는?", a:"오션월드" },
+  { q:"영어 학습 제휴 혜택을 제공하는 교육 브랜드는?", a:"시원스쿨" },
+  { q:"몰입형 미디어 아트 전시로 유명한 제휴 공간은?", a:"아르떼뮤지엄" },
+  { q:"대구의 대표 테마파크 제휴 장소는?", a:"이월드" }
+];
+
+const AFFILIATES = [
+  { name:"삼성스토어", benefit:"매달 다른 프로모션 진행" },
+  { name:"여기어때", benefit:"매달 다른 프로모션 진행" },
+  { name:"LG전자", benefit:"장학 대상 TV증정, Gram 신학기 할인 프로모션 진행" },
+  { name:"쏘카", benefit:"50%할인 및 추후 2026년 프로모션으로 이용 가능" },
+  { name:"카카오", benefit:"산학협력 및 교육 프로그램 확대 실현 및 인턴십 교육 연수 기획 제공 가능성 검토 완료" },
+  { name:"롯데시네마", benefit:"영화 1만 원 관람권 제공, 단체 관람 시 추가 할인, 전국직영점" },
+  { name:"미리캔버스", benefit:"미리캔버스 Pro 요금제 공동구매 진행" },
+  { name:"오션월드", benefit:"이용권 50%할인" },
+  { name:"시원스쿨", benefit:"수강권(언어 및 커리큘럼) 제주대학교 학생 전용 사이트 개설 후 혜택 제공" },
+  { name:"아르떼뮤지엄", benefit:"전시티켓 성인 정상가 18,000→12,000 패키지티켓 성인 정상가 20,000→14,000" },
+  { name:"이월드", benefit:"50% 할인" }
+];
+
+const QUESTIONS = QUESTIONS_ALL.sort(() => Math.random() - 0.5).slice(0, 7);
+
+let curIndex = 0, wrongCount = 0, maxWrong = 5, revealed = [], score = 0, correctAnswers = 0, usedKeys = new Set();
+const questionBox = document.getElementById('questionBox');
+const answerBox = document.getElementById('answerBox');
+const keyboardEl = document.getElementById('keyboard');
+const livesText = document.getElementById('livesText');
+const bombRow = document.getElementById('bombRow');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const correctCount = document.getElementById('correctCount');
+const hintBtn = document.getElementById('hintBtn');
+const skipBtn = document.getElementById('skipBtn');
+const restartBtn = document.getElementById('restartBtn');
+const modal = document.getElementById('modal');
+const affList = document.getElementById('affList');
+const closeModal = document.getElementById('closeModal');
+const progressMeta = document.getElementById('progressMeta');
+
+const msgModal = document.getElementById('msgModal');
+const msgTitle = document.getElementById('msgTitle');
+const msgBody = document.getElementById('msgBody');
+const msgClose = document.getElementById('msgClose');
+
+closeModal.addEventListener('click', ()=> modal.classList.remove('show'));
+msgClose.addEventListener('click', ()=> msgModal.classList.remove('show'));
+
+function showMessage(title, body, callback=null){
+  msgTitle.textContent = title;
+  msgBody.innerHTML = body;
+  msgModal.classList.add('show');
+  if(callback){
+    const handler = () => { 
+      msgModal.classList.remove('show');
+      msgClose.removeEventListener('click', handler);
+      callback();
+    };
+    msgClose.addEventListener('click', handler);
+  }
+}
+
+function getRandomKeyboard(answer){
+  const allChars = "가나다라마바사아자차카타파하거너더러머버서어저처커터퍼허구누두루무부수우주추쿠투푸후야유요으이".split("");
+  const keys = new Set(answer.split(""));
+
+  while(keys.size < 25){
+    const r = allChars[Math.floor(Math.random()*allChars.length)];
+    keys.add(r);
+  }
+
+  return Array.from(keys).sort(() => Math.random()-0.5);
+}
+
+let KEYBOARD_LIST = [];
+
+function renderKeyboard(){
+  keyboardEl.innerHTML = "";
+  KEYBOARD_LIST.forEach(k=>{
+    const btn = document.createElement('div');
+    btn.className = 'key';
+    btn.textContent = k;
+    btn.tabIndex = 0;
+    btn.addEventListener('click', ()=> handleKey(k, btn));
+    btn.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') handleKey(k, btn); });
+    keyboardEl.appendChild(btn);
+  });
+}
+
+function renderAnswer(){
+  const answer = QUESTIONS[curIndex].a;
+  answerBox.innerHTML = "";
+  revealed = [];
+  for(let i=0;i<answer.length;i++){
+    const box = document.createElement('div');
+    box.className = 'char-box';
+    box.textContent = "_";
+    revealed.push(false);
+    answerBox.appendChild(box);
+  }
+  KEYBOARD_LIST = getRandomKeyboard(answer);
+  renderKeyboard();
+  updateQuestionHeader();
+  usedKeys.clear();
+}
+
+function updateQuestionHeader(){
+  questionBox.textContent = QUESTIONS[curIndex].q;
+  progressMeta.textContent = `문제 ${curIndex+1}/${QUESTIONS.length} • 틀릴 수 있는 횟수 ${maxWrong}`;
+  correctCount.textContent = `${correctAnswers} / ${QUESTIONS.length}`;
+  livesText.textContent = `남은 오류 허용: ${Math.max(0, maxWrong - wrongCount)}`;
+}
+
+function handleKey(k, btn){
+  if(usedKeys.has(k)) return;
+  usedKeys.add(k);
+  btn.classList.add('disabled');
+
+  const answer = QUESTIONS[curIndex].a;
+  let matched = false;
+
+  for(let i=0;i<answer.length;i++){
+    if(answer[i] === k){
+      matched = true;
+      revealed[i] = true;
+      const boxes = answerBox.querySelectorAll('.char-box');
+      boxes[i].classList.add('revealed'); boxes[i].textContent = k;
+    }
+  }
+
+  if(matched){
+    if(revealed.every(v=>v)){
+      const gained = 10 + (maxWrong - wrongCount) * 2;
+      score += gained; scoreDisplay.textContent = score;
+      correctAnswers++; correctCount.textContent = `${correctAnswers} / ${QUESTIONS.length}`;
+      setTimeout(()=> showMessage("정답!", `${gained}점 획득`, ()=> nextQuestion()), 300);
+    }
+  } else {
+    wrongCount++;
+    updateBombs();
+    if(wrongCount >= maxWrong){
+      revealAll(true);
+      setTimeout(()=> showMessage("오답!", `정답 공개: "${answer}"`, ()=> nextQuestion()), 600);
+    }
+  }
+}
+
+function revealAll(revealAnswer=false){
+  const boxes = answerBox.querySelectorAll('.char-box');
+  const answer = QUESTIONS[curIndex].a;
+  for(let i=0;i<boxes.length;i++){
+    if(!revealed[i]){
+      if(revealAnswer) boxes[i].textContent = answer[i];
+      boxes[i].classList.add('revealed'); revealed[i] = true;
+    }
+  }
+}
+
+function updateBombs(){
+  livesText.textContent = `남은 오류 허용: ${Math.max(0, maxWrong - wrongCount)}`;
+  for(let i=0;i<maxWrong;i++){
+    const el = document.getElementById('bomb'+i);
+    if(i < wrongCount){
+      el.style.opacity = '1';
+      if(i === wrongCount - 1){ el.classList.add('exploding'); setTimeout(()=> el.classList.remove('exploding'), 800); }
+    } else { el.style.opacity = '0.18'; el.classList.remove('exploding'); }
+  }
+}
+
+function nextQuestion(){
+  wrongCount = 0; updateBombs();
+  curIndex++;
+  if(curIndex >= QUESTIONS.length){ finishGame(); return; }
+  renderAnswer();
+}
+
+function finishGame(){
+  document.querySelectorAll('.key').forEach(k=>k.classList.add('disabled'));
+  showMessage(
+    "게임 종료",
+    `최종 점수: ${score}점<br>정답 ${correctAnswers} / ${QUESTIONS.length}`,
+    openAffModal
+  );
+}
+
+function openAffModal(){
+  affList.innerHTML = "";
+  AFFILIATES.forEach(a=>{
+    const item = document.createElement('div');
+    item.className = 'aff-item';
+    item.innerHTML = `<strong>${a.name}</strong><br>${a.benefit}`;
+    affList.appendChild(item);
+  });
+  modal.classList.add('show');
+}
+
+/* 힌트 */
+hintBtn.addEventListener('click', ()=>{
+  const answer = QUESTIONS[curIndex].a;
+  const firstLetter = answer[0];
+  for(let i=0;i<answer.length;i++){
+    if(answer[i] === firstLetter && !revealed[i]){
+      revealed[i] = true;
+      const box = answerBox.querySelectorAll('.char-box')[i];
+      box.classList.add('revealed');
+      box.textContent = firstLetter;
+      usedKeys.add(firstLetter);
+      document.querySelectorAll('.key').forEach(k=>{ if(k.textContent === firstLetter) k.classList.add('disabled'); });
+      break;
+    }
+  }
+});
+
+skipBtn.addEventListener('click', ()=> nextQuestion());
+restartBtn.addEventListener('click', ()=> {
+  curIndex=0; score=0; correctAnswers=0; wrongCount=0;
+  scoreDisplay.textContent = score;
+  correctCount.textContent = `${correctAnswers} / ${QUESTIONS.length}`;
+  updateBombs();
+  renderAnswer();
+});
+
+/* 초기화 */
+renderAnswer();
+</script>
+</body>
+</html>
