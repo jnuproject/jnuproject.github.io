@@ -37,9 +37,9 @@ export default function TabsLayout() {
   const isHome = pathname === "/index" || pathname === "/";
   const isExplore = pathname === "/explore";
 
-  // 스크롤 방향 감지
+  // 스크롤 방향 감지 (웹 전용)
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (Platform.OS !== "web" || typeof window === "undefined") return;
 
     let ticking = false;
 
