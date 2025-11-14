@@ -1246,13 +1246,14 @@ body::after {
       if (this.currentLift) this.currentLift = null;
     }
 
+    const previousSpeedY = this.speed.y;
     this.speed.y += step * gravity;
     const motion = new Vector(0, this.speed.y * step);
     const newPos = this.pos.plus(motion);
     const obstacle = level.obstacleAt(newPos, this.size);
 
     if (obstacle) {
-      if (this.speed.y < 0) {
+      if (previousSpeedY < 0) {
         const headY = Math.floor(this.pos.y - 0.05);
         const startX = Math.floor(this.pos.x + 0.05);
         const endX = Math.floor(this.pos.x + this.size.x - 0.05);
@@ -1262,7 +1263,7 @@ body::after {
       }
       level.playerTouched(obstacle);
       // 아래로 떨어지는 중 (바닥 충돌)일 때만 onGround를 true로 설정
-      if (this.speed.y > 0) {
+      if (previousSpeedY > 0) {
         this.onGround = true;
       } else {
         // 위로 올라가는 중 (천장 충돌)일 때는 onGround를 false로
