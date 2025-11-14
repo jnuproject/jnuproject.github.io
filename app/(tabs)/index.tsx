@@ -356,6 +356,9 @@ const s = StyleSheet.create({
   heroLogo: {
     width: 220,
     height: 64,
+    ...(Platform.OS === 'web' && {
+      filter: 'brightness(0) invert(1)',
+    } as any),
   },
   heroCaption: {
     fontSize: 15,
