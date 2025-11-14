@@ -92,7 +92,7 @@ export default function HomeScreen() {
             resizeMode="contain"
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
-            tintColor={Platform.OS === "web" ? undefined : "#FFFFFF"}
+            tintColor="#FFFFFF"
           />
         </View>
       </View>
@@ -358,10 +358,6 @@ const s = StyleSheet.create({
     width: 220,
     height: 64,
     backgroundColor: 'transparent',
-    ...(Platform.OS === 'web' && {
-      // @ts-ignore
-      filter: 'brightness(0) invert(1)',
-    }),
   },
   heroCaption: {
     fontSize: 15,
