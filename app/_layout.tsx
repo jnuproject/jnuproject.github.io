@@ -26,6 +26,67 @@ export default function RootLayout() {
     }
   }, []);
 
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof navigator === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
+    const vendor = navigator.vendor || '';
+    const userAgent = navigator.userAgent || '';
+    const isAppleVendor = vendor.includes('Apple');
+    const hasTouch =
+      typeof navigator.maxTouchPoints === 'number'
+        ? navigator.maxTouchPoints > 0
+        : /Mobile|iP(hone|od|ad)/i.test(userAgent);
+    const isiOSFamily = /iP(hone|od|ad)/i.test(userAgent) || (isAppleVendor && hasTouch);
+    const isSafariEngine = /Safari/i.test(userAgent) && !/CriOS/i.test(userAgent) && !/FxiOS/i.test(userAgent);
+
+    if (!(isiOSFamily && isAppleVendor && isSafariEngine)) {
+      return;
+    }
+
+    const html = document.documentElement;
+    const body = document.body;
+    const root = document.getElementById('root');
+
+    const previous = {
+      htmlHeight: html.style.height,
+      htmlMinHeight: html.style.minHeight,
+      bodyOverflowY: body.style.overflowY,
+      bodyHeight: body.style.height,
+      bodyMinHeight: body.style.minHeight,
+      rootHeight: root?.style.height,
+      rootMinHeight: root?.style.minHeight,
+      webkitOverflowScrolling: body.style.getPropertyValue('-webkit-overflow-scrolling'),
+    };
+
+    html.style.height = 'auto';
+    html.style.minHeight = '100vh';
+    body.style.overflowY = 'auto';
+    body.style.height = 'auto';
+    body.style.minHeight = '100vh';
+    body.style.setProperty('-webkit-overflow-scrolling', 'touch');
+
+    if (root) {
+      root.style.height = 'auto';
+      root.style.minHeight = '100vh';
+    }
+
+    return () => {
+      html.style.height = previous.htmlHeight;
+      html.style.minHeight = previous.htmlMinHeight;
+      body.style.overflowY = previous.bodyOverflowY;
+      body.style.height = previous.bodyHeight;
+      body.style.minHeight = previous.bodyMinHeight;
+      body.style.setProperty('-webkit-overflow-scrolling', previous.webkitOverflowScrolling || '');
+
+      if (root) {
+        root.style.height = previous.rootHeight || '';
+        root.style.minHeight = previous.rootMinHeight || '';
+      }
+    };
+  }, []);
+
   return (
     <ThemeProvider>
       <Stack screenOptions={{ headerShown: false }}>
@@ -52,11 +113,13 @@ export default function RootLayout() {
 
 const styles = StyleSheet.create({
   splashContainer: {
-    position: 'absolute',
+    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
+    width: Platform.OS === 'web' ? '100vw' : '100%',
+    height: Platform.OS === 'web' ? '100vh' : '100%',
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
