@@ -121,7 +121,7 @@ export default function ExploreScreen() {
               contentContainerStyle={styles.regionScroll}
               style={{ flex: 1 }}
             >
-              {["전체", ...REGIONS].map((r) => (
+              {["전체", ...REGIONS.filter(r => r !== "온라인/전국")].map((r) => (
                 <TouchableOpacity
                   key={r}
                   style={[

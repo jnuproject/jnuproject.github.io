@@ -6,9 +6,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "수강권 90% 이상 할인",
-    "image": "require('../assets/list_images/1.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/1.png')"
   },
   {
     "id": "2",
@@ -17,9 +15,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "클래스 프로그램 50% 할인 및 무료 세미나 참여 기회 제공",
-    "image": "require('../assets/list_images/2.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/2.png')"
   },
   {
     "id": "3",
@@ -28,9 +24,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "제주대학교 전용 사이트 개설 후 수강권 혜택 제공",
-    "image": "require('../assets/list_images/3.jpeg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/3.jpeg')"
   },
   {
     "id": "4",
@@ -39,9 +33,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "이용권 20% 할인",
-    "image": "require('../assets/list_images/4.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/4.jpg')"
   },
   {
     "id": "5",
@@ -50,9 +42,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "1년간 미리캔버스 Pro 요금제 33% 할인 제공 (공동 구매 시)",
-    "image": "require('../assets/list_images/5.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/5.png')"
   },
   {
     "id": "6",
@@ -61,9 +51,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "수강료 최대 90% 할인",
-    "image": "require('../assets/list_images/6.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/6.png')"
   },
   {
     "id": "7",
@@ -72,9 +60,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "10명 이상 주문 시 책 10% 할인",
-    "image": "require('../assets/list_images/7.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/7.png')"
   },
   {
     "id": "8",
@@ -83,9 +69,7 @@
     "subcategory": "교육취업",
     "region": "온라인/전국",
     "description": "홈페이지 활성화 정책을 위한 홍보 제휴 및 잡플래닛 프리미엄 콘텐츠 무료 무제한 열람",
-    "image": "require('../assets/list_images/8.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/8.png')"
   },
   {
     "id": "9",
@@ -94,9 +78,7 @@
     "subcategory": "의료",
     "region": "온라인/전국",
     "description": "제휴 병원 최대 49% 할인 (가족 동일)",
-    "image": "require('../assets/list_images/9.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/9.png')"
   },
   {
     "id": "10",
@@ -105,9 +87,7 @@
     "subcategory": "의료",
     "region": "온라인/전국",
     "description": "스마일라식 및 각종 검사 최대 할인 제공",
-    "image": "require('../assets/list_images/10.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/10.jpg')"
   },
   {
     "id": "11",
@@ -116,9 +96,7 @@
     "subcategory": "의료",
     "region": "온라인/전국",
     "description": "종합건강검진 항목 20% 감면 및 비급여 항목 10% 감면 (MRI, 초음파, 병실차액)",
-    "image": "require('../assets/list_images/11.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/11.png')"
   },
   {
     "id": "12",
@@ -127,9 +105,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "전국직영점 동일 혜택 적용, 영화 1만 원 관람권 제공, 기본 콤보 1만 원 구매권 2개 제공",
-    "image": "require('../assets/list_images/12.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/12.png')"
   },
   {
     "id": "13",
@@ -138,9 +114,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "이용권 50% 할인",
-    "image": "",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": ""
   },
   {
     "id": "14",
@@ -149,9 +123,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "특강 및 'GEN.G UNIVERSITY X 제주대학교' 운영, 굿즈 제공 및 사옥 투어 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/13.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/13.png')"
   },
   {
     "id": "15",
@@ -160,9 +132,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "티켓 N장 제공 및 특강 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/14.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/14.png')"
   },
   {
     "id": "16",
@@ -171,9 +141,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "티켓 N장 제공 및 특강 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/15.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/15.png')"
   },
   {
     "id": "17",
@@ -182,9 +150,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "티켓 30% 할인",
-    "image": "require('../assets/list_images/16.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/16.png')"
   },
   {
     "id": "18",
@@ -193,9 +159,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "이용권 50% 할인",
-    "image": "require('../assets/list_images/17.jpeg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/17.jpeg')"
   },
   {
     "id": "19",
@@ -204,9 +168,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "해양 환경 플로깅 추진 예정 및 금액 할인 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/18.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/18.png')"
   },
   {
     "id": "20",
@@ -215,9 +177,7 @@
     "subcategory": "문화",
     "region": "온라인/전국",
     "description": "2026년도 시즌 맞이 할인 프로모션 혜택 제공",
-    "image": "require('../assets/list_images/19.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/19.png')"
   },
   {
     "id": "21",
@@ -226,9 +186,7 @@
     "subcategory": "가전",
     "region": "온라인/전국",
     "description": "APPLE 제품 및 iPhone 할인 티켓 선착순 제공, LG Gram 신학기 할인 프로모션 진행",
-    "image": "require('../assets/list_images/20.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/20.png')"
   },
   {
     "id": "22",
@@ -237,9 +195,7 @@
     "subcategory": "가전",
     "region": "온라인/전국",
     "description": "요금제 할인 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/21.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/21.png')"
   },
   {
     "id": "23",
@@ -248,9 +204,7 @@
     "subcategory": "가전",
     "region": "온라인/전국",
     "description": "2026년도 할인 및 신학기 프로모션 할인 혜택 진행",
-    "image": "require('../assets/list_images/22.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/22.png')"
   },
   {
     "id": "24",
@@ -259,9 +213,7 @@
     "subcategory": "가전",
     "region": "온라인/전국",
     "description": "기존 구매가 316,800원 -> 264,000원 (공동구매 / 2026년 프로모션 변경 가능)",
-    "image": "require('../assets/list_images/23.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/23.jpg')"
   },
   {
     "id": "25",
@@ -270,9 +222,7 @@
     "subcategory": "교통",
     "region": "온라인/전국",
     "description": "50% 할인 프로모션 (실현 가능성 검토 완료)",
-    "image": "require('../assets/list_images/24.jpeg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/24.jpeg')"
   },
   {
     "id": "26",
@@ -281,9 +231,7 @@
     "subcategory": "교통",
     "region": "온라인/전국",
     "description": "차량 임대 10% 할인",
-    "image": "",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": ""
   },
   {
     "id": "27",
@@ -292,9 +240,7 @@
     "subcategory": "교통",
     "region": "온라인/전국",
     "description": "수강권 10% 할인",
-    "image": "require('../assets/list_images/26.jpeg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/26.jpeg')"
   },
   {
     "id": "28",
@@ -303,9 +249,7 @@
     "subcategory": "숙박",
     "region": "온라인/전국",
     "description": "2026년 매달 새로운 할인 프로모션 진행",
-    "image": "require('../assets/list_images/27.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/27.jpg')"
   },
   {
     "id": "29",
@@ -314,9 +258,7 @@
     "subcategory": "숙박",
     "region": "온라인/전국",
     "description": "선정 업체 10곳 년세 3~10% 할인",
-    "image": "",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": ""
   },
   {
     "id": "30",
@@ -325,9 +267,7 @@
     "subcategory": "숙박",
     "region": "온라인/전국",
     "description": "단체 이용료 2026년도 기준 할인 혜택 제공",
-    "image": "",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": ""
   },
   {
     "id": "31",
@@ -336,9 +276,7 @@
     "subcategory": "숙박",
     "region": "온라인/전국",
     "description": "개인 및 단체 이용료 2026년도 기준 할인 혜택 제공",
-    "image": "require('../assets/list_images/30.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/30.jpg')"
   },
   {
     "id": "32",
@@ -347,9 +285,7 @@
     "subcategory": "편의",
     "region": "온라인/전국",
     "description": "이용료 10% 할인",
-    "image": "require('../assets/list_images/31.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/31.png')"
   },
   {
     "id": "33",
@@ -358,9 +294,7 @@
     "subcategory": "편의",
     "region": "온라인/전국",
     "description": "2026년도 기준 회원권 할인 혜택 제공",
-    "image": "require('../assets/list_images/32.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/32.jpg')"
   },
   {
     "id": "34",
@@ -369,9 +303,7 @@
     "subcategory": "소셜플랫폼",
     "region": "온라인/전국",
     "description": "산학협력 및 교육 프로그램 확대 실현, 인턴십 교육 연수 기획 제공, 기술 연계 (가능성/협의 검토 완료)",
-    "image": "require('../assets/list_images/33.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/33.png')"
   },
   {
     "id": "35",
@@ -380,9 +312,7 @@
     "subcategory": "소셜플랫폼",
     "region": "온라인/전국",
     "description": "네이버 커넥트와 연계하여 네이버 포인트 적립 확장, 학생증 카드 할인",
-    "image": "require('../assets/list_images/34.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/34.png')"
   },
   {
     "id": "36",
@@ -391,9 +321,7 @@
     "subcategory": "지역상생",
     "region": "온라인/전국",
     "description": "칠성로 이용 쿠폰 제공 및 특강, 칠성로 견학 기회 제공",
-    "image": "",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": ""
   },
   {
     "id": "37",
@@ -402,9 +330,7 @@
     "subcategory": "식음료",
     "region": "온라인/전국",
     "description": "학생 및 교직원 20% 할인(동반 포함), 단체 20명 이상 이용 시 25% 할인",
-    "image": "require('../assets/list_images/36.jpg')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/36.jpg')"
   },
   {
     "id": "38",
@@ -413,9 +339,7 @@
     "subcategory": "식음료",
     "region": "온라인/전국",
     "description": "음료 N% 할인 및 '제주대학교 X 유동커피' 실습 프로모션 진행",
-    "image": "require('../assets/list_images/37.png')",
-    "latitude": 33.4996,
-    "longitude": 126.5312
+    "image": "require('../assets/list_images/37.png')"
   },
   {
     "id": "39",

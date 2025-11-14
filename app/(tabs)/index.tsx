@@ -6,25 +6,17 @@ import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Dimensions, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SystemUI from "expo-system-ui";
 import * as NavigationBar from "expo-navigation-bar";
 
-let hasShownInitialNotice = false;
-
 export default function HomeScreen() {
   const router = useRouter();
-  const [showNotice, setShowNotice] = useState(false);
   const { data: affiliates } = useAllAffiliates();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    if (!hasShownInitialNotice) {
-      setShowNotice(true);
-      hasShownInitialNotice = true;
-    }
-
     // Android 네비게이션 바 숨김
     if (Platform.OS === 'android') {
       SystemUI.setBackgroundColorAsync('#E7F3F1');
@@ -207,20 +199,6 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <Modal visible={showNotice} transparent animationType="fade" onRequestClose={() => setShowNotice(false)}>
-        <Pressable style={s.noticeOverlay} onPress={() => setShowNotice(false)}>
-          <Pressable style={s.noticeCard} onPress={(e) => e.stopPropagation()}>
-            <Text style={s.noticeTitle}>안내</Text>
-            <Text style={s.noticeBody}>
-              앱이 심사 중이라 부득이하게 웹에서 먼저 만나보실 수 있도록 안내드리고 있습니다. 조금만 기다려 주세요!
-            </Text>
-            <TouchableOpacity style={s.noticeButton} onPress={() => setShowNotice(false)}>
-              <Text style={s.noticeButtonText}>확인</Text>
-            </TouchableOpacity>
-          </Pressable>
-        </Pressable>
-      </Modal>
     </SafeAreaView>
   );
 }
@@ -350,50 +328,6 @@ const s = StyleSheet.create({
     fontSize: 13,
     color: "#6B7280",
     marginTop: 4,
-  },
-  noticeOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.35)",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 24,
-  },
-  noticeCard: {
-    width: "100%",
-    maxWidth: 340,
-    backgroundColor: "#fff",
-    borderRadius: 18,
-    paddingVertical: 28,
-    paddingHorizontal: 24,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 10 },
-    shadowRadius: 16,
-    elevation: 8,
-  },
-  noticeTitle: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#111827",
-    marginBottom: 12,
-  },
-  noticeBody: {
-    fontSize: 15,
-    color: "#4B5563",
-    lineHeight: 22,
-    marginBottom: 24,
-  },
-  noticeButton: {
-    alignSelf: "flex-end",
-    backgroundColor: "#4EA49B",
-    paddingVertical: 10,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-  },
-  noticeButtonText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "600",
   },
   snsContainer: {
     alignItems: "center",
