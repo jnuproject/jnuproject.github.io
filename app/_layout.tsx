@@ -2,6 +2,7 @@ import { ThemeProvider } from '@/hooks/useThemeColor';
 import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Platform, StyleSheet, View, Image } from 'react-native';
+import Head from 'expo-router/head';
 
 export default function RootLayout() {
   const [showSplash, setShowSplash] = useState(Platform.OS === 'web');
@@ -28,6 +29,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider>
+      {Platform.OS === 'web' && (
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="mobile-web-app-capable" content="yes" />
+        </Head>
+      )}
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="category/[category]" />
