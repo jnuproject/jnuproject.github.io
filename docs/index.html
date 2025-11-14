@@ -7,14 +7,16 @@
     <title>Dream Connect</title>
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+      /* These styles make the body full-height */
+      html,
       body {
-        overflow: auto;
+        height: 100%;
       }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
       #root {
         display: flex;
         height: 100%;
@@ -30,6 +32,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/_expo/static/js/web/entry-31f759e00831b8c78546fadbf2222c89.js" defer></script>
+  <script src="/_expo/static/js/web/entry-309fe42effeaaa670028593551806781.js" defer></script>
 </body>
 </html>
