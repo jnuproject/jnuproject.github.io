@@ -27,8 +27,12 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={s.safe}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={s.scrollContent}>
+    <SafeAreaView style={s.safe} edges={['left', 'right']}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={s.scrollContent}
+        scrollEventThrottle={16}
+      >
         {/* 헤더 */}
         <View style={s.header}>
           <View style={s.heroCard}>
@@ -251,10 +255,11 @@ const s = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 20,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 0 : 28,
     paddingBottom: 60,
   },
   header: {
-    paddingTop: 28,
+    paddingTop: Platform.OS === "web" ? 28 : 0,
     paddingBottom: 18,
   },
   heroCard: {
