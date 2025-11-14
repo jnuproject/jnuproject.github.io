@@ -5963,15 +5963,25 @@
     "name": "9.81파크",
     "category": "기업제휴",
     "subcategory": "문화",
-    "sectionTitle": "도내문화"
-    "image": "https://placehold.co/200x200"
+    "sectionTitle": "도내문화",
+    "region": "",
+    "address": "",
+    "description": "",
+    "image": "",
+    "latitude": 0,
+    "longitude": 0
   },
   {
     "id": "550",
     "name": "하리보월드",
     "category": "기업제휴",
     "subcategory": "문화",
-    "sectionTitle": "도내문화"
-    "image": "https://placehold.co/200x200"
+    "sectionTitle": "도내문화",
+    "region": "",
+    "address": "",
+    "description": "",
+    "image": "",
+    "latitude": 0,
+    "longitude": 0
   }
 ]
