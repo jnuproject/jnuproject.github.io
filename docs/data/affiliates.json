@@ -5960,28 +5960,16 @@
   },
   {
     "id": "549",
-    "name": "981파크",
+    "name": "9.81파크",
     "category": "기업제휴",
     "subcategory": "문화",
-    "sectionTitle": "도내문화",
-    "region": "",
-    "address": "",
-    "description": "",
-    "image": "",
-    "latitude": 0,
-    "longitude": 0
+    "sectionTitle": "도내문화"
   },
   {
     "id": "550",
     "name": "하리보월드",
     "category": "기업제휴",
     "subcategory": "문화",
-    "sectionTitle": "도내문화",
-    "region": "",
-    "address": "",
-    "description": "",
-    "image": "",
-    "latitude": 0,
-    "longitude": 0
+    "sectionTitle": "도내문화"
   }
 ]
