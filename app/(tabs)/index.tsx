@@ -63,7 +63,7 @@ export default function HomeScreen() {
                 {category.title === "기업제휴" && <Ionicons name="briefcase-outline" size={38} color="#6366F1" />}
                 {category.title === "교육" && <Ionicons name="school-outline" size={38} color="#0EA5E9" />}
               </View>
-              <Text style={s.categoryText} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>{category.title}</Text>
+              <Text style={s.categoryText} numberOfLines={1}>{category.title}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -338,11 +338,12 @@ const s = StyleSheet.create({
   categoryText: {
     color: "#1F2937",
     fontWeight: "700",
-    fontSize: 14,
+    fontSize: 11.5,
     marginTop: 12,
-    letterSpacing: 0.2,
+    letterSpacing: 0.1,
     textAlign: "center",
     width: "100%",
+    lineHeight: 14,
   },
   recommendRow: {
     paddingHorizontal: 20,
