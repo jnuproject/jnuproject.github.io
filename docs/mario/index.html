@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>🍄 Super Mario Mobile</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+}
+
+body {
+  background: linear-gradient(180deg, #5c94fc 0%, #4a7fdc 50%, #7db8ff 100%);
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 10%;
+  left: 15%;
+  width: 120px;
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  animation: cloudFloat1 20s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 25%;
+  right: 20%;
+  width: 100px;
+  height: 50px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.75) 40%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  animation: cloudFloat2 25s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes cloudFloat1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -15px); }
+}
+
+@keyframes cloudFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-40px, 20px); }
+}
+
+@keyframes cloudFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 10px) scale(1.05); }
+}
+
+@keyframes cloudFloat4 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-30px, -10px); }
+}
+
+.game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.hud {
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  z-index: 1000;
+  flex-shrink: 0;
+}
+
+.hud-item {
+  display: flex;
+  gap: 15px;
+}
+
+.hud-value {
+  color: #ffcc00;
+  margin-left: 5px;
+}
+
+.game-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
+}
+
+.game {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.background {
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+.background td {
+  padding: 0;
+}
+
+.lava {
+  background: linear-gradient(180deg, #ff2200 0%, #ff5522 20%, #ff8833 40%, #ffaa44 50%, #ff8833 60%, #ff5522 80%, #dd1100 100%);
+  animation: lavaMove 0.8s ease-in-out infinite;
+  box-shadow: inset 0 -3px 10px rgba(0,0,0,0.6),
+              0 0 15px rgba(255, 68, 0, 0.8),
+              0 0 30px rgba(255, 68, 0, 0.4);
+  border: 2px solid #ff3300;
+  position: relative;
+}
+
+@keyframes lavaMove {
+  0%, 100% {
+    filter: brightness(1.2) saturate(1.5);
+    transform: translateY(0px);
+  }
+  50% {
+    filter: brightness(1.5) saturate(2);
+    transform: translateY(1px);
+  }
+}
+
+.wall {
+  background: linear-gradient(135deg, #d85800 0%, #d85800 10%, #ff8040 10%, #ff8040 40%, #d85800 40%, #d85800 50%, #c84c0c 50%, #c84c0c 90%, #983c00 90%, #983c00 100%);
+  border: solid 2px #983c00;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.wall::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid rgba(255, 128, 64, 0.6);
+  pointer-events: none;
+}
+
+.actor {
+  position: absolute;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  image-rendering: pixelated;
+}
+
+.coin {
+  background: url('assets/coin.png') no-repeat center center,
+              radial-gradient(circle at 30% 30%, #ffe066, #ffcc00 40%, #cc9900 70%, #996600);
+  background-size: contain;
+  border-radius: 50%;
+  animation: coinBob 1s ease-in-out infinite;
+}
+
+@keyframes coinBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(180deg); }
+}
+
+.player {
+  background: url('assets/idle.png') no-repeat center center / contain;
+  z-index: 100;
+}
+
+.player.jumping {
+  background: url('assets/jump.png') no-repeat center center / contain;
+}
+
+.player.running {
+  background: url('assets/run.png') no-repeat center center / contain;
+}
+
+.lost .player {
+  animation: playerDie 0.5s ease-out;
+  opacity: 0.5;
+  filter: brightness(0.5);
+}
+
+@keyframes playerDie {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+.won .player {
+  animation: playerWin 0.6s ease-in-out infinite;
+  filter: brightness(1.2);
+}
+
+@keyframes playerWin {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.1); }
+}
+
+.lava.actor {
+  background: linear-gradient(180deg, #ff8844 0%, #ff4400 50%, #cc2200 100%);
+  box-shadow: inset 0 -3px 8px rgba(0,0,0,0.5),
+              0 0 20px rgba(255, 68, 0, 0.9),
+              0 0 40px rgba(255, 68, 0, 0.5);
+  border: 2px solid #ff3300;
+  animation: lavaMove 0.8s ease-in-out infinite;
+}
+
+.goomba {
+  background: url('assets/enemy.png') no-repeat center center / contain;
+}
+
+.lift {
+  background: linear-gradient(180deg, #ffe29a 0%, #f7b733 60%, #cf7500 100%);
+  border: 2px solid #8b4a0f;
+  border-radius: 4px;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.sky {
+  background: radial-gradient(circle at 40% 30%, #ffffff 0%, #ffe066 45%, #ff9800 70%, rgba(255,106,0,0.9) 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(255, 170, 0, 0.9), inset 0 -4px 6px rgba(0,0,0,0.3);
+  opacity: 0.9;
+}
+
+.question {
+  background:
+    linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.8) 35%, transparent 35%),
+    linear-gradient(-45deg, transparent 30%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.8) 35%, transparent 35%),
+    linear-gradient(135deg, transparent 65%, rgba(200,150,0,0.4) 65%, rgba(200,150,0,0.4) 70%, transparent 70%),
+    linear-gradient(-135deg, transparent 65%, rgba(200,150,0,0.4) 65%, rgba(200,150,0,0.4) 70%, transparent 70%),
+    linear-gradient(180deg, #ffff00 0%, #ffee00 30%, #ffdd00 70%, #eebb00 100%);
+  border: 3px solid #e0a800;
+  border-radius: 4px;
+  box-shadow:
+    inset 3px 3px 5px rgba(255,255,255,0.9),
+    inset -3px -3px 5px rgba(200,150,0,0.4),
+    0 3px 8px rgba(0,0,0,0.4),
+    0 0 15px rgba(255,255,0,0.5);
+  position: relative;
+  animation: questionPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes questionPulse {
+  0%, 100% {
+    filter: brightness(1.1);
+    transform: scale(1);
+    box-shadow:
+      inset 3px 3px 5px rgba(255,255,255,0.9),
+      inset -3px -3px 5px rgba(200,150,0,0.4),
+      0 3px 8px rgba(0,0,0,0.4),
+      0 0 15px rgba(255,255,0,0.5);
+  }
+  50% {
+    filter: brightness(1.3);
+    transform: scale(1.05);
+    box-shadow:
+      inset 3px 3px 5px rgba(255,255,255,0.9),
+      inset -3px -3px 5px rgba(200,150,0,0.4),
+      0 3px 8px rgba(0,0,0,0.4),
+      0 0 25px rgba(255,255,0,0.8);
+  }
+}
+
+.question.used {
+  background: linear-gradient(180deg, #777 0%, #555 50%, #333 100%);
+  border-color: #222;
+  animation: none;
+  box-shadow:
+    inset 1px 1px 2px rgba(255,255,255,0.2),
+    inset -1px -1px 2px rgba(0,0,0,0.5);
+}
+
+.shield {
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, #8ef1ff 45%, #1ec8ff 80%);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(30, 200, 255, 0.9);
+}
+
+.controls {
+  background: rgba(0,0,0,0.5);
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 1000;
+}
+
+.control-btn {
+  border: none;
+  border-radius: 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  touch-action: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.control-btn.direction {
+  width: 70px;
+  height: 70px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 24px;
+}
+
+.control-btn.jump {
+  flex: 1;
+  height: 70px;
+  background: linear-gradient(135deg, #ffcc00, #ff8800);
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  border-radius: 999px;
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.message-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.message-box {
+  background: rgba(0,0,0,0.9);
+  padding: 30px;
+  border-radius: 16px;
+  border: 3px solid #ffcc00;
+  text-align: center;
+  max-width: 80%;
+}
+
+.message-box h2 {
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.message-box p {
+  color: #ffcc00;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.restart-btn {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: #4caf50;
+  color: #fff;
+  border: 3px solid #2e7d32;
+  border-radius: 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dev-console {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: min(360px, 90vw);
+  background: rgba(5, 5, 5, 0.92);
+  border: 2px solid #ffcc00;
+  border-radius: 8px;
+  color: #ffcc00;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.dev-console.hidden {
+  display: none;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: rgba(255, 204, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 204, 0, 0.3);
+}
+
+.console-header button {
+  background: none;
+  border: none;
+  color: #ffcc00;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#console-output {
+  padding: 10px;
+  max-height: 180px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+</style>
+</head>
+<body>
+
+<div class="game-container">
+  <div class="hud">
+    <div class="hud-item">
+      <span>LV <span class="hud-value" id="level">1</span></span>
+      <span>DIST <span class="hud-value" id="distance">0m</span></span>
+    </div>
+    <div class="hud-item">
+      <span>COIN <span class="hud-value" id="coins">0</span></span>
+      <span>LIFE <span class="hud-value" id="lives">3</span></span>
+      <span>ITEM <span class="hud-value" id="item-status">OFF</span></span>
+    </div>
+  </div>
+
+  <div class="game-wrapper">
+    <div id="game-canvas" class="game"></div>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn direction" id="btn-left">←</button>
+    <button class="control-btn jump" id="btn-jump">JUMP</button>
+    <button class="control-btn direction" id="btn-right">→</button>
+  </div>
+</div>
+
+<div class="message-overlay" id="message-overlay">
+  <div class="message-box">
+    <h2 id="message-title">Ready!</h2>
+    <p id="message-text">Touch controls to play!</p>
+    <button class="restart-btn" id="restart-btn" style="display:none;" onclick="location.reload()">RESTART</button>
+  </div>
+</div>
+
+<div class="dev-console hidden" id="dev-console">
+  <div class="console-header">
+    <span>Dev Console</span>
+    <button id="console-close" aria-label="Close console">×</button>
+  </div>
+  <pre id="console-output">[Console ready] Press ` to toggle in-game console. F12 for browser console.</pre>
+</div>
+
+<script>
+(() => {
+  // ----- DEV CONSOLE -----
+  const devConsole = document.getElementById('dev-console');
+  const consoleOutput = document.getElementById('console-output');
+  const consoleCloseButton = document.getElementById('console-close');
+
+  function toggleConsole(force) {
+    if (!devConsole) return;
+    const shouldShow = typeof force === 'boolean'
+      ? force
+      : devConsole.classList.contains('hidden');
+    devConsole.classList.toggle('hidden', !shouldShow);
+    if (shouldShow && consoleOutput)
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+  }
+
+  function logToConsole(message) {
+    if (!consoleOutput) return;
+    const timestamp = new Date().toLocaleTimeString();
+    consoleOutput.textContent += `\n[${timestamp}] ${message}`;
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+  }
+
+  if (consoleCloseButton) {
+    consoleCloseButton.addEventListener('click', () => toggleConsole(false));
+  }
+
+  window.addEventListener('keydown', (e) => {
+    // F12 opens browser dev console (no longer blocked)
+    // Use backtick (`) or F1 key for in-game dev console
+    if (e.key === '`' || e.key === 'F1' || e.key === '~') {
+      e.preventDefault();
+      toggleConsole();
+    }
+  });
+
+  logToConsole('Game booted');
+
+  // ----- LEVELS -----
+  const LEVELS = [
+    [
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                 o                       f                                      ",
+      "                                                                                ",
+      "                xxxx                                                            ",
+      "                                                                                ",
+      "                                                                                ",
+      "              o                                                                 ",
+      "            xxxx                           xxxx                                 ",
+      "            ?                                                                   ",
+      "                       xxxx                                                     ",
+      "                                                                                ",
+      "   o                 o        ? f           ?   o            o                  ",
+      "  @      g        u  g                        g                                 ",
+      "xxxxxxxxxxxxx!!!xxxxxxxxxxxx!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "                                                                                "
+    ],
+    [
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                  x      f        x               x    f          x             ",
+      "                  x               x               x               x             ",
+      "                  x               x               x               x             ",
+      "                  x               x               x               x             ",
+      "                  x               x               x               x             ",
+      "                  x               x               x               x             ",
+      "        o         x     o         x         o     x         o     x             ",
+      "                  x               x               x               x             ",
+      "            xxxxxxxx            xxxxxxxx            xxxxxxxxxxxx                ",
+      "                                                                                ",
+      "        u ?      o                   o                   o       u       o      ",
+      "                                                                                ",
+      "     xxxxxxxxx      xxxxxx?xxx          xxxxxxxxxxxxxxx     u    xxxxxxxxxxxxx  ",
+      "                  f                       !                   !                 ",
+      "       o                 o               o!                o  !        o        ",
+      "                 u                        !            u      !                 ",
+      "  @     g              g      u       g   ?               g   !       g         ",
+      "xxxxxxxxxxx!!xxxxxxxxxxxxxxx!!!!!xxxxxxxxxxxxx!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "                                                                                "
+    ],
+    [
+      "                                                                                ",
+      "                                                                                ",
+      "                              f                 f                               ",
+      "                                                                                ",
+      "                                o   o   o   o   o                               ",
+      "                            ? xxxxxxxxxxxxxxxxxxxx          f                   ",
+      "                                                                                ",
+      "            o                                             u                     ",
+      "                              xxxxxxxxxxxxxxxxxxxx  g                           ",
+      "                                                                    o           ",
+      "            o                                 u                                 ",
+      "        xx?xxxxx        xxxxxxxx        xxxxgxxx        xxxxxxxx                ",
+      "                                                    o               o           ",
+      "            o                     u                                             ",
+      "  xxxxxxxx      xxxxxxxx      xxgxxxxx      xxxxxxxx      xxxxxxxx              ",
+      "                                                            o                   ",
+      "            o         u                                                         ",
+      "      xxxxxxxx      xxxxgxxx      xxxxxxxx?       xxxxxxxx      xxxxxxxx        ",
+      "                                                                                ",
+      "  @   g   u                                                                     ",
+      "xxxxxxxx!!!!xxxxxxxx!!!!  xxxxxxxx!!    xxxxxxxx!!    xxxxxxxx!!!!!!xxgxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "                                                                                "
+    ],
+    [
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                  f                           f                                 ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "                                                                                ",
+      "     o         ?         o         o         o         o         o         o    ",
+      "xxxxxxxxxxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "             xxx                                                                ",
+      "          xxx                     xxx                     xxx                   ",
+      "       xxx                     xxx                     xxx                      ",
+      "    xxx                     xxx                     xxx                         ",
+      "xxxxxxxgxxxxxxxxxx  ?   xxxxxxxxxxxx      xxgxxxxxxxxx      xxxxxxxxxxxgxxxxxxxx",
+      "                                                                                ",
+      "            o     o             o     o           o     o           o     o     ",
+      "      xxxxxxxxxx        xxxxxxxxxx        xxxxxx?xxx        xxxxxxxxxxxx        ",
+      "                                                                                ",
+      "  @ g      u    g  u             g u             g u             g u            ",
+      "xxxxxxxx!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!!!!!xxxxxxxx!!!!xxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "                                                                                "
+    ]
+  ];
+  // ----- VECTOR -----
+  function Vector(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  Vector.prototype.plus = function(other) {
+    return new Vector(this.x + other.x, this.y + other.y);
+  };
+  Vector.prototype.times = function(scale) {
+    return new Vector(this.x * scale, this.y * scale);
+  };
+
+  // ----- ACTORS -----
+  const actorchars = {
+    "@": Player,
+    "o": Coin,
+    "=": Lava,
+    "|": Lava,
+    "v": Lava,
+    "g": Goomba,
+    "u": Lift,
+    "f": SkyOrb,
+    "?": QuestionBlock
+  };
+
+  function Player(pos) {
+    this.pos = pos.plus(new Vector(0, -0.5));
+    this.size = new Vector(1, 1.5);
+    this.speed = new Vector(0, 0);
+    this.facing = 1;
+    this.onGround = false;
+    this.currentLift = null;
+    this.hasShield = false;
+  }
+  Player.prototype.type = "player";
+
+  function Lava(pos, ch) {
+    this.pos = pos;
+    this.size = new Vector(1, 1);
+    if (ch === "=")
+      this.speed = new Vector(3, 0);
+    else if (ch === '|')
+      this.speed = new Vector(0, 3);
+    else if (ch === 'v') {
+      this.speed = new Vector(0, 4);
+      this.repeatPos = pos;
+    }
+  }
+  Lava.prototype.type = "lava";
+
+  function Coin(pos) {
+    this.basePos = this.pos = pos;
+    this.size = new Vector(.6, .6);
+    this.wobble = Math.random() * Math.PI * 2;
+  }
+  Coin.prototype.type = "coin";
+
+  function Goomba(pos) {
+    this.size = new Vector(0.9, 0.9);
+    const startX = Math.max(0.2, pos.x + 0.05);
+    this.pos = new Vector(startX, pos.y + 0.05);
+    const direction = this.pos.x < 2 ? 1 : (Math.random() > 0.5 ? 1 : -1);
+    this.speed = new Vector(direction * 2.5, 0);
+  }
+  Goomba.prototype.type = "goomba";
+
+  function Lift(pos) {
+    this.basePos = pos.plus(new Vector(0, 0.8));
+    this.pos = this.basePos;
+    this.size = new Vector(1, 0.22);
+    this.speed = 2.2;
+    this.direction = -1;
+    this.travel = 4;
+    this.minY = Math.max(0.5, this.basePos.y - this.travel);
+    this.maxY = this.basePos.y + 0.2;
+    this.lastDeltaY = 0;
+  }
+  Lift.prototype.type = "lift";
+
+  function QuestionBlock(pos) {
+    this.pos = pos;
+    this.size = new Vector(1, 1);
+    this.used = false;
+  }
+  QuestionBlock.prototype.type = "question";
+  QuestionBlock.prototype.solidType = "wall";
+  QuestionBlock.prototype.act = function(step, level) {
+    // Question blocks are static, no animation needed
+  };
+  QuestionBlock.prototype.activate = function(level) {
+    if (this.used) return;
+    this.used = true;
+    level.spawnShieldItem(this);
+  };
+
+  function ShieldItem(pos) {
+    this.basePos = pos.plus(new Vector(0.1, -0.2));
+    this.pos = this.basePos;
+    this.size = new Vector(0.8, 0.8);
+    this.wobble = Math.random() * Math.PI * 2;
+    this.floatSpeed = 3;
+  }
+  ShieldItem.prototype.type = "shield";
+
+  function SkyOrb(pos) {
+    const clampedY = Math.max(1, Math.min(pos.y, 20));
+    this.basePos = new Vector(pos.x + 0.5, clampedY);
+    this.pos = this.basePos;
+    this.size = new Vector(1.1, 1.1);
+    this.wobble = Math.random() * Math.PI * 2;
+    this.wobbleSpeed = 1.5 + Math.random();
+    this.range = 2 + Math.random() * 1.5;
+  }
+  SkyOrb.prototype.type = "sky";
+
+  // ----- LEVEL -----
+  Level.prototype.isFinished = function() {
+    return this.status != null && this.finishDelay < 0;
+  };
+
+  function Level(plan) {
+    this.width = plan[0].length;
+    this.height = plan.length;
+    this.grid = [];
+    this.actors = [];
+
+    for (let y = 0; y < this.height; y++) {
+      const line = plan[y], gridLine = [];
+      for (let x = 0; x < this.width; x++) {
+        const ch = line[x];
+        let fieldType = null;
+        const Actor = actorchars[ch];
+        if (Actor) {
+          const actorInstance = new Actor(new Vector(x, y), ch);
+          this.actors.push(actorInstance);
+          if (actorInstance.solidType)
+            fieldType = actorInstance.solidType;
+        } else if (ch === "x")
+          fieldType = "wall";
+        else if (ch === "!")
+          fieldType = "lava";
+        gridLine.push(fieldType);
+      }
+      this.grid.push(gridLine);
+    }
+
+    this.player = this.actors.filter(a => a.type === "player")[0];
+    const playerIndex = this.actors.indexOf(this.player);
+    if (playerIndex > -1) {
+      this.actors.splice(playerIndex, 1);
+      this.actors.push(this.player);
+    }
+    this.status = this.finishDelay = null;
+  }
+
+  Level.prototype.spawnShieldItem = function(block) {
+    const itemPos = block.pos.plus(new Vector(0.1, -0.8));
+    this.actors.push(new ShieldItem(itemPos));
+    logToConsole('Item released!');
+  };
+
+  Level.prototype.bumpQuestionBlock = function(tileX, tileY) {
+    for (let i = 0; i < this.actors.length; i++) {
+      const actor = this.actors[i];
+      if (
+        actor.type === "question" &&
+        Math.floor(actor.pos.x) === tileX &&
+        Math.floor(actor.pos.y) === tileY
+      ) {
+        actor.activate(this);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  Level.prototype.consumeShield = function() {
+    if (!this.player || !this.player.hasShield) return false;
+    this.player.hasShield = false;
+    gameState.shield = false;
+    updateHUD();
+    logToConsole('Shield absorbed the hit!');
+    return true;
+  };
+
+  // ----- DOM -----
+  function element(name, className) {
+    const elem = document.createElement(name);
+    if (className) elem.className = className;
+    return elem;
+  }
+
+  function DOMDisplay(parent, level) {
+    this.wrap = parent.appendChild(element("div", "game"));
+    this.level = level;
+    this.wrap.appendChild(this.drawBackground());
+    this.actorLayer = null;
+    this.drawFrame();
+  }
+
+  const scale = 25;
+
+  DOMDisplay.prototype.drawBackground = function() {
+    const table = element("table", "background");
+    table.style.width = this.level.width * scale + "px";
+    table.style.height = this.level.height * scale + "px";
+    this.level.grid.forEach(row => {
+      const rowElement = table.appendChild(element("tr"));
+      rowElement.style.height = scale + "px";
+      row.forEach(type => {
+        rowElement.appendChild(element("td", type));
+      });
+    });
+    return table;
+  };
+
+  DOMDisplay.prototype.drawActors = function() {
+    const wrap = element("div");
+    this.level.actors.forEach(actor => {
+      const rect = wrap.appendChild(element("div", "actor " + actor.type));
+      rect.style.width = actor.size.x * scale + "px";
+      rect.style.height = actor.size.y * scale + "px";
+      rect.style.left = actor.pos.x * scale + "px";
+      rect.style.top = actor.pos.y * scale + "px";
+
+      if (actor.type === "player") {
+        const isMoving = Math.abs(actor.speed.x) > 0.5;
+        const isJumping = !actor.onGround;
+
+        if (isJumping) {
+          rect.className += " jumping";
+        } else if (isMoving) {
+          rect.className += " running";
+        }
+
+        if (actor.facing < 0) {
+          rect.style.transform = "scaleX(-1)";
+        }
+      }
+
+      if (actor.type === "goomba") {
+        if (actor.speed.x < 0) {
+          rect.style.transform = "scaleX(-1)";
+        }
+      }
+
+      if (actor.type === "question" && actor.used) {
+        rect.className += " used";
+      }
+
+      if (actor.type === "lava" && actor.speed.x !== 0) {
+        if (actor.speed.x < 0) {
+          rect.style.transform = "scaleX(-1)";
+        }
+      }
+    });
+    return wrap;
+  };
+
+  DOMDisplay.prototype.drawFrame = function() {
+    if (this.actorLayer)
+      this.wrap.removeChild(this.actorLayer);
+    this.actorLayer = this.wrap.appendChild(this.drawActors());
+    this.wrap.className = "game " + (this.level.status || "");
+    this.scrollPlayerIntoView();
+  };
+
+  DOMDisplay.prototype.scrollPlayerIntoView = function() {
+    const width = this.wrap.clientWidth;
+    const height = this.wrap.clientHeight;
+    const margin = width / 3;
+
+    const left = this.wrap.scrollLeft, right = left + width;
+    const top = this.wrap.scrollTop, bottom = top + height;
+
+    const player = this.level.player;
+    const center = player.pos.plus(player.size.times(0.5)).times(scale);
+
+    if (center.x < left + margin)
+      this.wrap.scrollLeft = center.x - margin;
+    else if (center.x > right - margin)
+      this.wrap.scrollLeft = center.x + margin - width;
+
+    if (center.y < top + margin)
+      this.wrap.scrollTop = center.y - margin;
+    else if (center.y > bottom - margin)
+      this.wrap.scrollTop = center.y + margin - height;
+  };
+
+  DOMDisplay.prototype.clear = function() {
+    this.wrap.parentNode.removeChild(this.wrap);
+  };
+
+  // ----- COLLISIONS -----
+  Level.prototype.obstacleAt = function(pos, size) {
+    const epsilon = 0.001;
+    const xStart = Math.floor(pos.x + epsilon);
+    let xEnd = Math.floor(pos.x + size.x - epsilon);
+    const yStart = Math.floor(pos.y + epsilon);
+    let yEnd = Math.floor(pos.y + size.y - epsilon);
+
+    if (xEnd < xStart) xEnd = xStart;
+    if (yEnd < yStart) yEnd = yStart;
+
+    if (xStart < 0 || xEnd >= this.width || yStart < 0)
+      return "wall";
+    if (yEnd >= this.height)
+      return "lava";
+
+    for (let y = yStart; y <= yEnd; y++) {
+      for (let x = xStart; x <= xEnd; x++) {
+        const fieldType = this.grid[y][x];
+        if (fieldType) return fieldType;
+      }
+    }
+  };
+
+  Level.prototype.touches = function(pos, size, type) {
+    const epsilon = 0.001;
+    const xStart = Math.floor(pos.x + epsilon);
+    let xEnd = Math.floor(pos.x + size.x - epsilon);
+    const yStart = Math.floor(pos.y + epsilon);
+    let yEnd = Math.floor(pos.y + size.y - epsilon);
+
+    if (xEnd < xStart) xEnd = xStart;
+    if (yEnd < yStart) yEnd = yStart;
+
+    for (let y = yStart; y <= yEnd; y++) {
+      for (let x = xStart; x <= xEnd; x++) {
+        const outside = x < 0 || x >= this.width || y < 0 || y >= this.height;
+        const fieldType = outside ? "wall" : this.grid[y][x];
+        if (fieldType === type) return true;
+      }
+    }
+    return false;
+  };
+
+  Level.prototype.actorAt = function(actor) {
+    const pad = 0.02;
+    for (let i = 0; i < this.actors.length; i++) {
+      const other = this.actors[i];
+      if (
+        other !== actor &&
+        actor.pos.x + actor.size.x - pad > other.pos.x &&
+        actor.pos.x + pad < other.pos.x + other.size.x &&
+        actor.pos.y + actor.size.y - pad > other.pos.y &&
+        actor.pos.y + pad < other.pos.y + other.size.y
+      )
+        return other;
+    }
+  };
+
+  // ----- GAME LOGIC -----
+  const maxStep = 0.05;
+
+  Level.prototype.animate = function(step, keys) {
+    if (this.status != null)
+      this.finishDelay -= step;
+
+    while (step > 0) {
+      const thisStep = Math.min(step, maxStep);
+      this.actors.forEach(actor => {
+        actor.act(thisStep, this, keys);
+      });
+      step -= thisStep;
+    }
+  };
+
+  // ----- ACTOR ACTIONS -----
+  Lava.prototype.act = function(step, level) {
+    const newPos = this.pos.plus(this.speed.times(step));
+    if (!level.obstacleAt(newPos, this.size))
+      this.pos = newPos;
+    else if (this.repeatPos)
+      this.pos = this.repeatPos;
+    else
+      this.speed = this.speed.times(-1);
+  };
+
+  Goomba.prototype.act = function(step, level) {
+    const motion = this.speed.times(step);
+    const newPos = this.pos.plus(motion);
+    const obstacle = level.obstacleAt(newPos, this.size);
+    const floorRegionPos = new Vector(newPos.x, newPos.y + this.size.y);
+    const onSolidGround = level.touches(floorRegionPos, new Vector(this.size.x, 0.1), "wall");
+    const lavaAhead =
+      level.touches(newPos, this.size, "lava") ||
+      level.touches(floorRegionPos, new Vector(this.size.x, 0.1), "lava");
+
+    if (obstacle === "lava" || lavaAhead || !onSolidGround) {
+      this.speed = this.speed.times(-1);
+      return;
+    }
+
+    if (!obstacle) {
+      this.pos = newPos;
+    } else {
+      this.speed = this.speed.times(-1);
+    }
+  };
+
+  Lift.prototype.act = function(step, level) {
+    const prevY = this.pos.y;
+    let newY = this.pos.y + this.direction * this.speed * step;
+    if (newY < this.minY) {
+      newY = this.minY;
+      this.direction = 1;
+    } else if (newY > this.maxY) {
+      newY = this.maxY;
+      this.direction = -1;
+    }
+    this.pos = new Vector(this.pos.x, newY);
+    this.lastDeltaY = newY - prevY;
+
+    if (
+      level.player &&
+      level.player.currentLift === this &&
+      Math.abs(this.lastDeltaY) > 0 &&
+      this.isPlayerOnTop(level.player)
+    ) {
+      level.player.pos = level.player.pos.plus(new Vector(0, this.lastDeltaY));
+    }
+  };
+
+  Lift.prototype.isPlayerOnTop = function(player) {
+    const epsilon = 0.05;
+    const playerBottom = player.pos.y + player.size.y;
+    const liftTop = this.pos.y;
+    const overlapsX =
+      player.pos.x + player.size.x > this.pos.x &&
+      player.pos.x < this.pos.x + this.size.x;
+    return (
+      overlapsX &&
+      playerBottom >= liftTop - epsilon &&
+      playerBottom <= liftTop + this.size.y + epsilon
+    );
+  };
+
+  ShieldItem.prototype.act = function(step) {
+    this.wobble += step * this.floatSpeed;
+    const offsetY = Math.sin(this.wobble) * 0.2;
+    this.pos = this.basePos.plus(new Vector(0, offsetY));
+  };
+
+  SkyOrb.prototype.act = function(step) {
+    this.wobble += step * this.wobbleSpeed;
+    const offsetX = Math.cos(this.wobble) * this.range;
+    const offsetY = Math.sin(this.wobble * 1.5) * 0.15;
+    let newX = this.basePos.x + offsetX;
+    if (newX < 0.5) newX = 0.5;
+    if (newX > 78.5) newX = 78.5;
+    this.pos = new Vector(newX, this.basePos.y + offsetY);
+  };
+  const wobbleSpeed = 10, wobbleDist = 0.1;
+  Coin.prototype.act = function(step) {
+    this.wobble += step * wobbleSpeed;
+    const wobblePos = Math.sin(this.wobble) * wobbleDist;
+    this.pos = this.basePos.plus(new Vector(0, wobblePos));
+  };
+
+  const playerXSpeed = 14;
+  Player.prototype.moveX = function(step, level, keys) {
+    this.speed.x = 0;
+    // 공중에 있을 때는 수평 이동 속도를 55%로 감소
+    const currentSpeed = this.onGround ? playerXSpeed : playerXSpeed * 0.55;
+    if (keys.left) {
+      this.speed.x -= currentSpeed;
+      this.facing = -1;
+    }
+    if (keys.right) {
+      this.speed.x += currentSpeed;
+      this.facing = 1;
+    }
+
+    const motion = new Vector(this.speed.x * step, 0);
+    const newPos = this.pos.plus(motion);
+    const obstacle = level.obstacleAt(newPos, this.size);
+
+    if (obstacle) {
+      level.playerTouched(obstacle);
+    } else {
+      this.pos = newPos;
+      if (level.touches(this.pos, this.size, "lava")) {
+        level.playerTouched("lava");
+      }
+    }
+  };
+
+  const gravity = 40;
+  const jumpSpeed = 19;
+
+  Player.prototype.moveY = function(step, level, keys) {
+    // 바닥이나 리프트 위에 있을 때 점프 가능
+    if (keys.up && this.onGround) {
+      this.speed.y = -jumpSpeed;
+      this.onGround = false;
+      if (this.currentLift) this.currentLift = null;
+    }
+
+    this.speed.y += step * gravity;
+    const motion = new Vector(0, this.speed.y * step);
+    const newPos = this.pos.plus(motion);
+    const obstacle = level.obstacleAt(newPos, this.size);
+
+    if (obstacle) {
+      if (this.speed.y < 0) {
+        const headY = Math.floor(this.pos.y - 0.05);
+        const startX = Math.floor(this.pos.x + 0.05);
+        const endX = Math.floor(this.pos.x + this.size.x - 0.05);
+        for (let tileX = startX; tileX <= endX; tileX++) {
+          level.bumpQuestionBlock(tileX, headY);
+        }
+      }
+      level.playerTouched(obstacle);
+      // 아래로 떨어지는 중 (바닥 충돌)일 때만 onGround를 true로 설정
+      if (this.speed.y > 0) {
+        this.onGround = true;
+      } else {
+        // 위로 올라가는 중 (천장 충돌)일 때는 onGround를 false로
+        this.onGround = false;
+      }
+      this.speed.y = 0;
+      this.currentLift = null;
+    } else {
+      this.pos = newPos;
+      // 리프트 위에 있지 않을 때만 onGround를 false로 설정
+      if (!this.currentLift) {
+        this.onGround = false;
+      }
+      if (level.touches(this.pos, this.size, "lava")) {
+        level.playerTouched("lava");
+      }
+    }
+  };
+
+  Player.prototype.act = function(step, level, keys) {
+    this.moveX(step, level, keys);
+    this.handleLiftContact(level);  // 리프트 접촉 먼저 체크 (onGround 설정)
+    this.moveY(step, level, keys);  // 그 다음 점프 체크
+
+    const otherActor = level.actorAt(this);
+    if (otherActor)
+      level.playerTouched(otherActor.type, otherActor);
+
+    if (level.status == "lost") {
+      this.pos.y += step;
+      this.size.y -= step;
+    }
+  };
+
+  Player.prototype.handleLiftContact = function(level) {
+    for (let i = 0; i < level.actors.length; i++) {
+      const actor = level.actors[i];
+      if (actor.type !== "lift") continue;
+
+      if (actor.isPlayerOnTop(this) && this.speed.y >= 0) {
+        this.pos.y = actor.pos.y - this.size.y;
+        this.onGround = true;
+        this.currentLift = actor;
+        this.speed.y = Math.min(0, this.speed.y);
+        return;
+      }
+    }
+    if (this.currentLift) this.currentLift = null;
+  };
+
+  // ----- PLAYER TOUCH -----
+  Level.prototype.playerTouched = function(type, actor) {
+    // Check if player stomped on goomba (jumping on top of it)
+    if (type === "goomba" && this.status == null) {
+      const player = this.player;
+      // If player is falling down and player's bottom is above goomba's center, it's a stomp
+      if (player.speed.y > 0 && player.pos.y + player.size.y < actor.pos.y + actor.size.y * 0.7) {
+        // Kill the goomba
+        this.actors = this.actors.filter(a => a != actor);
+        // Make player bounce
+        player.speed.y = -jumpSpeed * 0.7;
+        logToConsole('Goomba stomped!');
+        return;
+      } else {
+        // Player touched goomba from side or below - player loses
+        if (this.consumeShield()) {
+          player.speed.y = -jumpSpeed * 0.3;
+          return;
+        }
+        logToConsole(`Player touched goomba from side - losing level`);
+        this.status = "lost";
+        this.finishDelay = 1;
+      }
+    } else if (type === "lift") {
+      return;
+    } else if (type === "shield") {
+      this.actors = this.actors.filter(a => a != actor);
+      if (this.player) this.player.hasShield = true;
+      gameState.shield = true;
+      updateHUD();
+      logToConsole('Shield item collected');
+    } else if (type === "sky" || (type === "lava" && this.status == null)) {
+      if (this.consumeShield()) return;
+      logToConsole(`Player touched ${type} - losing level`);
+      this.status = "lost";
+      this.finishDelay = 1;
+    } else if (type == "coin") {
+      this.actors = this.actors.filter(a => a != actor);
+      gameState.coins++;
+      updateHUD();
+      logToConsole(`Coin collected (total ${gameState.coins})`);
+
+      if (!this.actors.some(a => a.type == "coin")) {
+        logToConsole('All coins collected - level complete');
+        this.status = "won";
+        this.finishDelay = 1;
+      }
+    }
+  };
+
+  // ----- INPUT -----
+  const keys = { left: false, right: false, up: false };
+
+  function setKey(key, value) {
+    keys[key] = value;
+  }
+
+  // Touch controls
+  const btnLeft = document.getElementById('btn-left');
+  const btnRight = document.getElementById('btn-right');
+  const btnJump = document.getElementById('btn-jump');
+
+  function setupButton(button, key) {
+    button.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      setKey(key, true);
+    });
+    button.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      setKey(key, false);
+    });
+    button.addEventListener('touchcancel', (e) => {
+      e.preventDefault();
+      setKey(key, false);
+    });
+  }
+
+  setupButton(btnLeft, 'left');
+  setupButton(btnRight, 'right');
+  setupButton(btnJump, 'up');
+
+  // Keyboard support
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'a') setKey('left', true);
+    if (e.key === 'ArrowRight' || e.key === 'd') setKey('right', true);
+    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') setKey('up', true);
+    e.preventDefault();
+  });
+
+  window.addEventListener('keyup', (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'a') setKey('left', false);
+    if (e.key === 'ArrowRight' || e.key === 'd') setKey('right', false);
+    if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') setKey('up', false);
+    e.preventDefault();
+  });
+
+  function runAnimation(frameFunc) {
+    let lastTime = null;
+    function frame(time) {
+      let stop = false;
+      if (lastTime != null) {
+        const timeStep = Math.min(time - lastTime, 100) / 1000;
+        stop = frameFunc(timeStep) === false;
+      }
+      lastTime = time;
+      if (!stop) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ----- GAME STATE -----
+  const gameState = {
+    level: 0,
+    coins: 0,
+    lives: 3,
+    distance: 0,
+    shield: false
+  };
+
+  function updateHUD() {
+    document.getElementById('level').textContent = gameState.level + 1;
+    document.getElementById('coins').textContent = gameState.coins;
+    document.getElementById('lives').textContent = gameState.lives;
+    document.getElementById('distance').textContent = Math.floor(gameState.distance) + 'm';
+    const itemEl = document.getElementById('item-status');
+    if (itemEl)
+      itemEl.textContent = gameState.shield ? 'ON' : 'OFF';
+  }
+
+  function showMessage(title, text, showRestart = false) {
+    const overlay = document.getElementById('message-overlay');
+    const titleEl = document.getElementById('message-title');
+    const textEl = document.getElementById('message-text');
+    const restartBtn = document.getElementById('restart-btn');
+
+    titleEl.textContent = title;
+    textEl.textContent = text;
+    restartBtn.style.display = showRestart ? 'block' : 'none';
+    overlay.classList.add('visible');
+    logToConsole(`${title}: ${text}`);
+  }
+
+  function hideMessage() {
+    document.getElementById('message-overlay').classList.remove('visible');
+  }
+
+  // ----- GAME LOOP -----
+  function runLevel(level, Display, andThen) {
+    const display = new Display(document.getElementById('game-canvas'), level);
+    hideMessage();
+    logToConsole(`Entered Level ${gameState.level + 1}`);
+
+    runAnimation(step => {
+      level.animate(step, keys);
+      display.drawFrame();
+
+      if (level.player) {
+        gameState.distance = level.player.pos.x * 10;
+        gameState.shield = level.player.hasShield;
+        updateHUD();
+      }
+
+      if (level.isFinished()) {
+        display.clear();
+        logToConsole(`Level ${gameState.level + 1} finished with status ${level.status}`);
+        if (andThen) andThen(level.status);
+        return false;
+      }
+    });
+  }
+
+  function runGame(plans, Display) {
+    function startLevel(n) {
+      gameState.level = n;
+      gameState.shield = false;
+      updateHUD();
+      logToConsole(`Starting Level ${n + 1}`);
+
+      runLevel(new Level(plans[n]), Display, status => {
+        if (status == "lost") {
+          gameState.lives--;
+          updateHUD();
+          logToConsole(`Player lost a life. Lives left: ${gameState.lives}`);
+          if (gameState.lives <= 0) {
+            logToConsole('Game over');
+            showMessage('GAME OVER!', 'Try again!', true);
+          } else {
+            showMessage('Oops!', `Lives left: ${gameState.lives}`, false);
+            setTimeout(() => startLevel(n), 1500);
+          }
+        } else if (n < plans.length - 1) {
+          logToConsole(`Level ${n + 1} cleared. Preparing next level.`);
+          showMessage('Level Clear!', 'Next level...', false);
+          setTimeout(() => startLevel(n + 1), 1500);
+        } else {
+          logToConsole(`All levels cleared with ${gameState.coins} coins!`);
+          showMessage('YOU WIN!', `Coins: ${gameState.coins}`, true);
+        }
+      });
+    }
+    startLevel(0);
+  }
+
+  updateHUD();
+  runGame(LEVELS, DOMDisplay);
+
+  // 추가 구름 생성
+  function createClouds() {
+    const cloudPositions = [
+      { top: '5%', left: '35%', width: 90, height: 45, delay: 0 },
+      { top: '15%', right: '10%', width: 110, height: 55, delay: 5 },
+      { top: '30%', left: '5%', width: 80, height: 40, delay: 10 },
+      { top: '8%', right: '30%', width: 95, height: 48, delay: 15 },
+      { top: '20%', left: '60%', width: 85, height: 43, delay: 8 }
+    ];
+
+    cloudPositions.forEach((cloud, index) => {
+      const cloudEl = document.createElement('div');
+      cloudEl.style.cssText = `
+        position: fixed;
+        top: ${cloud.top};
+        ${cloud.left ? `left: ${cloud.left};` : `right: ${cloud.right};`}
+        width: ${cloud.width}px;
+        height: ${cloud.height}px;
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 70%);
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+        animation: cloudFloat${(index % 4) + 1} ${18 + index * 2}s ease-in-out infinite;
+        animation-delay: ${cloud.delay}s;
+      `;
+      document.body.appendChild(cloudEl);
+    });
+  }
+
+  createClouds();
+})();
+</script>
+
+</body>
+</html>
