@@ -2,7 +2,7 @@ import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { Slot, usePathname, useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Modal,
@@ -19,6 +19,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function TabsLayout() {
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isMobileSafari, setIsMobileSafari] = useState(false);
+  const [safariToolbarOffset, setSafariToolbarOffset] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
@@ -33,6 +35,51 @@ export default function TabsLayout() {
   const isHome = pathname === "/index" || pathname === "/";
   const isExplore = pathname === "/explore";
 
+  useEffect(() => {
+    if (Platform.OS !== "web" || typeof navigator === "undefined") {
+      return;
+    }
+
+    const vendor = navigator.vendor || "";
+    const userAgent = navigator.userAgent || "";
+    const isAppleVendor = vendor.includes("Apple");
+    const hasTouch =
+      typeof navigator.maxTouchPoints === "number"
+        ? navigator.maxTouchPoints > 0
+        : /Mobile|iP(hone|od|ad)/i.test(userAgent);
+    const isiOSFamily = /iP(hone|od|ad)/i.test(userAgent) || (isAppleVendor && hasTouch);
+    const isSafariEngine = /Safari/i.test(userAgent) && !/CriOS/i.test(userAgent) && !/FxiOS/i.test(userAgent);
+    const detectedMobileSafari = Boolean(isiOSFamily && isAppleVendor && isSafariEngine);
+
+    setIsMobileSafari(detectedMobileSafari);
+
+    if (!detectedMobileSafari || typeof window === "undefined" || !window.visualViewport) {
+      return;
+    }
+
+    const viewport = window.visualViewport;
+
+    const updateToolbarOffset = () => {
+      const baseHeight = window.innerHeight || viewport.height;
+      const difference = baseHeight - viewport.height - viewport.offsetTop;
+      setSafariToolbarOffset(Math.max(0, difference));
+    };
+
+    updateToolbarOffset();
+
+    viewport.addEventListener("resize", updateToolbarOffset);
+    viewport.addEventListener("scroll", updateToolbarOffset);
+    window.addEventListener("orientationchange", updateToolbarOffset);
+
+    return () => {
+      viewport.removeEventListener("resize", updateToolbarOffset);
+      viewport.removeEventListener("scroll", updateToolbarOffset);
+      window.removeEventListener("orientationchange", updateToolbarOffset);
+    };
+  }, []);
+
+  const dynamicBottomSpacing = navBottomSpacing + (isMobileSafari ? safariToolbarOffset : 0);
+
   const handlePress = (side) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
@@ -45,7 +92,7 @@ export default function TabsLayout() {
       <Slot />
       {/* Custom Bottom Tab Bar & Search Button */}
       <>
-        <View style={[styles.tabBarContainer, { bottom: navBottomSpacing }]}>
+        <View style={[styles.tabBarContainer, { bottom: dynamicBottomSpacing }]}>
           <View style={styles.tabBarBlur}>
             <View style={{ flex: 1, flexDirection: "row", position: "relative" }}>
               <Pressable
@@ -81,7 +128,7 @@ export default function TabsLayout() {
 
         {/* 검색 버튼 */}
         <Pressable
-          style={[styles.searchButton, { bottom: navBottomSpacing }]}
+          style={[styles.searchButton, { bottom: dynamicBottomSpacing }]}
           onPress={() => setShowSearch(true)}
           android_ripple={{ color: "rgba(255,255,255,0.3)", borderless: true }}
           activeOpacity={0.7}
@@ -146,7 +193,7 @@ export default function TabsLayout() {
 
 const styles = StyleSheet.create({
   tabBarContainer: {
-    position: "absolute",
+    position: Platform.OS === "web" ? "fixed" : "absolute",
     left: 30,
     right: 130,
     bottom: 25,
@@ -202,7 +249,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   searchButton: {
-    position: "absolute",
+    position: Platform.OS === "web" ? "fixed" : "absolute",
     bottom: 25,
     right: 40,
     backgroundColor: "rgba(78, 164, 155, 0.9)",
