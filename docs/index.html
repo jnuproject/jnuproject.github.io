@@ -7,23 +7,18 @@
     <title>Dream Connect</title>
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
-      /* Safari 주소창 자동 축소를 위한 설정 */
-      html,
-      body {
-        height: auto !important;
-        overflow: visible !important;
+      html, body {
+        height: 100%;
         margin: 0;
         padding: 0;
       }
-      /* root도 스크롤 가능하게 */
-      #root {
-        height: auto !important;
-        min-height: 100vh;
-        overflow: visible !important;
+      body {
+        overflow: auto;
       }
-      /* ScrollView의 overflow를 강제로 visible로 */
-      #root > div {
-        overflow: visible !important;
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
       }
     </style>
   <link rel="icon" href="/favicon.ico" /></head>
