@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "세이프닥",
     "category": "기업제휴",
     "subcategory": "의료",
@@ -9,7 +9,7 @@
     "image": "require('../assets/list_images/9.png')"
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "GS안과",
     "category": "기업제휴",
     "subcategory": "의료",
@@ -18,7 +18,7 @@
     "image": "require('../assets/list_images/10.jpg')"
   },
   {
-    "id": 3,
+    "id": "3",
     "name": "롯데시네마",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -27,7 +27,7 @@
     "image": "require('../assets/list_images/12.png')"
   },
   {
-    "id": 4,
+    "id": "4",
     "name": "오션월드",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -36,7 +36,7 @@
     "image": ""
   },
   {
-    "id": 5,
+    "id": "5",
     "name": "젠지 (E-sports)",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -45,7 +45,7 @@
     "image": "require('../assets/list_images/13.png')"
   },
   {
-    "id": 6,
+    "id": "6",
     "name": "키움",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -54,7 +54,7 @@
     "image": "require('../assets/list_images/14.png')"
   },
   {
-    "id": 7,
+    "id": "7",
     "name": "LG전자",
     "category": "기업제휴",
     "subcategory": "가전",
@@ -63,7 +63,7 @@
     "image": "require('../assets/list_images/20.png')"
   },
   {
-    "id": 8,
+    "id": "8",
     "name": "쏘카",
     "category": "기업제휴",
     "subcategory": "교통",
@@ -72,7 +72,7 @@
     "image": "require('../assets/list_images/24.jpeg')"
   },
   {
-    "id": 9,
+    "id": "9",
     "name": "카카오",
     "category": "기업제휴",
     "subcategory": "소셜플랫폼",
@@ -81,7 +81,7 @@
     "image": "require('../assets/list_images/33.png')"
   },
   {
-    "id": 10,
+    "id": "10",
     "name": "네이버",
     "category": "기업제휴",
     "subcategory": "소셜플랫폼",
@@ -90,7 +90,7 @@
     "image": "require('../assets/list_images/34.png')"
   },
   {
-    "id": 11,
+    "id": "11",
     "name": "LG트윈스",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -99,7 +99,7 @@
     "image": "require('../assets/list_images/15.png')"
   },
   {
-    "id": 12,
+    "id": "12",
     "name": "아이티렛츠고",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -108,7 +108,7 @@
     "image": "require('../assets/list_images/1.png')"
   },
   {
-    "id": 13,
+    "id": "13",
     "name": "렛츠커리어",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -117,7 +117,7 @@
     "image": "require('../assets/list_images/2.png')"
   },
   {
-    "id": 14,
+    "id": "14",
     "name": "시원스쿨",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -126,7 +126,7 @@
     "image": "require('../assets/list_images/3.jpeg')"
   },
   {
-    "id": 15,
+    "id": "15",
     "name": "한국검정평가원",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -135,7 +135,7 @@
     "image": "require('../assets/list_images/4.jpg')"
   },
   {
-    "id": 16,
+    "id": "16",
     "name": "중앙병원",
     "category": "기업제휴",
     "subcategory": "의료",
@@ -144,7 +144,7 @@
     "image": "require('../assets/list_images/11.png')"
   },
   {
-    "id": 17,
+    "id": "17",
     "name": "아르떼뮤지엄",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -153,7 +153,7 @@
     "image": "require('../assets/list_images/16.png')"
   },
   {
-    "id": 18,
+    "id": "18",
     "name": "이월드",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -162,7 +162,7 @@
     "image": "require('../assets/list_images/17.jpeg')"
   },
   {
-    "id": 19,
+    "id": "19",
     "name": "제주아쿠아플라넷",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -171,7 +171,7 @@
     "image": "require('../assets/list_images/18.png')"
   },
   {
-    "id": 20,
+    "id": "20",
     "name": "여기어때",
     "category": "기업제휴",
     "subcategory": "숙박",
@@ -180,7 +180,7 @@
     "image": "require('../assets/list_images/27.jpg')"
   },
   {
-    "id": 21,
+    "id": "21",
     "name": "이사대학",
     "category": "기업제휴",
     "subcategory": "편의",
@@ -189,7 +189,7 @@
     "image": "require('../assets/list_images/31.png')"
   },
   {
-    "id": 22,
+    "id": "22",
     "name": "LG U+",
     "category": "기업제휴",
     "subcategory": "가전",
@@ -198,7 +198,7 @@
     "image": "require('../assets/list_images/21.png')"
   },
   {
-    "id": 23,
+    "id": "23",
     "name": "정후문 원룸",
     "category": "기업제휴",
     "subcategory": "숙박",
@@ -207,7 +207,7 @@
     "image": ""
   },
   {
-    "id": 24,
+    "id": "24",
     "name": "칠성로 상인회",
     "category": "기업제휴",
     "subcategory": "지역상생",
@@ -216,7 +216,7 @@
     "image": ""
   },
   {
-    "id": 25,
+    "id": "25",
     "name": "미리캔버스",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -225,7 +225,7 @@
     "image": "require('../assets/list_images/5.png')"
   },
   {
-    "id": 27,
+    "id": "27",
     "name": "YBM",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -234,7 +234,7 @@
     "image": "require('../assets/list_images/6.png')"
   },
   {
-    "id": 28,
+    "id": "28",
     "name": "다산에듀",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -243,7 +243,7 @@
     "image": "require('../assets/list_images/7.png')"
   },
   {
-    "id": 29,
+    "id": "29",
     "name": "잡플래닛",
     "category": "기업제휴",
     "subcategory": "교육취업",
@@ -252,7 +252,7 @@
     "image": "require('../assets/list_images/8.png')"
   },
   {
-    "id": 30,
+    "id": "30",
     "name": "포시즌",
     "category": "기업제휴",
     "subcategory": "문화",
@@ -261,7 +261,7 @@
     "image": "require('../assets/list_images/19.png')"
   },
   {
-    "id": 31,
+    "id": "31",
     "name": "제주유스호스텔",
     "category": "기업제휴",
     "subcategory": "숙박",
@@ -270,7 +270,7 @@
     "image": ""
   },
   {
-    "id": 32,
+    "id": "32",
     "name": "제주한화리조트",
     "category": "기업제휴",
     "subcategory": "숙박",
@@ -279,7 +279,7 @@
     "image": "require('../assets/list_images/30.jpg')"
   },
   {
-    "id": 33,
+    "id": "33",
     "name": "사람휘트니스",
     "category": "기업제휴",
     "subcategory": "편의",
@@ -288,7 +288,7 @@
     "image": "require('../assets/list_images/32.jpg')"
   },
   {
-    "id": 34,
+    "id": "34",
     "name": "어도비",
     "category": "기업제휴",
     "subcategory": "편의",
@@ -297,7 +297,7 @@
     "image": "require('../assets/list_images/23.jpg')"
   },
   {
-    "id": 35,
+    "id": "35",
     "name": "삼성스토어",
     "category": "기업제휴",
     "subcategory": "가전",
@@ -306,7 +306,7 @@
     "image": "require('../assets/list_images/22.png')"
   },
   {
-    "id": 36,
+    "id": "36",
     "name": "이제주 버스 회사",
     "category": "기업제휴",
     "subcategory": "교통",
@@ -315,7 +315,7 @@
     "image": ""
   },
   {
-    "id": 37,
+    "id": "37",
     "name": "삼다자동차학원",
     "category": "기업제휴",
     "subcategory": "교통",
