@@ -100,7 +100,7 @@ export default function HomeScreen() {
                   <Image
                     source={getImageSource(item.image)}
                     style={s.majorImage}
-                    contentFit="cover"
+                    contentFit="contain"
                   />
                   <LinearGradient
                     colors={['transparent', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,0.9)']}
