@@ -2,11 +2,11 @@ import { CATEGORIES } from "@/constants/categories";
 import { getImageSource, isLogoImage } from "@/constants/imageMap";
 import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
+import { Image as ExpoImage } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Dimensions, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Image as RNImage } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SystemUI from "expo-system-ui";
 import * as NavigationBar from "expo-navigation-bar";
@@ -86,13 +86,10 @@ export default function HomeScreen() {
       {/* 헤더 */}
       <View style={s.header}>
         <View style={s.logoContainer}>
-          <Image
+          <RNImage
             source={require("../../assets/images/logo.png")}
             style={s.logo}
-            contentFit="contain"
-            transition={0}
-            placeholder={null}
-            tintColor="#FFFFFF"
+            resizeMode="contain"
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
           />
@@ -163,7 +160,7 @@ export default function HomeScreen() {
               onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
             >
               <View style={s.majorCard}>
-                <Image
+                <ExpoImage
                   source={getImageSource(item.image)}
                   style={s.majorImage}
                   contentFit="contain"
@@ -218,7 +215,7 @@ export default function HomeScreen() {
               <View style={s.realtimeBadge}>
                 <Text style={s.realtimeBadgeText}>지금 진행 중</Text>
               </View>
-              <Image
+              <ExpoImage
                 source={getImageSource(item.image)}
                 style={s.recommendImage}
                 contentFit={isLogoImage(item.image) ? "contain" : "cover"}
@@ -251,7 +248,7 @@ export default function HomeScreen() {
               activeOpacity={0.9}
               onPress={() => router.push(`../details/${encodeURIComponent(item.name)}`)}
             >
-              <Image
+              <ExpoImage
                 source={getImageSource(item.image)}
                 style={s.recommendImage}
                 contentFit={isLogoImage(item.image) ? "contain" : "cover"}
@@ -338,7 +335,6 @@ const s = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 0 : 28,
     paddingBottom: 60,
-    backgroundColor: '#00a99c',
   },
   scrollContentSafari: {
     width: "100%",
@@ -352,7 +348,7 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    maxWidth: 220,
+    width: 220,
     height: 64,
   },
   heroCaption: {
