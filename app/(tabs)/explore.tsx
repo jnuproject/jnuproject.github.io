@@ -4,8 +4,8 @@ import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ActivityIndicator, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, Animated as RNAnimated } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import * as SystemUI from "expo-system-ui";
@@ -42,9 +42,10 @@ export default function ExploreScreen() {
   const { data: affiliates, loading } = useAllAffiliates();
   const [selectedStore, setSelectedStore] = useState<any | null>(null);
   const [mapCenter, setMapCenter] = useState({ lat: 33.4996, lng: 126.5312 });
+  const isWeb = Platform.OS === "web";
 
   // Load Google Maps API for web
-  const { isLoaded: isGoogleMapsLoaded } = Platform.OS === 'web' && useJsApiLoader
+  const { isLoaded: isGoogleMapsLoaded } = isWeb && useJsApiLoader
     ? useJsApiLoader({
         googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || "",
       })
@@ -52,17 +53,34 @@ export default function ExploreScreen() {
 
   // Animated bottom sheet logic
   const sheetY = useSharedValue(200);
+  const sheetOpacity = useSharedValue(0);
+  const sheetCloseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const webSheetAnim = useRef(new RNAnimated.Value(0)).current;
+  const [webSheetStore, setWebSheetStore] = useState<any | null>(null);
+  const webHideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const animatedSheetStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: sheetY.value }],
+    opacity: sheetOpacity.value,
   }));
+  const webSheetAnimatedStyle = {
+    opacity: webSheetAnim,
+    transform: [
+      {
+        translateY: webSheetAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [30, 0],
+        }),
+      },
+    ],
+  };
 
   // Reserve enough space so the sheet clears the floating tab/search controls
   const navHeight = 65;
   const navBottomSpacing = Math.max(insets.bottom > 0 ? insets.bottom - 18 : 12, 8);
   const navToSheetGap = 8;
   const sheetBottomOffset = navHeight + navBottomSpacing + navToSheetGap;
-  const mapBottomMargin = Platform.OS === "web" ? sheetBottomOffset + 60 : sheetBottomOffset + 20;
+  const mapBottomMargin = isWeb ? sheetBottomOffset + 60 : sheetBottomOffset + 20;
   const sheetPaddingBottom = 12 + navBottomSpacing;
   const topPadding = Math.max(insets.top, 16);
 
@@ -73,6 +91,131 @@ export default function ExploreScreen() {
     return categoryMatch && regionMatch;
   });
 
+  const clearNativeCloseTimeout = () => {
+    if (sheetCloseTimeout.current) {
+      clearTimeout(sheetCloseTimeout.current);
+      sheetCloseTimeout.current = null;
+    }
+  };
+
+  const showNativeSheet = () => {
+    sheetOpacity.value = withTiming(1, { duration: 260 });
+    sheetY.value = withTiming(0, { duration: 260 });
+  };
+
+  const hideNativeSheet = () => {
+    sheetOpacity.value = withTiming(0, { duration: 220 });
+    sheetY.value = withTiming(220, { duration: 220 });
+  };
+
+  const scheduleNativeClose = () => {
+    clearNativeCloseTimeout();
+    sheetCloseTimeout.current = setTimeout(() => {
+      setSelectedStore(null);
+      sheetCloseTimeout.current = null;
+    }, 220);
+  };
+
+  const closeNativeSheet = () => {
+    hideNativeSheet();
+    scheduleNativeClose();
+  };
+
+  const handleOpenDetails = (store: any) => {
+    if (!store?.name) return;
+    router.push(`/details/${encodeURIComponent(store.name)}`);
+  };
+
+  const handleOpenMapLink = (store: any, provider: "naver" | "kakao") => {
+    if (!store) return;
+    const encodedName = encodeURIComponent(store.name);
+
+    const webUrl =
+      provider === "naver"
+        ? `https://map.naver.com/v5/search/${encodedName}`
+        : `https://map.kakao.com/link/search/${encodedName}`;
+
+    if (isWeb) {
+      if (typeof window !== "undefined") {
+        window.location.href = webUrl;
+      }
+      return;
+    }
+
+    const nativeUrl =
+      provider === "naver"
+        ? `nmap://place?lat=${store.latitude}&lng=${store.longitude}&name=${encodedName}&appname=com.dreamconnect`
+        : `kakaomap://look?p=${store.latitude},${store.longitude}`;
+
+    Linking.canOpenURL(nativeUrl).then((supported) => {
+      if (supported) {
+        Linking.openURL(nativeUrl);
+      } else {
+        Linking.openURL(webUrl);
+      }
+    });
+  };
+
+  const renderStoreDetails = (store: any) => {
+    if (!store) return null;
+    const highlight = store.benefit || store.description;
+    const metaItems = [
+      store.region ? { icon: "location-outline" as const, label: store.region } : null,
+      store.category ? { icon: "layers-outline" as const, label: store.category } : null,
+      store.subcategory ? { icon: "pricetag-outline" as const, label: store.subcategory } : null,
+    ].filter(Boolean) as { icon: React.ComponentProps<typeof Ionicons>["name"]; label: string }[];
+
+    return (
+      <>
+        <View style={styles.sheetHeaderRow}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.bottomTitle}>{store.name}</Text>
+            <Text style={styles.bottomSubtitle}>
+              {[store.region, store.category].filter(Boolean).join(" · ") || "제휴 매장"}
+            </Text>
+          </View>
+        </View>
+        {metaItems.length > 0 && (
+          <View style={styles.sheetMetaRow}>
+            {metaItems.map((meta, idx) => (
+              <View key={`${meta.label}-${idx}`} style={styles.metaChip}>
+                <Ionicons name={meta.icon} size={13} color="#256355" />
+                <Text style={styles.metaChipText}>{meta.label}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+        {store.address && (
+          <Text style={styles.addressText} numberOfLines={2}>
+            {store.address}
+          </Text>
+        )}
+        {highlight && (
+          <View style={styles.benefitCard}>
+            <Ionicons name="gift-outline" size={18} color="#2CA69A" />
+            <Text style={styles.benefitText}>{highlight}</Text>
+          </View>
+        )}
+        <TouchableOpacity style={styles.detailButton} activeOpacity={0.85} onPress={() => handleOpenDetails(store)}>
+          <LinearGradient colors={["#2CA69A", "#1F8E80"]} style={styles.detailButtonInner} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+            <Text style={styles.detailButtonText}>상세 페이지로 이동</Text>
+            <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
+          </LinearGradient>
+        </TouchableOpacity>
+        <View style={styles.mapButtonsRow}>
+          <TouchableOpacity style={styles.mapButton} onPress={() => handleOpenMapLink(store, "naver")} activeOpacity={0.9}>
+            <Ionicons name="navigate-circle-outline" size={22} color="#2CA69A" />
+            <Text style={styles.mapButtonLabel}>네이버 지도</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.mapButton} onPress={() => handleOpenMapLink(store, "kakao")} activeOpacity={0.9}>
+            <Ionicons name="location-outline" size={22} color="#F5B301" />
+            <Text style={styles.mapButtonLabel}>카카오맵</Text>
+          </TouchableOpacity>
+        </View>
+      </>
+    );
+  };
+
   useEffect(() => {
     // Android 네비게이션 바 숨김
     if (Platform.OS === 'android') {
@@ -81,6 +224,43 @@ export default function ExploreScreen() {
       NavigationBar.setPositionAsync('absolute');
       NavigationBar.setBehaviorAsync('overlay-swipe');
     }
+  }, []);
+
+  useEffect(() => {
+    if (!isWeb) return;
+    if (selectedStore) {
+      if (webHideTimeout.current) {
+        clearTimeout(webHideTimeout.current);
+        webHideTimeout.current = null;
+      }
+      if (webSheetStore !== selectedStore) {
+        setWebSheetStore(selectedStore);
+      }
+      RNAnimated.timing(webSheetAnim, {
+        toValue: 1,
+        duration: 260,
+        useNativeDriver: true,
+      }).start();
+    } else if (webSheetStore) {
+      RNAnimated.timing(webSheetAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+      webHideTimeout.current = setTimeout(() => {
+        setWebSheetStore(null);
+        webHideTimeout.current = null;
+      }, 200);
+    }
+  }, [selectedStore, webSheetStore, isWeb]);
+
+  useEffect(() => {
+    return () => {
+      clearNativeCloseTimeout();
+      if (webHideTimeout.current) {
+        clearTimeout(webHideTimeout.current);
+      }
+    };
   }, []);
 
   if (loading || (Platform.OS === 'web' && !isGoogleMapsLoaded))
@@ -232,8 +412,7 @@ export default function ExploreScreen() {
             onPress={(e: any) => {
               // Only close if tapping on empty area (not a marker)
               if (!e.nativeEvent.action || e.nativeEvent.action !== 'marker-press') {
-                sheetY.value = withTiming(200, { duration: 200 });
-                setTimeout(() => setSelectedStore(null), 200);
+                closeNativeSheet();
               }
             }}
           >
@@ -254,14 +433,14 @@ export default function ExploreScreen() {
 
                       // 같은 마커 다시 누르면 닫기
                       if (selectedStore?.id === store.id) {
-                        sheetY.value = withTiming(200, { duration: 200 });
-                        setTimeout(() => setSelectedStore(null), 200);
+                        closeNativeSheet();
                         return;
                       }
 
                       // 다른 마커 눌렀을 때는 닫지 않고 내용 교체
+                      clearNativeCloseTimeout();
                       setSelectedStore(store);
-                      sheetY.value = withTiming(0, { duration: 200 });
+                      showNativeSheet();
                     }}
                   />
                 );
@@ -270,101 +449,25 @@ export default function ExploreScreen() {
         )}
       </View>
 
-      {Platform.OS === 'web' ? (
-        // Web: Fixed bottom info panel
-        selectedStore && (
-          <View style={[styles.webBottomInfo, { bottom: sheetBottomOffset, paddingBottom: 12 + navBottomSpacing }]}>
-            <View style={styles.webBottomContent}>
-              <Text style={styles.bottomTitle}>{selectedStore.name}</Text>
-              <Text style={styles.bottomSubtitle}>{selectedStore.region}</Text>
-              {selectedStore.address && (
-                <Text style={styles.addressText} numberOfLines={2}>{selectedStore.address}</Text>
-              )}
-
-              <View style={styles.linkButtonsContainer}>
-                <TouchableOpacity
-                  style={styles.linkButton}
-                  activeOpacity={0.7}
-                  onPress={() => {
-                    const webUrl = `https://map.naver.com/v5/search/${encodeURIComponent(selectedStore.name)}`;
-                    if (typeof window !== 'undefined') {
-                      window.location.href = webUrl;
-                    }
-                  }}
-                >
-                  <Ionicons name="navigate-circle-outline" size={32} color="#4EA49B" />
-                  <Text style={styles.linkButtonText}>네이버 지도</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={styles.linkButton}
-                  activeOpacity={0.7}
-                  onPress={() => {
-                    const webUrl = `https://map.kakao.com/link/search/${encodeURIComponent(selectedStore.name)}`;
-                    if (typeof window !== 'undefined') {
-                      window.location.href = webUrl;
-                    }
-                  }}
-                >
-                  <Ionicons name="location-outline" size={32} color="#FEE500" />
-                  <Text style={styles.linkButtonText}>카카오맵</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+      {isWeb ? (
+        webSheetStore && (
+          <RNAnimated.View
+            style={[
+              styles.webBottomInfo,
+              { bottom: sheetBottomOffset, paddingBottom: 12 + navBottomSpacing },
+              webSheetAnimatedStyle,
+            ]}
+          >
+            <View style={styles.handleBar} />
+            <View style={styles.webBottomContent}>{renderStoreDetails(webSheetStore)}</View>
+          </RNAnimated.View>
         )
       ) : (
         // Native: Animated bottom sheet
         <Animated.View style={[styles.bottomSheet, animatedSheetStyle, { bottom: sheetBottomOffset }]}>
           <LinearGradient colors={["#ffffff", "#f7f7f7"]} style={[styles.gradient, { paddingBottom: sheetPaddingBottom }]}>
             <View style={styles.handleBar} />
-            {selectedStore && (
-              <>
-                <Text style={styles.bottomTitle}>{selectedStore.name}</Text>
-                <Text style={styles.bottomSubtitle}>{selectedStore.region}</Text>
-                {selectedStore.address && (
-                  <Text style={styles.addressText} numberOfLines={2}>{selectedStore.address}</Text>
-                )}
-
-                <View style={styles.linkButtonsContainer}>
-                  <TouchableOpacity
-                    style={styles.linkButton}
-                    onPress={() => {
-                      const naverUrl = `nmap://place?lat=${selectedStore.latitude}&lng=${selectedStore.longitude}&name=${encodeURIComponent(selectedStore.name)}&appname=com.dreamconnect`;
-                      const webUrl = `https://map.naver.com/v5/search/${encodeURIComponent(selectedStore.name)}`;
-                      Linking.canOpenURL(naverUrl).then(supported => {
-                        if (supported) {
-                          Linking.openURL(naverUrl);
-                        } else {
-                          Linking.openURL(webUrl);
-                        }
-                      });
-                    }}
-                  >
-                    <Ionicons name="navigate-circle-outline" size={24} color="#4EA49B" />
-                    <Text style={styles.linkButtonText}>네이버 지도</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.linkButton}
-                    onPress={() => {
-                      const kakaoUrl = `kakaomap://look?p=${selectedStore.latitude},${selectedStore.longitude}`;
-                      const webUrl = `https://map.kakao.com/link/search/${encodeURIComponent(selectedStore.name)}`;
-                      Linking.canOpenURL(kakaoUrl).then(supported => {
-                        if (supported) {
-                          Linking.openURL(kakaoUrl);
-                        } else {
-                          Linking.openURL(webUrl);
-                        }
-                      });
-                    }}
-                  >
-                    <Ionicons name="location-outline" size={24} color="#FEE500" />
-                    <Text style={styles.linkButtonText}>카카오맵</Text>
-                  </TouchableOpacity>
-                </View>
-              </>
-            )}
+            {selectedStore && renderStoreDetails(selectedStore)}
           </LinearGradient>
         </Animated.View>
       )}
@@ -555,35 +658,100 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     minHeight: 30,
   },
-  linkButtonsContainer: {
+  sheetHeaderRow: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 6,
-    gap: 10,
+    marginBottom: 6,
   },
-  linkButton: {
+  sheetMetaRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginBottom: 10,
+  },
+  metaChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    backgroundColor: "rgba(37, 99, 85, 0.12)",
+  },
+  metaChipText: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#256355",
+  },
+  benefitCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 18,
+    backgroundColor: "rgba(255,255,255,0.92)",
+    borderWidth: 1,
+    borderColor: "rgba(15,23,42,0.06)",
+    shadowColor: "#9CD9CF",
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 18,
+    elevation: 6,
+    marginBottom: 12,
+  },
+  benefitText: {
     flex: 1,
-    flexDirection: "column",
+    color: "#0F172A",
+    fontSize: 13.5,
+    fontWeight: "600",
+    lineHeight: 19,
+  },
+  detailButton: {
+    marginTop: 4,
+    borderRadius: 20,
+    overflow: "hidden",
+  },
+  detailButtonInner: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 14,
+    borderRadius: 20,
+    gap: 8,
+  },
+  detailButtonText: {
+    color: "#FFFFFF",
+    fontSize: 15,
+    fontWeight: "800",
+  },
+  mapButtonsRow: {
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 12,
+  },
+  mapButton: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
     backgroundColor: "#FFFFFF",
-    paddingVertical: 16,
-    paddingHorizontal: 12,
+    paddingVertical: 12,
     borderRadius: 18,
-    borderWidth: 2,
-    borderColor: "rgba(148, 163, 184, 0.25)",
+    borderWidth: 1,
+    borderColor: "rgba(148,163,184,0.35)",
     shadowColor: "#000000",
     shadowOpacity: 0.08,
     shadowOffset: { width: 0, height: 6 },
-    shadowRadius: 10,
-    elevation: 6,
-    gap: 8,
+    shadowRadius: 12,
+    elevation: 5,
   },
-  linkButtonText: {
-    fontSize: 14,
-    color: "#0F172A",
+  mapButtonLabel: {
+    fontSize: 13,
     fontWeight: "700",
-    textAlign: "center",
+    color: "#0F172A",
   },
   webListContainer: {
     padding: 16,
@@ -629,7 +797,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    backgroundColor: "rgba(255,255,255,0.95)",
+    backgroundColor: "rgba(255,255,255,0.98)",
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     shadowColor: "#FFFFFF",
@@ -646,5 +814,6 @@ const styles = StyleSheet.create({
     maxWidth: 800,
     alignSelf: "center",
     width: "100%",
+    gap: 12,
   },
 });
