@@ -2,7 +2,6 @@ import { CATEGORIES } from "@/constants/categories";
 import { getImageSource, isLogoImage } from "@/constants/imageMap";
 import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -83,21 +82,6 @@ export default function HomeScreen() {
 
   const pageContent = (
     <>
-      {/* 헤더 */}
-      <View style={s.header}>
-        <View style={s.logoGlowContainer}>
-          <Image
-            source={require("../../assets/images/logo.png")}
-            style={s.heroLogo}
-            contentFit="contain"
-            transition={0}
-            placeholder={null}
-            accessibilityRole="image"
-            accessibilityLabel="Dream 로고"
-          />
-        </View>
-      </View>
-
       {/* 카테고리 */}
       <View style={s.sectionCard}>
         <Text style={s.sectionTitle}>카테고리</Text>
@@ -340,24 +324,6 @@ const s = StyleSheet.create({
   },
   scrollContentSafari: {
     width: "100%",
-  },
-  header: {
-    paddingTop: Platform.OS === "web" ? 28 : 0,
-    paddingBottom: 18,
-  },
-  logoGlowContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#FFFFFF",
-    shadowOpacity: 1,
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 80,
-    elevation: 25,
-  },
-  heroLogo: {
-    maxWidth: 220,
-    height: 64,
-    backgroundColor: 'transparent',
   },
   heroCaption: {
     fontSize: 15,
