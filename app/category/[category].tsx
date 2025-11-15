@@ -78,7 +78,7 @@ export default function CategoryScreen() {
       stiffness: 160,
       damping: 24,
       mass: 0.85,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start();
   };
 
@@ -106,14 +106,16 @@ export default function CategoryScreen() {
   const filterWrapperStyle =
     filterHeight > 0
       ? {
-          height: filterAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [filterHeight, 0],
-          }),
-          marginBottom: filterAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [4, 0],
-          }),
+          height: filterHeight,
+        }
+      : undefined;
+
+  const hiddenOffset =
+    filterHeight > 0 ? Math.min(filterHeight * 0.6, Math.max(filterHeight - 8, 12)) : 0;
+
+  const filterAnimatedStyle =
+    filterHeight > 0
+      ? {
           opacity: filterAnim.interpolate({
             inputRange: [0, 1],
             outputRange: [1, 0],
@@ -122,7 +124,7 @@ export default function CategoryScreen() {
             {
               translateY: filterAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, -Math.max(filterHeight * 0.35, 12)],
+                outputRange: [0, -hiddenOffset],
               }),
             },
           ],
@@ -150,23 +152,25 @@ export default function CategoryScreen() {
           <View style={{ width: 40 }} />
         </View>
         {/* 상단 필터 */}
-        <Animated.View style={[s.filterWrapper, filterWrapperStyle]}>
-          <View style={s.filterContainer} onLayout={handleFilterLayout}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
-              <View style={s.filterRow}>
-                {filterOptions.map((opt) => (
-                  <TouchableOpacity
-                    key={opt}
-                    style={[s.filterBtn, selectedSub === opt && s.active]}
-                    onPress={() => setSelectedSub(opt)}
-                  >
-                    <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          </View>
-        </Animated.View>
+        <View style={[s.filterWrapper, filterWrapperStyle]}>
+          <Animated.View style={[s.filterAnimated, filterAnimatedStyle]}>
+            <View style={s.filterContainer} onLayout={handleFilterLayout}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
+                <View style={s.filterRow}>
+                  {filterOptions.map((opt) => (
+                    <TouchableOpacity
+                      key={opt}
+                      style={[s.filterBtn, selectedSub === opt && s.active]}
+                      onPress={() => setSelectedSub(opt)}
+                    >
+                      <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </ScrollView>
+            </View>
+          </Animated.View>
+        </View>
 
         {/* 리스트 */}
         <ScrollView
@@ -309,6 +313,10 @@ const s = StyleSheet.create({
   filterWrapper: {
     overflow: "hidden",
     marginBottom: 4,
+    width: "100%",
+  },
+  filterAnimated: {
+    flex: 1,
   },
   filterContainer: {
     paddingVertical: 8,
