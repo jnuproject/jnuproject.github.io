@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated, LayoutChangeEvent } from "react-native";
+import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
@@ -14,8 +14,11 @@ export default function CategoryScreen() {
   const router = useRouter();
   const { data } = useAllAffiliates();
   const fadeAnim = useState(() => new Animated.Value(0))[0];
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const [headerHeight, setHeaderHeight] = useState(0);
+  const filterAnim = useRef(new Animated.Value(0)).current;
+  const scrollOffset = useRef(0);
+  const filterHidden = useRef(false);
+  const [filterHeight, setFilterHeight] = useState(0);
+  const SCROLL_THRESHOLD = 28;
 
   useEffect(() => {
     // Android 네비게이션 바 표시
@@ -69,39 +72,61 @@ export default function CategoryScreen() {
     return categoryMatch && filterMatch;
   });
 
-  const handleHeaderLayout = (event: LayoutChangeEvent) => {
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const delta = offsetY - scrollOffset.current;
+
+    if (delta > SCROLL_THRESHOLD && !filterHidden.current && offsetY > 0) {
+      filterHidden.current = true;
+      Animated.spring(filterAnim, {
+        toValue: 1,
+        stiffness: 160,
+        damping: 20,
+        mass: 0.9,
+        useNativeDriver: true,
+      }).start();
+    } else if ((delta < -SCROLL_THRESHOLD || offsetY <= 8) && filterHidden.current) {
+      filterHidden.current = false;
+      Animated.spring(filterAnim, {
+        toValue: 0,
+        stiffness: 160,
+        damping: 20,
+        mass: 0.9,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    scrollOffset.current = offsetY;
+  };
+
+  const handleFilterLayout = (event: LayoutChangeEvent) => {
     const height = Math.ceil(event.nativeEvent.layout.height);
-    if (height !== headerHeight) {
-      setHeaderHeight(height);
+    if (height !== filterHeight) {
+      setFilterHeight(height);
     }
   };
 
-  const headerAnimatedStyle =
-    headerHeight > 0
+  const filterWrapperStyle = filterHeight > 0 ? { height: filterHeight } : undefined;
+  const hiddenOffset =
+    filterHeight > 0 ? Math.min(filterHeight * 0.65, Math.max(filterHeight - 12, 16)) : 0;
+
+  const filterAnimatedStyle =
+    filterHeight > 0
       ? {
+          opacity: filterAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [1, 0],
+          }),
           transform: [
             {
-              translateY: scrollY.interpolate({
-                inputRange: [0, headerHeight],
-                outputRange: [0, -headerHeight],
-                extrapolate: "clamp",
+              translateY: filterAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, -hiddenOffset],
               }),
             },
           ],
-          opacity: scrollY.interpolate({
-            inputRange: [0, headerHeight * 0.8],
-            outputRange: [1, 0],
-            extrapolate: "clamp",
-          }),
         }
       : undefined;
-
-  const listPaddingTop = headerHeight > 0 ? headerHeight + 16 : 180;
-
-  const onScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-    { useNativeDriver: true }
-  );
 
   return (
     <LinearGradient
@@ -113,48 +138,48 @@ export default function CategoryScreen() {
       <SafeAreaView style={s.safe}>
         <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
           <View style={{ flex: 1 }}>
-            <Animated.View
-              pointerEvents="box-none"
-              style={[s.headerBlock, headerAnimatedStyle]}
-              onLayout={handleHeaderLayout}
-            >
-              <View style={s.header}>
-                <TouchableOpacity
-                  style={s.backButton}
-                  onPress={() => router.back()}
-                >
-                  <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
-                </TouchableOpacity>
-                <Text style={s.headerTitle}>{categoryTitle}</Text>
-                <View style={{ width: 40 }} />
-              </View>
-              <View style={s.filterContainer}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
-                  <View style={s.filterRow}>
-                    {filterOptions.map((opt) => (
-                      <TouchableOpacity
-                        key={opt}
-                        style={[s.filterBtn, selectedSub === opt && s.active]}
-                        onPress={() => setSelectedSub(opt)}
-                      >
-                        <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
-                      </TouchableOpacity>
-                    ))}
-                  </View>
-                </ScrollView>
-              </View>
-            </Animated.View>
+            {/* 헤더 */}
+            <View style={s.header}>
+              <TouchableOpacity
+                style={s.backButton}
+                onPress={() => router.back()}
+              >
+                <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+              </TouchableOpacity>
+              <Text style={s.headerTitle}>{categoryTitle}</Text>
+              <View style={{ width: 40 }} />
+            </View>
+
+            {/* 상단 필터 */}
+            <View style={[s.filterWrapper, filterWrapperStyle]}>
+              <Animated.View style={[s.filterAnimated, filterAnimatedStyle]}>
+                <View style={s.filterContainer} onLayout={handleFilterLayout}>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
+                    <View style={s.filterRow}>
+                      {filterOptions.map((opt) => (
+                        <TouchableOpacity
+                          key={opt}
+                          style={[s.filterBtn, selectedSub === opt && s.active]}
+                          onPress={() => setSelectedSub(opt)}
+                        >
+                          <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                  </ScrollView>
+                </View>
+              </Animated.View>
+            </View>
 
             {/* 리스트 */}
-            <Animated.ScrollView
+            <ScrollView
               style={s.list}
               contentContainerStyle={[
                 s.listContent,
-                { paddingTop: listPaddingTop },
                 filtered.length === 0 && { flex: 1, justifyContent: "center", alignItems: "center" },
               ]}
               showsVerticalScrollIndicator={false}
-              onScroll={onScroll}
+              onScroll={handleScroll}
               scrollEventThrottle={16}
             >
           {filtered.length > 0 ? (
@@ -246,7 +271,7 @@ export default function CategoryScreen() {
               {emptyMessage}
             </Text>
           )}
-        </Animated.ScrollView>
+        </ScrollView>
       </View>
       </Animated.View>
     </SafeAreaView>
@@ -259,13 +284,6 @@ const s = StyleSheet.create({
     flex: 1,
     backgroundColor: "transparent",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-  headerBlock: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
   },
   header: {
     flexDirection: "row",
@@ -291,6 +309,13 @@ const s = StyleSheet.create({
     flex: 1,
     textAlign: "center",
     letterSpacing: -0.3,
+  },
+  filterWrapper: {
+    overflow: "hidden",
+    marginBottom: 4,
+  },
+  filterAnimated: {
+    flex: 1,
   },
   filterContainer: {
     paddingVertical: 8,
