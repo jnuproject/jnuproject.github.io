@@ -92,7 +92,6 @@ export default function HomeScreen() {
             resizeMode="contain"
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
-            tintColor="#FFFFFF"
           />
         </View>
       </View>
