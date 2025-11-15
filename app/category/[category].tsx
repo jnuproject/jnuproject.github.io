@@ -18,7 +18,7 @@ export default function CategoryScreen() {
   const scrollOffset = useRef(0);
   const filterHidden = useRef(false);
   const [filterHeight, setFilterHeight] = useState(0);
-  const SCROLL_THRESHOLD = 20;
+  const SCROLL_THRESHOLD = 32;
 
   useEffect(() => {
     // Android 네비게이션 바 표시
@@ -73,9 +73,11 @@ export default function CategoryScreen() {
   });
 
   const animateFilterBar = (hide: boolean) => {
-    Animated.timing(filterAnim, {
+    Animated.spring(filterAnim, {
       toValue: hide ? 1 : 0,
-      duration: 220,
+      stiffness: 160,
+      damping: 24,
+      mass: 0.85,
       useNativeDriver: false,
     }).start();
   };
@@ -116,6 +118,14 @@ export default function CategoryScreen() {
             inputRange: [0, 1],
             outputRange: [1, 0],
           }),
+          transform: [
+            {
+              translateY: filterAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, -Math.max(filterHeight * 0.35, 12)],
+              }),
+            },
+          ],
         }
       : undefined;
 
