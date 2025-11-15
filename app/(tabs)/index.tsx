@@ -324,7 +324,7 @@ export default function HomeScreen() {
 const s = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: "#00a99c",
+    backgroundColor: "transparent",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   safeSafari: {
