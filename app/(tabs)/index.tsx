@@ -87,11 +87,12 @@ export default function HomeScreen() {
       <View style={s.header}>
         <View style={s.logoContainer}>
           <Image
-            source={require("../../assets/images/logo-white.png")}
+            source={require("../../assets/images/logo.png")}
             style={s.logo}
             contentFit="contain"
             transition={0}
             placeholder={null}
+            tintColor="#FFFFFF"
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
           />
@@ -337,7 +338,7 @@ const s = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 0 : 28,
     paddingBottom: 60,
-    backgroundColor: '#98d2c6',
+    backgroundColor: '#00a99c',
   },
   scrollContentSafari: {
     width: "100%",
