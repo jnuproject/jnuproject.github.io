@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
@@ -14,6 +14,11 @@ export default function CategoryScreen() {
   const router = useRouter();
   const { data } = useAllAffiliates();
   const fadeAnim = useState(() => new Animated.Value(0))[0];
+  const filterAnim = useRef(new Animated.Value(0)).current;
+  const scrollOffset = useRef(0);
+  const filterHidden = useRef(false);
+  const [filterHeight, setFilterHeight] = useState(0);
+  const SCROLL_THRESHOLD = 20;
 
   useEffect(() => {
     // Android 네비게이션 바 표시
@@ -67,6 +72,53 @@ export default function CategoryScreen() {
     return categoryMatch && filterMatch;
   });
 
+  const animateFilterBar = (hide: boolean) => {
+    Animated.timing(filterAnim, {
+      toValue: hide ? 1 : 0,
+      duration: 220,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const delta = offsetY - scrollOffset.current;
+
+    if (delta > SCROLL_THRESHOLD && !filterHidden.current && offsetY > 0) {
+      filterHidden.current = true;
+      animateFilterBar(true);
+    } else if ((delta < -SCROLL_THRESHOLD || offsetY <= 12) && filterHidden.current) {
+      filterHidden.current = false;
+      animateFilterBar(false);
+    }
+
+    scrollOffset.current = offsetY;
+  };
+
+  const handleFilterLayout = (event: LayoutChangeEvent) => {
+    if (filterHeight === 0) {
+      setFilterHeight(event.nativeEvent.layout.height);
+    }
+  };
+
+  const filterWrapperStyle =
+    filterHeight > 0
+      ? {
+          height: filterAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [filterHeight, 0],
+          }),
+          marginBottom: filterAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [4, 0],
+          }),
+          opacity: filterAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [1, 0],
+          }),
+        }
+      : undefined;
+
   return (
     <LinearGradient
       colors={['#00a99c', '#98d2c6']}
@@ -88,21 +140,23 @@ export default function CategoryScreen() {
           <View style={{ width: 40 }} />
         </View>
         {/* 상단 필터 */}
-        <View style={s.filterContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
-            <View style={s.filterRow}>
-              {filterOptions.map((opt) => (
-                <TouchableOpacity
-                  key={opt}
-                  style={[s.filterBtn, selectedSub === opt && s.active]}
-                  onPress={() => setSelectedSub(opt)}
-                >
-                  <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
+        <Animated.View style={[s.filterWrapper, filterWrapperStyle]}>
+          <View style={s.filterContainer} onLayout={handleFilterLayout}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
+              <View style={s.filterRow}>
+                {filterOptions.map((opt) => (
+                  <TouchableOpacity
+                    key={opt}
+                    style={[s.filterBtn, selectedSub === opt && s.active]}
+                    onPress={() => setSelectedSub(opt)}
+                  >
+                    <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+        </Animated.View>
 
         {/* 리스트 */}
         <ScrollView
@@ -112,6 +166,8 @@ export default function CategoryScreen() {
             filtered.length === 0 && { flex: 1, justifyContent: "center", alignItems: "center" },
           ]}
           showsVerticalScrollIndicator={false}
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
         >
           {filtered.length > 0 ? (
             (() => {
@@ -240,9 +296,12 @@ const s = StyleSheet.create({
     textAlign: "center",
     letterSpacing: -0.3,
   },
+  filterWrapper: {
+    overflow: "hidden",
+    marginBottom: 4,
+  },
   filterContainer: {
     paddingVertical: 8,
-    marginBottom: 4,
   },
   filterScroll: {
     paddingVertical: 10,
