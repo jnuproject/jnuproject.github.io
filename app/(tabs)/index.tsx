@@ -2,6 +2,7 @@ import { CATEGORIES } from "@/constants/categories";
 import { getImageSource, isLogoImage } from "@/constants/imageMap";
 import { useAllAffiliates } from "@/hooks/useAffiliates";
 import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
