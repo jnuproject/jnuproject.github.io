@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated, NativeScrollEvent, NativeSyntheticEvent, LayoutChangeEvent } from "react-native";
+import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Animated, LayoutChangeEvent } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAllAffiliates } from "../../hooks/useAffiliates";
 import * as NavigationBar from "expo-navigation-bar";
@@ -14,11 +14,8 @@ export default function CategoryScreen() {
   const router = useRouter();
   const { data } = useAllAffiliates();
   const fadeAnim = useState(() => new Animated.Value(0))[0];
-  const filterAnim = useRef(new Animated.Value(0)).current;
-  const scrollOffset = useRef(0);
-  const filterHidden = useRef(false);
-  const [filterHeight, setFilterHeight] = useState(0);
-  const SCROLL_THRESHOLD = 32;
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
     // Android 네비게이션 바 표시
@@ -72,64 +69,39 @@ export default function CategoryScreen() {
     return categoryMatch && filterMatch;
   });
 
-  const animateFilterBar = (hide: boolean) => {
-    Animated.spring(filterAnim, {
-      toValue: hide ? 1 : 0,
-      stiffness: 160,
-      damping: 24,
-      mass: 0.85,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const offsetY = event.nativeEvent.contentOffset.y;
-    const delta = offsetY - scrollOffset.current;
-
-    if (delta > SCROLL_THRESHOLD && !filterHidden.current && offsetY > 0) {
-      filterHidden.current = true;
-      animateFilterBar(true);
-    } else if ((delta < -SCROLL_THRESHOLD || offsetY <= 12) && filterHidden.current) {
-      filterHidden.current = false;
-      animateFilterBar(false);
-    }
-
-    scrollOffset.current = offsetY;
-  };
-
-  const handleFilterLayout = (event: LayoutChangeEvent) => {
-    if (filterHeight === 0) {
-      setFilterHeight(event.nativeEvent.layout.height);
+  const handleHeaderLayout = (event: LayoutChangeEvent) => {
+    const height = Math.ceil(event.nativeEvent.layout.height);
+    if (height !== headerHeight) {
+      setHeaderHeight(height);
     }
   };
 
-  const filterWrapperStyle =
-    filterHeight > 0
+  const headerAnimatedStyle =
+    headerHeight > 0
       ? {
-          height: filterHeight,
-        }
-      : undefined;
-
-  const hiddenOffset =
-    filterHeight > 0 ? Math.min(filterHeight * 0.6, Math.max(filterHeight - 8, 12)) : 0;
-
-  const filterAnimatedStyle =
-    filterHeight > 0
-      ? {
-          opacity: filterAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1, 0],
-          }),
           transform: [
             {
-              translateY: filterAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, -hiddenOffset],
+              translateY: scrollY.interpolate({
+                inputRange: [0, headerHeight],
+                outputRange: [0, -headerHeight],
+                extrapolate: "clamp",
               }),
             },
           ],
+          opacity: scrollY.interpolate({
+            inputRange: [0, headerHeight * 0.8],
+            outputRange: [1, 0],
+            extrapolate: "clamp",
+          }),
         }
       : undefined;
+
+  const listPaddingTop = headerHeight > 0 ? headerHeight + 16 : 180;
+
+  const onScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+    { useNativeDriver: true }
+  );
 
   return (
     <LinearGradient
@@ -140,49 +112,51 @@ export default function CategoryScreen() {
     >
       <SafeAreaView style={s.safe}>
         <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
-        {/* 헤더 with 뒤로가기 버튼 */}
-        <View style={s.header}>
-          <TouchableOpacity
-            style={s.backButton}
-            onPress={() => router.back()}
-          >
-            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
-          </TouchableOpacity>
-          <Text style={s.headerTitle}>{categoryTitle}</Text>
-          <View style={{ width: 40 }} />
-        </View>
-        {/* 상단 필터 */}
-        <View style={[s.filterWrapper, filterWrapperStyle]}>
-          <Animated.View style={[s.filterAnimated, filterAnimatedStyle]}>
-            <View style={s.filterContainer} onLayout={handleFilterLayout}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
-                <View style={s.filterRow}>
-                  {filterOptions.map((opt) => (
-                    <TouchableOpacity
-                      key={opt}
-                      style={[s.filterBtn, selectedSub === opt && s.active]}
-                      onPress={() => setSelectedSub(opt)}
-                    >
-                      <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </ScrollView>
-            </View>
-          </Animated.View>
-        </View>
+          <View style={{ flex: 1 }}>
+            <Animated.View
+              pointerEvents="box-none"
+              style={[s.headerBlock, headerAnimatedStyle]}
+              onLayout={handleHeaderLayout}
+            >
+              <View style={s.header}>
+                <TouchableOpacity
+                  style={s.backButton}
+                  onPress={() => router.back()}
+                >
+                  <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+                </TouchableOpacity>
+                <Text style={s.headerTitle}>{categoryTitle}</Text>
+                <View style={{ width: 40 }} />
+              </View>
+              <View style={s.filterContainer}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
+                  <View style={s.filterRow}>
+                    {filterOptions.map((opt) => (
+                      <TouchableOpacity
+                        key={opt}
+                        style={[s.filterBtn, selectedSub === opt && s.active]}
+                        onPress={() => setSelectedSub(opt)}
+                      >
+                        <Text style={[s.filterText, selectedSub === opt && s.activeText]}>{opt}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                </ScrollView>
+              </View>
+            </Animated.View>
 
-        {/* 리스트 */}
-        <ScrollView
-          style={s.list}
-          contentContainerStyle={[
-            s.listContent,
-            filtered.length === 0 && { flex: 1, justifyContent: "center", alignItems: "center" },
-          ]}
-          showsVerticalScrollIndicator={false}
-          onScroll={handleScroll}
-          scrollEventThrottle={16}
-        >
+            {/* 리스트 */}
+            <Animated.ScrollView
+              style={s.list}
+              contentContainerStyle={[
+                s.listContent,
+                { paddingTop: listPaddingTop },
+                filtered.length === 0 && { flex: 1, justifyContent: "center", alignItems: "center" },
+              ]}
+              showsVerticalScrollIndicator={false}
+              onScroll={onScroll}
+              scrollEventThrottle={16}
+            >
           {filtered.length > 0 ? (
             (() => {
               // 섹션별로 그룹화
@@ -272,7 +246,8 @@ export default function CategoryScreen() {
               {emptyMessage}
             </Text>
           )}
-        </ScrollView>
+        </Animated.ScrollView>
+      </View>
       </Animated.View>
     </SafeAreaView>
     </LinearGradient>
@@ -284,6 +259,13 @@ const s = StyleSheet.create({
     flex: 1,
     backgroundColor: "transparent",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  headerBlock: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
   },
   header: {
     flexDirection: "row",
@@ -310,20 +292,12 @@ const s = StyleSheet.create({
     textAlign: "center",
     letterSpacing: -0.3,
   },
-  filterWrapper: {
-    overflow: "hidden",
-    marginBottom: 4,
-    width: "100%",
-  },
-  filterAnimated: {
-    flex: 1,
-  },
   filterContainer: {
     paddingVertical: 8,
+    paddingHorizontal: 16,
   },
   filterScroll: {
     paddingVertical: 10,
-    paddingHorizontal: 16,
   },
   filterBtn: {
     backgroundColor: "rgba(255, 255, 255, 0.28)",
