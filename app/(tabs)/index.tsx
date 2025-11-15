@@ -83,6 +83,21 @@ export default function HomeScreen() {
 
   const pageContent = (
     <>
+      {/* 헤더 */}
+      <View style={s.header}>
+        <View style={s.logoContainer}>
+          <Image
+            source={require("../../assets/images/logo-white.png")}
+            style={s.logo}
+            contentFit="contain"
+            transition={0}
+            placeholder={null}
+            accessibilityRole="image"
+            accessibilityLabel="Dream 로고"
+          />
+        </View>
+      </View>
+
       {/* 카테고리 */}
       <View style={s.sectionCard}>
         <Text style={s.sectionTitle}>카테고리</Text>
@@ -325,6 +340,18 @@ const s = StyleSheet.create({
   },
   scrollContentSafari: {
     width: "100%",
+  },
+  header: {
+    paddingTop: Platform.OS === "web" ? 28 : 0,
+    paddingBottom: 18,
+  },
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logo: {
+    maxWidth: 220,
+    height: 64,
   },
   heroCaption: {
     fontSize: 15,
