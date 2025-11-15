@@ -14,10 +14,10 @@ export default function CategoryScreen() {
   const router = useRouter();
   const { data } = useAllAffiliates();
   const fadeAnim = useState(() => new Animated.Value(0))[0];
-  const filterAnim = useRef(new Animated.Value(0)).current;
+  const headerAnim = useRef(new Animated.Value(0)).current;
   const scrollOffset = useRef(0);
-  const filterHidden = useRef(false);
-  const [filterHeight, setFilterHeight] = useState(0);
+  const blockHidden = useRef(false);
+  const [blockHeight, setBlockHeight] = useState(0);
   const SCROLL_THRESHOLD = 28;
 
   useEffect(() => {
@@ -76,22 +76,22 @@ export default function CategoryScreen() {
     const offsetY = event.nativeEvent.contentOffset.y;
     const delta = offsetY - scrollOffset.current;
 
-    if (delta > SCROLL_THRESHOLD && !filterHidden.current && offsetY > 0) {
-      filterHidden.current = true;
-      Animated.spring(filterAnim, {
+    if (delta > SCROLL_THRESHOLD && !blockHidden.current && offsetY > 0) {
+      blockHidden.current = true;
+      Animated.spring(headerAnim, {
         toValue: 1,
-        stiffness: 160,
-        damping: 20,
-        mass: 0.9,
+        stiffness: 170,
+        damping: 22,
+        mass: 1,
         useNativeDriver: true,
       }).start();
-    } else if ((delta < -SCROLL_THRESHOLD || offsetY <= 8) && filterHidden.current) {
-      filterHidden.current = false;
-      Animated.spring(filterAnim, {
+    } else if ((delta < -SCROLL_THRESHOLD || offsetY <= 8) && blockHidden.current) {
+      blockHidden.current = false;
+      Animated.spring(headerAnim, {
         toValue: 0,
-        stiffness: 160,
-        damping: 20,
-        mass: 0.9,
+        stiffness: 170,
+        damping: 22,
+        mass: 1,
         useNativeDriver: true,
       }).start();
     }
@@ -99,29 +99,30 @@ export default function CategoryScreen() {
     scrollOffset.current = offsetY;
   };
 
-  const handleFilterLayout = (event: LayoutChangeEvent) => {
+  const handleHeaderLayout = (event: LayoutChangeEvent) => {
     const height = Math.ceil(event.nativeEvent.layout.height);
-    if (height !== filterHeight) {
-      setFilterHeight(height);
+    if (height !== blockHeight) {
+      setBlockHeight(height);
     }
   };
 
-  const filterWrapperStyle = filterHeight > 0 ? { height: filterHeight } : undefined;
-  const hiddenOffset =
-    filterHeight > 0 ? Math.min(filterHeight * 0.65, Math.max(filterHeight - 12, 16)) : 0;
+  const listPaddingTop = blockHeight > 0 ? blockHeight + 24 : 200;
+  const hiddenDistance = blockHeight > 0 ? blockHeight + 32 : 180;
 
-  const filterAnimatedStyle =
-    filterHeight > 0
+  const headerAnimatedStyle =
+    blockHeight > 0
       ? {
-          opacity: filterAnim.interpolate({
+          opacity: headerAnim.interpolate({
             inputRange: [0, 1],
             outputRange: [1, 0],
+            extrapolate: "clamp",
           }),
           transform: [
             {
-              translateY: filterAnim.interpolate({
+              translateY: headerAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, -hiddenOffset],
+                outputRange: [0, -hiddenDistance],
+                extrapolate: "clamp",
               }),
             },
           ],
@@ -138,22 +139,34 @@ export default function CategoryScreen() {
       <SafeAreaView style={s.safe}>
         <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
           <View style={{ flex: 1 }}>
-            {/* 헤더 */}
-            <View style={s.header}>
-              <TouchableOpacity
-                style={s.backButton}
-                onPress={() => router.back()}
-              >
-                <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
-              </TouchableOpacity>
-              <Text style={s.headerTitle}>{categoryTitle}</Text>
-              <View style={{ width: 40 }} />
-            </View>
+            <Animated.View
+              style={[s.headerBlock, headerAnimatedStyle]}
+              onLayout={handleHeaderLayout}
+              pointerEvents="box-none"
+            >
+              <View style={s.headerCard}>
+                <View style={s.headerTopRow}>
+                  <TouchableOpacity
+                    style={s.backButton}
+                    onPress={() => router.back()}
+                  >
+                    <Ionicons name="arrow-back" size={24} color="#0F172A" />
+                  </TouchableOpacity>
+                  <View style={{ flex: 1, marginHorizontal: 12 }}>
+                    <Text style={s.headerTitle}>{categoryTitle}</Text>
+                    <Text style={s.headerSubtitle}>
+                      {isAllCategory
+                        ? "지역을 선택해 원하는 제휴 매장을 찾아보세요"
+                        : `${categoryTitle} 제휴 혜택을 확인해보세요`}
+                    </Text>
+                  </View>
+                  <View style={s.countPill}>
+                    <Ionicons name="sparkles-outline" size={16} color="#0F172A" />
+                    <Text style={s.countPillText}>{filtered.length}</Text>
+                  </View>
+                </View>
 
-            {/* 상단 필터 */}
-            <View style={[s.filterWrapper, filterWrapperStyle]}>
-              <Animated.View style={[s.filterAnimated, filterAnimatedStyle]}>
-                <View style={s.filterContainer} onLayout={handleFilterLayout}>
+                <View style={s.filterContainer}>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={s.filterScroll}>
                     <View style={s.filterRow}>
                       {filterOptions.map((opt) => (
@@ -168,14 +181,15 @@ export default function CategoryScreen() {
                     </View>
                   </ScrollView>
                 </View>
-              </Animated.View>
-            </View>
+              </View>
+            </Animated.View>
 
             {/* 리스트 */}
             <ScrollView
               style={s.list}
               contentContainerStyle={[
                 s.listContent,
+                { paddingTop: listPaddingTop },
                 filtered.length === 0 && { flex: 1, justifyContent: "center", alignItems: "center" },
               ]}
               showsVerticalScrollIndicator={false}
@@ -285,12 +299,32 @@ const s = StyleSheet.create({
     backgroundColor: "transparent",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
-  header: {
+  headerBlock: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 16,
+    paddingTop: 4,
+    zIndex: 20,
+  },
+  headerCard: {
+    backgroundColor: "rgba(255,255,255,0.95)",
+    borderRadius: 30,
+    paddingHorizontal: 18,
+    paddingVertical: 18,
+    shadowColor: "#FFFFFF",
+    shadowOpacity: 0.65,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 35,
+    elevation: 12,
+    borderWidth: 2,
+    borderColor: "rgba(255,255,255,0.6)",
+  },
+  headerTopRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    marginBottom: 16,
   },
   backButton: {
     width: 44,
@@ -298,24 +332,35 @@ const s = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 22,
-    backgroundColor: "rgba(255,255,255,0.15)",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
+    backgroundColor: "#E7F3F1",
+    borderWidth: 1.5,
+    borderColor: "rgba(37, 150, 136, 0.25)",
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "800",
-    color: "#FFFFFF",
-    flex: 1,
-    textAlign: "center",
+    color: "#0F172A",
     letterSpacing: -0.3,
+    textAlign: "left",
   },
-  filterWrapper: {
-    overflow: "hidden",
-    marginBottom: 4,
+  headerSubtitle: {
+    fontSize: 13,
+    color: "#475569",
+    marginTop: 4,
   },
-  filterAnimated: {
-    flex: 1,
+  countPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: "#E2F6F0",
+  },
+  countPillText: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#0F172A",
   },
   filterContainer: {
     paddingVertical: 8,
