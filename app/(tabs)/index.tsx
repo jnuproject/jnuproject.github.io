@@ -89,7 +89,9 @@ export default function HomeScreen() {
           <Image
             source={require("../../assets/images/logo.png")}
             style={s.heroLogo}
-            resizeMode="contain"
+            contentFit="contain"
+            transition={0}
+            placeholder={null}
             accessibilityRole="image"
             accessibilityLabel="Dream 로고"
           />
@@ -354,7 +356,7 @@ const s = StyleSheet.create({
     elevation: 25,
   },
   heroLogo: {
-    width: 220,
+    maxWidth: 220,
     height: 64,
     backgroundColor: 'transparent',
   },
