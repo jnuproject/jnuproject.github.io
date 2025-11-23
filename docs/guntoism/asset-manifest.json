@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/guntoism/static/css/main.96c180f1.css",
+    "main.css": "/guntoism/static/css/main.be448d04.css",
     "main.js": "/guntoism/static/js/main.26296e07.js",
     "static/media/slick.svg": "/guntoism/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/guntoism/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/guntoism/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/guntoism/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/guntoism/index.html",
-    "main.96c180f1.css.map": "/guntoism/static/css/main.96c180f1.css.map",
+    "main.be448d04.css.map": "/guntoism/static/css/main.be448d04.css.map",
     "main.26296e07.js.map": "/guntoism/static/js/main.26296e07.js.map"
   },
   "entrypoints": [
-    "static/css/main.96c180f1.css",
+    "static/css/main.be448d04.css",
     "static/js/main.26296e07.js"
   ]
 }
