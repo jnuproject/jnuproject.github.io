@@ -3452,5 +3452,16 @@
     "image": "",
     "latitude": "33.4864747",
     "longitude": "126.4784782"
+  },
+  {
+    "id": "315",
+    "name": "test",
+    "category": "카페/베이커리",
+    "region": "노형",
+    "address": "제주 제주시 월랑로 3 1층",
+    "description": "호두과자, 커피음료 5% 할인",
+    "image": "",
+    "latitude": "33.4864747",
+    "longitude": "126.4784782"
   }
 ]
