@@ -5,7 +5,7 @@
     "category": "교육",
     "region": "아라동",
     "address": "제주 제주시 중앙로 558 2층",
-    "description": "100시간 구매시+50시간/ 4주기간 구매시+7일",
+    "description": "100시간 구매시 +50시간/ 4주기간 구매시 +7일",
     "image": "",
     "latitude": "33.4738219",
     "longitude": "126.5453467"
@@ -148,7 +148,7 @@
     "category": "레저/스포츠",
     "region": "연동",
     "address": "제주 제주시 신광로 48 3층",
-    "description": "20%할인",
+    "description": "20% 할인",
     "image": "",
     "latitude": "33.4877834",
     "longitude": "126.489806"
@@ -203,7 +203,7 @@
     "category": "레저/스포츠",
     "region": "연동",
     "address": "제주 제주시 연화중길 11 지하층",
-    "description": "10,000씩 할인",
+    "description": "만 원씩 할인",
     "image": "",
     "latitude": "33.4778541",
     "longitude": "126.4888555"
@@ -236,7 +236,7 @@
     "category": "문화생활/복지",
     "region": "노형",
     "address": "제주 제주시 노형로 367 3F",
-    "description": "그룹수업 8회 +1회 16회+2회 24회 +3 회 48회 +4회",
+    "description": "그룹수업 8회+1회/16회+2회/24회+3회/48회+4회",
     "image": "",
     "latitude": "33.48343",
     "longitude": "126.4752549"
@@ -258,7 +258,7 @@
     "category": "문화생활/복지",
     "region": "서귀포",
     "address": "제주 서귀포시 이중섭로 23 .",
-    "description": "총구매금액의 5% 할인",
+    "description": "총 구매 금액의 5% 할인",
     "image": "",
     "latitude": "33.2460866",
     "longitude": "126.5642429"
@@ -269,7 +269,7 @@
     "category": "문화생활/복지",
     "region": "삼화",
     "address": "제주 제주시 건주로 43 4층",
-    "description": "그룹수업 8회 +1회 16회+2회 24회 +3 회",
+    "description": "그룹수업 8회+1회/16회+2회/24회+3회",
     "image": "",
     "latitude": "33.5155705",
     "longitude": "126.58101"
@@ -335,7 +335,7 @@
     "category": "문화생활/복지",
     "region": "아라동",
     "address": "제주 제주시 아봉로 56 2F",
-    "description": "그룹수업 8회 +1회 16회+2회 24회 +3 회 48회 +4회",
+    "description": "그룹수업 8회+1회/16회+2회/24회+3회/48회+4회",
     "image": "",
     "latitude": "33.4775602",
     "longitude": "126.5496088"
@@ -511,7 +511,7 @@
     "category": "문화생활/복지",
     "region": "노형",
     "address": "제주 제주시 수덕11길 1 1층 코너",
-    "description": "오일파스텔 원데이(a4)\n1인 35000원 -> 32000원\n 2인 70000원 -> 60000원\n3인 105000원 -> 81000원",
+    "description": "오일파스텔 원데이(a4)\n1인 35000원 -> 32000원\n2인 70000원 -> 60000원\n3인 105000원 -> 81000원",
     "image": "",
     "latitude": "33.4880031",
     "longitude": "126.4759714"
@@ -555,7 +555,7 @@
     "category": "문화생활/복지",
     "region": "이도이동",
     "address": "제주 제주시 고마로 148 대림빌딩 2층",
-    "description": "증명 사진 １０%、 취업사진 １０%、\n가족사진 １０%、 우정사진 １０% 할인",
+    "description": "증명 사진 10%、 취업사진 10%、\n가족사진 10%、 우정사진 10% 할인",
     "image": "",
     "latitude": "33.5014815",
     "longitude": "126.5430532"
@@ -577,7 +577,7 @@
     "category": "문화생활/복지",
     "region": "아라일동",
     "address": "제주 제주시 중앙로 355",
-    "description": "10프로 할인(전공서적, 만화 제외)",
+    "description": "10% 할인(전공서적, 만화 제외)",
     "image": "",
     "latitude": "33.4901963",
     "longitude": "126.5385677"
@@ -588,7 +588,7 @@
     "category": "문화생활/복지",
     "region": "시청",
     "address": "제주 제주시 신성로13길 14",
-    "description": "음료제공, 현금결제시 5%할인",
+    "description": "음료제공, 현금 결제시 5% 할인",
     "image": "",
     "latitude": "33.4989316",
     "longitude": "126.5293669"
@@ -610,7 +610,7 @@
     "category": "문화생활/복지",
     "region": "이도이동",
     "address": "제주 제주시 남광로 10",
-    "description": "평일/주말 오전시간( ~오후 6시 전) :신발 대여료 무료(2000원) 평일/주말 오후 일반 요금 대비 500할인",
+    "description": "평일/주말 오전시간(~오후 6시 전): 신발 대여료 무료(2000원)\n평일/주말 오후 일반 요금 대비 500원 할인",
     "image": "",
     "latitude": "33.4922677",
     "longitude": "126.5376385"
@@ -621,7 +621,7 @@
     "category": "문화생활/복지",
     "region": "조천",
     "address": "제주 제주시 조천읍 대흘9길 35",
-    "description": "기존 체험비 30000->25000 (제주대학교 학생증지참)-동반 1인까지 가능",
+    "description": "기존 체험비 30000원 -> 25000원 (제주대학교 학생증지참)-동반 1인까지 가능",
     "image": "",
     "latitude": "33.4958322",
     "longitude": "126.669431"
@@ -632,7 +632,7 @@
     "category": "문화생활/복지",
     "region": "이도이동",
     "address": "제주 제주시 연삼로 386 1F",
-    "description": "피아노,디지털피아노,통기타,악기스트링 외 10~15 % 할인",
+    "description": "피아노,디지털피아노,통기타,악기스트링 외 10~15% 할인",
     "image": "",
     "latitude": "33.4941006",
     "longitude": "126.5331125"
@@ -753,7 +753,7 @@
     "category": "미용/뷰티/패션",
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀로23길 8 1층 (빨간대문)",
-    "description": "10% 할인, 5%적립, 동양타로 무료",
+    "description": "10% 할인, 5% 적립, 동양 타로 무료",
     "image": "",
     "latitude": "33.479743",
     "longitude": "126.4025971"
@@ -918,7 +918,7 @@
     "category": "미용/뷰티/패션",
     "region": "이도이동",
     "address": "제주 제주시 중앙로 337 다우빌딩 1층",
-    "description": "최종결제시 추가 10% 할인, 김서림 방지 안경클리너 제공",
+    "description": "최종 결제시 추가 10% 할인, 김서림 방지 안경클리너 제공",
     "image": "",
     "latitude": "33.4915399",
     "longitude": "126.5373076"
@@ -929,7 +929,7 @@
     "category": "미용/뷰티/패션",
     "region": "시청",
     "address": "제주 제주시 서광로 300 다비치안경광양",
-    "description": "렌즈제외 안경 구매 시 10% 할인(콘텍트 렌즈 포함)",
+    "description": "렌즈 제외 안경 구매 시 10% 할인(콘텍트 렌즈 포함)",
     "image": "",
     "latitude": "33.5003693",
     "longitude": "126.5283404"
@@ -951,7 +951,7 @@
     "category": "미용/뷰티/패션",
     "region": "이도이동",
     "address": "제주 제주시 중앙로 308 1층 아이젠트리 제주법원점",
-    "description": "안경렌즈 10% 할인/콘텍트렌즈 케이스 증정",
+    "description": "안경렌즈 10% 할인 / 콘텍트렌즈 케이스 증정",
     "image": "",
     "latitude": "33.4932338",
     "longitude": "126.5347568"
@@ -973,7 +973,7 @@
     "category": "미용/뷰티/패션",
     "region": "외도",
     "address": "제주 제주시 우정로 62-1 1층",
-    "description": "안경태 59,000이상 구매시 블루라이트 차단 안경 렌즈 제공/  블루라이트 안경 렌즈 구매 시 1만원",
+    "description": "안경테 59,000원 이상 구매시 블루라이트 차단 안경 렌즈 제공 / 블루라이트 안경 렌즈 구매 시 1만원",
     "image": "",
     "latitude": "33.4872135",
     "longitude": "126.4307011"
@@ -1017,7 +1017,7 @@
     "category": "미용/뷰티/패션",
     "region": "아라일동",
     "address": "제주 제주시 아란5길 18 제주 제주시 아란5길 18",
-    "description": "펌,염색 여성 단발 15% 긴머리20% 할인\n남자는 아이롱펌 16만원 -> 14만원 (수석 디자이너 예림 선생님 단독 이벤트)",
+    "description": "펌,염색 여성 단발 15% 긴머리 20% 할인\n남자는 아이롱펌 16만원 -> 14만원 (수석 디자이너 예림 선생님 단독 이벤트)",
     "image": "",
     "latitude": "33.4751054",
     "longitude": "126.5435652"
@@ -1435,7 +1435,7 @@
     "category": "음식점",
     "region": "도남",
     "address": "제주 제주시 도남로6길 16",
-    "description": "불고기뚝배기",
+    "description": "불고기뚝배기 제공",
     "image": "",
     "latitude": "33.4965584",
     "longitude": "126.5260937"
@@ -1589,7 +1589,7 @@
     "category": "음식점",
     "region": "노형",
     "address": "제주 제주시 월랑로 29 1층 월랑낙곱새",
-    "description": "2인 이상 음료 1서비스",
+    "description": "2인 이상 음료 1개 서비스",
     "image": "",
     "latitude": "33.4882157",
     "longitude": "126.4764799"
@@ -1699,7 +1699,7 @@
     "category": "음식점",
     "region": "용담",
     "address": "제주 제주시 용담로 85-1 1층",
-    "description": "제주대학교 학생증 제시 1테이블당 음료 500ml 제공",
+    "description": "제주대학교 학생증 제시 한 테이블당 음료 500ml 제공",
     "image": "",
     "latitude": "33.5123529",
     "longitude": "126.5120269"
@@ -2040,7 +2040,7 @@
     "category": "음식점",
     "region": "시청",
     "address": "제주 제주시 신성로 109-1 1층",
-    "description": "10%할인",
+    "description": "10% 할인",
     "image": "",
     "latitude": "33.49739400000001",
     "longitude": "126.5305001"
@@ -2106,7 +2106,7 @@
     "category": "음식점",
     "region": "노형",
     "address": "제주 제주시 노형8길 16 2층 201호",
-    "description": "10%할인",
+    "description": "10% 할인",
     "image": "",
     "latitude": "33.483757",
     "longitude": "126.4785572"
@@ -2117,7 +2117,7 @@
     "category": "음식점",
     "region": "이도이동",
     "address": "제주 제주시 광양7길 49 1층",
-    "description": "음료수제공",
+    "description": "음료수 제공",
     "image": "",
     "latitude": "33.5024935",
     "longitude": "126.5339846"
@@ -2139,7 +2139,7 @@
     "category": "음식점",
     "region": "시청",
     "address": "제주 제주시 신성로13길 1 2층 먹주",
-    "description": "현금결제 시 10%할인",
+    "description": "현금결제 시 10% 할인",
     "image": "",
     "latitude": "33.4998531",
     "longitude": "126.529019"
@@ -2227,7 +2227,7 @@
     "category": "음식점",
     "region": "연동",
     "address": "제주 제주시 신대로7길 15-1",
-    "description": "10%할인",
+    "description": "10% 할인",
     "image": "",
     "latitude": "33.4919801",
     "longitude": "126.4983589"
@@ -2381,7 +2381,7 @@
     "category": "음식점",
     "region": "노형",
     "address": "제주 제주시 신광로10길 3 돈나무흑돼지",
-    "description": "10프로 할인",
+    "description": "10% 할인",
     "image": "",
     "latitude": "33.4836453",
     "longitude": "126.4890832"
@@ -2667,7 +2667,7 @@
     "category": "음식점",
     "region": "노형",
     "address": "제주 제주시 노형5길 8",
-    "description": "10%할인",
+    "description": "10% 할인",
     "image": "",
     "latitude": "33.4817791",
     "longitude": "126.4764248"
@@ -2755,7 +2755,7 @@
     "category": "의료",
     "region": "아라",
     "address": "제주 제주시 연북로 511 에이플렉스 3층",
-    "description": "뷰티시술 정가의 10%(이벤트가 일시, 이벤트가의  5%추가할인)/ 가다실( 자궁경부암 예방접종) 1회접종시 2만원 할인, 3회 접종시 3만원 할인",
+    "description": "뷰티시술 정가의 10%(이벤트가 일시, 이벤트가의  5%추가할인)\n가다실(자궁경부암 예방접종) 1회접종시 2만원 할인, 3회 접종시 3만원 할인",
     "image": "",
     "latitude": "33.4847778",
     "longitude": "126.5343571"
@@ -2810,7 +2810,7 @@
     "category": "카페/베이커리",
     "region": "일도이동",
     "address": "제주 제주시 동문로 62 1층 에브리블룸",
-    "description": "꽃다발 5만원이상 10%할인",
+    "description": "꽃다발 5만원이상 10% 할인",
     "image": "",
     "latitude": "33.5132402",
     "longitude": "126.5332692"
@@ -2843,7 +2843,7 @@
     "category": "카페/베이커리",
     "region": "이도이동",
     "address": "제주 제주시 박성내서길 2-5 1층",
-    "description": "1,000할인",
+    "description": "1,000원 할인",
     "image": "",
     "latitude": "33.4921863",
     "longitude": "126.5403694"
@@ -3008,7 +3008,7 @@
     "category": "카페/베이커리",
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로 28-1 라피스 제주",
-    "description": "10%할인 (주류 제외)",
+    "description": "10% 할인 (주류 제외)",
     "image": "",
     "latitude": "33.25540650000001",
     "longitude": "126.5583121"
@@ -3140,7 +3140,7 @@
     "category": "카페/베이커리",
     "region": "탑동",
     "address": "제주 제주시 북성로 57 1층",
-    "description": "10%할인",
+    "description": "10% 할인",
     "image": "",
     "latitude": "33.5154255",
     "longitude": "126.5187889"
@@ -3162,7 +3162,7 @@
     "category": "카페/베이커리",
     "region": "이도이동",
     "address": "제주 제주시 신설로2길 1-1 촐리케이크",
-    "description": "매장 이용시 10%할인/ 제작 케이크 40,000원 이상이면 2,000원 할인",
+    "description": "매장 이용시 10% 할인/ 제작 케이크 40,000원 이상이면 2,000원 할인",
     "image": "",
     "latitude": "33.4940094",
     "longitude": "126.5420219"
@@ -3217,7 +3217,7 @@
     "category": "카페/베이커리",
     "region": "시청",
     "address": "제주 제주시 서광로29길 2",
-    "description": "모든 메뉴 10%할인",
+    "description": "모든 메뉴 10% 할인",
     "image": "",
     "latitude": "33.50066",
     "longitude": "126.5268216"
@@ -3338,7 +3338,7 @@
     "category": "카페/베이커리",
     "region": "서귀포",
     "address": "제주 서귀포시 중정로61번길 20 2호실",
-    "description": "전체금액의 10프로",
+    "description": "전체금액의 10%",
     "image": "",
     "latitude": "33.2495636",
     "longitude": "126.5630367"
