@@ -6,7 +6,7 @@
     "region": "아라동",
     "address": "제주 제주시 중앙로 558 2층",
     "description": "100시간 구매시+50시간/ 4주기간 구매시+7일",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/1.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4738219",
     "longitude": "126.5453467"
   },
@@ -17,7 +17,7 @@
     "region": "외도",
     "address": "제주 제주시 절물1길 39 3층",
     "description": "기간권 이용 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/2.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4894176",
     "longitude": "126.4317388"
   },
@@ -28,7 +28,7 @@
     "region": "노형",
     "address": "제주 제주시 노형동 3107",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/3.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4800813",
     "longitude": "126.4649952"
   },
@@ -39,7 +39,7 @@
     "region": "화북",
     "address": "제주 제주시 일주동로 96-1",
     "description": "학생레슨&대관시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/4.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5145751",
     "longitude": "126.5573961"
   },
@@ -50,7 +50,7 @@
     "region": "이도이동",
     "address": "제주 제주시 구남로 55 3층",
     "description": "무료레슨 제외 만 원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/5.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4914948",
     "longitude": "126.5354451"
   },
@@ -61,7 +61,7 @@
     "region": "용담",
     "address": "제주 제주시 용담 2동 919-3",
     "description": "재학생 야외 풋살장 무료 이용(관리비 별도), 팀 등록 시 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/6.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5084457",
     "longitude": "126.4990864"
   },
@@ -72,7 +72,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 조함해안로 321-21 국제리더스클럽",
     "description": "비용 15% 할인 몽골여행 시 기념품 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/7.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5514426",
     "longitude": "126.6527137"
   },
@@ -83,7 +83,7 @@
     "region": "월평",
     "address": "제주 제주시 월평8길 116-71",
     "description": "1만원 할인, 주말 18시 이전 이용시 2만원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/8.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4622396",
     "longitude": "126.5789298"
   },
@@ -94,7 +94,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 536 2층",
     "description": "3개월 등록시 도복 무료 + 레쉬가드 무료 (재고 소진 전까지) \n+ 머그컵 무료(재고 소진 전 까지) + 친구와 함께 등록 시 각 2주 무료 연장",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/9.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4753954",
     "longitude": "126.5447686"
   },
@@ -105,7 +105,7 @@
     "region": "노형",
     "address": "제주 제주시 남녕로 39 지하1층",
     "description": "신규 등록 시 30% 할인, 재등록 시 1개월 5일 추가, 3개월 10일 추가",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/10.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4909133",
     "longitude": "126.4802837"
   },
@@ -116,7 +116,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀9길 11 201호",
     "description": "재학생 10% 할인, 글러브 및 붕대 등 운동용품 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/11.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4859224",
     "longitude": "126.4154993"
   },
@@ -127,7 +127,7 @@
     "region": "아라일동",
     "address": "제주 제주시 구산로 4 1층",
     "description": "볼링장 예약 후 현금 결제 시 체험비용 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/12.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4838697",
     "longitude": "126.5358765"
   },
@@ -138,7 +138,7 @@
     "region": "노형",
     "address": "제주 제주시 한라대학로 17 4층 팀HJ 스캠프짐 노형점",
     "description": "3개월 등록 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/13.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.479699",
     "longitude": "126.4738616"
   },
@@ -149,7 +149,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다6길 54-2 2층",
     "description": "3개월 등록 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/14.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.474793",
     "longitude": "126.5485727"
   },
@@ -160,7 +160,7 @@
     "region": "삼화",
     "address": "제주 제주시 용강6길 124 오아시스풋살파크",
     "description": "정상가에서 5000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/15.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4681817",
     "longitude": "126.5917027"
   },
@@ -171,7 +171,7 @@
     "region": "이도이동",
     "address": "제주 제주시 신설로2길 13 1층",
     "description": "3개월 13만원 (운동복 포함)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/16.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4949115",
     "longitude": "126.542409"
   },
@@ -182,7 +182,7 @@
     "region": "노형",
     "address": "제주 제주시 진군길 1-6 나이스민턴",
     "description": "택가에 20% 할인(셔틀콕 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/17.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4807157",
     "longitude": "126.4810711"
   },
@@ -193,7 +193,7 @@
     "region": "도두",
     "address": "제주 제주시 테우해안로 172-5 이호서프 바닷가쪽",
     "description": "강습+슈트 만원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/18.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4967964",
     "longitude": "126.4527293"
   },
@@ -204,7 +204,7 @@
     "region": "삼도이동",
     "address": "제주 제주시 용마로 28 1층 제주라인스쿠터",
     "description": "부가용품 제공 및 연료비 5000원 지원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/19.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5154688",
     "longitude": "126.5063757"
   },
@@ -215,7 +215,7 @@
     "region": "구좌",
     "address": "제주 제주시 구좌읍 해맞이해안로 472-2 1층",
     "description": "상품 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/20.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5290971",
     "longitude": "126.8463777"
   },
@@ -226,7 +226,7 @@
     "region": "연동",
     "address": "제주 제주시 국기로 7 3층",
     "description": "2달 등록시 10% 할인 + 입관비 면제, 3달 등록 시 3만원 금액 할인 + 입관비무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/21.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4811456",
     "longitude": "126.4900479"
   },
@@ -237,7 +237,7 @@
     "region": "연동",
     "address": "제주 제주시 연화중길 11 지하층",
     "description": "10,000씩 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/22.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4778541",
     "longitude": "126.4888555"
   },
@@ -248,7 +248,7 @@
     "region": "연동",
     "address": "제주 제주시 신광로 48 3층",
     "description": "20%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/23.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4877834",
     "longitude": "126.489806"
   },
@@ -259,7 +259,7 @@
     "region": "연동",
     "address": "제주 제주시 신광로 47 3층",
     "description": "회원권 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/24.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4877703",
     "longitude": "126.4902901"
   },
@@ -270,7 +270,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 남원읍 하례망장포로26번길 61-4",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/25.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2628037",
     "longitude": "126.6313262"
   },
@@ -281,7 +281,7 @@
     "region": "이도이동",
     "address": "제주 제주시 광양9길 41 탑마트2층",
     "description": "한번 등록으로 킥복싱 주짓수 이용 가능 월 15만원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/26.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.501477",
     "longitude": "126.5338722"
   },
@@ -292,7 +292,7 @@
     "region": "구좌읍",
     "address": "제주 제주시 구좌읍 해맞이해안로 1950 하도리43-4",
     "description": "30% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/27.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5151732",
     "longitude": "126.9008877"
   },
@@ -303,7 +303,7 @@
     "region": "이도이동",
     "address": "제주 제주시 연신로 85 3층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/28.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4942988",
     "longitude": "126.5491034"
   },
@@ -314,7 +314,7 @@
     "region": "이도이동",
     "address": "제주 제주시 남광로4길 15 1층",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/29.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4921071",
     "longitude": "126.5397747"
   },
@@ -325,7 +325,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 성산읍 성산등용로 130-21 1층(성산포종합여객터미널)",
     "description": "제주대 학생 본인한정 도민가에서 2500원 할인제공 (16000원)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/30.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4728912",
     "longitude": "126.9346052"
   },
@@ -336,7 +336,7 @@
     "region": "이도이동",
     "address": "제주 제주시 승천로 89 카페굿모닝 안쪽",
     "description": "3만원 이상 구매시 꽃 한송이 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/31.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4912329",
     "longitude": "126.5441749"
   },
@@ -347,7 +347,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중문관광로 42 감귤카트(맥도날드 안쪽)",
     "description": "55% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/32.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2549444",
     "longitude": "126.4078378"
   },
@@ -358,7 +358,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 587 2층 경희대스포츠클리닉",
     "description": "1개월 6만원으로 이용 가능, 3개월 15만원 이용 가능",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/33.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4709247",
     "longitude": "126.5459776"
   },
@@ -369,7 +369,7 @@
     "region": "이도일동",
     "address": "제주 제주시 서광로 291 1층 고수의 운전면허",
     "description": "제주대학교 재학생 이용권 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/34.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5006572",
     "longitude": "126.5275683"
   },
@@ -380,7 +380,7 @@
     "region": "노형",
     "address": "제주 제주시 연삼로 88 그랜드타이어 제주지점",
     "description": "타이어 25% ~ 50% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/35.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.493239",
     "longitude": "126.5017131"
   },
@@ -391,7 +391,7 @@
     "region": "노형",
     "address": "제주 제주시 노형로 367 3F",
     "description": "그룹수업 8회 +1회 16회+2회 24회 +3 회 48회 +4회",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/36.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.48343",
     "longitude": "126.4752549"
   },
@@ -402,7 +402,7 @@
     "region": "아라동",
     "address": "제주 제주시 아봉로 56 2F",
     "description": "그룹수업 8회 +1회 16회+2회 24회 +3 회 48회 +4회",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/37.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4775602",
     "longitude": "126.5496088"
   },
@@ -413,7 +413,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 일주동로 8600 나무섬스튜디오",
     "description": "증명사진 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/38.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2548545",
     "longitude": "126.569451"
   },
@@ -424,7 +424,7 @@
     "region": "도남동",
     "address": "제주 제주시 도남로7길 29 1층",
     "description": "2인 이상 방문 시 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/39.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4977576",
     "longitude": "126.5272316"
   },
@@ -435,7 +435,7 @@
     "region": "애월읍",
     "address": "제주 제주시 애월읍 도치돌길 303 도치돌목장",
     "description": "입장권 10% 할인 + 당근 1컵 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/40.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4099012",
     "longitude": "126.3667667"
   },
@@ -446,7 +446,7 @@
     "region": "노형",
     "address": "제주 제주시 노형7길 7 1층",
     "description": "5만원 이하 5%, 5만원 이상 10%",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/41.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4806007",
     "longitude": "126.476477"
   },
@@ -457,7 +457,7 @@
     "region": "이도이동",
     "address": "제주 제주시 구남동1길 10 1층",
     "description": "꽃 구입 시 10% 할인(수업지도 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/42.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4922431",
     "longitude": "126.539699"
   },
@@ -468,7 +468,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 558 3층",
     "description": "기본 할인 혜택에서 추가 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/43.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4738219",
     "longitude": "126.5453467"
   },
@@ -479,7 +479,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 유수암리 2475-1",
     "description": "와펜 체험시 와펜 1개 무료 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/44.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4310508",
     "longitude": "126.397398"
   },
@@ -490,7 +490,7 @@
     "region": "노형",
     "address": "제주 제주시 수덕11길 1 1층 코너",
     "description": "오일파스텔 원데이(a4)\n1인 35000원 -> 32000원\n 2인 70000원 -> 60000원\n3인 105000원 -> 81000원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/45.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4880031",
     "longitude": "126.4759714"
   },
@@ -501,7 +501,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 북촌9길 17 북카름",
     "description": "도서 구매 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/46.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.549275",
     "longitude": "126.6944288"
   },
@@ -512,7 +512,7 @@
     "region": "연동",
     "address": "제주 제주시 연북로 88 3층",
     "description": "1+1 이벤트 (한명 등록시 한명 무료)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/47.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4815136",
     "longitude": "126.4906401"
   },
@@ -523,7 +523,7 @@
     "region": "이도이동",
     "address": "제주 제주시 고마로 148 대림빌딩 2층",
     "description": "증명 사진 １０%、 취업사진 １０%、\n가족사진 １０%、 우정사진 １０% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/48.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5014815",
     "longitude": "126.5430532"
   },
@@ -534,7 +534,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 14",
     "description": "음료제공, 현금결제시 5%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/49.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4989316",
     "longitude": "126.5293669"
   },
@@ -545,7 +545,7 @@
     "region": "노형",
     "address": "제주 제주시 연동4길 28-8 다온빌 1층",
     "description": "원데이 클래스 10% 할인, 제품 구매 10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/50.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.483562",
     "longitude": "126.4872534"
   },
@@ -556,7 +556,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 표선면 표선동서로 244",
     "description": "핸드폰 구입 시 케이스,필름,보조배터리 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/51.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.3256018",
     "longitude": "126.8327029"
   },
@@ -567,7 +567,7 @@
     "region": "이도이동",
     "address": "제주 제주시 고산동산6길 4 2층",
     "description": "캠코더 혹은 디지털 카메라 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/52.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4950184",
     "longitude": "126.5325593"
   },
@@ -578,7 +578,7 @@
     "region": "이도이동",
     "address": "제주 제주시 남광로 10",
     "description": "평일/주말 오전시간( ~오후 6시 전) :신발 대여료 무료(2000원) 평일/주말 오후 일반 요금 대비 500할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/53.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4922677",
     "longitude": "126.5376385"
   },
@@ -589,7 +589,7 @@
     "region": "시청",
     "address": "제주 제주시 중앙로 241 1층 신동아문구",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/54.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4983998",
     "longitude": "126.5310164"
   },
@@ -600,7 +600,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 355",
     "description": "10프로 할인(전공서적, 만화 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/55.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4901963",
     "longitude": "126.5385677"
   },
@@ -611,7 +611,7 @@
     "region": "시청",
     "address": "제주 제주시 동고산로 1 3층",
     "description": "원데이클래스 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/56.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.498038",
     "longitude": "126.5314367"
   },
@@ -622,7 +622,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 20 지하층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/57.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4984453",
     "longitude": "126.5296509"
   },
@@ -633,7 +633,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로8길 1 6층",
     "description": "전클래스 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/58.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4887906",
     "longitude": "126.4765748"
   },
@@ -644,7 +644,7 @@
     "region": "삼화",
     "address": "제주 제주시 건주로 43 4층",
     "description": "그룹수업 8회 +1회 16회+2회 24회 +3 회",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/59.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5155705",
     "longitude": "126.58101"
   },
@@ -655,7 +655,7 @@
     "region": "노형",
     "address": "제주시 노형11길 6",
     "description": "대학생 요금 유지, 대화료(신발대여) 면제",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/60.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4845575",
     "longitude": "126.4781064"
   },
@@ -666,7 +666,7 @@
     "region": "서귀포 남원읍",
     "address": "제주 서귀포시 남원읍 원님로399번길 31-7",
     "description": "입장료 2,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/61.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.33956480000001",
     "longitude": "126.7426623"
   },
@@ -677,7 +677,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 84",
     "description": "애견 용품 １０% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/62.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5122458",
     "longitude": "126.5115828"
   },
@@ -688,7 +688,7 @@
     "region": "삼도",
     "address": "제주 제주시 북성로 31 1층 우디버디",
     "description": "2만원 구매시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/63.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5156677",
     "longitude": "126.5212036"
   },
@@ -699,7 +699,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 문부로11번길 16-1 1층 워터라이프",
     "description": "음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/64.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2535356",
     "longitude": "126.5691604"
   },
@@ -710,7 +710,7 @@
     "region": "시청",
     "address": "제주 제주시 중앙로 248 4층",
     "description": "한달 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/65.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4977418",
     "longitude": "126.5308575"
   },
@@ -721,7 +721,7 @@
     "region": "이도이동",
     "address": "제주 제주시 신설로7길 25 3층",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/66.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4938562",
     "longitude": "126.5446294"
   },
@@ -732,7 +732,7 @@
     "region": "이도이동",
     "address": "제주 제주시 연북로 549 인천문화당 이도점",
     "description": "비할인제품 25% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/67.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4864898",
     "longitude": "126.5381743"
   },
@@ -743,7 +743,7 @@
     "region": "삼도",
     "address": "제주 제주시 서사로 32",
     "description": "제대학생 방문시 상담 후 할인 혜택 결정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/68.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5094686",
     "longitude": "126.5196001"
   },
@@ -754,7 +754,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 이중섭로 23 .",
     "description": "총구매금액의 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/69.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2460866",
     "longitude": "126.5642429"
   },
@@ -765,7 +765,7 @@
     "region": "일도이동",
     "address": "제주 제주시 삼성로 106 1층",
     "description": "10% 할인 및 무료 배송",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/70.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5097159",
     "longitude": "126.5359105"
   },
@@ -776,7 +776,7 @@
     "region": "서귀포",
     "address": "제주특별자치도 서귀포시 동홍로 32",
     "description": "현수막 제작시 10% 할인 (제작만, 현수막 설치 x)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/71.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2514607",
     "longitude": "126.5680217"
   },
@@ -787,7 +787,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 애월로 128 1층 제주별상점",
     "description": "병뚜껑 체험 10% 할인(예약필수)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/72.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4641552",
     "longitude": "126.3209228"
   },
@@ -798,7 +798,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 대흘9길 35",
     "description": "기존 체험비 30000->25000 (제주대학교 학생증지참)-동반 1인까지 가능",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/73.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4958322",
     "longitude": "126.669431"
   },
@@ -809,7 +809,7 @@
     "region": "이도이동",
     "address": "제주 제주시 연삼로 386 1F",
     "description": "피아노,디지털피아노,통기타,악기스트링 외 10~15 % 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/74.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4941006",
     "longitude": "126.5331125"
   },
@@ -820,7 +820,7 @@
     "region": "애월읍",
     "address": "제주 제주시 애월읍 평화로 2835 제주홀릭뮤지엄",
     "description": "일반 입장권 3,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/75.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4566113",
     "longitude": "126.4416832"
   },
@@ -831,7 +831,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 이어도로 244 제주하이랜드",
     "description": "해변올레길 코스 2인 체험시 당근바구니 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/76.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2423154",
     "longitude": "126.4455515"
   },
@@ -842,7 +842,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 신북로 138 102호 진 스튜디오",
     "description": "졸업생 포함 제주대학생 30% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/77.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5352127",
     "longitude": "126.6278649"
   },
@@ -853,7 +853,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 안덕면 화순로56번길 28",
     "description": "도서 구입 시 15% 할인, 기본 공간 이용 3시간 무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/78.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2494197",
     "longitude": "126.336274"
   },
@@ -864,7 +864,7 @@
     "region": "삼화",
     "address": "제주 제주시 건주로 27 광산빌딩 501호",
     "description": "모든 상품 30% 할인 1회 적용",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/79.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5171264",
     "longitude": "126.5813242"
   },
@@ -875,7 +875,7 @@
     "region": "건입동",
     "address": "제주 제주시 남광로 220",
     "description": "30% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/80.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5039008",
     "longitude": "126.551968"
   },
@@ -886,7 +886,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다6길 55",
     "description": "15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/81.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4751986",
     "longitude": "126.5490448"
   },
@@ -897,7 +897,7 @@
     "region": "노형",
     "address": "제주 제주시 달마루길 22 3층 템스튜디오 노형점",
     "description": "그룹 레슨 등록 시 15% 상시 할인, 1:1 또는 2:1 레슨 첫 등록시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/82.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4899358",
     "longitude": "126.4738202"
   },
@@ -908,7 +908,7 @@
     "region": "노형",
     "address": "제주 제주시 원노형6길 29 4층, 템스튜디오",
     "description": "그룹레슨시 15%할인, 1:1,2:2등 개인레승 최초수강 시 10%할인(재등록은 불가)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/83.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4834248",
     "longitude": "126.4829637"
   },
@@ -919,7 +919,7 @@
     "region": "중앙로",
     "address": "제주 제주시 중앙로 52 2층,3층",
     "description": "그룹 레슨 등록 시 15% 상시 할인, 1:1 또는 2:1 레슨 첫 등록시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/84.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5136289",
     "longitude": "126.524521"
   },
@@ -930,7 +930,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 서호중앙로 55 유포리아산업지식센터 A동 908호",
     "description": "기존 8회 시 10% 할인, 16회 시 15% 할인, 24회 시 20% 할인에 추가 2회씩 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/85.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.25200480000001",
     "longitude": "126.5183408"
   },
@@ -941,7 +941,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란13길 10 4층",
     "description": "제주대학교 신규 등록시 5% 추가 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/86.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4691475",
     "longitude": "126.5464049"
   },
@@ -952,7 +952,7 @@
     "region": "연동",
     "address": "제주 제주시 과원북2길 50",
     "description": "원본 파일 전송, 추가 인화 2장 이상",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/87.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4787253",
     "longitude": "126.4877504"
   },
@@ -963,7 +963,7 @@
     "region": "일도일동",
     "address": "제주 제주시 칠성로길 36 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/88.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5143446",
     "longitude": "126.5265656"
   },
@@ -974,7 +974,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 염돈로28번길 15-7 밭 창고",
     "description": "5000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/89.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.25362399999999",
     "longitude": "126.4957043"
   },
@@ -985,7 +985,7 @@
     "region": "이도이동",
     "address": "제주 제주시 신성로13길 25-1 1층",
     "description": "3천원 할인 + 네이버 포토리뷰 5천원 할인 ( 중복적용가능, 케어제외 및 원컬러 시술 시 가능)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/90.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4980467",
     "longitude": "126.5304078"
   },
@@ -996,7 +996,7 @@
     "region": "연동",
     "address": "제주 제주시 연북로 42 1층",
     "description": "전 품목 구매 시 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/91.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4816388",
     "longitude": "126.4858535"
   },
@@ -1007,7 +1007,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로 300 다비치안경광양",
     "description": "렌즈제외 안경 구매 시 10% 할인(콘텍트 렌즈 포함)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/92.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5003693",
     "longitude": "126.5283404"
   },
@@ -1018,7 +1018,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란7길 10-1 1층 detail",
     "description": "안경, 안경렌즈, 선글라스 품목 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/93.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4746062",
     "longitude": "126.5443016"
   },
@@ -1029,7 +1029,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 16 1층상가 여성의류매장 라라라",
     "description": "카드 5%, 현금 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/94.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.498715",
     "longitude": "126.5294978"
   },
@@ -1040,7 +1040,7 @@
     "region": "이도이동",
     "address": "제주 제주시 중앙로 350 뢰임안경",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/95.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4903506",
     "longitude": "126.5375156"
   },
@@ -1051,7 +1051,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중정로62번길 1 메종드옴므",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/96.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2476671",
     "longitude": "126.5631364"
   },
@@ -1062,7 +1062,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀로23길 8 1층 (빨간대문)",
     "description": "10% 할인, 5%적립, 동양타로 무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/97.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.479743",
     "longitude": "126.4025971"
   },
@@ -1073,7 +1073,7 @@
     "region": "일도일동",
     "address": "제주시 관덕로 15길 2 2층",
     "description": "케어제거x, 젤시술 시 15%",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/98.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5135237",
     "longitude": "126.5270625"
   },
@@ -1084,7 +1084,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란5길 19-3",
     "description": "커트 제외 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/99.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4751245",
     "longitude": "126.5441711"
   },
@@ -1095,7 +1095,7 @@
     "region": "삼도이동",
     "address": "제주 제주시 중앙로2길 21 1층",
     "description": "제주대학교 학생 전제품 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/100.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.51691050000001",
     "longitude": "126.5226412"
   },
@@ -1106,7 +1106,7 @@
     "region": "이도이동",
     "address": "제주 제주시 중앙로 337 다우빌딩 1층",
     "description": "최종결제시 추가 10% 할인, 김서림 방지 안경클리너 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/101.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4915399",
     "longitude": "126.5373076"
   },
@@ -1117,7 +1117,7 @@
     "region": "이도이동",
     "address": "제주 제주시 중앙로 308 1층 아이젠트리 제주법원점",
     "description": "안경렌즈 10% 할인/콘텍트렌즈 케이스 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/102.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4932338",
     "longitude": "126.5347568"
   },
@@ -1128,7 +1128,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로 41",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/103.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2483125",
     "longitude": "126.5615824"
   },
@@ -1139,7 +1139,7 @@
     "region": "시청",
     "address": "제주 제주시 동광로4길 15 2층",
     "description": "관리 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/104.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5005623",
     "longitude": "126.5317813"
   },
@@ -1150,7 +1150,7 @@
     "region": "이도이동",
     "address": "제주 제주시 연삼로 431 2층",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/105.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.497059",
     "longitude": "126.5365893"
   },
@@ -1161,7 +1161,7 @@
     "region": "일도이동",
     "address": "제주 제주시 천수로 53 수은빌딩 1층 우주안경",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/106.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5040538",
     "longitude": "126.5423206"
   },
@@ -1172,7 +1172,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 신북로 138 행복하우스 2층(엘베이용시 1층 누르세요)",
     "description": "재학생 30% 할인 케어, 제거 제외",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/107.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5352127",
     "longitude": "126.6278649"
   },
@@ -1183,7 +1183,7 @@
     "region": "삼화",
     "address": "제주 제주시 건주로4길 6-8 2층 205호",
     "description": "안경 구매시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/108.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5167891",
     "longitude": "126.5803047"
   },
@@ -1194,7 +1194,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 태평로371번길 32 이중섭 거리",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/109.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2457797",
     "longitude": "126.5639597"
   },
@@ -1205,7 +1205,7 @@
     "region": "공항연안권",
     "address": "제주 제주시 우정로 62-1 1층",
     "description": "안경태 59,000이상 구매시 블루라이트 차단 안경 렌즈 제공/  블루라이트 안경 렌즈 구매 시 1만원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/110.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4872135",
     "longitude": "126.4307011"
   },
@@ -1216,7 +1216,7 @@
     "region": "도남",
     "address": "제주 제주시 연북로 403 카리스제이",
     "description": "졸업생 20%할인 + 재학생 10% 할인 + 넥타이 증정(맞춤 정장 시)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/111.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4810299",
     "longitude": "126.5246124"
   },
@@ -1227,7 +1227,7 @@
     "region": "탑동",
     "address": "제주 제주시 관덕로15길 14 2층",
     "description": "정장 대여시 8만원, 구매시 23만원-양말, 넥타이 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/112.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5145321",
     "longitude": "126.526804"
   },
@@ -1238,7 +1238,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 광성로 68 1층",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/113.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4580727",
     "longitude": "126.4148754"
   },
@@ -1249,7 +1249,7 @@
     "region": "시청",
     "address": "제주 제주시 중앙로 206 1층 크롬웰안경",
     "description": "추가할인 15%, 콘텍트렌즈 제주 최저가, 원데이렌즈30p 15,000원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/114.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.500966",
     "longitude": "126.5287156"
   },
@@ -1260,7 +1260,7 @@
     "region": "이도이동",
     "address": "제주 제주시 서광로 298",
     "description": "전품목 30% 할인 (콘텍트랜즈 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/115.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5003072",
     "longitude": "126.5282704"
   },
@@ -1271,7 +1271,7 @@
     "region": "노형",
     "address": "제주 제주시 한라대학로 37 재광빌딩 2층 프로디헤어",
     "description": "펌 / 염색 시술 10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/116.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4783004",
     "longitude": "126.4754592"
   },
@@ -1282,7 +1282,7 @@
     "region": "이도이동",
     "address": "제주 제주시 서광로32길 42 1층",
     "description": "카드 결제시 5% 현금으로 결제시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/117.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4972262",
     "longitude": "126.5298487"
   },
@@ -1293,7 +1293,7 @@
     "region": "공항연안권",
     "address": "제주 제주시 서해안로 620-1 그림리조트",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/118.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5162335",
     "longitude": "126.5036173"
   },
@@ -1304,7 +1304,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 일주동로 8215 도라미펜션",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/119.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2601746",
     "longitude": "126.6096391"
   },
@@ -1315,7 +1315,7 @@
     "region": "애월",
     "address": "제주특별자치도 제주시 한경면 일주서로 4117 용당리복지회관",
     "description": "숙박비 30% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/120.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.3338331",
     "longitude": "126.1814014"
   },
@@ -1326,7 +1326,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 안덕면 사계로 187-3 서귀포펜션 모먼트빌리지",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/121.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2464607",
     "longitude": "126.3025716"
   },
@@ -1337,7 +1337,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 성산읍 남산봉로 83-103 제주다차공간",
     "description": "바베큐 & 불멍 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/122.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.364867",
     "longitude": "126.8295429"
   },
@@ -1348,7 +1348,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 고내북서길 11",
     "description": "3인까지 추가금액 x",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/123.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4663189",
     "longitude": "126.3331749"
   },
@@ -1359,7 +1359,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란서길 110 B동 별관",
     "description": "제주대 학생증 지참시 현금 결제 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/124.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4687341",
     "longitude": "126.5394413"
   },
@@ -1370,7 +1370,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 곽지7길 11",
     "description": "노래방/ 바베큐 무료, 비수기엔 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/125.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4509513",
     "longitude": "126.3078728"
   },
@@ -1381,7 +1381,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 가문동상2길 32 1층, 2층",
     "description": "3인까지 추가금액 x",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/126.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4858317",
     "longitude": "126.390243"
   },
@@ -1392,7 +1392,7 @@
     "region": "이도이동",
     "address": "제주 제주시 박성내서길 12-7 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/127.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4913189",
     "longitude": "126.5409254"
   },
@@ -1403,7 +1403,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로 80",
     "description": "음료수 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/128.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2596238",
     "longitude": "126.5560605"
   },
@@ -1414,7 +1414,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 서문로29번길 7 1968연희동",
     "description": "전메뉴 10%할인 (탐나는전 & 현금 한정)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/129.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2498137",
     "longitude": "126.5591026"
   },
@@ -1425,7 +1425,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 동문로 63",
     "description": "제주대 학생증 지참시 서비스음료(테이블당)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/130.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2492776",
     "longitude": "126.567167"
   },
@@ -1436,7 +1436,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로 64-1",
     "description": "제주대 학생증 지참 시 음료 1개 서비스 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/131.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2583926",
     "longitude": "126.5566895"
   },
@@ -1447,7 +1447,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 성산읍 성산중앙로37번길 9 1층 갈치왕 성산점",
     "description": "학생증 소지 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/132.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4636761",
     "longitude": "126.9323329"
   },
@@ -1458,7 +1458,7 @@
     "region": "일도이동",
     "address": "제주 제주시 가령골길 24",
     "description": "테이블 당 음료수 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/133.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.504164",
     "longitude": "126.5407802"
   },
@@ -1469,7 +1469,7 @@
     "region": "용담이동",
     "address": "제주 제주시 용문로14길 4 1층 고국수 공항본점",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/134.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5063701",
     "longitude": "126.5092501"
   },
@@ -1480,7 +1480,7 @@
     "region": "이도이동",
     "address": "제주 제주시 광양11길 18-1",
     "description": "계란후라이, 매실, 수제식혜, 공기밥 제공/ 소주 4,000원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/135.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4997151",
     "longitude": "126.5320693"
   },
@@ -1491,7 +1491,7 @@
     "region": "아라일동",
     "address": "제주 제주시 구남동8길 51 1층 고요남",
     "description": "3만원이상 주문시 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/136.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4855855",
     "longitude": "126.536003"
   },
@@ -1502,7 +1502,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 17 1층",
     "description": "볶음밥 1인분 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/137.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4992553",
     "longitude": "126.5286746"
   },
@@ -1513,7 +1513,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 28",
     "description": "소주 2천원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/138.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4982656",
     "longitude": "126.5290744"
   },
@@ -1524,7 +1524,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 94 101호",
     "description": "테이블 당 음료 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/139.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5058826",
     "longitude": "126.5405835"
   },
@@ -1535,7 +1535,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 일주동로 8524 1층까망돼지",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/140.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2551118",
     "longitude": "126.5775676"
   },
@@ -1546,7 +1546,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 색달중앙로 21 여미지하우스 1층 까망돼지 본점",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/141.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2574019",
     "longitude": "126.4134702"
   },
@@ -1557,7 +1557,7 @@
     "region": "삼도",
     "address": "제주 제주시 서광로 223 1츠",
     "description": "결제금액 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/142.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5000828",
     "longitude": "126.520428"
   },
@@ -1568,7 +1568,7 @@
     "region": "연동",
     "address": "제주 제주시 은남길 33 1층",
     "description": "테이블 1개당 사이드메뉴 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/143.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4868836",
     "longitude": "126.4958759"
   },
@@ -1579,7 +1579,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로 148",
     "description": "음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/144.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2578959",
     "longitude": "126.5604997"
   },
@@ -1590,7 +1590,7 @@
     "region": "서귀포 서귀동",
     "address": "제주 서귀포시 중정로73번길 20 지하 1층 남매네왕갈치",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/145.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.249893",
     "longitude": "126.5640609"
   },
@@ -1601,7 +1601,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로4길 19",
     "description": "4만원 이상 주문시 10% 할인 이하 주문시 음료제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/146.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4888259",
     "longitude": "126.4791694"
   },
@@ -1612,7 +1612,7 @@
     "region": "시청",
     "address": "제주 제주시 광양13길 6-4",
     "description": "테이블 당 2000원 상당의 음료 및 사리(선택)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/147.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.498455",
     "longitude": "126.5313313"
   },
@@ -1623,7 +1623,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 26-5",
     "description": "현금 결제 3인 이상 테이블당 음료 한 캔",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/148.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4981556",
     "longitude": "126.5288054"
   },
@@ -1634,7 +1634,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 함덕20길 3 1층",
     "description": "음료수 1.25L 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/149.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5400139",
     "longitude": "126.6703401"
   },
@@ -1645,7 +1645,7 @@
     "region": "용담",
     "address": "제주 제주시 용화로 35 진영빌라 1층 101호",
     "description": "서비스 메뉴 제공 또는 음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/150.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5099859",
     "longitude": "126.50724"
   },
@@ -1656,7 +1656,7 @@
     "region": "탑동",
     "address": "제주 제주시 탑동로 105 1층",
     "description": "세트메뉴 주문시 디저트(아사이 요거트 아이스크림 or 수제 뉴욕바나나푸딩) 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/151.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5155399",
     "longitude": "126.5171496"
   },
@@ -1667,7 +1667,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로 30 1층 2호",
     "description": "학생증 제시시 10% 할인(메뉴 한정)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/152.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.488707",
     "longitude": "126.4769769"
   },
@@ -1678,7 +1678,7 @@
     "region": "화북",
     "address": "제주 제주시 선반로6길 21 1층",
     "description": "음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/153.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5133004",
     "longitude": "126.5624785"
   },
@@ -1689,7 +1689,7 @@
     "region": "삼도",
     "address": "제주 제주시 서광로 209-1 1층",
     "description": "음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/154.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5001715",
     "longitude": "126.5189266"
   },
@@ -1700,7 +1700,7 @@
     "region": "건입동",
     "address": "제주 제주시 관덕로15길 29",
     "description": "고기메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/155.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5158742",
     "longitude": "126.5265881"
   },
@@ -1711,7 +1711,7 @@
     "region": "중문",
     "address": "제주 서귀포시 천제연로 17 덤장 중문점",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/156.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2577039",
     "longitude": "126.4082208"
   },
@@ -1722,7 +1722,7 @@
     "region": "도남",
     "address": "제주 제주시 신성로 98",
     "description": "총 금액의 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/157.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4963815",
     "longitude": "126.5294861"
   },
@@ -1733,7 +1733,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로6길 16",
     "description": "불고기뚝배기",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/158.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4965584",
     "longitude": "126.5260937"
   },
@@ -1744,7 +1744,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다8길 29 1층 101호",
     "description": "음료 또는 감튀 서비스 + 리뷰 쿠폰",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/159.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4764734",
     "longitude": "126.548045"
   },
@@ -1755,7 +1755,7 @@
     "region": "노형",
     "address": "제주 제주시 신광로10길 3 돈나무흑돼지",
     "description": "10프로 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/160.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4836453",
     "longitude": "126.4890832"
   },
@@ -1766,7 +1766,7 @@
     "region": "연동",
     "address": "제주 제주시 연동4길 28-16 1층",
     "description": "테이블당 음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/161.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.483602",
     "longitude": "126.4867569"
   },
@@ -1777,7 +1777,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 28",
     "description": "테이블 당 찌개 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/162.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5131047",
     "longitude": "126.5055333"
   },
@@ -1788,7 +1788,7 @@
     "region": "일도이동",
     "address": "제주 제주시 천수로9길 4 1층",
     "description": "테이블 당 음료 한 개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/163.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5047096",
     "longitude": "126.5425753"
   },
@@ -1799,7 +1799,7 @@
     "region": "삼도",
     "address": "제주 제주시 서광로 201 1층",
     "description": "고기 메뉴만 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/164.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5001939",
     "longitude": "126.5180142"
   },
@@ -1810,7 +1810,7 @@
     "region": "공항연안권",
     "address": "제주 제주시 도리로 62 돗깨비",
     "description": "1인 1음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/165.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.49897",
     "longitude": "126.4589066"
   },
@@ -1821,7 +1821,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로47번길 21 . 1층",
     "description": "2인 1음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/166.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2482634",
     "longitude": "126.5593695"
   },
@@ -1832,7 +1832,7 @@
     "region": "일도일동",
     "address": "제주 제주시 동문로4길 9 동문공설시장 동문공설주차장 1층 동해수산회센타",
     "description": "2~3인 이상 구매시 주류 한 병, 4인 이상 구매시 주류 2병(단 회 주문시)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/167.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5120448",
     "longitude": "126.5282794"
   },
@@ -1843,7 +1843,7 @@
     "region": "연동",
     "address": "제주 제주시 국기중길 12 1층 동화로연탄구이",
     "description": "테이블 당 콜라 한캔",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/168.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4798948",
     "longitude": "126.491087"
   },
@@ -1854,7 +1854,7 @@
     "region": "화북",
     "address": "제주 제주시 동화로1길 53-20 1층",
     "description": "10만원 이상 식사시 현금결제 15%, 카드결제 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/169.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5176645",
     "longitude": "126.5781174"
   },
@@ -1865,7 +1865,7 @@
     "region": "삼도",
     "address": "제주 제주시 중앙로24길 8 1층",
     "description": "10% 할인 또는 네이버 리뷰 쫀득살 1인분 무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/170.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.506516",
     "longitude": "126.5239867"
   },
@@ -1876,7 +1876,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중산간동로 8016-3 1층 돼통령숯불갈비",
     "description": "학생 인증 시 서비스음료 1개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/171.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2646719",
     "longitude": "126.5602385"
   },
@@ -1887,7 +1887,7 @@
     "region": "노형동",
     "address": "제주특별자치도 제주시 연북로 48 2층 203호",
     "description": "1000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/172.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4816011",
     "longitude": "126.4864454"
   },
@@ -1898,7 +1898,7 @@
     "region": "시청",
     "address": "제주 제주시 중앙로 230",
     "description": "4인이상 방문시 사이드 메뉴 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/173.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4991157",
     "longitude": "126.5299154"
   },
@@ -1909,7 +1909,7 @@
     "region": "일도이동",
     "address": "제주 제주시 일도이동 고마로 90",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/174.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5062334",
     "longitude": "126.5406101"
   },
@@ -1920,7 +1920,7 @@
     "region": "연동",
     "address": "제주 제주시 신광로 43",
     "description": "테이블 당 음료수 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/175.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4882929",
     "longitude": "126.4903114"
   },
@@ -1931,7 +1931,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 신촌북3길 3 함덕본점 1층",
     "description": "현금 결제시(2인 이상) 와인 1병 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/176.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5371814",
     "longitude": "126.6188242"
   },
@@ -1942,7 +1942,7 @@
     "region": "연동",
     "address": "제주 제주시 신광로 45 2층",
     "description": "소주 혹은 맥주 1개 무료제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/177.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4880046",
     "longitude": "126.4902995"
   },
@@ -1953,7 +1953,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란9길 25 1층 리릭",
     "description": "2인당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/178.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4725383",
     "longitude": "126.5426071"
   },
@@ -1964,7 +1964,7 @@
     "region": "탑동",
     "address": "제주 제주시 탑동로 109 1층",
     "description": "샐러드에 라떼 or 후무스 추가",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/179.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5153057",
     "longitude": "126.5174856"
   },
@@ -1975,7 +1975,7 @@
     "region": "삼화",
     "address": "제주 제주시 삼봉로 99 1층",
     "description": "현금 결제 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/180.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5125068",
     "longitude": "126.5893708"
   },
@@ -1986,7 +1986,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀로 61",
     "description": "5만원당 3000원, 10만원당 8000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/181.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4808422",
     "longitude": "126.4035498"
   },
@@ -1997,7 +1997,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란7길 3-2",
     "description": "새우볶음밥(서비스볶음밥), 음료수 1.25L 택 1 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/182.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4742495",
     "longitude": "126.5447923"
   },
@@ -2008,7 +2008,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로 109-1 1층",
     "description": "10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/183.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.49739400000001",
     "longitude": "126.5305001"
   },
@@ -2019,7 +2019,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 명동로 27",
     "description": "15% 할인 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/184.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2476083",
     "longitude": "126.5647525"
   },
@@ -2030,7 +2030,7 @@
     "region": "애월",
     "address": "제주 제주시 노형로 89 노형슈퍼마켓 입구 2층",
     "description": "학생증 소지시 음료 1캔 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/185.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4648375",
     "longitude": "126.4551637"
   },
@@ -2041,7 +2041,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 18 마초왕갈비",
     "description": "소주 2천원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/186.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4990697",
     "longitude": "126.5285019"
   },
@@ -2052,7 +2052,7 @@
     "region": "화북",
     "address": "제주 제주시 진남로6길 35 1층",
     "description": "총금액 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/187.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5217574",
     "longitude": "126.5654139"
   },
@@ -2063,7 +2063,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 151 고마로 151",
     "description": "학생증 제시 시 전메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/188.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5013312",
     "longitude": "126.5436909"
   },
@@ -2074,7 +2074,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 예래로 50 맛있수다",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/189.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2559341",
     "longitude": "126.401178"
   },
@@ -2085,7 +2085,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 1 2층 먹주",
     "description": "현금결제 시 10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/190.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4998531",
     "longitude": "126.529019"
   },
@@ -2096,7 +2096,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란7길 6 1층",
     "description": "제대학생 확인시 3,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/191.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4746111",
     "longitude": "126.5447235"
   },
@@ -2107,7 +2107,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 4 3층",
     "description": "학생증 지참시 음료수 1캔 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/192.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4995164",
     "longitude": "126.5289356"
   },
@@ -2118,7 +2118,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 서문로29번길 30",
     "description": "17% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/193.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2477194",
     "longitude": "126.5595987"
   },
@@ -2129,7 +2129,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 92 1층",
     "description": "치즈 계란말이 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/194.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5119056",
     "longitude": "126.5123649"
   },
@@ -2140,7 +2140,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 함대로 2",
     "description": "현금 결제 시 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/195.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5436113",
     "longitude": "126.6577903"
   },
@@ -2151,7 +2151,7 @@
     "region": "이도이동",
     "address": "제주 제주시 구남동1길 32 1층",
     "description": "7000원 결제시 꽈배기 하나 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/196.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4924176",
     "longitude": "126.5402413"
   },
@@ -2162,7 +2162,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 28-1 2층 무시로",
     "description": "사이드메뉴 무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/197.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4981722",
     "longitude": "126.5291477"
   },
@@ -2173,7 +2173,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 142 1층",
     "description": "카드 결재시 10% 할인, 현금 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/198.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5019374",
     "longitude": "126.5427695"
   },
@@ -2184,7 +2184,7 @@
     "region": "삼화",
     "address": "제주 제주시 선사로8길 18 제주 제주시 선사로8길 18",
     "description": "음료수 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/199.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.52581380000001",
     "longitude": "126.5876921"
   },
@@ -2195,7 +2195,7 @@
     "region": "일도이동",
     "address": "제주 제주시 연신로 30 1층",
     "description": "테이블당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/200.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4983507",
     "longitude": "126.5452412"
   },
@@ -2206,7 +2206,7 @@
     "region": "시청",
     "address": "제주 제주시 광양13길 12-2",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/201.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.49875850000001",
     "longitude": "126.5316909"
   },
@@ -2217,7 +2217,7 @@
     "region": "노형",
     "address": "제주 제주시 원노형5길 5 2층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/202.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4882093",
     "longitude": "126.4845676"
   },
@@ -2228,7 +2228,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다13길 59",
     "description": "2인분 주문시 음료 1개 서비스, 3인분 이상 주문시 계란찜 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/203.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4726827",
     "longitude": "126.5519838"
   },
@@ -2239,7 +2239,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 함덕19길 9 2층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/204.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5412571",
     "longitude": "126.6701331"
   },
@@ -2250,7 +2250,7 @@
     "region": "노형",
     "address": "제주 제주시 다랑곶길 26-1 1층 부자왕돈까스",
     "description": "음료 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/205.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4882796",
     "longitude": "126.4807419"
   },
@@ -2261,7 +2261,7 @@
     "region": "이도이동",
     "address": "제주 제주시 광양13길 11-2",
     "description": "테이블 당 음료 2개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/206.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4992943",
     "longitude": "126.5316234"
   },
@@ -2272,7 +2272,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로 157 불만난고기",
     "description": "음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/207.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2584904",
     "longitude": "126.5597772"
   },
@@ -2283,7 +2283,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 이중섭로 12-1 1층",
     "description": "음료수 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/208.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2469981",
     "longitude": "126.5640759"
   },
@@ -2294,7 +2294,7 @@
     "region": "노형",
     "address": "제주 제주시 다랑곶4길 46 102호",
     "description": "테이블 당 계란찜 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/209.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.490114",
     "longitude": "126.4782661"
   },
@@ -2305,7 +2305,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 20 1층",
     "description": "학생증 제시시 음료수 서비스 (2인 - 1개, 3인 이상 - 2개)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/210.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4984453",
     "longitude": "126.5296509"
   },
@@ -2316,7 +2316,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 55",
     "description": "소주 3천원 및 2~3만원 안주제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/211.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5093357",
     "longitude": "126.5397506"
   },
@@ -2327,7 +2327,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 안덕면 사계로 187-3 1동",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/212.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2464607",
     "longitude": "126.3025716"
   },
@@ -2338,7 +2338,7 @@
     "region": "아라동",
     "address": "제주시 아란7길 14 1층",
     "description": "1인당 새우튀김 1개씩 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/213.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4746077",
     "longitude": "126.5439944"
   },
@@ -2349,7 +2349,7 @@
     "region": "용담",
     "address": "제주 제주시 흥운길 39",
     "description": "테이블 당 음료 １개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/214.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5124314",
     "longitude": "126.5122812"
   },
@@ -2360,7 +2360,7 @@
     "region": "노형",
     "address": "제주 제주시 연북로 24 103호",
     "description": "음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/215.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4816897",
     "longitude": "126.4839126"
   },
@@ -2371,7 +2371,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로 283 1층",
     "description": "음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/216.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5005349",
     "longitude": "126.5268266"
   },
@@ -2382,7 +2382,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 신서귀로51번길 11 1층 서귀포장수해장국",
     "description": "테이블당 음료수 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/217.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2538047",
     "longitude": "126.5101469"
   },
@@ -2393,7 +2393,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로 25 1층",
     "description": "음료수 1개 서비스 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/218.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2549566",
     "longitude": "126.5580621"
   },
@@ -2404,7 +2404,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로48번길 15 1층",
     "description": "음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/219.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2493581",
     "longitude": "126.5631598"
   },
@@ -2415,7 +2415,7 @@
     "region": "연동",
     "address": "제주 제주시 삼무로3길 30 서영이네 해돈가",
     "description": "4인기준 테이블당 새우 6개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/220.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4905172",
     "longitude": "126.4927898"
   },
@@ -2426,7 +2426,7 @@
     "region": "이도이동",
     "address": "제주 제주시 광양7길 49 1층",
     "description": "음료수제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/221.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5024935",
     "longitude": "126.5339846"
   },
@@ -2437,7 +2437,7 @@
     "region": "공항연안권",
     "address": "제주 제주시 서해안로 620-1 2호 (4층,5층) 선상바베큐",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/222.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5163208",
     "longitude": "126.5035006"
   },
@@ -2448,7 +2448,7 @@
     "region": "노형",
     "address": "제주 제주시 노형8길 16 2층 201호",
     "description": "10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/223.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.483757",
     "longitude": "126.4785572"
   },
@@ -2459,7 +2459,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 85-1",
     "description": "테이블 당 음료 １개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/224.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5123529",
     "longitude": "126.5120269"
   },
@@ -2470,7 +2470,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로 199 1층 상가 13호",
     "description": "음료 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/225.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2625878",
     "longitude": "126.5585209"
   },
@@ -2481,7 +2481,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다11길 13 1층 시시한덮밥",
     "description": "메뉴 3개 이상 음료수 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/226.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4740341",
     "longitude": "126.5490379"
   },
@@ -2492,7 +2492,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀동남1길 25 1층",
     "description": "전 메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/227.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4856084",
     "longitude": "126.4137341"
   },
@@ -2503,7 +2503,7 @@
     "region": "시청",
     "address": "제주 제주시 광양14길 17-1",
     "description": "테이블당 사이드 비빔면 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/228.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4975935",
     "longitude": "126.5292683"
   },
@@ -2514,7 +2514,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 99",
     "description": "4인 이상 음료수 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/229.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5056922",
     "longitude": "126.5413868"
   },
@@ -2525,7 +2525,7 @@
     "region": "용담",
     "address": "제주시 용담1동 143-6",
     "description": "서비스 음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/230.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5081637",
     "longitude": "126.5150147"
   },
@@ -2536,7 +2536,7 @@
     "region": "일도이동",
     "address": "제주 제주시 연수로1길 2 1층 쌍팔련도제주본점",
     "description": "음료수 사이드 메뉴 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/231.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5020691",
     "longitude": "126.5435464"
   },
@@ -2547,7 +2547,7 @@
     "region": "이도이동",
     "address": "제주 제주시 정든로5길 24",
     "description": "음료 1.25L 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/232.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.497493",
     "longitude": "126.5420515"
   },
@@ -2558,7 +2558,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로29길 3 1층",
     "description": "매장 방문시 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/233.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5007718",
     "longitude": "126.5265248"
   },
@@ -2569,7 +2569,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로 99 1층",
     "description": "온천계란 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/234.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2614313",
     "longitude": "126.5553554"
   },
@@ -2580,7 +2580,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 23 어디가코 시청점",
     "description": "소추 2천원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/235.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4986034",
     "longitude": "126.5291569"
   },
@@ -2591,7 +2591,7 @@
     "region": "노형",
     "address": "제주 제주시 신광로10길 15",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/236.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.483731",
     "longitude": "126.4877444"
   },
@@ -2602,7 +2602,7 @@
     "region": "연동",
     "address": "제주 제주시 귀아랑길 23 어장관리",
     "description": "음료수 1개 서비스 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/237.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4914628",
     "longitude": "126.4975729"
   },
@@ -2613,7 +2613,7 @@
     "region": "중앙로",
     "address": "제주 제주시 칠성로길 34 1층",
     "description": "칵테일 1잔 주문 시 1잔 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/238.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5143817",
     "longitude": "126.526426"
   },
@@ -2624,7 +2624,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로 301 1층",
     "description": "음료 사이즈업",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/239.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.500912",
     "longitude": "126.5283696"
   },
@@ -2635,7 +2635,7 @@
     "region": "한경면",
     "address": "제주 제주시 한경면 판포4길 41-41 1층 에그플랜트 제주",
     "description": "3,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/240.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.365701",
     "longitude": "126.203253"
   },
@@ -2646,7 +2646,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다3길 8-2 2층 에머이",
     "description": "음료제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/241.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4768415",
     "longitude": "126.5488797"
   },
@@ -2657,7 +2657,7 @@
     "region": "건입동",
     "address": "제주 제주시 관덕로15길 29 2층",
     "description": "판매금액 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/242.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5158742",
     "longitude": "126.5265881"
   },
@@ -2668,7 +2668,7 @@
     "region": "연동",
     "address": "제주 제주시 제원길 8 1층 연동돼지",
     "description": "주류 한 병 서비스(주류 3병 이상 주문 시)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/243.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4892172",
     "longitude": "126.4892947"
   },
@@ -2679,7 +2679,7 @@
     "region": "연동",
     "address": "제주 제주시 신광로10길 23",
     "description": "음료 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/244.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4837467",
     "longitude": "126.4872609"
   },
@@ -2690,7 +2690,7 @@
     "region": "화북",
     "address": "제주 제주시 진동로 5 101호(화북일동)",
     "description": "2인 1캔 무료제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/245.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5195028",
     "longitude": "126.5685407"
   },
@@ -2701,7 +2701,7 @@
     "region": "시청",
     "address": "제주 제주시 동고산로 11",
     "description": "음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/246.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4984461",
     "longitude": "126.5322863"
   },
@@ -2712,7 +2712,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로 48-1",
     "description": "음료수 서비스 2개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/247.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4959027",
     "longitude": "126.526841"
   },
@@ -2723,7 +2723,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 27-3 1층",
     "description": "2만원 이상 주문 시 후추 아이스크림 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/248.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4985091",
     "longitude": "126.5294334"
   },
@@ -2734,7 +2734,7 @@
     "region": "건입동",
     "address": "제주 제주시 임항로 264 1층",
     "description": "갈매기살 테이블당 100g 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/249.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5173933",
     "longitude": "126.5381715"
   },
@@ -2745,7 +2745,7 @@
     "region": "도남",
     "address": "제주 제주시 공설로9길 1",
     "description": "2인 이상 방문 시 한 테이블 당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/250.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.496988",
     "longitude": "126.5181879"
   },
@@ -2756,7 +2756,7 @@
     "region": "연동",
     "address": "제주 제주시 은남3길 33 1층",
     "description": "테이블당 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/251.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4872175",
     "longitude": "126.4922682"
   },
@@ -2767,7 +2767,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 28-1 1층",
     "description": "온평라면 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/252.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4981722",
     "longitude": "126.5291477"
   },
@@ -2778,7 +2778,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 대정읍 추사로 93-11 1층",
     "description": "음료 제공(1인 1음료)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/253.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2509832",
     "longitude": "126.2729611"
   },
@@ -2789,7 +2789,7 @@
     "region": "영평",
     "address": "제주 제주시 연신로 261-3",
     "description": "학생증 제시할시 테이블당 음료수 2개씩 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/254.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4822597",
     "longitude": "126.5612378"
   },
@@ -2800,7 +2800,7 @@
     "region": "용담",
     "address": "제주 제주시 용두암길 62 1층",
     "description": "1인 방문 1000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/255.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5122286",
     "longitude": "126.513468"
   },
@@ -2811,7 +2811,7 @@
     "region": "도남",
     "address": "제주 제주시 복지로9길 27-11 1층",
     "description": "소고기 된장찌개 또는 치즈계란찜+음료 1캔 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/256.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4892252",
     "longitude": "126.5277812"
   },
@@ -2822,7 +2822,7 @@
     "region": "노형",
     "address": "제주 제주시 연동12길 4 맥스호텔 15층 16층",
     "description": "동반 포함 전메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/257.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4853708",
     "longitude": "126.4930291"
   },
@@ -2833,7 +2833,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로 107-1 1층",
     "description": "술 병당 1000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/258.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4972507",
     "longitude": "126.5303002"
   },
@@ -2844,7 +2844,7 @@
     "region": "아라일동",
     "address": "제주시 산천단동2길 20",
     "description": "2인 이상 방문 시 한 테이블 당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/259.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4497495",
     "longitude": "126.5585773"
   },
@@ -2855,7 +2855,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로 29 1층 월랑낙곱새",
     "description": "2인 이상 음료 1서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/260.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4882157",
     "longitude": "126.4764799"
   },
@@ -2866,7 +2866,7 @@
     "region": "구좌",
     "address": "제주 제주시 구좌읍 월정3길 52 월정리 유메이우동",
     "description": "2인 방문시 음료 1캔 서비스, 4인 방문시 음료 2캔 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/261.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5554333",
     "longitude": "126.7947868"
   },
@@ -2877,7 +2877,7 @@
     "region": "연동",
     "address": "제주 제주시 신대로7길 15-1",
     "description": "10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/262.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4919801",
     "longitude": "126.4983589"
   },
@@ -2888,7 +2888,7 @@
     "region": "연동",
     "address": "제주 제주시 연동7길 41 1층",
     "description": "음료수 2캔 or 껍데기 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/263.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4862867",
     "longitude": "126.490852"
   },
@@ -2899,7 +2899,7 @@
     "region": "일도이동",
     "address": "제주 제주시 연수로3길 4 2층",
     "description": "테이블당 막국수 1개 or 주류 1병 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/264.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5022289",
     "longitude": "126.5433795"
   },
@@ -2910,7 +2910,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 대정읍 일주서로3000번길 139 1F",
     "description": "방문시 음료수 무료 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/265.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2575972",
     "longitude": "126.2289732"
   },
@@ -2921,7 +2921,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 85-1 1층",
     "description": "제주대학교 학생증 제시 1테이블당 음료 500ml 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/266.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5123529",
     "longitude": "126.5120269"
   },
@@ -2932,7 +2932,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 문부로 7",
     "description": "테이블당 음료 1개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/267.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2522226",
     "longitude": "126.5686565"
   },
@@ -2943,7 +2943,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 천지로 59",
     "description": "3인 이상 주문 시 왕만두 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/268.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2525924",
     "longitude": "126.5590632"
   },
@@ -2954,7 +2954,7 @@
     "region": "연동",
     "address": "제주 제주시 연북로 173",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/269.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4819769",
     "longitude": "126.4999506"
   },
@@ -2965,7 +2965,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 일주서로 7213",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/270.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4889643",
     "longitude": "126.4186374"
   },
@@ -2976,7 +2976,7 @@
     "region": "노형",
     "address": "제주 제주시 원노형로 42",
     "description": "10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/271.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4850721",
     "longitude": "126.4847227"
   },
@@ -2987,7 +2987,7 @@
     "region": "삼도",
     "address": "제주 제주시 탑동로 126 2층",
     "description": "소주 2,000원",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/272.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5160467",
     "longitude": "126.5196211"
   },
@@ -2998,7 +2998,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 532 1층",
     "description": "포장 시 음료 500mL 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/273.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.47566690000001",
     "longitude": "126.5445865"
   },
@@ -3009,7 +3009,7 @@
     "region": "시청",
     "address": "제주 제주시 광양13길 18 1층",
     "description": "테이블당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/274.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4993577",
     "longitude": "126.5323056"
   },
@@ -3020,7 +3020,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 41",
     "description": "전체 금액의 ５% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/275.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5131238",
     "longitude": "126.5072905"
   },
@@ -3031,7 +3031,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 490 2층",
     "description": "10% 할인 or 음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/276.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4795302",
     "longitude": "126.5433855"
   },
@@ -3042,7 +3042,7 @@
     "region": "용담",
     "address": "제주 제주시 서해안로 634",
     "description": "10% 할인 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/277.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5166579",
     "longitude": "126.5048909"
   },
@@ -3053,7 +3053,7 @@
     "region": "노형",
     "address": "제주 제주시 노형5길 8",
     "description": "10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/278.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4817791",
     "longitude": "126.4764248"
   },
@@ -3064,7 +3064,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 애월로 33 1층",
     "description": "1인 1메뉴 주문시 사이드메뉴 1개 제공(1인 방문시 반접시)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/279.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4618736",
     "longitude": "126.3120501"
   },
@@ -3075,7 +3075,7 @@
     "region": "노형",
     "address": "제주 제주시 원노형로 35 1층 제주 갈치장 갈치조림 전문점",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/280.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.485592",
     "longitude": "126.4851492"
   },
@@ -3086,7 +3086,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 칠십리로214번길 36 제주곶 서귀포 해물라면",
     "description": "튀김 & 음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/281.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2448778",
     "longitude": "126.5732229"
   },
@@ -3097,7 +3097,7 @@
     "region": "도남",
     "address": "제주 제주시 공설로 23",
     "description": "음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/282.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4980219",
     "longitude": "126.5167885"
   },
@@ -3108,7 +3108,7 @@
     "region": "노형",
     "address": "제주 제주시 수덕11길 44 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/283.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.485569",
     "longitude": "126.4726295"
   },
@@ -3119,7 +3119,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 606-4 1층",
     "description": "테이블당 계란찜 한 개, 음료수 한 캔 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/284.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4696582",
     "longitude": "126.5463778"
   },
@@ -3130,7 +3130,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 105 1층",
     "description": "4인 이상 음료수 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/285.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5051627",
     "longitude": "126.5416574"
   },
@@ -3141,7 +3141,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로16길 9 1층",
     "description": "테이블 당 음료 두 개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/286.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5053453",
     "longitude": "126.5402632"
   },
@@ -3152,7 +3152,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 산록남로 2704-12",
     "description": "10% 할인, 음료수 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/287.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2968291",
     "longitude": "126.5734647"
   },
@@ -3163,7 +3163,7 @@
     "region": "일도이동",
     "address": "제주 제주시 연수로1길 6 1층",
     "description": "학생증 제시시 전메뉴 10% 할인 + 학생들이 인스타 스토리 올릴시 고기 추가",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/288.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5017569",
     "longitude": "126.543671"
   },
@@ -3174,7 +3174,7 @@
     "region": "아라일동",
     "address": "제주 제주시 연북로 550 104호",
     "description": "대게 또는 킹크랩 구매시 현금결제 10% , 카드결제 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/289.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4859603",
     "longitude": "126.5384442"
   },
@@ -3185,7 +3185,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 조함해안로 538 2층",
     "description": "흑돼지 돈까스 한접시 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/290.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5423356",
     "longitude": "126.6704101"
   },
@@ -3196,7 +3196,7 @@
     "region": "노형",
     "address": "제주 제주시 수덕5길 40 1층",
     "description": "5000원 이상 구매시 팩음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/291.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.485175",
     "longitude": "126.4746347"
   },
@@ -3207,7 +3207,7 @@
     "region": "연동",
     "address": "제주 제주시 국기로2길 10 1층",
     "description": "학생증 제시 시 음료 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/292.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4799168",
     "longitude": "126.490717"
   },
@@ -3218,7 +3218,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로 14 제주오겹살왕돌구이집",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/293.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4987242",
     "longitude": "126.5249755"
   },
@@ -3229,7 +3229,7 @@
     "region": "용담",
     "address": "제주 제주시 용문로18길 60-5",
     "description": "음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/294.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5027763",
     "longitude": "126.5100737"
   },
@@ -3240,7 +3240,7 @@
     "region": "용담",
     "address": "제주 제주시 동한두기길 23 제주으뜸흑돼지",
     "description": "결제금액 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/295.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5169309",
     "longitude": "126.5156551"
   },
@@ -3251,7 +3251,7 @@
     "region": "연동",
     "address": "제주 제주시 선덕로 12 1층",
     "description": "사이드메뉴 1종 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/296.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4854588",
     "longitude": "126.4978479"
   },
@@ -3262,7 +3262,7 @@
     "region": "탑동",
     "address": "제주 제주시 중앙로5길 13 1층",
     "description": "예약 후 방문시 위스키 한잔",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/297.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5153403",
     "longitude": "126.5260957"
   },
@@ -3273,7 +3273,7 @@
     "region": "삼화",
     "address": "제주 제주시 설촌로2길 3 1층상가",
     "description": "재학생 팀당 주류 or 음료 1병",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/298.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5220291",
     "longitude": "126.582044"
   },
@@ -3284,7 +3284,7 @@
     "region": "이도일동",
     "address": "제주 제주시 중앙로14길 5 1층",
     "description": "제주대 학우 인증 시 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/299.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5112455",
     "longitude": "126.5237384"
   },
@@ -3295,7 +3295,7 @@
     "region": "일도이동",
     "address": "제주 제주시 연수로3길 4 1층",
     "description": "테이블 당 껍데기",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/300.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5022289",
     "longitude": "126.5433795"
   },
@@ -3306,7 +3306,7 @@
     "region": "일도이동",
     "address": "제주 제주시 연수로4길 3 주화당",
     "description": "아이스크림, 황도 택 1 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/301.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5028941",
     "longitude": "126.5434382"
   },
@@ -3317,7 +3317,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중문관광로 9 중문우동한그릇 서귀포본점",
     "description": "2인당 음료 1개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/302.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2570889",
     "longitude": "126.4152455"
   },
@@ -3328,7 +3328,7 @@
     "region": "화북",
     "address": "제주 제주시 진남로6길 26 1층",
     "description": "총 금액의 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/303.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5211124",
     "longitude": "126.5658938"
   },
@@ -3339,7 +3339,7 @@
     "region": "노형",
     "address": "제주 제주시 광평동로 67 진도새기",
     "description": "음료수 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/304.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4849422",
     "longitude": "126.4668135"
   },
@@ -3350,7 +3350,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 명동로 14 1층 대하마트",
     "description": "칼국수 2인분 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/305.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2470541",
     "longitude": "126.5634172"
   },
@@ -3361,7 +3361,7 @@
     "region": "노형",
     "address": "제주 제주시 원노형5길 28 엘리시아아파트",
     "description": "4인 이상 방문시 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/306.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4872618",
     "longitude": "126.4827134"
   },
@@ -3372,7 +3372,7 @@
     "region": "건입동",
     "address": "제주 제주시 동문로11길 5 착한제주고등어",
     "description": "제대 학생 인증 시 1인 1음료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/307.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5136194",
     "longitude": "126.5312887"
   },
@@ -3383,7 +3383,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로 25 1층 창성상회",
     "description": "찌개 또는 음료 1가지 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/308.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4977535",
     "longitude": "126.5259546"
   },
@@ -3394,7 +3394,7 @@
     "region": "용담",
     "address": "제주 제주시 탑동로 134 1층",
     "description": "주류 1,000원 할인 및 계란후라이 인당 1개씩 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/309.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5133703",
     "longitude": "126.5179965"
   },
@@ -3405,7 +3405,7 @@
     "region": "이도이동",
     "address": "제주 제주시 남광로2길 41-1 1층",
     "description": "배달 주문시 쿨다방 서비스 매장 방문 후 학생증 제시 날치알볶음밥 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/310.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4894093",
     "longitude": "126.5399222"
   },
@@ -3416,7 +3416,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로 117 1층 촌뜨기 화로구이",
     "description": "10% 할인 및 2인 기준 음료 1개 서비스, 10인 이상 단체시 주문량에 따라 고기 1인 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/311.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4901047",
     "longitude": "126.5290701"
   },
@@ -3427,7 +3427,7 @@
     "region": "시청",
     "address": "제주 제주시 광양8길 1-2 1층",
     "description": "테이블 당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/312.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4997928",
     "longitude": "126.5291687"
   },
@@ -3438,7 +3438,7 @@
     "region": "화북",
     "address": "제주 제주시 일주동로 260",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/313.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5200838",
     "longitude": "126.5731444"
   },
@@ -3449,7 +3449,7 @@
     "region": "중앙로",
     "address": "제주 제주시 관덕로11길 8-3 2층",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/314.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5139781",
     "longitude": "126.5256824"
   },
@@ -3460,7 +3460,7 @@
     "region": "일도이동",
     "address": "제주 제주시 삼성로 49 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/315.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.507257",
     "longitude": "126.5305928"
   },
@@ -3471,7 +3471,7 @@
     "region": "시청",
     "address": "제주 제주시 동고산로 10 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/316.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4981631",
     "longitude": "126.5321209"
   },
@@ -3482,7 +3482,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다13길 1-6 1층",
     "description": "18시 이전 방문 시 5% 할인 (단체 4인 이상 x )",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/317.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4727454",
     "longitude": "126.5463709"
   },
@@ -3493,7 +3493,7 @@
     "region": "시청",
     "address": "제주 제주시 광양13길 24 탐라중식당",
     "description": "테이블 당 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/318.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4995846",
     "longitude": "126.5327522"
   },
@@ -3504,7 +3504,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 신서로48번길 52 1층 102호",
     "description": "음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/319.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2528142",
     "longitude": "126.5103962"
   },
@@ -3515,7 +3515,7 @@
     "region": "탑동",
     "address": "제주 제주시 관덕로15길 30-1 흑돼지거리탑돈",
     "description": "음료 1인 1개씩 서비스 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/320.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5159264",
     "longitude": "126.5270941"
   },
@@ -3526,7 +3526,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로7길 46 탕탕이 1호점",
     "description": "테이블당 음료수 2개 or 도시락 1개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/321.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4959917",
     "longitude": "126.5272081"
   },
@@ -3537,7 +3537,7 @@
     "region": "건입동",
     "address": "제주 제주시 중앙로1길 11 텍사스 바베큐",
     "description": "주류 제외 음식값에서 15% 할인 적용",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/322.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5163876",
     "longitude": "126.5259829"
   },
@@ -3548,7 +3548,7 @@
     "region": "용담삼동",
     "address": "제주 제주시 서해안로 498-6 토끼와거북이",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/323.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5188204",
     "longitude": "126.4921734"
   },
@@ -3559,7 +3559,7 @@
     "region": "용담",
     "address": "제주 제주시 성화로 23",
     "description": "테이블 당 음료수 한 개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/324.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5119572",
     "longitude": "126.5052891"
   },
@@ -3570,7 +3570,7 @@
     "region": "일도1동",
     "address": "제주 제주시 신산로 26",
     "description": "음료 증정 및 서비스 홍어",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/325.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5109173",
     "longitude": "126.5318029"
   },
@@ -3581,7 +3581,7 @@
     "region": "시청",
     "address": "제주 제주시 신성로13길 16-1 1~2층",
     "description": "현금 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/326.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4986224",
     "longitude": "126.5294078"
   },
@@ -3592,7 +3592,7 @@
     "region": "연동",
     "address": "제주 성신로1길 21",
     "description": "방문시 음료수 1캔 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/327.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4918512",
     "longitude": "126.4877242"
   },
@@ -3603,7 +3603,7 @@
     "region": "연동",
     "address": "제주 제주시 수목원길 51 포도원흑돼지",
     "description": "음료수 및 된장찌개 1개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/328.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4699136",
     "longitude": "126.4901764"
   },
@@ -3614,7 +3614,7 @@
     "region": "시청",
     "address": "제주 제주시 광양13길 6-5",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/329.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4985071",
     "longitude": "126.5315845"
   },
@@ -3625,7 +3625,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 구엄길 3 하영칼국수",
     "description": "2인 이상 음료 1개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/330.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4747038",
     "longitude": "126.3756251"
   },
@@ -3636,7 +3636,7 @@
     "region": "탑동",
     "address": "제주 제주시 탑동로 27 한라돈까스",
     "description": "제주대학교 재학생에게 2인 이하이면 음료 추가제공 3인 이상이면 사이드메뉴 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/331.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.517353",
     "longitude": "126.5217888"
   },
@@ -3647,7 +3647,7 @@
     "region": "도남",
     "address": "제주 제주시 도남로 199 1층",
     "description": "사이드메뉴(주류 포함) 1개",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/332.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4851196",
     "longitude": "126.5354354"
   },
@@ -3658,7 +3658,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 함덕로 20 1층",
     "description": "음료 1병 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/333.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5416445",
     "longitude": "126.6730308"
   },
@@ -3669,7 +3669,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 신북로 584-6",
     "description": "음료 무료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/334.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5395484",
     "longitude": "126.6716461"
   },
@@ -3680,7 +3680,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 함덕10길 6 1층",
     "description": "메인메뉴 주문시 유부초밥 1피스씩 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/335.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5417277",
     "longitude": "126.6640425"
   },
@@ -3691,7 +3691,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 23",
     "description": "테이블당 음료 하나, 라면사리 무한 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/336.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4986034",
     "longitude": "126.5291569"
   },
@@ -3702,7 +3702,7 @@
     "region": "이도이동",
     "address": "제주 제주시 신성로 110",
     "description": "음주 시 : 미리 현금결제 의사 있을 시 결제금액의 5% 할인 및 순대국 서비스 + 비음주 시 : 2인 기준 원하는 탄산 음료 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/337.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4971081",
     "longitude": "126.5305373"
   },
@@ -3713,7 +3713,7 @@
     "region": "노형",
     "address": "제주 제주시 다랑곶길 26-1 1층",
     "description": "리뷰 해주면 만두 서비스 / 네이버 예약 주문 시 음료 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/338.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4882796",
     "longitude": "126.4807419"
   },
@@ -3724,7 +3724,7 @@
     "region": "노형",
     "address": "제주 제주시 다랑곶길 7 1층 혜자이모네",
     "description": "학생 인증시 음료수 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/339.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.48727710000001",
     "longitude": "126.4791259"
   },
@@ -3735,7 +3735,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란8길 10 1층 호맥 제주아라점",
     "description": "4인 이상 방문 시 아이스크림 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/340.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4735838",
     "longitude": "126.544554"
   },
@@ -3746,7 +3746,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로207번길 4 홈치",
     "description": "제주대 재학중 학생 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/341.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2631799",
     "longitude": "126.5583543"
   },
@@ -3757,7 +3757,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 10",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/342.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4996031",
     "longitude": "126.5281439"
   },
@@ -3768,7 +3768,7 @@
     "region": "노형",
     "address": "제주 제주시 다랑곶길 19 화제집중",
     "description": "결제금액 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/343.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.48801510000001",
     "longitude": "126.4800026"
   },
@@ -3779,7 +3779,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로4길 17 1층황금돼지등갈비",
     "description": "5% 할인(1만원 이내)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/344.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4887035",
     "longitude": "126.4790161"
   },
@@ -3790,7 +3790,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 엄수로 8-37",
     "description": "4인 이상 방문 시 서비스 음료 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/345.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.473518",
     "longitude": "126.3782015"
   },
@@ -3801,7 +3801,7 @@
     "region": "탑동",
     "address": "제주 제주시 칠성로길 41 1층",
     "description": "만원이상 구매시 랜덤 떡 하나 제공 + 연락 후 방문 원하심",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/346.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5143681",
     "longitude": "126.5272508"
   },
@@ -3812,7 +3812,7 @@
     "region": "삼도일동",
     "address": "제주 제주시 서사로 122-1",
     "description": "커플세트 주문 시 음료제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/347.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5015448",
     "longitude": "126.519608"
   },
@@ -3823,7 +3823,7 @@
     "region": "화북",
     "address": "제주 제주시 진동로5길 40 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/348.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5216174",
     "longitude": "126.5671607"
   },
@@ -3834,7 +3834,7 @@
     "region": "아라",
     "address": "제주 제주시 연북로 511 에이플렉스 3층",
     "description": "뷰티시술 정가의 10%(이벤트가 일시, 이벤트가의  5%추가할인)/ 가다실( 자궁경부암 예방접종) 1회접종시 2만원 할인, 3회 접종시 3만원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/349.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4847778",
     "longitude": "126.5343571"
   },
@@ -3845,7 +3845,7 @@
     "region": "외도",
     "address": "제주시 우정로 15",
     "description": "진료시 한방파스(판매용 5,000원) 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/350.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4915178",
     "longitude": "126.4311582"
   },
@@ -3856,7 +3856,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 월드컵로 8 홍은프라자 3층",
     "description": "제주대학교 학생증 확인 시 비급여 진료 항목 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/351.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2490866",
     "longitude": "126.506951"
   },
@@ -3867,7 +3867,7 @@
     "region": "아라이동",
     "address": "제주 제주시 승천로 75 3층 힐링치과의원",
     "description": "20% 할인 (보험 진료비 별도)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/352.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.49258400000001",
     "longitude": "126.5428767"
   },
@@ -3878,7 +3878,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 신북로 494 1층",
     "description": "음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/353.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5427402",
     "longitude": "126.6626561"
   },
@@ -3889,7 +3889,7 @@
     "region": "화북일동",
     "address": "제주 제주시 금산5길 35-1 1층 88Roasters",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/354.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5258498",
     "longitude": "126.5634999"
   },
@@ -3900,7 +3900,7 @@
     "region": "연동",
     "address": "제주 제주시 연북로 90 1층",
     "description": "음료 전메뉴 10% 할인- 디저트제외 /(핸드드립까지 적용가능)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/355.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4815085",
     "longitude": "126.4908336"
   },
@@ -3911,7 +3911,7 @@
     "region": "이도이동",
     "address": "제주 제주시 구남로2길 38 1층 글러트니 커피",
     "description": "10% 할인(홀케이크 및 선물 포장 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/356.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4865537",
     "longitude": "126.5349458"
   },
@@ -3922,7 +3922,7 @@
     "region": "노형",
     "address": "제주 제주시 다랑곶4길 14 1층",
     "description": "1만원 이상 주문시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/357.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4880754",
     "longitude": "126.4805569"
   },
@@ -3933,7 +3933,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로 3 1층",
     "description": "호두과자, 커피음료 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/358.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4864747",
     "longitude": "126.4784782"
   },
@@ -3944,7 +3944,7 @@
     "region": "건입동",
     "address": "제주 제주시 임항로 14",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/359.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5163726",
     "longitude": "126.5262563"
   },
@@ -3955,7 +3955,7 @@
     "region": "노형",
     "address": "제주 제주시 노형10길 9 1층",
     "description": "디저트 케이크 금액별 할인 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/360.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4836352",
     "longitude": "126.4783223"
   },
@@ -3966,7 +3966,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다2길 8 1층 DBD데이바이데이",
     "description": "음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/361.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4771304",
     "longitude": "126.5497115"
   },
@@ -3977,7 +3977,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중산간동로 8016-3 동글랑마카롱",
     "description": "마카롱 2만원 이상 구매시 1000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/362.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2646569",
     "longitude": "126.5603216"
   },
@@ -3988,7 +3988,7 @@
     "region": "삼화",
     "address": "제주 제주시 동화로1길 49-7 1층",
     "description": "전체금액의 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/363.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5182274",
     "longitude": "126.5772047"
   },
@@ -3999,7 +3999,7 @@
     "region": "이도일동",
     "address": "제주 제주시 광양1길 2",
     "description": "음료 10% 할인 (제조음료만 병음료 x)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/364.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5039949",
     "longitude": "126.5270605"
   },
@@ -4010,7 +4010,7 @@
     "region": "이도이동",
     "address": "제주 제주시 연신로 85",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/365.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4942988",
     "longitude": "126.5491034"
   },
@@ -4021,7 +4021,7 @@
     "region": "이도이동",
     "address": "제주 제주시 구남로8길 26 1층",
     "description": "모든음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/366.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4897155",
     "longitude": "126.5374586"
   },
@@ -4032,7 +4032,7 @@
     "region": "노형",
     "address": "제주 제주시 노형1길 8-8 1층 라운드립스",
     "description": "금액 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/367.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4809128",
     "longitude": "126.473867"
   },
@@ -4043,7 +4043,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로 28-1 라피스 제주",
     "description": "10%할인 (주류 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/368.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.25540650000001",
     "longitude": "126.5583121"
   },
@@ -4054,7 +4054,7 @@
     "region": "화북",
     "address": "제주 제주시 진남로 51-1 본 건물 가운데",
     "description": "2만원 이상 구매시 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/369.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5235907",
     "longitude": "126.5656185"
   },
@@ -4065,7 +4065,7 @@
     "region": "삼도이동",
     "address": "제주 제주시 관덕로6길 12 모찌롱",
     "description": "디저트류 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/370.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5120892",
     "longitude": "126.5219993"
   },
@@ -4076,7 +4076,7 @@
     "region": "건입동",
     "address": "제주 제주시 고마로1길 26 2층",
     "description": "음료 10% 할인, 텀블러 1000원 할인 / 중복 할인 가능",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/371.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5129164",
     "longitude": "126.5403822"
   },
@@ -4087,7 +4087,7 @@
     "region": "이도이동",
     "address": "제주 제주시 구남동6길 15 1층",
     "description": "음료 20% 할인 또는 휘낭시에 1개 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/372.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4881924",
     "longitude": "126.5376853"
   },
@@ -4098,7 +4098,7 @@
     "region": "노형",
     "address": "제주 제주시 연북로 1 롯데마트제주점 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/373.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4824765",
     "longitude": "126.4814028"
   },
@@ -4109,7 +4109,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 곽지11길 4 2층",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/374.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4532847",
     "longitude": "126.3071787"
   },
@@ -4120,7 +4120,7 @@
     "region": "이도이동",
     "address": "제주 제주시 동고산로 34 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/375.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.49886780000001",
     "longitude": "126.5345049"
   },
@@ -4131,7 +4131,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 우진오름길 144 1층",
     "description": "음료 10%",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/376.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.464996",
     "longitude": "126.7101925"
   },
@@ -4142,7 +4142,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로 65",
     "description": "만원 이상 구매시 톨아메리카노 무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/377.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2504941",
     "longitude": "126.5612508"
   },
@@ -4153,7 +4153,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 천제연로232번길 15 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/378.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2503959",
     "longitude": "126.4302387"
   },
@@ -4164,7 +4164,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다14길 28-11 1층101호",
     "description": "핸드드립 메뉴 1,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/379.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4714585",
     "longitude": "126.5483646"
   },
@@ -4175,7 +4175,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 보목로64번길 178 1층 보래드 베이커스",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/380.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.244432",
     "longitude": "126.5905456"
   },
@@ -4186,7 +4186,7 @@
     "region": "외도",
     "address": "제주 제주시 우정로11길 11 2층 202호",
     "description": "설빙류 구매시 10% 할인 제공, 디저트류 제외",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/381.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4879951",
     "longitude": "126.4321584"
   },
@@ -4197,7 +4197,7 @@
     "region": "일도일동",
     "address": "제주 제주시 성지로 62-1 1층",
     "description": "음료 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/382.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.511175",
     "longitude": "126.5300264"
   },
@@ -4208,7 +4208,7 @@
     "region": "아라일동",
     "address": "제주 제주시 구산서길 49",
     "description": "전메뉴 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/383.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4805624",
     "longitude": "126.5331657"
   },
@@ -4219,7 +4219,7 @@
     "region": "이도이동",
     "address": "제주 제주시 박성내서길 2-5 1층",
     "description": "1,000할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/384.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4921863",
     "longitude": "126.5403694"
   },
@@ -4230,7 +4230,7 @@
     "region": "이도일동",
     "address": "제주 제주시 중앙로 93 1층 슈푸",
     "description": "구매금액 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/385.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5099872",
     "longitude": "126.5238936"
   },
@@ -4241,7 +4241,7 @@
     "region": "함덕",
     "address": "제주 제주시 조천읍 평사길 7 5층 카페 슬며시",
     "description": "디저트 제외 음료 20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/386.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5433421",
     "longitude": "126.672811"
   },
@@ -4252,7 +4252,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다15길 50 1층",
     "description": "커피 단체주문 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/387.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4715425",
     "longitude": "126.552087"
   },
@@ -4263,7 +4263,7 @@
     "region": "일도이동",
     "address": "제주 제주시 관덕로8길 31 1층",
     "description": "음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/388.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5105191",
     "longitude": "126.5233739"
   },
@@ -4274,7 +4274,7 @@
     "region": "탑동",
     "address": "제주 제주시 북성로 57 1층",
     "description": "10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/389.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5154255",
     "longitude": "126.5187889"
   },
@@ -4285,7 +4285,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 표선면 세성로 40 1층",
     "description": "빙수&케이크류 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/390.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.30992880000001",
     "longitude": "126.8047341"
   },
@@ -4296,7 +4296,7 @@
     "region": "삼도",
     "address": "제주 제주시 관덕로 16-1 어반브루잉",
     "description": "음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/391.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5128726",
     "longitude": "126.5211497"
   },
@@ -4307,7 +4307,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 일주동로 8600 억새타르트 서귀포올레시장점",
     "description": "총금액 10%, 만원 이상 구매 시 아메리카노",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/392.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2549219",
     "longitude": "126.5693876"
   },
@@ -4318,7 +4318,7 @@
     "region": "일도이동",
     "address": "제주 제주시 동문로 62 1층 에브리블룸",
     "description": "꽃다발 5만원이상 10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/393.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5132402",
     "longitude": "126.5332692"
   },
@@ -4329,7 +4329,7 @@
     "region": "영평",
     "address": "제주 제주시 영평길 274 1층",
     "description": "제주대 학우 인증 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/394.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4778943",
     "longitude": "126.568844"
   },
@@ -4340,7 +4340,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 홍중로27번길 4 오니리크",
     "description": "2만원 이상 주문시 소금빵 1개 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/395.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2552536",
     "longitude": "126.5575916"
   },
@@ -4351,7 +4351,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란5길 13 1층",
     "description": "아메리카노 500원 할인,아메리카노 제외 모든 음료 1000원 할인(쿠폰사용불가)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/396.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4754675",
     "longitude": "126.5435889"
   },
@@ -4362,7 +4362,7 @@
     "region": "시청",
     "address": "제주 제주시 고산동산1길 9 1층 오밀조밀과자점",
     "description": "제품 12000원 구매시 음료증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/397.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4976472",
     "longitude": "126.5322588"
   },
@@ -4373,7 +4373,7 @@
     "region": "시청",
     "address": "제주 제주시 광양11길 16 오캄커피",
     "description": "20% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/398.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.499514",
     "longitude": "126.5318488"
   },
@@ -4384,7 +4384,7 @@
     "region": "중앙로",
     "address": "제주 제주시 관덕로15길 7-1 옥림장 더제이드 호텔 1층 옥림사운즈",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/399.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.513891",
     "longitude": "126.52674"
   },
@@ -4395,7 +4395,7 @@
     "region": "애월",
     "address": "제주 제주시 한림읍 협재리 2992",
     "description": "자전거 무료로 타면 되고 10 % 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/400.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4052773",
     "longitude": "126.2288955"
   },
@@ -4406,7 +4406,7 @@
     "region": "애월",
     "address": "제주 제주시 한림읍 한림로 530-1 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/401.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4050507",
     "longitude": "126.2555214"
   },
@@ -4417,7 +4417,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로 143 제주시 일도2동 68-8",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/402.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.501988",
     "longitude": "126.5432856"
   },
@@ -4428,7 +4428,7 @@
     "region": "아라일동",
     "address": "제주 제주시 인다9길 29 1층 위더스, 트래블",
     "description": "매장 방문시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/403.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4755288",
     "longitude": "126.5486085"
   },
@@ -4439,7 +4439,7 @@
     "region": "이도이동",
     "address": "제주 제주시 고산동산서길 5 1층",
     "description": "10000원 이상 구매 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/404.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4945907",
     "longitude": "126.5313295"
   },
@@ -4450,7 +4450,7 @@
     "region": "노형",
     "address": "제주 제주시 수덕9길 85-2",
     "description": "오송이 케이크, 당일보틀 케이크 10% 할인, 네이버영수증 리뷰시 아메리카노 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/405.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4825688",
     "longitude": "126.4702662"
   },
@@ -4461,7 +4461,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀9길 2 제주모닝시티 117호 제라진마카롱",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/406.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4862324",
     "longitude": "126.4145495"
   },
@@ -4472,7 +4472,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중앙로 50 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/407.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2490589",
     "longitude": "126.5619556"
   },
@@ -4483,7 +4483,7 @@
     "region": "삼화",
     "address": "제주 제주시 화삼로 89 상가동 105호 부영8차 상가 버스정류장",
     "description": "만원 이상 구매시 음료제공(커피)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/408.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5150833",
     "longitude": "126.5822919"
   },
@@ -4494,7 +4494,7 @@
     "region": "탑동",
     "address": "제주 제주시 관덕로17길 29 산지천갤러리 1층",
     "description": "음료 15% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/409.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5151351",
     "longitude": "126.5284001"
   },
@@ -4505,7 +4505,7 @@
     "region": "일도이동",
     "address": "제주 제주시 고마로11길 45 1층",
     "description": "20% 할인 + 리뷰이벤트 시 미니 요거트볼",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/410.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5124944",
     "longitude": "126.5390958"
   },
@@ -4516,7 +4516,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 보목포로 201 투모로우",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/411.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2458754",
     "longitude": "126.6187087"
   },
@@ -4527,7 +4527,7 @@
     "region": "이도이동",
     "address": "제주 제주시 도남로 189 1층 청연디저트카페",
     "description": "음료 5% 할인 (네이버리뷰작성시 10% 할인적용)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/412.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4856458",
     "longitude": "126.534543"
   },
@@ -4538,7 +4538,7 @@
     "region": "서귀포",
     "address": "서귀포시 신서로48번길 20-10",
     "description": "2만원 이상 구매 시 5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/413.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2530637",
     "longitude": "126.5068681"
   },
@@ -4549,7 +4549,7 @@
     "region": "이도이동",
     "address": "제주 제주시 신설로2길 1-1 촐리케이크",
     "description": "매장 이용시 10%할인/ 제작 케이크 40,000원 이상이면 2,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/414.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4940094",
     "longitude": "126.5420219"
   },
@@ -4560,7 +4560,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 남조로 1785-12",
     "description": "음료 10% 할인(디저트 X), 목장 다녀오면 음료 30% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/415.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.427439",
     "longitude": "126.6722667"
   },
@@ -4571,7 +4571,7 @@
     "region": "노형",
     "address": "제주 제주시 월광로 145-8 1층 카페몽몽",
     "description": "전 메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/416.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4924504",
     "longitude": "126.473379"
   },
@@ -4582,7 +4582,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하가로 147 1층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/417.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4567345",
     "longitude": "126.3494267"
   },
@@ -4593,7 +4593,7 @@
     "region": "외도",
     "address": "제주 제주시 우정로15길 12 1층 105호",
     "description": "전 품목 10% 할인 (두쫀쿠 제외 + 방문시에만)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/418.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4850004",
     "longitude": "126.4329961"
   },
@@ -4604,7 +4604,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 애월해안로 251 카페멜록",
     "description": "모든메뉴 2천원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/419.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4672021",
     "longitude": "126.3386354"
   },
@@ -4615,7 +4615,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 김정문화로 39 1층, 103호",
     "description": "학생증 제시시 5% 할인적용",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/420.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2516573",
     "longitude": "126.5089879"
   },
@@ -4626,7 +4626,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로 297 1층",
     "description": "음료 주문시 쿠키 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/421.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.50075",
     "longitude": "126.5281949"
   },
@@ -4637,7 +4637,7 @@
     "region": "도두",
     "address": "제주 제주시 서해안로 42 카페오믈락",
     "description": "모든 메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/422.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5012533",
     "longitude": "126.4558729"
   },
@@ -4648,7 +4648,7 @@
     "region": "용담이동",
     "address": "제주 제주시 용두암길 16 1층",
     "description": "전 메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/423.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5145005",
     "longitude": "126.5122808"
   },
@@ -4659,7 +4659,7 @@
     "region": "노형",
     "address": "제주 제주시 노형3길 8 1층",
     "description": "커피 음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/424.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.481998",
     "longitude": "126.4747691"
   },
@@ -4670,7 +4670,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 동홍북로 10 1층",
     "description": "현금 결제 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/425.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2590788",
     "longitude": "126.5693488"
   },
@@ -4681,7 +4681,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로29길 2",
     "description": "모든 메뉴 10%할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/426.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.50066",
     "longitude": "126.5268216"
   },
@@ -4692,7 +4692,7 @@
     "region": "중앙로",
     "address": "제주 제주시 중앙로14길 4 1층",
     "description": "음료메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/427.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5114087",
     "longitude": "126.5241258"
   },
@@ -4703,7 +4703,7 @@
     "region": "노형",
     "address": "제주 제주시 원노형3길 6 1층",
     "description": "10시 이후 음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/428.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4867205",
     "longitude": "126.4853392"
   },
@@ -4714,7 +4714,7 @@
     "region": "애월",
     "address": "제주 제주시 애월읍 하귀로 85",
     "description": "만원 이상 구매시 서비스 쿠키 제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/429.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4821453",
     "longitude": "126.4055467"
   },
@@ -4725,7 +4725,7 @@
     "region": "아라이동",
     "address": "제주 제주시 신설로6길 8 1층",
     "description": "음료 및 조각케이크/구룸과자 10% 할인(홀케이크 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/430.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.493469",
     "longitude": "126.5426628"
   },
@@ -4736,7 +4736,7 @@
     "region": "삼도",
     "address": "제주 제주시 관덕로8길 38 1,2,3층",
     "description": "음료 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/431.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5101011",
     "longitude": "126.5233509"
   },
@@ -4747,7 +4747,7 @@
     "region": "이도이동",
     "address": "제주 제주시 이도공원길 8 1층",
     "description": "만원 이상 구매 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/432.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4964563",
     "longitude": "126.5425196"
   },
@@ -4758,7 +4758,7 @@
     "region": "이도이동",
     "address": "제주 제주시 고산동산1길 11 1층",
     "description": "매장 방문시 10% DC , 5개구매 시 1개 서비스",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/433.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4977616",
     "longitude": "126.5324304"
   },
@@ -4769,7 +4769,7 @@
     "region": "용담",
     "address": "제주 제주시 용담로 70 1층",
     "description": "음료만 10% 적립 및 추가 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/434.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.51251269999999",
     "longitude": "126.5102079"
   },
@@ -4780,7 +4780,7 @@
     "region": "화북",
     "address": "제주 제주시 일주동로 183 1층",
     "description": "총 5% 할인(세트 할인 중복 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/435.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5190637",
     "longitude": "126.5650975"
   },
@@ -4791,7 +4791,7 @@
     "region": "서귀포",
     "address": "제주 서귀포시 중정로61번길 20 2호실",
     "description": "전체금액의 10프로",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/436.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.2495636",
     "longitude": "126.5630367"
   },
@@ -4802,7 +4802,7 @@
     "region": "아라일동",
     "address": "제주 제주시 구산로 22-7 102호",
     "description": "꽃 + 케이크 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/437.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4830715",
     "longitude": "126.5369065"
   },
@@ -4813,7 +4813,7 @@
     "region": "노형",
     "address": "제주 제주시 월랑로8길 1 아란야플라자 1층 101호",
     "description": "학생증 지참 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/438.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4887906",
     "longitude": "126.4765748"
   },
@@ -4824,7 +4824,7 @@
     "region": "삼화",
     "address": "제주 제주시 도련동길 19",
     "description": "애견 입장료 40% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/439.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5087515",
     "longitude": "126.59202"
   },
@@ -4835,7 +4835,7 @@
     "region": "도두",
     "address": "제주 제주시 다호5길 10 2층",
     "description": "동문샵점 메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/440.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5017294",
     "longitude": "126.4904261"
   },
@@ -4846,7 +4846,7 @@
     "region": "조천",
     "address": "제주 제주시 조천읍 선진길 88 가동 HEUL",
     "description": "음료 전메뉴 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/441.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4580988",
     "longitude": "126.7112543"
   },
@@ -4857,7 +4857,7 @@
     "region": "도남",
     "address": "제주 제주시 신성로 82-8 1층",
     "description": "1장당 10%할인 20장 이상 구매시 추가 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/442.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4950464",
     "longitude": "126.5281102"
   },
@@ -4868,7 +4868,7 @@
     "region": "노형",
     "address": "제주 제주시 노형13길 7 2층",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/443.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4831854",
     "longitude": "126.4788696"
   },
@@ -4879,7 +4879,7 @@
     "region": "도남",
     "address": "제주 제주시 연삼로 361",
     "description": "정장 한 벌 구매 및 대여 시 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/444.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.493185",
     "longitude": "126.5307348"
   },
@@ -4890,7 +4890,7 @@
     "region": "일동일동",
     "address": "제주 제주시 동문로2길 27-3",
     "description": "밀크티 무료제공",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/445.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5108358",
     "longitude": "126.5267375"
   },
@@ -4901,7 +4901,7 @@
     "region": "시청",
     "address": "제주 제주시 서광로32길 42 1층",
     "description": "카드 3% 현금/계좌이체 5%\n10만원 이상 구매시 악세사리 증정",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/446.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4972262",
     "longitude": "126.5298487"
   },
@@ -4912,7 +4912,7 @@
     "region": "아라일동",
     "address": "제주 제주시 아란5길 18 제주 제주시 아란5길 18",
     "description": "펌,염색 여성 단발 15% 긴머리20% 할인\n남자는 아이롱펌 16만원 -> 14만원 (수석 디자이너 예림 선생님 단독 이벤트)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/447.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4751054",
     "longitude": "126.5435652"
   },
@@ -4923,7 +4923,7 @@
     "region": "아라일동",
     "address": "제주 제주시 중앙로 501 102호 메이드엠",
     "description": "자체 할인에 추가 10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/448.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4784634",
     "longitude": "126.5440909"
   },
@@ -4934,7 +4934,7 @@
     "region": "중앙로",
     "address": "제주 제주시 남성로 165 1층 불등불닭",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/449.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5095164",
     "longitude": "126.5228463"
   },
@@ -4945,7 +4945,7 @@
     "region": "이도일동",
     "address": "제주 제주시 광양1길 18 1층",
     "description": "포장시 5,000원 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/450.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5037069",
     "longitude": "126.5277372"
   },
@@ -4956,7 +4956,7 @@
     "region": "노형권",
     "address": "제주 제주시 노형6길 18",
     "description": "5% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/451.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.481009",
     "longitude": "126.4777683"
   },
@@ -4967,7 +4967,7 @@
     "region": "노형",
     "address": "제주 제주시 월광로 145-8 1층 카페몽몽",
     "description": "반려견 입장료 무료",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/452.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.4924504",
     "longitude": "126.473379"
   },
@@ -4978,7 +4978,7 @@
     "region": "성산읍",
     "address": "제주 서귀포시 성산읍 환해장성로 201 코코컬처클럽 골든코스트",
     "description": "메뉴 10% 할인 (굿즈 제외)",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/453.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.3870198",
     "longitude": "126.8882506"
   },
@@ -4989,7 +4989,7 @@
     "region": "용담삼동",
     "address": "제주 제주시 서해안로 498 1층 해녀잠수촌",
     "description": "10% 할인",
-    "image": "https://cdn.jsdelivr.net/gh/jnuproject/jnuproject.github.io@main/images/454.jpg?v=20260227-2",
+    "image": "",
     "latitude": "33.5189764",
     "longitude": "126.49214"
   }
