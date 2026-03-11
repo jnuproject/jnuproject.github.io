@@ -3872,15 +3872,15 @@
     "longitude": "126.5428767"
   },
   {
-    "id": "387",
-    "name": "1938 함덕차관",
+    "id": "353",
+    "name": "아라아라",
     "category": "카페/베이커리",
-    "region": "함덕",
-    "address": "제주 제주시 조천읍 신북로 494 1층",
-    "description": "음료 10% 할인",
+    "region": "아라",
+    "address": "제주 제주시 인다15길 50 1층",
+    "description": "커피 단체주문 할인",
     "image": "",
-    "latitude": "33.5427402",
-    "longitude": "126.6626561"
+    "latitude": "33.4715425",
+    "longitude": "126.552087"
   },
   {
     "id": "354",
@@ -4246,15 +4246,15 @@
     "longitude": "126.672811"
   },
   {
-    "id": "353",
-    "name": "아라아라",
+    "id": "387",
+    "name": "1938 함덕차관",
     "category": "카페/베이커리",
-    "region": "아라",
-    "address": "제주 제주시 인다15길 50 1층",
-    "description": "커피 단체주문 할인",
+    "region": "함덕",
+    "address": "제주 제주시 조천읍 신북로 494 1층",
+    "description": "음료 10% 할인",
     "image": "",
-    "latitude": "33.4715425",
-    "longitude": "126.552087"
+    "latitude": "33.5427402",
+    "longitude": "126.6626561"
   },
   {
     "id": "388",
