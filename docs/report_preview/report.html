@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>정전을 막는 스마트그리드 설계 결과보고서</title>
+    <link rel="stylesheet" href="report.css" />
+  </head>
+  <body>
+    <header class="topbar" aria-label="보고서 내비게이션">
+      <div class="brand">
+        <strong>Smart Grid Report</strong>
+        <span>Topic 2</span>
+      </div>
+      <nav class="nav" aria-label="본문 이동">
+        <a href="#summary">요약</a>
+        <a href="#model">모델링</a>
+        <a href="#method">방법</a>
+        <a href="#result">결과</a>
+        <a href="#answer">현실 답변</a>
+        <a href="#appendix">부록</a>
+      </nav>
+      <div class="actions">
+        <a class="action-link" href="index.html">시뮬레이터</a>
+        <button class="print-button" type="button" onclick="window.print()">PDF 저장</button>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <div>
+            <p class="eyebrow">주제 2. 정전을 막는 스마트그리드 설계</p>
+            <h1>IEEE 14-bus 전력망의 N-1 고장 분석과 고장 전파 시뮬레이션</h1>
+            <p class="subtitle">
+              전력망을 그래프로 모델링하고, 송전선 고장 이후 전력흐름이 어떻게 재분배되는지 계산하여 최취약 송전선, 표적 공격 위험, 신재생 발전소 추천 위치를 도출했다.
+            </p>
+          </div>
+
+          <div class="hero-answer" aria-label="핵심 결론">
+            <div class="answer-tile">
+              <b>최취약 송전선</b>
+              <strong>L1 Bus 1-2</strong>
+              <span>위험지수 26.87, 과부하 49.36 MW</span>
+            </div>
+            <div class="answer-tile">
+              <b>고장 전파</b>
+              <strong>L1 → L2 → L14</strong>
+              <span>최종 손실 부하 79 MW, 공급률 69.5%</span>
+            </div>
+            <div class="answer-tile">
+              <b>신재생 추천</b>
+              <strong>Bus 11 계열</strong>
+              <span>40 MW 기준 평균 위험 1.39</span>
+            </div>
+          </div>
+        </div>
+
+        <figure class="visual-panel">
+          <img src="report_assets/network_overview.png" alt="IEEE 14-bus 전력망에서 L1, L14, Bus 11을 강조한 네트워크 그림" />
+          <figcaption class="visual-caption">
+            L1은 전력흐름 과부하 취약선, L14는 구조적 분리선, Bus 11은 신재생 발전소 대표 추천 위치이다.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="toc-panel" aria-label="보고서 목차">
+        <h2>보고서 구성</h2>
+        <div class="toc-grid">
+          <a href="#summary">1. 핵심 요약</a>
+          <a href="#problem">2. 현실 문제</a>
+          <a href="#model">3. 그래프 모델링</a>
+          <a href="#method">4. 분석 방법</a>
+          <a href="#result">5. 실험 결과</a>
+          <a href="#compare">6. Baseline 비교</a>
+          <a href="#answer">7. 현실 적용 답변</a>
+          <a href="#appendix">8. 부록과 Q&amp;A</a>
+        </div>
+      </section>
+
+      <section class="section" id="summary">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Executive Summary</span>
+            <h2>교수님 질문에 대한 직접 답</h2>
+          </div>
+          <p class="section-lead">
+            단순히 그래프가 연결되어 있는지만 보는 방식으로는 전력망의 과부하 위험을 놓칠 수 있다. 그래서 연결성 baseline 위에 N-1/DC 전력흐름 분석을 결합했다.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption>표 1. 과제 핵심 질문별 결론</caption>
+            <thead>
+              <tr>
+                <th>과제 질문</th>
+                <th>시뮬레이션 결과</th>
+                <th>현실적 의미</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>어떤 송전선 1개가 가장 위험한가?</td>
+                <td><strong>L1(Bus 1-2)</strong>. 위험지수 26.87, 과부하 49.36 MW</td>
+                <td>직접 정전은 없지만 연쇄 고장의 출발점이 될 수 있어 최우선 감시 대상이다.</td>
+              </tr>
+              <tr>
+                <td>무작위 고장과 표적 공격 중 무엇이 더 위험한가?</td>
+                <td>1개 차단 기준 무작위 평균 위험 1.48, 표적 L1은 26.87</td>
+                <td>모든 선로를 같은 우선순위로 보호하면 안 되고 취약선 중심 보안이 필요하다.</td>
+              </tr>
+              <tr>
+                <td>신재생 발전소는 어디에 두는 것이 좋은가?</td>
+                <td>40 MW 기준 Bus 11 대표 추천. Bus 6, 8, 10, 12도 같은 평균 위험 1.39</td>
+                <td>발전 집중지보다 부하 구역 근처 분산 배치가 안정성 개선에 유리하다.</td>
+              </tr>
+              <tr>
+                <td>확장 시각화는 무엇인가?</td>
+                <td>L1 → L2 → L14 고장 전파에서 손실 부하 79 MW, 공급률 69.5%</td>
+                <td>단일 고장보다 고장 이후 전력흐름 재분배 감시가 중요하다.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="problem">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Problem</span>
+            <h2>현실 문제와 연구 질문</h2>
+          </div>
+          <p class="section-lead">
+            전력망은 도로망처럼 우회 경로가 있어도, 우회한 전력이 남은 선로 용량을 넘으면 정전 위험이 커진다.
+          </p>
+        </div>
+        <div class="split">
+          <div class="text-block">
+            <p>
+              전력망은 여러 발전소와 수요지가 송전선으로 연결된 네트워크이다. 평상시에는 전력이 여러 선로로 나뉘어 흐르지만, 특정 송전선이 끊기면 그 전력은 남은 선로로 우회한다.
+            </p>
+            <p>
+              문제는 우회 전력이 특정 선로의 허용 용량을 넘을 수 있다는 점이다. 이때 과부하가 발생하고, 과부하가 다시 추가 고장과 정전으로 이어질 수 있다.
+            </p>
+          </div>
+          <aside class="callout">
+            <strong>본 과제의 연구 질문</strong>
+            <p>
+              최취약 송전선, 무작위 고장과 표적 공격의 위험 차이, 신재생 발전소 배치 위치, 그리고 고장 전파 과정을 정량적으로 확인한다.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="model">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Graph Modeling</span>
+            <h2>전력망을 그래프로 변환</h2>
+          </div>
+          <p class="section-lead">
+            IEEE 14-bus 형태의 교육용 전력망을 사용했고, 총 부하는 259.2 MW이다.
+          </p>
+        </div>
+
+        <div class="result-strip" aria-label="모델 요약">
+          <div class="metric">
+            <span>정점</span>
+            <strong>14개</strong>
+            <em>발전소·변전소·부하 지점</em>
+          </div>
+          <div class="metric">
+            <span>간선</span>
+            <strong>20개</strong>
+            <em>송전선 L1-L20</em>
+          </div>
+          <div class="metric">
+            <span>총 부하</span>
+            <strong>259.2 MW</strong>
+            <em>전체 수요량</em>
+          </div>
+          <div class="metric">
+            <span>계산 모델</span>
+            <strong>DC PF</strong>
+            <em>DC 전력흐름 근사</em>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption>표 2. 그래프 모델링 방식</caption>
+            <thead>
+              <tr>
+                <th>그래프 요소</th>
+                <th>전력망 의미</th>
+                <th>시뮬레이터 구현</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>정점 V</td>
+                <td>발전소, 변전소, 수요지</td>
+                <td>Bus 1-14</td>
+              </tr>
+              <tr>
+                <td>간선 E</td>
+                <td>송전선</td>
+                <td>L1-L20</td>
+              </tr>
+              <tr>
+                <td>정점 속성</td>
+                <td>부하, 발전 가능 용량</td>
+                <td>load MW, genCap MW</td>
+              </tr>
+              <tr>
+                <td>간선 속성</td>
+                <td>리액턴스, 송전 용량</td>
+                <td>x, rate MW</td>
+              </tr>
+              <tr>
+                <td>고장 상태</td>
+                <td>차단된 송전선</td>
+                <td>failedLineIds</td>
+              </tr>
+              <tr>
+                <td>평가 지표</td>
+                <td>부하 손실, 과부하, 연결요소 수</td>
+                <td>riskIndex</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="method">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Method</span>
+            <h2>교안 알고리즘과 최신 기법 결합</h2>
+          </div>
+          <p class="section-lead">
+            교안 알고리즘은 구조적 연결성을 보고, 최신 기법은 연결된 상태에서도 생기는 전력흐름 과부하를 계산한다.
+          </p>
+        </div>
+
+        <div class="flow-steps" aria-label="분석 흐름">
+          <div class="step">
+            <b>1</b>
+            <strong>연결성 Baseline</strong>
+            <span>송전선 제거 후 그래프가 몇 개 연결요소로 나뉘는지 확인</span>
+          </div>
+          <div class="step">
+            <b>2</b>
+            <strong>N-1/DC 전력흐름</strong>
+            <span>각 송전선 1개를 끊고 남은 선로의 과부하와 손실 부하 계산</span>
+          </div>
+          <div class="step">
+            <b>3</b>
+            <strong>고장 전파·신재생 비교</strong>
+            <span>추가 차단, 표적 공격, 발전소 위치별 평균 위험 비교</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption>표 3. 분석 방법별 역할</caption>
+            <thead>
+              <tr>
+                <th>구분</th>
+                <th>사용 방법</th>
+                <th>알 수 있는 것</th>
+                <th>한계</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>교안 알고리즘 baseline</td>
+                <td>연결성, 연결요소, MST, 우회 경로</td>
+                <td>송전선 제거 후 그래프가 분리되는지 확인</td>
+                <td>연결되어 있어도 과부하가 생기는 상황은 알기 어렵다.</td>
+              </tr>
+              <tr>
+                <td>최신 기법</td>
+                <td>N-1 contingency, DC 전력흐름, 고장 전파</td>
+                <td>선로 과부하, 부하 손실, 위험지수 계산</td>
+                <td>실제 AC 전력망의 전압·주파수·보호계전 동작까지 포함하지는 않는다.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="result">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Results</span>
+            <h2>실험 결과</h2>
+          </div>
+          <p class="section-lead">
+            기본 상태는 안정적이지만, L1 단일 고장과 표적 공격에서는 과부하와 손실 부하가 급격히 커진다.
+          </p>
+        </div>
+
+        <div class="result-strip" aria-label="기본 상태 결과">
+          <div class="metric">
+            <span>기본 공급률</span>
+            <strong>100.0%</strong>
+            <em>모든 부하 공급</em>
+          </div>
+          <div class="metric">
+            <span>손실 부하</span>
+            <strong>0.0 MW</strong>
+            <em>기본 상태</em>
+          </div>
+          <div class="metric">
+            <span>과부하</span>
+            <strong>0.0 MW</strong>
+            <em>기본 상태</em>
+          </div>
+          <div class="metric">
+            <span>위험지수</span>
+            <strong>0.0</strong>
+            <em>기준선</em>
+          </div>
+        </div>
+
+        <div class="split">
+          <figure class="figure-panel">
+            <img src="report_assets/n1_ranking.png" alt="N-1 단일 송전선 고장 위험지수 Top 5 막대그래프" />
+            <figcaption>그림 1. N-1 단일 송전선 고장 위험지수 Top 5</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <caption>표 4. N-1 단일 송전선 고장 Top 5</caption>
+              <thead>
+                <tr>
+                  <th>순위</th>
+                  <th>송전선</th>
+                  <th>구간</th>
+                  <th>연결성</th>
+                  <th class="num">위험</th>
+                  <th class="num">손실 MW</th>
+                  <th class="num">과부하 MW</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="num">1</td>
+                  <td><span class="tag tag-danger">L1</span></td>
+                  <td>Bus 1-2</td>
+                  <td>연결 유지</td>
+                  <td class="num">26.87</td>
+                  <td class="num">0.0</td>
+                  <td class="num">49.36</td>
+                </tr>
+                <tr>
+                  <td class="num">2</td>
+                  <td><span class="tag tag-gold">L14</span></td>
+                  <td>Bus 7-8</td>
+                  <td>2개 연결요소</td>
+                  <td class="num">6.00</td>
+                  <td class="num">0.0</td>
+                  <td class="num">0.00</td>
+                </tr>
+                <tr>
+                  <td class="num">3</td>
+                  <td>L2</td>
+                  <td>Bus 1-5</td>
+                  <td>연결 유지</td>
+                  <td class="num">0.00</td>
+                  <td class="num">0.0</td>
+                  <td class="num">0.00</td>
+                </tr>
+                <tr>
+                  <td class="num">4</td>
+                  <td>L3</td>
+                  <td>Bus 2-3</td>
+                  <td>연결 유지</td>
+                  <td class="num">0.00</td>
+                  <td class="num">0.0</td>
+                  <td class="num">0.00</td>
+                </tr>
+                <tr>
+                  <td class="num">5</td>
+                  <td>L4</td>
+                  <td>Bus 2-4</td>
+                  <td>연결 유지</td>
+                  <td class="num">0.00</td>
+                  <td class="num">0.0</td>
+                  <td class="num">0.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 18px">
+          <strong>L1 해석</strong>
+          <p>
+            L1은 끊겨도 그래프가 계속 연결되어 있고 부하 손실도 0 MW이다. 하지만 남은 송전선에 전력흐름이 몰려 49.36 MW 과부하가 발생하므로, 연쇄 고장의 출발점으로 해석해야 한다.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="compare">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Comparison</span>
+            <h2>Baseline과 최신 기법의 차이</h2>
+          </div>
+          <p class="section-lead">
+            연결성만 보면 L1의 위험이 잘 보이지 않지만, 전력흐름을 계산하면 핵심 취약선으로 드러난다.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>표 5. 교안 알고리즘과 N-1/DC 전력흐름 비교</caption>
+            <thead>
+              <tr>
+                <th>송전선</th>
+                <th>연결성 baseline 결과</th>
+                <th>N-1/DC 전력흐름 결과</th>
+                <th>해석</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>L1 Bus 1-2</strong></td>
+                <td>그래프는 계속 연결됨</td>
+                <td>위험지수 26.87, 과부하 49.36 MW</td>
+                <td>연결성만 보면 놓치는 핵심 취약선</td>
+              </tr>
+              <tr>
+                <td><strong>L14 Bus 7-8</strong></td>
+                <td>전력망이 2개 연결요소로 분리됨</td>
+                <td>위험지수 6.00, 부하 손실 0 MW</td>
+                <td>구조적 분리는 생기지만 부하 피해는 작음</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="propagation">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Fault Propagation</span>
+            <h2>고장 전파 시뮬레이션</h2>
+          </div>
+          <p class="section-lead">
+            초기 L1 고장은 즉시 정전을 만들지 않지만, 전력흐름 재분배 이후 추가 차단이 발생하면 손실 부하가 커진다.
+          </p>
+        </div>
+        <div class="split">
+          <figure class="figure-panel">
+            <img src="report_assets/propagation_chart.png" alt="고장 전파 단계별 위험지수와 손실 부하 막대그래프" />
+            <figcaption>그림 2. L1 → L2 → L14 고장 전파 결과</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <caption>표 6. L1 초기 고장 후 고장 전파</caption>
+              <thead>
+                <tr>
+                  <th class="num">단계</th>
+                  <th>새 차단</th>
+                  <th>누적 차단</th>
+                  <th class="num">위험</th>
+                  <th class="num">손실 MW</th>
+                  <th>공급률</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="num">0</td>
+                  <td>L1</td>
+                  <td>L1</td>
+                  <td class="num">26.87</td>
+                  <td class="num">0.0</td>
+                  <td>100.0%</td>
+                </tr>
+                <tr>
+                  <td class="num">1</td>
+                  <td>L2</td>
+                  <td>L1, L2</td>
+                  <td class="num">18.23</td>
+                  <td class="num">44.0</td>
+                  <td>83.0%</td>
+                </tr>
+                <tr>
+                  <td class="num">2</td>
+                  <td>L14</td>
+                  <td>L1, L2, L14</td>
+                  <td class="num">33.96</td>
+                  <td class="num">79.0</td>
+                  <td>69.5%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="attack">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Attack Scenario</span>
+            <h2>무작위 고장과 표적 공격 비교</h2>
+          </div>
+          <p class="section-lead">
+            취약한 송전선을 알고 차단하는 표적 공격은 같은 차단 수에서도 무작위 고장보다 훨씬 위험하다.
+          </p>
+        </div>
+        <div class="split">
+          <figure class="figure-panel">
+            <img src="report_assets/attack_chart.png" alt="무작위 고장과 표적 공격 위험도 비교 그래프" />
+            <figcaption>그림 3. 무작위 고장과 표적 공격의 위험도 비교</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <caption>표 7. 무작위 고장과 표적 공격 비교</caption>
+              <thead>
+                <tr>
+                  <th class="num">차단 수</th>
+                  <th class="num">무작위 평균 위험</th>
+                  <th class="num">표적 공격 위험</th>
+                  <th class="num">무작위 손실 MW</th>
+                  <th class="num">표적 손실 MW</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="num">1</td>
+                  <td class="num">1.48</td>
+                  <td class="num">26.87</td>
+                  <td class="num">0.00</td>
+                  <td class="num">0.0</td>
+                </tr>
+                <tr>
+                  <td class="num">2</td>
+                  <td class="num">3.81</td>
+                  <td class="num">34.00</td>
+                  <td class="num">0.49</td>
+                  <td class="num">0.0</td>
+                </tr>
+                <tr>
+                  <td class="num">3</td>
+                  <td class="num">8.24</td>
+                  <td class="num">33.96</td>
+                  <td class="num">1.81</td>
+                  <td class="num">79.0</td>
+                </tr>
+                <tr>
+                  <td class="num">4</td>
+                  <td class="num">14.07</td>
+                  <td class="num">33.96</td>
+                  <td class="num">5.52</td>
+                  <td class="num">79.0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="renewable">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Renewable Placement</span>
+            <h2>신재생 발전소 위치 비교</h2>
+          </div>
+          <p class="section-lead">
+            40 MW 신재생 발전소를 각 버스에 추가하고 전체 N-1 평균 위험을 다시 계산했다.
+          </p>
+        </div>
+        <div class="split">
+          <figure class="figure-panel">
+            <img src="report_assets/renewable_chart.png" alt="40 MW 신재생 발전소 위치별 평균 위험지수 그래프" />
+            <figcaption>그림 4. 신재생 발전소 위치별 평균 위험지수</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table>
+              <caption>표 8. 40 MW 신재생 발전소 위치 비교</caption>
+              <thead>
+                <tr>
+                  <th class="num">순위</th>
+                  <th>위치</th>
+                  <th class="num">평균 위험</th>
+                  <th class="num">최악 위험</th>
+                  <th class="num">평균 손실 MW</th>
+                  <th class="num">평균 과부하 MW</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="num">1</td>
+                  <td><span class="tag tag-green">Bus 11</span></td>
+                  <td class="num">1.39</td>
+                  <td class="num">21.88</td>
+                  <td class="num">0.00</td>
+                  <td class="num">1.93</td>
+                </tr>
+                <tr>
+                  <td class="num">2</td>
+                  <td>Bus 6</td>
+                  <td class="num">1.39</td>
+                  <td class="num">21.88</td>
+                  <td class="num">0.00</td>
+                  <td class="num">1.93</td>
+                </tr>
+                <tr>
+                  <td class="num">3</td>
+                  <td>Bus 8</td>
+                  <td class="num">1.39</td>
+                  <td class="num">21.88</td>
+                  <td class="num">0.00</td>
+                  <td class="num">1.93</td>
+                </tr>
+                <tr>
+                  <td class="num">4</td>
+                  <td>Bus 10</td>
+                  <td class="num">1.39</td>
+                  <td class="num">21.88</td>
+                  <td class="num">0.00</td>
+                  <td class="num">1.93</td>
+                </tr>
+                <tr>
+                  <td class="num">5</td>
+                  <td>Bus 12</td>
+                  <td class="num">1.39</td>
+                  <td class="num">21.88</td>
+                  <td class="num">0.00</td>
+                  <td class="num">1.93</td>
+                </tr>
+                <tr>
+                  <td class="num">14</td>
+                  <td><span class="tag tag-danger">Bus 1</span></td>
+                  <td class="num">1.70</td>
+                  <td class="num">28.00</td>
+                  <td class="num">0.00</td>
+                  <td class="num">3.15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 18px">
+          <strong>해석 주의</strong>
+          <p>
+            Bus 11만 유일한 정답이라는 의미가 아니다. Bus 6, 8, 10, 12도 같은 평균 위험을 보인다. 핵심은 발전이 이미 집중된 Bus 1보다 부하 구역 근처의 분산형 발전 배치가 더 안정적이라는 점이다.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="answer">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Recommendation</span>
+            <h2>현실 적용 답변</h2>
+          </div>
+          <p class="section-lead">
+            시뮬레이션 결과를 실제 스마트그리드 운영 관점의 대응 전략으로 정리했다.
+          </p>
+        </div>
+        <div class="answer-grid">
+          <div class="answer-card">
+            <strong>어느 송전선을 먼저 보호할까?</strong>
+            <p>L1(Bus 1-2)을 우선 보호한다. 실시간 전류·온도 감시, 보호계전 설정 점검, 우회 경로 확보가 필요하다.</p>
+          </div>
+          <div class="answer-card">
+            <strong>단순 연결성 분석으로 충분한가?</strong>
+            <p>충분하지 않다. 연결성 분석 뒤 N-1/DC 전력흐름을 수행해 과부하까지 확인해야 한다.</p>
+          </div>
+          <div class="answer-card">
+            <strong>공격 대비는 어떻게 할까?</strong>
+            <p>표적 공격이 무작위보다 위험하므로 취약선 접근 통제, 사이버 보안, 차단 시 자동 복구 시나리오가 필요하다.</p>
+          </div>
+          <div class="answer-card">
+            <strong>신재생은 어디에 둘까?</strong>
+            <p>Bus 11 계열 부하 구역 후보를 우선 검토한다. 실제 계통에서는 부지, 부하, 전압 조건을 함께 평가해야 한다.</p>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 18px">
+          <strong>한계와 향후 개선</strong>
+          <p>
+            본 시뮬레이션은 DC 전력흐름 근사를 사용했기 때문에 전압, 무효전력, 주파수 안정도, 보호계전기 동작 시간은 단순화했다. 개선한다면 AC 전력흐름, 시간대별 부하, 태양광·풍력 변동, ESS 배치, 실제 지역 계통 데이터를 추가할 수 있다.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="appendix">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Appendix</span>
+            <h2>전체 N-1 분석과 발표 Q&amp;A</h2>
+          </div>
+          <p class="section-lead">
+            발표 때 질문이 들어올 수 있는 부분까지 함께 정리했다.
+          </p>
+        </div>
+
+        <details class="full-n1" open>
+          <summary>전체 N-1 분석 결과 보기</summary>
+          <div class="table-wrap">
+            <table>
+              <caption>표 9. 전체 송전선 N-1 분석 결과</caption>
+              <thead>
+                <tr>
+                  <th class="num">순위</th>
+                  <th>송전선</th>
+                  <th>구간</th>
+                  <th class="num">위험</th>
+                  <th class="num">손실 MW</th>
+                  <th class="num">과부하 MW</th>
+                  <th class="num">연결요소</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="num">1</td><td>L1</td><td>Bus 1-2</td><td class="num">26.87</td><td class="num">0.0</td><td class="num">49.36</td><td class="num">1</td></tr>
+                <tr><td class="num">2</td><td>L14</td><td>Bus 7-8</td><td class="num">6.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">2</td></tr>
+                <tr><td class="num">3</td><td>L2</td><td>Bus 1-5</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">4</td><td>L3</td><td>Bus 2-3</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">5</td><td>L4</td><td>Bus 2-4</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">6</td><td>L5</td><td>Bus 2-5</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">7</td><td>L6</td><td>Bus 3-4</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">8</td><td>L7</td><td>Bus 4-5</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">9</td><td>L8</td><td>Bus 4-7</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">10</td><td>L9</td><td>Bus 4-9</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">11</td><td>L10</td><td>Bus 5-6</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">12</td><td>L11</td><td>Bus 6-11</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">13</td><td>L12</td><td>Bus 6-12</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">14</td><td>L13</td><td>Bus 6-13</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">15</td><td>L15</td><td>Bus 7-9</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">16</td><td>L16</td><td>Bus 9-10</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">17</td><td>L17</td><td>Bus 9-14</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">18</td><td>L18</td><td>Bus 10-11</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">19</td><td>L19</td><td>Bus 12-13</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+                <tr><td class="num">20</td><td>L20</td><td>Bus 13-14</td><td class="num">0.00</td><td class="num">0.0</td><td class="num">0.00</td><td class="num">1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <div class="table-wrap" style="margin-top: 18px">
+          <table>
+            <caption>표 10. 발표 Q&amp;A 대비</caption>
+            <thead>
+              <tr>
+                <th>예상 질문</th>
+                <th>답변 요지</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>왜 L1이 가장 위험한가?</td>
+                <td>L1은 끊겨도 그래프는 연결되지만 남은 선로에 전력흐름이 몰려 49.36 MW 과부하가 발생한다. 그래서 연쇄 고장의 출발점으로 위험하다.</td>
+              </tr>
+              <tr>
+                <td>위험지수 0인 선로는 중요하지 않은가?</td>
+                <td>현재 단일 고장 조건에서 큰 피해가 없다는 뜻이다. 다중 고장이나 부하 증가 조건에서는 위험해질 수 있다.</td>
+              </tr>
+              <tr>
+                <td>Bus 11이 유일한 정답인가?</td>
+                <td>아니다. Bus 6, 8, 10, 12도 같은 평균 위험을 보인다. 핵심은 발전 집중지보다 부하 구역 분산 배치가 낫다는 점이다.</td>
+              </tr>
+              <tr>
+                <td>실제 전력망에도 그대로 적용할 수 있는가?</td>
+                <td>그대로 적용할 수는 없다. 실제 적용에는 AC 전력흐름, 보호계전, 전압·주파수 안정도, 실제 계통 데이터가 필요하다.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="footer-note">
+          팀명과 팀원명은 제출 전 실제 이름으로 교체하면 된다. 본 HTML 보고서는 같은 폴더의 시뮬레이터와 이미지 자산을 참조한다.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
