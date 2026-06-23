@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>스마트그리드 정전 취약성 시뮬레이션</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero-bar">
+        <div>
+          <p class="eyebrow">Topic 2 · Smart Grid Simulation</p>
+          <h1>정전을 막는 스마트그리드 설계</h1>
+          <p class="lead">
+            망 구조(MST, 최단경로, 메쉬망)에 따른 취약성을 비교하고 고장 전파 과정을 시계열로 분석한다.
+          </p>
+        </div>
+        <div class="status-pill" id="statusPill">계산 대기</div>
+      </header>
+
+      <select id="modeSelect" class="hidden-select" aria-label="analysis mode">
+        <option value="base">기본 전력망</option>
+        <option value="n1">N-1 송전선 고장</option>
+        <option value="propagation">고장 전파 애니메이션</option>
+        <option value="targeted">표적 공격</option>
+        <option value="renewable">신재생 위치 비교</option>
+      </select>
+
+      <section class="story-tabs" id="storyTabs" aria-label="simulation story steps">
+        <button class="story-tab active" type="button" data-mode="base">
+          <span>1</span>
+          <strong>정상 상태</strong>
+          <em>기준 전력망</em>
+        </button>
+        <button class="story-tab" type="button" data-mode="n1">
+          <span>2</span>
+          <strong>선로 1개 고장</strong>
+          <em>N-1 분석</em>
+        </button>
+        <button class="story-tab" type="button" data-mode="propagation">
+          <span>3</span>
+          <strong>고장 전파</strong>
+          <em>연쇄 고장</em>
+        </button>
+        <button class="story-tab" type="button" data-mode="targeted">
+          <span>4</span>
+          <strong>표적 공격</strong>
+          <em>취약선 차단</em>
+        </button>
+        <button class="story-tab" type="button" data-mode="renewable">
+          <span>5</span>
+          <strong>신재생 배치</strong>
+          <em>위치 추천</em>
+        </button>
+      </section>
+
+      <main class="workspace">
+        <aside class="setup-panel">
+          <section class="panel-card">
+            <div class="panel-title">
+              <h2>실험 설정</h2>
+              <span id="setupBadge">기준</span>
+            </div>
+
+            <div class="setting-stack">
+              <label class="control-field" id="topologyControl">
+                <span>전력망 기본 구조 (Topology)</span>
+                <select id="topologySelect">
+                  <option value="standard">표준 14-bus (N-1 강건망)</option>
+                  <option value="mst">MST (비용 최소화 뼈대)</option>
+                  <option value="shortest">최단 경로망 (다익스트라)</option>
+                </select>
+              </label>
+
+              <label class="control-field" id="lineControl">
+                <span>고장 송전선</span>
+                <select id="lineSelect"></select>
+              </label>
+
+              <label class="control-field" id="attackControl">
+                <span>공격 단계 <b id="attackValue">1개</b></span>
+                <input id="attackRange" type="range" min="1" max="6" step="1" value="1" />
+              </label>
+
+              <label class="control-field" id="renewableCapacityControl">
+                <span>신재생 용량 <b id="renewableValue">40 MW</b></span>
+                <input id="renewableRange" type="range" min="10" max="100" step="10" value="40" />
+              </label>
+
+              <label class="control-field" id="renewableBusControl">
+                <span>신재생 버스</span>
+                <select id="renewableBusSelect"></select>
+              </label>
+            </div>
+
+            <div class="action-row">
+              <button id="playButton" type="button">재생</button>
+              <button id="downloadButton" type="button">CSV 다운로드</button>
+            </div>
+          </section>
+
+          <section class="panel-card guide-card">
+            <div class="panel-title">
+              <h2>보는 순서</h2>
+            </div>
+            <ol>
+              <li><strong>망 구조</strong>를 변경하여 끊어진 보조선(점선)을 확인한다.</li>
+              <li><strong>고장 모드</strong>에서 빨간색 과부하가 생기는지 본다.</li>
+              <li>오른쪽 <strong>시계열 차트</strong>의 공급률 붕괴 속도를 비교한다.</li>
+            </ol>
+          </section>
+        </aside>
+
+        <section class="network-panel" aria-label="power grid">
+          <div class="map-header">
+            <div>
+              <h2 id="scenarioTitle">기본 전력망</h2>
+              <p id="scenarioSubtitle">차단 선로: 없음</p>
+            </div>
+            <div class="legend">
+              <span><i class="line ok"></i>정상</span>
+              <span><i class="line warn"></i>주의</span>
+              <span><i class="line danger"></i>과부하</span>
+              <span><i class="dot generator"></i>발전</span>
+              <span><i class="dot renewable"></i>신재생</span>
+            </div>
+          </div>
+
+          <div class="scenario-strip">
+            <div class="status-card primary" id="riskCard">
+              <span>위험 등급</span>
+              <strong id="riskGrade">안정</strong>
+              <div class="meter"><i id="riskMeter"></i></div>
+            </div>
+            <div class="status-card">
+              <span>전력 공급률</span>
+              <strong id="servedMini">100.0%</strong>
+              <div class="meter supply"><i id="servedMeter"></i></div>
+            </div>
+            <div class="status-card">
+              <span>부하 손실</span>
+              <strong id="shedMini">0.0 MW</strong>
+              <div class="meter shed"><i id="shedMeter"></i></div>
+            </div>
+            <div class="status-card">
+              <span>과부하 규모</span>
+              <strong id="overloadMini">0.0 MW</strong>
+              <div class="meter overload"><i id="overloadMeter"></i></div>
+            </div>
+          </div>
+
+          <div id="faultChips" class="fault-chips" aria-label="failed lines"></div>
+          <svg id="gridSvg" viewBox="0 0 820 540" role="img" aria-label="IEEE 14 bus grid visualization"></svg>
+        </section>
+
+        <aside class="analysis-panel" aria-label="analysis result">
+          <section class="insight-card">
+            <div class="section-title compact">
+              <h3>현재 결과 해석</h3>
+              <span id="insightBadge">안정</span>
+            </div>
+            <p id="insightText">계산 결과를 불러오는 중입니다.</p>
+          </section>
+
+          <section class="table-block" id="timeSeriesBlock">
+            <div class="section-title">
+              <h3>시간 변화(Time-Series) 차트</h3>
+              <span>실시간 망 붕괴 추적</span>
+            </div>
+            <div style="position: relative; height: 160px; padding: 12px; background: #fff;">
+              <canvas id="timeSeriesChart"></canvas>
+            </div>
+          </section>
+
+          <section class="kpi-grid">
+            <div class="kpi">
+              <span>공급률</span>
+              <strong id="servedKpi">-</strong>
+            </div>
+            <div class="kpi">
+              <span>손실 부하</span>
+              <strong id="shedKpi">-</strong>
+            </div>
+            <div class="kpi">
+              <span>과부하</span>
+              <strong id="overloadKpi">-</strong>
+            </div>
+            <div class="kpi">
+              <span>위험지수</span>
+              <strong id="riskKpi">-</strong>
+            </div>
+          </section>
+
+          <section class="table-block" id="n1Block">
+            <div class="section-title">
+              <h3>취약 송전선</h3>
+              <span>N-1 Top 5</span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>선로</th>
+                  <th>구간</th>
+                  <th>위험</th>
+                  <th>손실</th>
+                </tr>
+              </thead>
+              <tbody id="n1Table"></tbody>
+            </table>
+          </section>
+
+          <section class="table-block" id="attackBlock">
+            <div class="section-title">
+              <h3>공격 비교</h3>
+              <span>무작위 vs 표적</span>
+            </div>
+            <div id="attackChart" class="bar-chart"></div>
+          </section>
+
+          <section class="table-block" id="propagationBlock">
+            <div class="section-title">
+              <h3>고장 전파</h3>
+              <span id="propagationCaption">단계별 재계산</span>
+            </div>
+            <div id="propagationTimeline" class="timeline"></div>
+          </section>
+
+          <section class="table-block" id="renewableBlock">
+            <div class="section-title">
+              <h3>신재생 추천</h3>
+              <span id="renewableCaption">40 MW 추가</span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>순위</th>
+                  <th>버스</th>
+                  <th>평균위험</th>
+                  <th>최대위험</th>
+                </tr>
+              </thead>
+              <tbody id="renewableTable"></tbody>
+            </table>
+          </section>
+        </aside>
+      </main>
+      <section class="report-panel">
+        <div>
+          <h2>보고서 결론 문장</h2>
+          <p id="reportSummary">계산 결과를 불러오는 중입니다.</p>
+        </div>
+      </section>
+    </div>
+
+    <script src="./simulation.js"></script>
+  </body>
+</html>
