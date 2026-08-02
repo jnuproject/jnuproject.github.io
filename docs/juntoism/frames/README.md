@@ -2,7 +2,7 @@
 
 Put full-resolution PNG frame overlays in this folder. Each photo opening should be fully transparent and enclosed by opaque frame pixels. The deployed GitHub Pages app discovers PNG files added directly to `docs/juntoism/frames`. Starting or building the source app also discovers every PNG automatically.
 
-No configuration is required for an ordinary frame. Use `frames.json` only to set a custom name, hide the built-in frames, add a separate thumbnail, or override automatic detection:
+No configuration is required for an ordinary frame. Use `frames.json` only to set a custom name, add a separate thumbnail, or override automatic detection:
 
 ```json
 {
