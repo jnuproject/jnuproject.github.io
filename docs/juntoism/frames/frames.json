@@ -48,6 +48,19 @@
         { "x": 39, "y": 729, "width": 460, "height": 497 },
         { "x": 585, "y": 729, "width": 459, "height": 496 }
       ]
+    },
+    {
+      "file": "FRAME5.png",
+      "name": "FRAME5",
+      "width": 1024,
+      "height": 1536,
+      "photoEffect": "photomaton",
+      "slots": [
+        { "x": 67, "y": 81, "width": 431, "height": 674 },
+        { "x": 522, "y": 81, "width": 434, "height": 674 },
+        { "x": 68, "y": 785, "width": 430, "height": 664 },
+        { "x": 522, "y": 785, "width": 434, "height": 664 }
+      ]
     }
   ]
 }
