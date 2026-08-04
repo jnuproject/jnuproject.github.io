@@ -2,16 +2,132 @@
   "includeDefaults": false,
   "frames": [
     {
-      "file": "FRAME1.png"
+      "file": "FRAME1.png",
+      "name": "FRAME1",
+      "width": 2400,
+      "height": 3600,
+      "slots": [
+        {
+          "x": 1274,
+          "y": 252,
+          "width": 1012,
+          "height": 1228
+        },
+        {
+          "x": 133,
+          "y": 850,
+          "width": 1012,
+          "height": 1228
+        },
+        {
+          "x": 1274,
+          "y": 1537,
+          "width": 1012,
+          "height": 1228
+        },
+        {
+          "x": 133,
+          "y": 2131,
+          "width": 1012,
+          "height": 1231
+        }
+      ]
     },
     {
-      "file": "FRAME2.png"
+      "file": "FRAME2.png",
+      "name": "FRAME2",
+      "width": 2400,
+      "height": 3600,
+      "slots": [
+        {
+          "x": 1271,
+          "y": 252,
+          "width": 1015,
+          "height": 1235
+        },
+        {
+          "x": 122,
+          "y": 846,
+          "width": 1037,
+          "height": 1235
+        },
+        {
+          "x": 1274,
+          "y": 1534,
+          "width": 1019,
+          "height": 1231
+        },
+        {
+          "x": 130,
+          "y": 2128,
+          "width": 1026,
+          "height": 1249
+        }
+      ]
     },
     {
-      "file": "FRAME3.png"
+      "file": "FRAME3.png",
+      "name": "FRAME3",
+      "width": 2400,
+      "height": 3600,
+      "slots": [
+        {
+          "x": 166,
+          "y": 389,
+          "width": 1008,
+          "height": 1228
+        },
+        {
+          "x": 1235,
+          "y": 389,
+          "width": 1012,
+          "height": 1228
+        },
+        {
+          "x": 166,
+          "y": 1674,
+          "width": 1008,
+          "height": 1228
+        },
+        {
+          "x": 1235,
+          "y": 1674,
+          "width": 1012,
+          "height": 1228
+        }
+      ]
     },
     {
-      "file": "FRAME4.png"
+      "file": "FRAME4.png",
+      "name": "FRAME4",
+      "width": 1086,
+      "height": 1448,
+      "slots": [
+        {
+          "x": 34,
+          "y": 51,
+          "width": 468,
+          "height": 479
+        },
+        {
+          "x": 585,
+          "y": 52,
+          "width": 459,
+          "height": 477
+        },
+        {
+          "x": 39,
+          "y": 729,
+          "width": 460,
+          "height": 497
+        },
+        {
+          "x": 585,
+          "y": 729,
+          "width": 459,
+          "height": 496
+        }
+      ]
     }
   ]
 }
