@@ -1,4 +1,17 @@
 {
   "includeDefaults": false,
-  "frames": []
+  "frames": [
+    {
+      "file": "1 2.png"
+    },
+    {
+      "file": "2 2.png"
+    },
+    {
+      "file": "3 2.png"
+    },
+    {
+      "file": "polaroid-stars.png"
+    }
+  ]
 }
