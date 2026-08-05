@@ -42,6 +42,7 @@
       "name": "Polaroid Stars",
       "width": 1086,
       "height": 1448,
+      "photoEffect": "digicam",
       "slots": [
         { "x": 34, "y": 51, "width": 468, "height": 479 },
         { "x": 585, "y": 52, "width": 459, "height": 477 },
