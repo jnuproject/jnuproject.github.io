@@ -137,28 +137,28 @@
       "photoEffect": "photomaton",
       "slots": [
         {
-          "x": 67,
-          "y": 81,
-          "width": 431,
-          "height": 674
+          "x": 62,
+          "y": 60,
+          "width": 441,
+          "height": 693
         },
         {
-          "x": 522,
-          "y": 81,
-          "width": 434,
-          "height": 674
+          "x": 541,
+          "y": 59,
+          "width": 423,
+          "height": 693
         },
         {
-          "x": 68,
-          "y": 785,
-          "width": 430,
-          "height": 664
+          "x": 63,
+          "y": 796,
+          "width": 435,
+          "height": 676
         },
         {
-          "x": 522,
-          "y": 785,
-          "width": 434,
-          "height": 664
+          "x": 536,
+          "y": 796,
+          "width": 426,
+          "height": 678
         }
       ]
     }
