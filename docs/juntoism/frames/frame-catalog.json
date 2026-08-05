@@ -133,32 +133,32 @@
       "file": "FRAME5.png",
       "name": "FRAME5",
       "width": 1024,
-      "height": 4096,
+      "height": 5400,
       "photoEffect": "photomaton",
       "slots": [
         {
           "x": 28,
-          "y": 59,
+          "y": 78,
           "width": 965,
-          "height": 969
+          "height": 1278
         },
         {
           "x": 29,
-          "y": 1079,
+          "y": 1423,
           "width": 965,
-          "height": 957
+          "height": 1262
         },
         {
           "x": 30,
-          "y": 2090,
+          "y": 2755,
           "width": 964,
-          "height": 948
+          "height": 1250
         },
         {
           "x": 29,
-          "y": 3087,
+          "y": 4070,
           "width": 965,
-          "height": 939
+          "height": 1238
         }
       ]
     }
