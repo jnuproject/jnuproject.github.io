@@ -3,7 +3,7 @@
   "frames": [
     {
       "file": "FRAME1.png",
-      "name": "FRAME1",
+      "name": "NUOL × JNU",
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -15,7 +15,7 @@
     },
     {
       "file": "FRAME2.png",
-      "name": "FRAME2",
+      "name": "Sunlit Sea",
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -27,7 +27,7 @@
     },
     {
       "file": "FRAME3.png",
-      "name": "FRAME3",
+      "name": "Hello Jeju",
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -39,7 +39,7 @@
     },
     {
       "file": "FRAME4.png",
-      "name": "FRAME4",
+      "name": "Polaroid Stars",
       "width": 1086,
       "height": 1448,
       "slots": [
@@ -51,7 +51,7 @@
     },
     {
       "file": "FRAME5.png",
-      "name": "FRAME5",
+      "name": "Paris Photomaton",
       "width": 1024,
       "height": 5400,
       "photoEffect": "photomaton",
