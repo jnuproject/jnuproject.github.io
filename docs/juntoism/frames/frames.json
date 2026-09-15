@@ -4,13 +4,13 @@
     {
       "file": "FRAME1.png",
       "name": "여울제",
-      "width": 2400,
-      "height": 3600,
+      "width": 1080,
+      "height": 1920,
       "slots": [
-        { "x": 1274, "y": 252, "width": 1012, "height": 1228 },
-        { "x": 133, "y": 850, "width": 1012, "height": 1228 },
-        { "x": 1274, "y": 1537, "width": 1012, "height": 1228 },
-        { "x": 133, "y": 2131, "width": 1012, "height": 1231 }
+        { "x": 64, "y": 78, "width": 466, "height": 690 },
+        { "x": 554, "y": 78, "width": 466, "height": 690 },
+        { "x": 64, "y": 790, "width": 466, "height": 690 },
+        { "x": 554, "y": 790, "width": 466, "height": 690 }
       ]
     },
     {
