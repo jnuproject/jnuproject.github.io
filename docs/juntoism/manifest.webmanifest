@@ -1,11 +1,11 @@
 {
-  "name": "Four-Cut Photo",
-  "short_name": "Four-Cut",
-  "description": "Four-Cut Photo",
+  "name": "여울제 네컷사진",
+  "short_name": "여울제",
+  "description": "여울제 네컷사진 키오스크",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "any",
+  "orientation": "landscape",
   "background_color": "#ffffff",
   "theme_color": "#ffffff"
 }

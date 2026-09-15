@@ -3,7 +3,7 @@
   "frames": [
     {
       "file": "FRAME1.png",
-      "name": "NUOL × JNU",
+      "name": "여울제",
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -35,7 +35,7 @@
     },
     {
       "file": "FRAME2.png",
-      "name": "Sunlit Sea",
+      "name": "햇살 바다",
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -67,7 +67,7 @@
     },
     {
       "file": "FRAME3.png",
-      "name": "Hello Jeju",
+      "name": "안녕 제주",
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -99,7 +99,7 @@
     },
     {
       "file": "FRAME4.png",
-      "name": "Polaroid Stars",
+      "name": "폴라로이드 별",
       "width": 1086,
       "height": 1448,
       "photoEffect": "digicam",
@@ -132,7 +132,7 @@
     },
     {
       "file": "FRAME5.png",
-      "name": "Paris Photomaton",
+      "name": "파리 포토마톤",
       "width": 1024,
       "height": 5400,
       "photoEffect": "photomaton",
