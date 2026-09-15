@@ -7,10 +7,10 @@
       "width": 1080,
       "height": 1920,
       "slots": [
-        { "x": 64, "y": 78, "width": 466, "height": 690 },
-        { "x": 554, "y": 78, "width": 466, "height": 690 },
-        { "x": 64, "y": 790, "width": 466, "height": 690 },
-        { "x": 554, "y": 790, "width": 466, "height": 690 }
+        { "x": 63, "y": 77, "width": 468, "height": 692 },
+        { "x": 553, "y": 77, "width": 468, "height": 692 },
+        { "x": 63, "y": 789, "width": 468, "height": 692 },
+        { "x": 553, "y": 789, "width": 468, "height": 692 }
       ]
     },
     {
