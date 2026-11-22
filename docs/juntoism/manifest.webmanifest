@@ -1,7 +1,7 @@
 {
-  "name": "여울제 네컷사진",
-  "short_name": "여울제",
-  "description": "여울제 네컷사진 키오스크",
+  "name": "ARCHIVE 네컷사진",
+  "short_name": "ARCHIVE",
+  "description": "ARCHIVE 네컷사진 키오스크",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

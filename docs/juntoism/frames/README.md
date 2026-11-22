@@ -9,9 +9,9 @@ No configuration is required for an ordinary frame. Use `frames.json` only to se
   "includeDefaults": false,
   "frames": [
     {
-      "id": "nuolxjnu-01",
-      "name": "NUOLXJNU 01",
-      "file": "nuolxjnu-01.png"
+      "id": "archive-01",
+      "name": "ARCHIVE 01",
+      "file": "archive-01.png"
     }
   ]
 }
@@ -23,9 +23,9 @@ For a frame that cannot be detected, add explicit `width`, `height`, and `slots`
 
 ```json
 {
-  "id": "nuolxjnu-02",
-  "name": "NUOLXJNU 02",
-  "file": "nuolxjnu-02.png",
+  "id": "archive-02",
+  "name": "ARCHIVE 02",
+  "file": "archive-02.png",
   "width": 2400,
   "height": 3600,
   "slots": [
