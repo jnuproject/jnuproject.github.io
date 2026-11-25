@@ -1,6 +1,7 @@
 const postcardWidth = 1200;
 const postcardHeight = 1776;
 const pointsPerMillimeter = 72 / 25.4;
+const verticalBleed = 60; // 5 mm at 12 pixels per millimeter.
 
 export function openPostcard(event) {
   const photo = event.currentTarget.closest(".result-page").querySelector(".result-image");
@@ -12,19 +13,57 @@ export function openPostcard(event) {
   const context = page.getContext("2d");
   if (!context) return;
 
-  const scale = Math.min(page.width / photo.naturalWidth, page.height / photo.naturalHeight);
+  const photoWidth = photo.naturalWidth;
+  const photoHeight = photo.naturalHeight;
+  const scale = Math.min(page.width / photoWidth, (page.height - 2 * verticalBleed) / photoHeight);
   const width = Math.round(photo.naturalWidth * scale);
   const height = Math.round(photo.naturalHeight * scale);
   const x = Math.floor((page.width - width) / 2);
   const y = Math.floor((page.height - height) / 2);
   context.fillStyle = "#fff";
   context.fillRect(0, 0, page.width, page.height);
+  if (photoWidth * postcardHeight === photoHeight * postcardWidth) {
+    // Repeat the frame's outer pixels into the area the printer may crop.
+    context.drawImage(photo, 0, 0, photoWidth, 1, 0, 0, page.width, y);
+    context.drawImage(photo, 0, photoHeight - 1, photoWidth, 1, 0, y + height, page.width, page.height - y - height);
+    context.drawImage(photo, 0, 0, 1, photoHeight, 0, y, x, height);
+    context.drawImage(photo, photoWidth - 1, 0, 1, photoHeight, x + width, y, page.width - x - width, height);
+  }
   context.drawImage(photo, x, y, width, height);
 
   const base64 = page.toDataURL("image/jpeg", 0.95).split(",")[1];
   const jpeg = Uint8Array.from(atob(base64), character => character.charCodeAt(0));
   const url = URL.createObjectURL(postcardPDF(jpeg));
-  window.open(url, "_blank", "noopener");
+  const printWindow = window.open(url, "_blank");
+  if (!printWindow) {
+    URL.revokeObjectURL(url);
+    window.alert("이 사이트의 팝업을 허용한 뒤 다시 인쇄해 주세요.");
+    return;
+  }
+
+  // Safari gives embedded PDFs web-page margins. Print the loaded PDF as a
+  // top-level document so the selected borderless paper settings apply.
+  const deadline = performance.now() + 5000;
+  function showPrintDialog() {
+    if (printWindow.closed) {
+      URL.revokeObjectURL(url);
+      return;
+    }
+    if (printWindow.location.href !== url || printWindow.document.readyState !== "complete") {
+      if (performance.now() < deadline) window.setTimeout(showPrintDialog, 100);
+      return;
+    }
+    printWindow.addEventListener("afterprint", () => {
+      window.setTimeout(() => {
+        printWindow.close();
+        URL.revokeObjectURL(url);
+      }, 0);
+    }, { once: true });
+    printWindow.focus();
+    printWindow.print();
+  }
+
+  window.setTimeout(showPrintDialog, 600);
   window.setTimeout(() => URL.revokeObjectURL(url), 10 * 60 * 1000);
 }
 
