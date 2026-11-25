@@ -4,13 +4,13 @@
     {
       "file": "FRAME1.png",
       "name": "ARCHIVE",
-      "width": 1080,
-      "height": 1920,
+      "width": 1200,
+      "height": 1776,
       "slots": [
-        { "x": 63, "y": 77, "width": 468, "height": 692 },
-        { "x": 553, "y": 77, "width": 468, "height": 692 },
-        { "x": 63, "y": 789, "width": 468, "height": 692 },
-        { "x": 553, "y": 789, "width": 468, "height": 692 }
+        { "x": 68, "y": 71, "width": 520, "height": 640 },
+        { "x": 612, "y": 71, "width": 520, "height": 640 },
+        { "x": 68, "y": 730, "width": 520, "height": 640 },
+        { "x": 612, "y": 730, "width": 520, "height": 640 }
       ]
     },
     {
