@@ -36,6 +36,7 @@
     {
       "file": "FRAME2.png",
       "name": "햇살 바다",
+      "hidden": true,
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -68,6 +69,7 @@
     {
       "file": "FRAME3.png",
       "name": "안녕 제주",
+      "hidden": true,
       "width": 2400,
       "height": 3600,
       "slots": [
@@ -100,6 +102,7 @@
     {
       "file": "FRAME4.png",
       "name": "폴라로이드 별",
+      "hidden": true,
       "width": 1086,
       "height": 1448,
       "photoEffect": "digicam",
@@ -133,6 +136,7 @@
     {
       "file": "FRAME5.png",
       "name": "파리 포토마톤",
+      "hidden": true,
       "width": 1024,
       "height": 5400,
       "photoEffect": "photomaton",
@@ -160,6 +164,38 @@
           "y": 4070,
           "width": 965,
           "height": 1238
+        }
+      ]
+    },
+    {
+      "file": "FRAME6.png",
+      "name": "메리 크리스마스",
+      "width": 1200,
+      "height": 1776,
+      "slots": [
+        {
+          "x": 54,
+          "y": 234,
+          "width": 464,
+          "height": 684
+        },
+        {
+          "x": 560,
+          "y": 232,
+          "width": 451,
+          "height": 664
+        },
+        {
+          "x": 69,
+          "y": 955,
+          "width": 448,
+          "height": 661
+        },
+        {
+          "x": 554,
+          "y": 960,
+          "width": 464,
+          "height": 684
         }
       ]
     }
