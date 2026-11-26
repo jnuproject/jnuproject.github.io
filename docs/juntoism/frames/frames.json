@@ -69,15 +69,13 @@
     },
     {
       "file": "FRAME6.png",
-      "name": "메리 크리스마스",
+      "name": "디카",
       "width": 1200,
       "height": 1776,
-      "maskColor": [46, 46, 46],
       "slots": [
-        { "x": 54, "y": 234, "width": 464, "height": 684 },
-        { "x": 560, "y": 232, "width": 451, "height": 664 },
-        { "x": 69, "y": 955, "width": 448, "height": 661 },
-        { "x": 554, "y": 960, "width": 464, "height": 684 }
+        { "x": 116, "y": 238, "width": 352, "height": 261 },
+        { "x": 449, "y": 782, "width": 352, "height": 261 },
+        { "x": 116, "y": 1326, "width": 352, "height": 261 }
       ]
     }
   ]
