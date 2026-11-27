@@ -5,6 +5,67 @@ const verticalBleed = 60; // 5 mm at 12 pixels per millimeter.
 const pixelsPerMillimeter = postcardWidth / 100;
 const defaultHorizontalOffsetMm = -0.7;
 const offsetStorageKey = "printOffsetMm";
+const toneStorageKey = "printTone";
+const defaultToneLevel = 1;
+const srgbProfile = Uint8Array.from(atob("AAACTGxjbXMEQAAAbW50clJHQiBYWVogB+oACwAbAAIABwAxYWNzcEFQUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1sY21zAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZGVzYwAAAQgAAAA2Y3BydAAAAUAAAABMd3RwdAAAAYwAAAAUY2hhZAAAAaAAAAAsclhZWgAAAcwAAAAUYlhZWgAAAeAAAAAUZ1hZWgAAAfQAAAAUclRSQwAAAggAAAAgZ1RSQwAAAggAAAAgYlRSQwAAAggAAAAgY2hybQAAAigAAAAkbWx1YwAAAAAAAAABAAAADGVuVVMAAAAaAAAAHABzAFIARwBCACAAYgB1AGkAbAB0AC0AaQBuAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAADAAAAAcAE4AbwAgAGMAbwBwAHkAcgBpAGcAaAB0ACwAIAB1AHMAZQAgAGYAcgBlAGUAbAB5WFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDEIAAAXe///zJQAAB5MAAP2Q///7of///aIAAAPcAADAblhZWiAAAAAAAABvoAAAOPUAAAOQWFlaIAAAAAAAACSfAAAPhAAAtsNYWVogAAAAAAAAYpcAALeHAAAY2XBhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbY2hybQAAAAAAAwAAAACj1wAAVHsAAEzNAACZmgAAJmYAAA9c"), character => character.charCodeAt(0));
+
+export function printToneLevel() {
+  try {
+    const requested = new URLSearchParams(window.location.search).get("printTone");
+    if (requested !== null && requested.trim() !== "" && Number.isFinite(Number(requested))) {
+      window.localStorage.setItem(toneStorageKey, String(Math.max(0, Math.min(3, Number(requested)))));
+    }
+    const saved = window.localStorage.getItem(toneStorageKey);
+    if (saved !== null && Number.isFinite(Number(saved))) return Math.max(0, Math.min(3, Number(saved)));
+  } catch {}
+  return defaultToneLevel;
+}
+
+export function enhanceForPrint(context, width, height, level) {
+  if (!(level > 0)) return;
+  let image;
+  try {
+    image = context.getImageData(0, 0, width, height);
+  } catch {
+    return;
+  }
+  const data = image.data;
+  const source = new Uint8ClampedArray(data);
+  const sharpen = Math.min(0.9, 0.4 * level);
+  const blackPoint = 0.035 * level;
+  const curve = 1 + 0.12 * level;
+  const saturation = 1 + 0.06 * level;
+  const table = new Uint8ClampedArray(256);
+  for (let value = 0; value < 256; value += 1) {
+    let tone = Math.max(0, Math.min(1, (value / 255 - blackPoint) / (1 - blackPoint)));
+    tone = tone < 0.5 ? 0.5 * Math.pow(2 * tone, curve) : 1 - 0.5 * Math.pow(2 * (1 - tone), curve);
+    table[value] = Math.round(tone * 255);
+  }
+  const row = width * 4;
+  const sharpened = (index, x, y) => {
+    const center = source[index];
+    if (x === 0 || y === 0 || x === width - 1 || y === height - 1) return table[center];
+    const sum =
+      source[index - row - 4] + source[index - row] + source[index - row + 4] +
+      source[index - 4] + center + source[index + 4] +
+      source[index + row - 4] + source[index + row] + source[index + row + 4];
+    const value = center + sharpen * (center - sum / 9);
+    return table[value < 0 ? 0 : value > 255 ? 255 : Math.round(value)];
+  };
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const index = y * row + x * 4;
+      const red = sharpened(index, x, y);
+      const green = sharpened(index + 1, x, y);
+      const blue = sharpened(index + 2, x, y);
+      const luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
+      data[index] = luminance + (red - luminance) * saturation;
+      data[index + 1] = luminance + (green - luminance) * saturation;
+      data[index + 2] = luminance + (blue - luminance) * saturation;
+    }
+  }
+  context.putImageData(image, 0, 0);
+}
 
 export function horizontalOffsetMm() {
   try {
@@ -95,6 +156,7 @@ export function postcardCanvas(photo) {
     if (right) context.drawImage(right, x + width, y, page.width - x - width, height);
   }
   context.drawImage(photo, x, y, width, height);
+  enhanceForPrint(context, page.width, page.height, printToneLevel());
   return page;
 }
 
@@ -150,8 +212,9 @@ export function postcardPDF(jpeg) {
     ["<< /Type /Catalog /Pages 2 0 R /ViewerPreferences << /PrintScaling /None >> >>"],
     ["<< /Type /Pages /Count 1 /Kids [3 0 R] >>"],
     [`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${width} ${height}]\n/Resources << /XObject << /Photo 4 0 R >> >> /Contents 5 0 R >>`],
-    [`<< /Type /XObject /Subtype /Image /Width ${postcardWidth} /Height ${postcardHeight}\n/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`, jpeg, "\nendstream"],
+    [`<< /Type /XObject /Subtype /Image /Width ${postcardWidth} /Height ${postcardHeight}\n/ColorSpace [/ICCBased 6 0 R] /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`, jpeg, "\nendstream"],
     [`<< /Length ${paintPhoto.length} >>\nstream\n${paintPhoto}endstream`],
+    [`<< /N 3 /Alternate /DeviceRGB /Length ${srgbProfile.length} >>\nstream\n`, srgbProfile, "\nendstream"],
   ];
 
   // The cross-reference table records the byte offset of each PDF object.
