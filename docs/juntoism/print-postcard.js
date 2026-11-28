@@ -7,7 +7,6 @@ const defaultHorizontalOffsetMm = -0.7;
 const offsetStorageKey = "printOffsetMm";
 const toneStorageKey = "printTone";
 const defaultToneLevel = 1;
-const srgbProfile = Uint8Array.from(atob("AAACTGxjbXMEQAAAbW50clJHQiBYWVogB+oACwAbAAIABwAxYWNzcEFQUEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1sY21zAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZGVzYwAAAQgAAAA2Y3BydAAAAUAAAABMd3RwdAAAAYwAAAAUY2hhZAAAAaAAAAAsclhZWgAAAcwAAAAUYlhZWgAAAeAAAAAUZ1hZWgAAAfQAAAAUclRSQwAAAggAAAAgZ1RSQwAAAggAAAAgYlRSQwAAAggAAAAgY2hybQAAAigAAAAkbWx1YwAAAAAAAAABAAAADGVuVVMAAAAaAAAAHABzAFIARwBCACAAYgB1AGkAbAB0AC0AaQBuAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAADAAAAAcAE4AbwAgAGMAbwBwAHkAcgBpAGcAaAB0ACwAIAB1AHMAZQAgAGYAcgBlAGUAbAB5WFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDEIAAAXe///zJQAAB5MAAP2Q///7of///aIAAAPcAADAblhZWiAAAAAAAABvoAAAOPUAAAOQWFlaIAAAAAAAACSfAAAPhAAAtsNYWVogAAAAAAAAYpcAALeHAAAY2XBhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbY2hybQAAAAAAAwAAAACj1wAAVHsAAEzNAACZmgAAJmYAAA9c"), character => character.charCodeAt(0));
 
 export function printToneLevel() {
   try {
@@ -212,9 +211,8 @@ export function postcardPDF(jpeg) {
     ["<< /Type /Catalog /Pages 2 0 R /ViewerPreferences << /PrintScaling /None >> >>"],
     ["<< /Type /Pages /Count 1 /Kids [3 0 R] >>"],
     [`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${width} ${height}]\n/Resources << /XObject << /Photo 4 0 R >> >> /Contents 5 0 R >>`],
-    [`<< /Type /XObject /Subtype /Image /Width ${postcardWidth} /Height ${postcardHeight}\n/ColorSpace [/ICCBased 6 0 R] /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`, jpeg, "\nendstream"],
+    [`<< /Type /XObject /Subtype /Image /Width ${postcardWidth} /Height ${postcardHeight}\n/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`, jpeg, "\nendstream"],
     [`<< /Length ${paintPhoto.length} >>\nstream\n${paintPhoto}endstream`],
-    [`<< /N 3 /Alternate /DeviceRGB /Length ${srgbProfile.length} >>\nstream\n`, srgbProfile, "\nendstream"],
   ];
 
   // The cross-reference table records the byte offset of each PDF object.
